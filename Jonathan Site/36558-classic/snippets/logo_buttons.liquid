@@ -1,0 +1,11 @@
+<div class="logo-buttons-wrapper">
+  <div class="buttons">
+    {% if custom_logos_upload_enabled %}
+      <button type="button" class="btn secondary upload-logo btn_2" data-url="{{ new_product_logo_url }}">Upload Logo</button>
+    {% endif %}
+
+    {% if shop.virtual_samples_enabled? and product.virtual_samples_enabled? %}
+      <button type="button" class="btn secondary update-preview btn_2" data-url="{{ product | virtual_samples_preview_url }}">Update Preview</button>
+    {% endif %}
+  </div>
+</div>

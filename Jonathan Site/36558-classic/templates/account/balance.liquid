@@ -1,0 +1,39 @@
+{% capture account_section_title %}
+  {% if shop.points_store? %}Points{% else %}Account{% endif %} Balance
+{% endcapture %}
+
+{% capture account_page_content %}
+  <div class="content-block">
+    <h3>{% if shop.points_store? %}Points{% else %}Account{% endif %} Balance</h3>
+    <div class="mb-3">
+      <div class="fw-bold">Current Balance</div>
+      <div>{{ current_user.balance | points_or_currency }}</div>
+    </div>
+    <div class="mb-3">
+      {% include 'apply_gift_certificate_form' %}
+    </div>
+  </div>
+
+  {% if shop.show_account_balance_log? && current_user.user_balance_log and current_user.user_balance_log.size > 0 %}
+    <div class="content-block">
+      <h2>Account Balance History</h2>
+      {% paginate current_user.user_balance_log by 25 %}
+        <table class="table table-bordered mb-3">
+          <tr>
+            <th>Date</th>
+            <th>Adjusted By</th>
+            <th>Notes</th>
+            <th>Action</th>
+            <th>Amount</th>
+            <th>Balance</th>
+          </tr>
+
+          {% include 'account_balance_history_item' with paginate.collection %}
+        </table>
+        {% include "paginator", paginate: paginate %}
+      {% endpaginate %}
+    </div>
+  {% endif %}
+{% endcapture %}
+
+{% include 'account_page' with account_page_content, section_title: account_section_title %}

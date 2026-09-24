@@ -1,0 +1,106 @@
+<div class="cart-page wishlist mt-5">
+  {% form 'wishlist' %}
+    <div class="mb-3 mb-md-0">
+      <h1 class="d-inline-block">
+        Wish List
+      </h1>
+
+      <div class="float-md-end">
+        {% if wishlist.cart_items_count > 0 %}
+          <a href="#" class="btn secondary empty-cart">Clear Wish List</a>
+          <span class="px-1">or</span>
+        {% endif %}
+
+        {% assign most_recently_viewed_product = recently_viewed_products.first %}
+
+        {% if most_recently_viewed_product %}
+          <a href="{{ most_recently_viewed_product | product_url }}" class="btn_2 continue-shopping custom-button">Continue Shopping</a>
+        {% else %}
+          <a href="{{ root_url }}" class="btn secondary">Continue Shopping</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="shopping-cart pt-3">
+      {% if wishlist.cart_items_count > 0 %}
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col" class="pl-0 h4 fw-bolder d-none d-lg-table-cell border-bottom">Item Details</th>
+              <th scope="col" class="h4 fw-bolder d-none d-lg-table-cell border-bottom">Price</th>
+              <th scope="col" class="h4 fw-bolder d-none d-lg-table-cell border-bottom">Quantity</th>
+              <th scope="col" class="h4 fw text-end pe-0 d-none d-lg-table-cell border-bottom">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for bundle in wishlist.bundle_line_items %}
+              {% include 'bundle_line_item_fields', bundle: bundle, wishlist_item: true %}
+            {% endfor %}
+            {% for line_item in wishlist.line_items %}
+              {% include 'line_item_fields', line_item: line_item, wishlist_item: true %}
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr class="d-none d-lg-table-row">
+              <td></td>
+              <td></td>
+              <td>Subtotal ({{ wishlist.cart_items_count | pluralize: 'item', 'items' }})</td>
+              <td class="fw-bolder text-end pe-0">{{ wishlist.cart_total | points_or_currency }}</td>
+            </tr>
+            <tr class="d-none d-lg-table-row">
+              <td colspan="4" class="text-end pt-3 pe-0">
+                {% if shop.wishlist_quote_enabled? %}
+                  <a
+                    href="#!"
+                    id="wishlist_quote_link"
+                    data-method='post'
+                    class="btn fs-5 fw-bold text-uppercase primary px-lg-5 wishlist_quote_link button">Request Quote</a>
+                  {% include 'wishlist_quote_dialog' %}
+                {% endif %}
+
+                {% if shop.store_enabled? %}
+                  <a
+                    href="{{ wishlist_to_cart_url }}"
+                    data-method='post'
+                    class="btn fs-5 fw-bold text-uppercase primary px-lg-5 button ws_add_all_to_cart">Add All to cart</a>
+                {% endif %}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+
+      {% else %}
+        <p class="empty_cart">
+          Your wish list is empty!
+        </p>
+      {% endif %}
+    </div>
+  {% endform %}
+</div>
+
+<script>
+  $("#qa-checkout-button").click(function() {
+    $("input[name='checkout']").click();
+  });
+
+  $(".cart-quantity-decoy").change(function() {
+    var id = $(this).attr("id");
+    $(this).closest('td').find('button[type="submit"]').removeAttr('disabled');
+    $(this).closest('td').find('button[type="submit"]').removeClass('btn-dark');
+    $(this).closest('td').find('button[type="submit"]').addClass('secondary');
+    $('input[name="line_items[' + id + '][quantity]"]').val($(this).val());
+  });
+
+  $(".cart-quantity-input").change(function() {
+    $(this).closest('td').find('button[type="submit"]').removeAttr('disabled');
+    $(this).closest('td').find('button[type="submit"]').removeClass('btn-dark');
+    $(this).closest('td').find('button[type="submit"]').addClass('secondary');
+  });
+
+  $(".wishlist-request-quote").click(function() {
+    $("#wishlist_quote_link").click();
+  });
+  $(".wishlist-add-to-cart").click(function() {
+    $(".ws_add_all_to_cart").click();
+  });
+</script>

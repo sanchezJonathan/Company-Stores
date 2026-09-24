@@ -1,0 +1,43 @@
+{% capture product_summary_html %}{% include "product_summary" %}{% endcapture %}
+(function() {
+  $('.product-summary').replaceWith('{{ product_summary_html | escape_javascript }}');
+  $('.out-of-stock-notification').remove();
+
+  {% for variant in form.variants %}
+    var stockSpan = $("#{{ variant.stock_key }}");
+
+    {% if variant.stock_state == 'in_stock' or variant.stock_state == 'low_stock' %}
+      setClass(stockSpan, "stock text-success");
+      stockSpan.text('{{ variant.stock_message | escape_javascript }}');
+
+    {% elsif variant.stock_state == "out_of_stock" %}
+      {% if variant.inventory_item.allow_negative? %}
+        setClass(stockSpan, "stock text-warning");
+        stockSpan.text('Backordered');
+
+      {% else %}
+        setClass(stockSpan, "stock text-danger");
+        stockSpan.text('{{ variant.stock_message | escape_javascript }}');
+
+        {% if site.inventory_settings.allow_stock_notification? %}
+          addNotificationButton(stockSpan);
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+  {% endfor %}
+
+  function setClass($el, className) {
+    $el.removeClass();
+    $el.addClass(className);
+  }
+
+  function addNotificationButton(el) {
+    var button = "<div class='out-of-stock-notification'><button type='button' class='btn btn-link px-0 js-out-of-stock-button' data-bs-toggle='modal' data-bs-target='#modal-out-of-stock'>Notify me when it's back in stock</button></div>";
+    if ($('.multi-prod-options').length){
+      stockSpan.parents(".multi-prod-options").after(button);
+    } else {
+      stockSpan.parent().after(button);
+    }
+  }
+})();

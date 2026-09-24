@@ -1,0 +1,21 @@
+<div class="product-summary">
+  <div class="product-summary-footer">
+    <div class="summary-footer">
+      <div class="name" colspan="2">Quantity:</div>
+      <div class="quantity">{{ form.quantity }}</div>
+    </div>
+  </div>
+  <div class="product-summary-footer">
+    <div class="summary-footer">
+      <div class="name" colspan="2">Item Price:</div>
+      <div class="quantity">{{ form.amount | points_or_currency }}</div>
+    </div>
+  </div>
+  <div class="product-summary-footer">
+    <div class="summary-footer">
+      <div class="name" colspan="2">Total:</div>
+      <div class="quantity">{{ form.total_price | points_or_currency }}</div>
+    </div>
+  </div>
+</div>
+

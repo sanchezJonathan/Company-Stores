@@ -1,0 +1,13 @@
+{% if settings.show_top_navbar_notification %}
+  <div class="top-navbar-notification-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <p class="text-center my-1">
+            {{ settings.top_navbar_notification_text }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

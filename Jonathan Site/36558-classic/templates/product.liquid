@@ -1,0 +1,151 @@
+<div class="container-fluid product-page clrfix">
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+
+  <div class="product-page-main">
+    <div class="product-wrapper clrfix row">
+      <div class="product-left-section clrfix col-md-7 col-sm-12 col-xs-12">
+        <div class="product-info clrfix position-sticky">
+          <div class="product-gallery">
+            <div class="gallery-main">
+              <div class="main-img-container bg-white">
+                {% view_logos product %}
+                <div class="main-img" data-id="{{ product.primary_image.id }}">
+                  {% include 'product_primary_image' %}
+                </div>
+              </div>
+              {% include 'product_images_gallery' %}
+            </div>
+            {% if product.image_group_ids.size > 0 %}
+              <a href="javascript:void(0);" class="view-image-groups" data-group-ids="{{ product.image_group_ids | json }}">
+                View Side-By-Side
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="product-right-section clrfix col-md-5 col-sm-12 col-xs-12">
+        <div class="product-info clrfix">
+          {% include 'product_header' %}
+          {% form 'populate_product' %}
+
+            <div class="line-items-reflective-view">
+              {% if product.logo_locations_enabled? %}
+                {% include 'line_item_logo_locations' %}
+              {% else %}
+                {% include 'line_item_logos' %}
+              {% endif %}
+
+              {% include 'line_item_product_options' %}
+              {% include 'line_item_product_personalizations' %}
+              {% include 'line_item_proof_approval' %}
+            </div>
+
+            <div class="total-info clrfix">
+
+              {% if product.product_options_enabled? == false or product.options_or_groups.multiple_quantity == empty %}
+                <div class="product-quantity-container">
+                  <div class="product-quantity">
+                    <label>Quantity</label>
+                    <div id="quantity">
+                      {% if product.minimum_order_quantity %}
+                        {% assign moq =  product.minimum_order_quantity %}
+                      {% else %}
+                        {% assign moq = 1 %}
+                      {% endif %}
+                      <input type="number" min="0" data-type="quantity" class="form-control amount"
+                        name="product[quantity]" value="{{ form.quantity | default: moq }}"/>
+                    </div>
+                    <span class="stock" id="stock"></span>
+                  </div>
+                  {% if product.quantity_discounts_enabled? %}
+                    <div class="quantity-discount">
+                      <button type="button" class="btn btn-link px-0" data-bs-toggle="modal" data-bs-target="#modal-quantity-discount">Quantity Discounts</button>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              {% include 'product_summary' %}
+              {% include 'line_item_add_buttons' %}
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% if settings.show_reviews %}
+  <div class="row">
+    <div class="col col-md-12 col-sm-12 col-xs-12">
+      <div class="product-additional-info clrfix">
+        {% include 'product_reviews' %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+    {% include 'product_recently_viewed_products' %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+    {% include 'product_related_products' %}
+  </div>
+</div>
+
+<div id="fb-root">
+</div>
+
+{% render 'product_size_charts', product: product %}
+
+<div class="modal fade" id="modal-quantity-discount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Quantity Discounts</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="product-tabs">
+          <div class="tabs-body">
+            <div class="product-quantity-discounts powered-with-ckeditor visible">
+              <table class="table tab_2 table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Quantity</th>
+                    <th>Base Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for quantity_discount_group in product.quantity_discount_groups %}
+                  <tr class='discount-group-name'>
+                    <!-- <td colspan="2">{{ quantity_discount_group.name }}</td> -->
+                    <td>{{ quantity_discount_group.name }}</td>
+                    <td></td>
+                  </tr>
+                  {% for quantity_discount in quantity_discount_group.quantity_discounts %}
+                    <tr>
+                      <td>{{ quantity_discount.quantity }}</td>
+                      <td>{{ quantity_discount.price | points_or_currency }}</td>
+                    </tr>
+                  {% endfor %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'in_stock_modal' %}
+{% include 'product_javascript' %}
+{% include 'product_js' %}

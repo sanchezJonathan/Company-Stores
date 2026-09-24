@@ -1,0 +1,70 @@
+{% assign account_section_title = 'Order History' %}
+
+<script>
+  var shipped_items = {};
+</script>
+
+{% capture account_page_content %}
+  {% if current_user.order_history != empty %}
+    <h3>Recent Orders</h3>
+    {% paginate current_user.order_history by 20 %}
+      <div class="recent-orders-wrapper">
+        <table class="recent-orders">
+          {% include 'order_history_item' with paginate.collection %}
+        </table>
+      </div>
+      {% include "paginator", paginate: paginate %}
+    {% endpaginate %}
+  {% else %}
+    <div class="no-orders">You have no completed orders yet.</div>
+  {% endif %}
+{% endcapture %}
+{% include 'account_page' with account_page_content, section_title: account_section_title %}
+
+<script>
+  $(".order-container").each(function() {
+    var order_container = $(this);
+    var order_id = $(this).data("id");
+    var order_items = shipped_items[order_id];
+
+    if (order_items && Object.keys(order_items).length > 0) {
+      $(this).find(".order-item").each(function() {
+        var item_id = $(this).data("id");
+		
+        if (order_items.hasOwnProperty(item_id)) {
+          var shipped_item_qty = order_items[item_id];
+          var item_qty = $(this).data("qty");
+          
+          order_container.find('.shipped-item[data-id="'+ item_id +'"] .order_qty').text(item_qty);
+          if (shipped_item_qty != item_qty) {
+            var shipped_qty = Number(shipped_item_qty);
+            var qty = Number(item_qty);
+            var remaining = qty - shipped_qty;
+            
+            if (order_container.find(".order-items-container").hasClass("d-none")) {
+              order_container.find(".order-items-container").removeClass("d-none");
+            }
+
+            $(this).find(".qty").text(remaining);
+            $(this).removeClass("d-none");
+          }
+
+          return;
+        }
+        
+        if (order_container.find(".order-items-container").hasClass("d-none")) {
+          order_container.find(".order-items-container").removeClass("d-none");
+        }
+
+        $(this).removeClass("d-none");
+        return;
+      });
+      
+      return;
+    }
+
+    $(this).find(".order-items-container").removeClass("d-none");
+    $(this).find(".order-items-container .order-item").removeClass("d-none");
+    return;
+  });
+</script>

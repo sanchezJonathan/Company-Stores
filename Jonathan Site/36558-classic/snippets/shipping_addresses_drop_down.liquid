@@ -1,0 +1,11 @@
+{% if form.available_addresses != empty %}
+  <div class="mb-3">
+    <label for="saved_address" class="form-label">Saved Address</label>
+    <select name="saved_address" class="form-select address-dropdown">
+      <option value='-1' selected="selected" disabled>Choose Address...</option>
+      {% for address in form.available_addresses %}
+        <option value="{{ address.id }}">{{ address.nickname }}</option>
+      {% endfor %}
+    </select>
+  </div>
+{% endif %}

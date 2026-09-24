@@ -1,0 +1,9 @@
+(function() {
+  var controller = ProductLogosController.pending;
+
+  {% capture logo_form %}
+    {% include "product_logo_form" %}
+  {% endcapture %}
+
+  controller.showDialog("{{ logo_form | escape_javascript }}");
+}).call(this);

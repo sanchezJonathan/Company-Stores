@@ -1,0 +1,13 @@
+{% if line_item.personalizations != empty %}
+  <div class="section product-personalizations">
+    <h4>Product Personalizations</h4>
+    {% include 'product_personalization_attributes' line_item: line_item %}
+  </div>
+{% endif %}
+
+{% if line_item.has_certificate_details %}
+  <div class="section gift-certificate-details">
+    <h4>Recipient Information</h4>
+    {% include 'gift_certificate_details' line_item: line_item %}
+  </div>
+{% endif %}

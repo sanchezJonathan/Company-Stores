@@ -1,0 +1,72 @@
+
+{% capture checkout_page_content %}
+{% form 'checkout' %}
+
+  {% if custom_data_collections != empty and checkout_flow.state == 'custom_data_collection' %}
+    {% include 'checkout/cdc' %}
+  {% endif %}
+
+{% if shop.show_shipping_address? and checkout_flow.state == 'address' %}
+    {% include 'checkout/shipping_address' %}
+  {% endif %}
+
+{% if shop.show_ship_method? and checkout_flow.state == 'delivery' %}
+    {% include 'checkout/shipping_method' %}
+{% endif %}
+
+{% if checkout_flow.state == 'payment' %}
+    {% if shop.show_billing_address? %}
+      {% include 'checkout/billing_address' %}
+    {% endif %}
+    {% if shop.payment_required? %}
+      {% include 'checkout/billing_method' %}
+    {% endif %}
+{% endif %}
+
+{% if shop.budget_enabled? and current_user.has_budgets? and order.budget_order? and checkout_flow.state == 'budget' %}
+    {% include 'checkout/budget' %}
+  {% endif %}
+
+  {% if checkout_flow.state == 'confirm' %}
+    {% include 'checkout/summary' %}
+{% endif %}
+
+{% endform %}
+{% endcapture %}
+
+{% include 'checkout_page' with checkout_page_content, order: order %}
+
+<script>
+
+$(function () {
+  var user_balance = {{ current_user.balance | minus: order.grand_total }};
+  var checkoutController = new CheckoutController('{{ checkout_flow.state }}');
+  $('div.checkout-main').data('checkoutController', checkoutController);
+
+  $('#switch').click(function () {
+    var $this = $(this);
+    if ($this.is(':checked')) {
+      $('.shcompany').show();
+      
+      if (user_balance > 0) {
+        $(".pm").hide();
+        $(".napr").removeClass("d-none");
+      }
+    } else {
+      $('.shcompany').hide();
+      $(".pm").show();
+      $(".napr:not(.d-none)").addClass("d-none");
+    }
+  });
+
+  if ($('#switch').is(':checked')) {
+    $('.shcompany').show();
+  }
+});
+</script>
+
+<style>
+.shcompany {
+  display: none
+}
+</style>

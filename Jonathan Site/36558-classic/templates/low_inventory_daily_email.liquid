@@ -1,0 +1,9 @@
+<p>Hi, {{ email }}!</p>
+<p>Low inventory levels for the following products:</p>
+{% for inventory in inventory_items %}
+  <p>{{ inventory | inventory_row }}</p>
+{% endfor %}
+
+{% if limited %}
+  <p>This store has too many low inventory products to report any additional products.</p>
+{% endif %}

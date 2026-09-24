@@ -1,0 +1,15 @@
+<div class="product-review">
+  <div class="product-review-header">
+    <h5 class='review-author'>{{ review.author_short_name }}</h5>
+    <div class="product-rating-review-date">
+      <div class="product-rating">
+        <div class="show-star" data-rating="{{ review.rating }}" data-star-count="5"></div>
+      </div>
+      <span class="review-date">on {{ review.created_at }}</span>
+    </div>
+  </div>
+  <div class="review-title-body">
+    <h4 class="review-title">{{ review.title }}</h4>
+    <div class="review-body">{{ review.body }}</div>
+  </div>
+</div>

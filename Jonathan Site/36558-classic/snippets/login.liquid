@@ -1,0 +1,19 @@
+<div class="sign-in">
+  <!--<div class="content-block title">
+    <h1 class="text-center"></h1>
+  </div>-->
+  <div class="content-block">
+    <div class="sign-in-form logform">
+      {% include "login_form" %}
+    </div>
+  </div>
+  <div class="pt-3">
+    <p class="mb-0">
+      <a href="{{ forgot_password_url }}" class="forgot-link">Forgot password?</a>
+      <br>
+      <a href="{{ resent_confirmation_url }}" class="resend-link">Resend confirmation E-Mail</a>  
+    </p>
+
+    {% google_sso_button %}
+  </div>
+</div>

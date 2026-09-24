@@ -1,0 +1,106 @@
+<div class="cart-page mt-5">
+  {% form 'cart' %}
+    <div class="mb-3 mb-md-0">
+      <h1 class="d-inline-block">
+        Shopping Cart
+      </h1>
+
+      <div class="float-md-end">
+        {% if order.cart_items_count > 0 %}
+          <a href="#" class="btn secondary empty-cart">Clear Cart</a>
+          <span class="px-1">or</span>
+        {% endif %}
+
+        {% assign most_recently_viewed_product = recently_viewed_products.first %}
+
+        {% if most_recently_viewed_product %}
+          <a href="{{ most_recently_viewed_product | product_url }}" class="btn_2 continue-shopping custom-button">Continue Shopping</a>
+        {% else %}
+          <a href="{{ root_url }}" class="btn secondary">Continue Shopping</a>
+        {% endif %}
+      </div>
+  	</div>
+
+    <div class="shopping-cart pt-3">
+      {% if order.cart_items_count > 0 %}
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col" class="pl-0 h4 fw-bolder d-none d-lg-table-cell border-bottom">Item Details</th>
+              <th scope="col" class="h4 fw-bolder d-none d-lg-table-cell border-bottom">Price</th>
+              <th scope="col" class="h4 fw-bolder d-none d-lg-table-cell border-bottom">Quantity</th>
+              <th scope="col" class="h4 fw text-end pe-0 d-none d-lg-table-cell border-bottom">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for bundle in order.bundle_line_items %}
+              {% include 'bundle_line_item_fields', bundle: bundle %}
+            {% endfor %}
+            {% for line_item in order.standalone_line_items %}
+              {% include 'line_item_fields', line_item: line_item %}
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr class="d-none d-lg-table-row">
+              <td></td>
+              <td></td>
+              <td>Subtotal ({{ order.cart_items_count | pluralize: 'item', 'items' }})</td>
+              <td class="fw-bolder text-end pe-0">{{ order.cart_total | points_or_currency }}</td>
+            </tr>
+            <tr class="d-none d-lg-table-row">
+              <td colspan="4" class="text-end pt-3 pe-0">
+                <input type="submit" name="checkout" class="btn fs-5 fw-bold text-uppercase primary px-lg-5" value="Proceed to Checkout"/>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      
+        <div class="zip-input">
+          <!--
+          <label>enter your zip code for updated shipping rates</label>
+          <input type="text" class="custom-input-text clearHint with-hint" value="zip" rel="zip"/>
+          -->
+        </div>
+      {% else %}
+        <p class="empty_cart">
+          The cart is empty!
+        </p>
+      {% endif %}
+    </div>
+  {% endform %}
+</div>
+
+<script>
+  $("#qa-checkout-button").click(function() {
+    $("input[name='checkout']").click();
+  });
+  
+  $(".cart-quantity-decoy").change(function() {
+    var id = $(this).attr("id");
+    
+    /*if (+$(this).attr("data-max-quantity") < $(this).val()) {
+      $(this).addClass("is-invalid")
+      return;
+    }*/
+    
+    $(this).removeClass("is-invalid")
+  	$(this).closest('td').find('button[type="submit"]').removeAttr('disabled');
+    $(this).closest('td').find('button[type="submit"]').removeClass('btn-dark');
+    $(this).closest('td').find('button[type="submit"]').addClass('secondary');
+    $('input[name="line_items['+ id +'][quantity]"]').val($(this).val());
+  });
+  
+  $(".cart-quantity-input").change(function() {
+    var id = $(this).attr("id");
+    
+    /*if (+$(this).attr("data-max-quantity") < $(this).val()) {
+      $(this).addClass("is-invalid")
+      return;
+    } */
+    
+    $(this).removeClass("is-invalid")
+    $(this).closest('td').find('button[type="submit"]').removeAttr('disabled');
+    $(this).closest('td').find('button[type="submit"]').removeClass('btn-dark');
+    $(this).closest('td').find('button[type="submit"]').addClass('secondary');
+  })
+</script>

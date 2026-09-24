@@ -1,0 +1,36 @@
+<script>
+  $(document).ready(function() {
+    function adjustThumbnailWidth() {
+      var gutter = 15;
+      var containerWidth = $(".category-page-content-section").width() + gutter;
+      var products_per_row = {{ settings.product_thumbnails_per_row }};
+      var thumbnail_division = containerWidth / products_per_row;
+      var thumbnail_width = thumbnail_division - gutter;
+      var thumbnail_margin = gutter / 2;
+
+      if (window.innerWidth > 768) {
+        $(".category-page-content-section").attr("style", "overflow: hidden");
+        $(".product-list").attr("style", "margin: 0; margin-right: -20px;");
+        $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+        
+        return;
+      }
+      
+      $(".product-list").removeAttr("style");
+      $(".product-thumbnail").removeAttr("style");
+    }
+    
+    adjustThumbnailWidth();
+    $(window).resize(function() {
+      adjustThumbnailWidth();
+    });
+
+    //$("#filter-container div.accordion-item:first-child button.accordion-button").click();
+    $("#filter-container div.accordion-item div.accordion-body > div.parent > div > div.form-check").addClass("ms-2");
+    $("#filter-container div.accordion-item div.accordion-body > div.parent > div.parent > div > div.form-check").addClass("ms-4");
+    
+    //$("#mobile-filter-container div.accordion-item:first-child button.accordion-button").click();
+    $("#mobile-filter-container div.accordion-item div.accordion-body > div.parent > div > div.form-check").addClass("ms-2");
+    $("#mobile-filter-container div.accordion-item div.accordion-body > div.parent > div.parent > div > div.form-check").addClass("ms-4");
+  });
+</script>

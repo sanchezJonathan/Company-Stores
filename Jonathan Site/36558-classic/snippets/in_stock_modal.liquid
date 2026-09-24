@@ -1,0 +1,170 @@
+<div class="modal fade" id="modal-out-of-stock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">In Stock Notification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pb-5">
+        <p>
+          Register your email address to receive an email as soon as this product becomes available again.
+        </p>
+        <form action="{{ product | notify_in_stock_url }}" id="out_of_stock_form">
+          <div class="input-group input-group-lg in-stock-notif-container">
+            <input
+              class="form-control border border-right-0"
+              type="email"
+              name="out_of_stock_email"
+              id="out_of_stock_email"
+              placeholder="Enter email"
+              value="{{ current_user.email }}"
+            >
+            <button class="btn btn-outline border border-left-0 notify-me-btn" type="submit">Notify Me</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <p>
+          Your email address will only be used for stock notifications.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    "use strict";
+
+    var emailInput = document.getElementById("out_of_stock_email");
+    var form = document.getElementById("out_of_stock_form");
+    var bsModal = new bootstrap.Modal(document.getElementById("modal-out-of-stock"));
+
+    // Mark button "Notify me when it's back in stock" as active by adding "active" class when clicked
+    // It's used by selectedSubOptionIds function
+    document.addEventListener("click", function (event) {
+      // Add "active" to clicked button
+      if (event.target.classList.contains('js-out-of-stock-button')) {
+        var allButtons = document.querySelectorAll('.js-out-of-stock-button');
+        Array.from(allButtons).forEach(function (btn) {
+          btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+      }
+    });
+
+    emailInput.addEventListener("input", function () {
+      validate(form, emailInput);
+    });
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var isValid = validate(form, emailInput);
+      if (!isValid) return;
+
+      var url = event.target.action;
+      showLoading(form);
+      postEmail(url, emailInput.value, selectedSubOptionIds())
+        .always(function () { hideLoading(form) })
+        .done(function () {
+          showSuccessNotification("You will receive an email as soon as this product becomes available again.");
+          bsModal.hide();
+        })
+        .fail(function (xhr) {
+          serverError(form, emailInput, xhr)
+        });
+    });
+
+    function validate(form, emailInput) {
+      if (isValidEmail(emailInput.value)) {
+        clearErrors(form);
+        return true;
+      } else {
+        showErrors(form, emailInput, ["Email is invalid"]);
+        return false;
+      }
+    }
+
+    function isValidEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+
+    function htmlError(text) {
+      var div = document.createElement('div');
+      div.className = 'invalid-feedback';
+      div.innerText = text;
+
+      return div;
+    }
+
+    function showErrors(form, input, errors) {
+      clearErrors(form);
+
+      input.classList.add('is-invalid');
+      errors.forEach(function (error) {
+        input.parentNode.appendChild(htmlError(error));
+      });
+    }
+
+    function clearErrors(form) {
+      form.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid') });
+      form.querySelectorAll('.invalid-feedback').forEach(function (el) { el.remove() });
+    }
+
+    function postEmail(url, email, subOptionIds) {
+      return $.ajax({
+        url: url,
+        method: 'POST',
+        data: JSON.stringify({ email: email, sub_option_ids: subOptionIds }),
+        processData: false,
+        contentType: "application/json; charset=UTF-8",
+      });
+    }
+
+    function selectedSubOptionIds() {
+      function singleOptionIds() {
+        var selects = document.querySelectorAll('.product-options select.form-select');
+        return Array.from(selects).map(function (select) {
+          return select.value;
+        });
+      }
+
+      function multiOptionIds() {
+        if (document.querySelectorAll('.multiple-quantity-product-option,.multi-prod-options').length == 0) {
+          return [];
+        }
+
+        return document
+          .querySelector('.js-out-of-stock-button.active')
+          .closest('.out-of-stock-notification')
+          .previousSibling
+          .querySelector('input.quantity')
+          .dataset
+          .ids
+          .split('.')
+      }
+
+      return singleOptionIds().concat(multiOptionIds());
+    }
+
+    function showSuccessNotification(msg) {
+      $(".notification-container").html('<div id="out-of-stock-success" class="toast notif-success mt-2" role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header bg-transparent"> <strong class="me-auto text-white">Success</strong> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body text-white"> ' + msg + ' </div> </div>');
+      var toast = new bootstrap.Toast($("#out-of-stock-success"));
+      toast.show();
+    }
+
+    function serverError(form, emailInput, xhr) {
+      var error = xhr.responseJSON ? xhr.responseJSON.error : xhr.responseText;
+      showErrors(form, emailInput, [error]);
+    }
+
+    function showLoading(form) {
+      $(form.closest('.modal-content')).showLoading()
+    }
+    function hideLoading(form) {
+      $(form.closest('.modal-content')).hideLoading()
+    }
+  })();
+</script>

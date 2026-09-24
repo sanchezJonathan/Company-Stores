@@ -1,0 +1,82 @@
+{% assign account_section_title = 'Address Book' %}
+{% capture account_page_content %}
+
+  <div class="content-block">
+    <h3>Your Addresses</h3>
+    <div id="addresses-container" class="accordion address-list clrfix">
+      {% for address in address_book %}
+        <div id="accordion{{ address.id }}" class="accordion-item existing-address">
+          <h3 class="accordion-header" id="addressHeading-{{ address.id }}">
+            <button class="accordion-button collapsed" type="button" data-bs-parent="#accordion{{ address.id }}" data-bs-toggle="collapse" data-bs-target="#collapse-{{ address.id }}" aria-expanded="false" aria-controls="collapse-{{ address.id }}">
+              {{ address.nickname }}
+            </button>
+          </h3>
+          <div id="collapse-{{ address.id }}" class="accordion-collapse collapse" aria-labelledby="addressHeading-{{ address.id }}">
+            <div class="accordion-body">
+              {% form 'address', address %}
+                {% include 'address_form', form: form %}
+                <div class="form-buttons">
+                  <input type="submit" value="Save Changes" class="btn secondary save-address"/>
+                  <a href="{{ address | account_address_url }}" class="btn secondary delete-address" data-confirm="Are you sure?" data-method="delete">Delete Address</a>
+                </div>
+              {% endform %}
+            </div>
+          </div>
+        </div>
+
+        {% capture address_index %}{{ forloop.index | modulo: 3 }}{% endcapture %}
+        {% if address_index == '0' %}
+          <div class='clear'></div>
+        {% endif %}
+      {% endfor %}
+
+      <div id="accordion{{ address.id }}" class="accordion-item existing-address">
+        <h3 class="accordion-header" id="addressHeading-{{ address.id }}">
+          <button class="accordion-button" type="button"  data-bs-parent="#accordion{{ address.id }}" data-bs-toggle="collapse" data-bs-target="#collapse-{{ address.id }}" aria-expanded="true" aria-controls="collapse-{{ address.id }}">
+            Add New
+          </button>
+        </h3>
+        <div id="collapse-{{ address.id }}" class="accordion-collapse collapse show" aria-labelledby="addressHeading-{{ address.id }}">
+          <div class="accordion-body">
+            {% form 'new_address' %}
+              {% include 'address_form', form: form %}
+              <div class="row">
+                <div class="col">
+                  <div class="form-buttons">
+                    <input type="submit" class="btn secondary custom-button btn-blue" value="Add New Address"/>
+                  </div>
+                </div>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endcapture %}
+      
+{% include 'account_page' with account_page_content, section_title: account_section_title %}
+
+<script>
+  $(function () {
+    $('.address-list form').each(function (index, form) {
+      new CountrySelectController(
+        $(form).find('.country select'),
+        $(form).find('.state select')
+      );
+    });
+  });
+</script>
+<!-- <script>
+  $('#addresses-container button').click(function() {
+    var btnAreaExpandedStatus = $(this).attr("aria-expanded");
+    var accorStatus = $(this).attr("data-bs-target");
+    console.log(btnAreaExpandedStatus);
+    console.log(accorStatus);
+    if (btnAreaExpandedStatus == "true") {
+      $(this).attr("aria-expanded", false);
+      setTimeout(function(){ $(accorStatus).removeClass("show")}, 1000);
+    }
+  });
+</script> -->

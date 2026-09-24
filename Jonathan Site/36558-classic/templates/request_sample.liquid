@@ -1,0 +1,183 @@
+{% form 'request_sample' %}
+<div class="row mt-4">
+  <div class="sample-options col-md-4 col-sm-12 col-sx-12">
+    <h3>Sample Options</h3>
+    {% if form.logos != empty %}
+      <div class="logos form-item mb-3">
+        <label class="form-label">Logo{% if form.logo_required? %}<span class="required-label">(required)</span>{% endif %}</label>
+        <div class="select-area form-select">
+          <select name="request_sample[logo]" class="form-select msdropdown-select">
+            <option value=''>Please select</option>
+            {% for logo in form.logos %}
+              <option data-image="{{ logo.front_thumb_url }}" value="{{ logo.id }}" {% if logo.id == form.logo.id %}selected{% endif %}>{{ logo.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {% if form.errors contains 'logo' %}
+          <span class="error">{{ form.errors['logo'] }}</span>
+        {% endif %}
+      </div>
+      {% elsif form.logo_locations != empty %}
+      {% for location in form.logo_locations %}
+        <div class="logos form-item mb-3">
+          <label class="form-label">{{ location.name }} {% if location.required? %}<span class="required-label">(required)</span>{% endif %}</label>
+          <div class="select-area form-select">
+            <select name="request_sample[logo_location][{{ location.id }}]" class="form-select msdropdown-select">
+              <option value=''>Please select</option>
+              {% for logo in location.logos %}
+                <option data-image="{{ logo.front_thumb_url }}" value="{{ logo.id }}" {% if logo.id == form.logo.id %}selected{% endif %}>{{ logo.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          {% if location.errors != empty %}
+            {% for error in location.errors.values %}
+              <span class="error">{{ error }}</span>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% endfor %}
+
+    {% endif %}
+
+    {% if form.product_options_enabled? and form.options_or_groups.all != empty %}
+      <div class="product-options form-item mb-3">
+        {% for option_or_group in form.options_or_groups.all %}
+          {% if option_or_group.group? %}
+            {% include 'sample_group' with option_or_group %}
+            {% elsif option_or_group.option? %}
+            {% include 'sample_option' with option_or_group %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="shipping-information col-md-8 col-sm-12 col-sx-12">
+    <h3>Shipping Details</h3>
+    <div class="row">
+      <div class="contact col-md-6 col-sm-12 col-sx-12">
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="first_name">First name<span class="required-label">(required)</span></label>
+          <input class="form-control input-text first-name" id="first_name" value="{{ form.shipping_contact.first_name }}"
+            name="request_sample[shipping_contact][first_name]" placeholder="first name" size="30" type="text"/>
+
+          {% if form.shipping_contact.errors contains 'first_name' %}
+            <span class="error">{{ form.shipping_contact.errors['first_name'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="last_name">Last name<span class="required-label">(required)</span></label>
+          <input class="form-control input-text last-name" id="last_name" value="{{ form.shipping_contact.last_name }}"
+            name="request_sample[shipping_contact][last_name]" placeholder="last name" size="30" type="text"/>
+
+          {% if form.shipping_contact.errors contains 'last_name' %}
+            <span class="error">{{ form.shipping_contact.errors['last_name'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="email">E-mail<span class="required-label">(required)</span></label>
+          <input class="form-control input-text email" id="email" value="{{ form.shipping_contact.email }}"
+            name="request_sample[shipping_contact][email]" placeholder="email" size="30" type="text"/>
+
+          {% if form.shipping_contact.errors contains 'email' %}
+            <span class="error">{{ form.shipping_contact.errors['email'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="phone">Phone<span class="required-label">(required)</span></label>
+          <input class="form-control input-text phone" id="phone" value="{{ form.shipping_contact.phone }}"
+            name="request_sample[shipping_contact][phone]" placeholder="phone" size="30" type="text"/>
+
+          {% if form.shipping_contact.errors contains 'phone' %}
+            <span class="error">{{ form.shipping_contact.errors['phone'] }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="address col-md-6 col-sm-12 col-sx-12">
+        {% if current_user %}
+          {% include 'shipping_addresses_drop_down', form: form %}
+        {% endif %}
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="company">Company</label>
+          <input class="form-control input-text company" id="company" value="{{ form.shipping_address.company }}"
+            name="request_sample[shipping_address][company]" placeholder="company" size="30" type="text"/>
+
+          {% if form.shipping_address.errors contains 'company' %}
+            <span class="error">{{ form.shipping_address.errors['company'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="first_address">Address<span class="required-label">(required)</span></label>
+
+          <input class="form-control input-text first-address mb-3" id="first_address" value="{{ form.shipping_address.first_address }}"
+            name="request_sample[shipping_address][first_address]" placeholder="address line 1" size="30" type="text"/>
+
+          {% if form.shipping_address.errors contains 'first_address' %}
+            <span class="error">{{ form.shipping_address.errors['first_address'] }}</span>
+          {% endif %}
+
+          <input class="form-control input-text second-address" id="second_address" value="{{ form.shipping_address.second_address }}"
+            name="request_sample[shipping_address][second_address]" placeholder="address line 2" size="30" type="text"/>
+
+          {% if form.shipping_address.errors contains 'second_address' %}
+            <span class="error">{{ form.shipping_address.errors['second_address'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="city">City<span class="required-label">(required)</span></label>
+          <input class="form-control input-text city" id="city" value="{{ form.shipping_address.city }}"
+            name="request_sample[shipping_address][city]" placeholder="city" size="30" type="text"/>
+
+          {% if form.shipping_address.errors contains 'city' %}
+            <span class="error">{{ form.shipping_address.errors['city'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="country">Country<span class="required-label">(required)</span></label>
+          <div class='select-wrapper country'>
+            <select class="form-select" id='country' name="request_sample[shipping_address][country]">
+              {% country_select_options selected: form.shipping_address.country %}
+            </select>
+          </div>
+
+          {% if form.shipping_address.errors contains 'country' %}
+            <span class="error">{{ form.shipping_address.errors['country'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="state">State<span class="required-label">(required)</span></label>
+          <div class='select-wrapper state'>
+            <select class="form-select" id='state' name="request_sample[shipping_address][state]">
+              {% state_select_options country: form.shipping_address.country, selected: form.shipping_address.state %}
+            </select>
+          </div>
+
+          {% if form.shipping_address.errors contains 'state' %}
+            <span class="error">{{ form.shipping_address.errors['state'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-item mb-3">
+          <label class="string optional control-label form-label" for="zip">Zip Code<span class="required-label">(required)</span></label>
+          <input class="form-control input-text zip" id="zip" value="{{ form.shipping_address.zip }}"
+            name="request_sample[shipping_address][zip]" placeholder="zip code" size="30" type="text"/>
+
+          {% if form.shipping_address.errors contains 'zip' %}
+            <span class="error">{{ form.shipping_address.errors['zip'] }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+{% endform %}

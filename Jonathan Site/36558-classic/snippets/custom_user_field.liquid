@@ -1,0 +1,13 @@
+{% capture input_name %}website_user[custom_field_values][{{ field.id }}]{% endcapture %}
+{% capture input_id %}website_user_custom_field_values_{{ field.id }}{% endcapture %}
+{% capture input_class %}{% if field.required? %}required{% else %}optional{% endif %}{% endcapture %}
+
+<div class="mb-3">
+  <label class="mb-1" for="{{ input_id }}">{{ field.name }} {% if field.required? %}<span class="required-label">(required)</span>{% endif %}</label>
+  <input type="text" class="form-control {% if field.errors and field.errors contains 'value' %}is-invalid{% endif %}" value="{{ field.value }}" id="{{ input_id }}" name="{{ input_name }}" size="50">
+  {% if field.errors and field.errors contains 'value' %}
+    <div class="invalid-feedback">
+      {{ field.errors['value'] }}
+    </div>
+  {% endif %}
+</div>

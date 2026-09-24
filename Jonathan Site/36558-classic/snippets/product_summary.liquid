@@ -1,0 +1,71 @@
+{% if form.variants.size > 1 %}
+  <div class="product-summary">
+    <div class="product-summary-body">
+      <div class="summary-title">
+        <h4>Item Summary</h4>
+      </div>
+
+      {% for variant in form.variants %}
+        {% if variant.quantity > 0 %}
+          <div class="summary-body">
+            <div class="name" colspan="2">{{ variant.name }}</div>
+            <div class="quantity">{{ variant.quantity }}</div>
+            <div class="price">{{ variant.total_price | points_or_currency }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      <div class="summary-body">
+        <div class="name" colspan="2">Total Quantity:</div>
+        <div class="quantity">{{ form.summary.total_quantity }}</div>
+        <div></div>
+      </div>
+    </div>
+    <div class="product-summary-footer">
+      {% if form.summary.setup_charge > 0 %}
+        <div class="summary-footer">
+          <div class="name">Setup Charge:</div>
+          <div>
+            {{ form.summary.setup_charge | points_or_currency }}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="summary-footer">
+        <div class="name">Total:</div>
+        <div>{{ form.summary.total_price | points_or_currency }}</div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="product-summary">
+    <div class="product-summary-body">
+      {% if product.minimum_order_quantity > 0 or product.maximum_order_quantity > 0 %}
+        <div class="summary-footer">
+          <div class='minimum-order-quantity-help'>
+            {% include 'quantity_limits_message', product: product %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    <div class="product-summary-footer">
+      <div class="summary-footer">
+        <div class="name">Item Price:</div>
+        <div>
+          {{ form.variants[0].unit_price | points_or_currency }}
+        </div>
+      </div>
+
+      {% if form.summary.setup_charge > 0 %}
+        <div class="summary-footer">
+          <div class="name">Setup Charge:</div>
+          <div>{{ form.summary.setup_charge | points_or_currency }}</div>
+        </div>
+      {% endif %}
+
+      <div class="summary-footer">
+        <div class="name">Total:</div>
+        <div>{{ form.summary.total_price | points_or_currency }}</div>
+      </div>
+    </div>
+  </div>
+{% endif %}

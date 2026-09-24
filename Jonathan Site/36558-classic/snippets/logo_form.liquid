@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="dialog-data controller">
+    <div class="form">
+      <div class="form-row center fileupload-buttonbar">
+        <div class="choose-btn file-input">
+          <div class="fake-file-name">No image selected</div>
+          <div class="fake-upload-button linkable-button secondary">Choose new image</div>
+          <div class="input file website_logo_image">
+            <input class="file required" data-value="{{ form.image_url | escape_javascript }}" id="uploader"
+              name="logo[image]" type="file" value="{{ form.image_url | escape_javascript }}">
+          </div>
+        </div>
+        <div class="logo-upload-info-error">
+          <div class="hint">You should upload a high quality image</div>
+          {% if form.errors contains 'file' %}
+            <span class="error">{{ form.errors['file'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="clear"></div>
+        <div class="separated-area">
+          <div class="logo-name input">
+            <label class="control-label" for="logo_name">Logo name:</label>
+            <input class="form-control" type="text" name="logo[name]" placeholder="logo name" value="{{ form.name }}"/>
+            {% if form.errors contains 'name' %}
+              <span class="error">{{ form.errors['name'] }}</span>
+            {% endif %}
+          </div>
+
+          <div class="remove-whitespaces">
+            <label class="control-label">
+              <input class="form-check-input" name="logo[remove_whitespace]" type="checkbox" value="true"
+                {% if form.remove_whitespace? %}checked="checked"{% endif %}/>
+              Remove whitespace
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

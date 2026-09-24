@@ -1,0 +1,141 @@
+<div class="container-fluid product-page clrfix">
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+
+  <div class="product-page-main">
+    <div class="product-wrapper clrfix row">
+      <div class="product-left-section clrfix col-md-7 col-sm-12 col-xs-12">
+        <div class="product-info clrfix position-sticky">
+          <div class="product-gallery">
+            <div class="gallery-main">
+              <div class="main-img-container">
+                <div class="main-img" data-id="{{ product.primary_image.id }}">
+                {% include 'product_primary_image' %}
+                </div>
+              </div>
+              {% include 'product_images_gallery' %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-right-section clrfix col-md-5 col-sm-12 col-xs-12">
+        <div class="product-info clrfix">
+          <div class="product-header clrfix">
+            <div class="product-title">
+              <h2 class="truncated">
+                {{ product.name }}
+              </h2>
+              <div class="review-social-share-wrapper">
+                {% include 'social_share' %}
+              </div>
+                {% if settings.show_sku %}
+                <span>SKU: {{ product.sku }}</span>
+                {% endif %}
+            </div>
+            {% include 'product_overview' %}
+          </div>
+          {% form 'populate_gift_certificate' %}
+
+            <div class="line-items-reflective-view">
+              <h3>Gift Certificate Options</h3>
+              
+              <div class="prod_option_block">
+                <div class="product-quantity-container gift-certificates-quantity">
+                  <div class="product-quantity">
+                    <label class="mb-2">Quantity<span class="required-label">(required)</span></label>
+                    <div id="quantity">
+                      <select name="product[quantity]" id="gift_certificates_quantity" class="form-select">
+                        {% for quantity in form.quantity_options %}
+                          <option {% if quantity == form.quantity %}selected{% endif %} value="{{ quantity }}">{{ quantity }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <span class="stock" id="stock"></span>
+                  </div>
+                </div>
+              </div>
+                
+              <div class="prod_option_block">
+                <div class="gift-certificates-amount">
+                  <label class="mb-2" for="gift_certificates_amount">Amount<span class="required-label">(required)</span></label>
+                  <div class="select-area mb-3">
+                    <div>
+                      <select name="product[amount]" id="gift_certificates_amount" class="form-select">
+                        {% for amount in form.amount_options %}
+                          <option {% if amount == form.amount %}selected{% endif %} value="{{ amount }}">{{ amount | points_or_currency }}</option>
+                        {% endfor %}
+                        {% if form.allow_custom_amount %}
+                          <option {% if form.is_custom_amount %}selected{% endif %} value="custom">Other</option>
+                        {% endif %}
+                      </select>
+                    </div>
+                    <div style="clear:both; float: none;"></div>
+                  </div>
+                  {% if form.allow_custom_amount %}
+                    <div class="input string gift-certificate-custom-amount">
+                      <input type="text" value="{{ form.custom_amount | escape_javascript }}"
+                        name="product[custom_amount]"
+                        id="gift_certificate_custom_amount"
+                        class="form-control"
+                        maxlength="{{ form.amount_max_length }}"/>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+        
+              <div class="prod_option_block">
+                <div class="gift-certificate-variants">
+                  {% if form.variants != empty %}
+                    {% for variant in form.variants %}
+                      {% include 'gift_certificate_fields', variant: variant, index: forloop.index %}
+                    {% endfor %}
+                  {% else %}
+                    {% include 'gift_certificate_fields', index: 1 %}
+                  {% endif %}
+                </div>
+
+                {% assign randIndex = 'now' | date: '%s'  %}
+
+                <script id='new-certificate-details' type="text/template" data-index="{{ randIndex }}">
+                  {% include 'gift_certificate_fields', index: randIndex %}
+                </script>
+              </div>
+            </div>
+
+            <div class="total-info clrfix">
+              {% include 'gift_certificate_summary' %}
+              
+              <div class="add-to-cart-area">
+                <input type="submit" name="add_to_cart" value="Add to Cart" class="btn primary add-to-cart"/>
+              </div>
+            </div>
+          {% endform %}
+        </div>
+
+        <!--<div class="product-additional-info clrfix">
+          {% include 'product_info_tabs' %}
+        </div>-->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+  	{% include 'product_recently_viewed_products' %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+	{% include 'product_related_products' %}
+  </div>
+</div>
+
+<div id="fb-root">
+</div>
+
+{% include 'gift_certificate_javascript' %}

@@ -1,0 +1,41 @@
+<div class="notification-container position-fixed top-0 end-0 p-3">
+  <div class="toast notif-warning mt-2" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header bg-transparent">
+      <strong class="me-auto">Warning</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      {% if current_user %}
+        You are not authorized to view this page.
+      {% else %}
+        You are not authorized to view this page. You may need to login to access the requested page.
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if shop.show_login? %}
+  {% unless current_user %}
+    <div class="container-fluid px-lg-0 mt-5">
+      <div class="row mx-0 ">
+        <div class="col-12 px-0">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active font-weight-bold" href="{{ login_url }}"><h5 class="mb-0"><b>Log In</b></h5></a>
+            </li>
+            {% if shop.show_registration? %}
+            <li class="nav-item">
+              <a class="nav-link font-weight-bold border" href="{{ signup_url }}"><h5 class="mb-0"><b>Register</b></h5></a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div class="row px-2 border border-top-0 mx-0 bg-white">
+        <div class="col-lg-6 col-md-12 mx-auto py-5 px-4">
+          {% include 'login' %}
+        </div>
+      </div>
+    </div>
+  {% endunless %}
+{% endif %}

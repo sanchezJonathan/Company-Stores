@@ -1,0 +1,98 @@
+for (var category of categories) {
+  $("ul.links.categories").append("<li class='nav-item'> <a class='nav-link ps-0 py-2' href='"+ category.link +"'><span>"+ category.name +"</span></a> </li>");
+
+  for (var tier2Categories of category.children) {
+     $("ul.links.categories").append("<li class='nav-item'> <a class='nav-link ms-2 ps-1 py-2' href='"+ tier2Categories.link +"'><span>"+ tier2Categories.name +"</span></a> </li>");
+
+    for (var tier3Categories of tier2Categories.children) {
+      $("ul.links.categories").append("<li class='nav-item'> <a class='nav-link ms-4 ps-1 py-2' href='"+ tier3Categories.link +"'><span>"+ tier3Categories.name +"</span></a> </li>");
+    }
+  }
+}
+
+if (pages.length > 1) {
+  $("ul.links.categories").append("<li><hr class='bg-white my-1' /></li>");
+}
+
+for (var page of pages) {
+  if (page.title.toLowerCase() == "home") {
+    $("ul.links.pages").append("<li class='nav-item' style='order: -1'> <a class='nav-link ps-0 py-2' href='/'><span>"+ page.title +"</span></a> </li>");
+    continue;
+  }
+
+  $("ul.links.pages").append("<li class='nav-item'> <a class='nav-link ps-0 py-2' target='"+ generateTarget(page.target) +"' href='"+ page.link +"'><span>"+ page.title +"</span></a> </li>");
+
+  for (var tier2Page of page.children) {
+     $("ul.links.pages").append("<li class='nav-item'> <a class='nav-link ms-2 ps-1 py-2' target='"+ generateTarget(tier2Page.target) +"' href='"+ tier2Page.link +"'><span>"+ tier2Page.title +"</span></a> </li>");
+
+    for (var tier3Page of tier2Page.children) {
+      $("ul.links.pages").append("<li class='nav-item'> <a class='nav-link ms-4 ps-1 py-2' target='"+ generateTarget(tier3Page.target) +"' href='"+ tier3Page.link +"'><span>"+ tier3Page.title +"</span></a> </li>");
+    }
+  }
+}
+
+$(document).ready(function() {
+  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  var toastList = toastElList.map(function(toastEl) {
+    return new bootstrap.Toast(toastEl, {
+      delay: 20000
+    })
+  })
+  toastList.forEach(toast => toast.show()) 
+  var overlayHeight = 0;
+  if($(".top-navbar-notification-container").length){
+  	overlayHeight = $("body").height() - ($(".header-container").height() + $(".top-navbar-notification-container").height());
+  } else {
+    overlayHeight = $("body").height() - $(".header-container").height();  
+  }
+  $(".mobile-slider-overlay").height(overlayHeight + "px");
+  $(".mobile-slider").height(overlayHeight + "px");
+
+  $("body").css("padding-bottom", $(".quick-actions-menu").height() + "px");
+  $(window).resize(function() {
+    $("body").css("padding-bottom", $(".quick-actions-menu").height() + "px");
+  });
+  
+  function loadStates(currentVal) {
+  	var states = get_states(get_country_id($("select.country").val()));
+    var data = states = states.map(state => ({ id: state, text: state }));
+    
+    $("select.state")
+      .select2('destroy')
+      .empty()
+      .select2({
+      	placeholder: "Select a state",
+        data: data,
+        theme: "bootstrap4"
+      })
+      .val(currentVal)
+      .trigger("change");
+  }
+  
+  $("select.country").select2({
+    placeholder: "Select a country",
+    theme: 'bootstrap4',
+  });
+  
+  $("select.state").select2({
+    placeholder: "Select a state",
+    theme: 'bootstrap4',
+  });
+  
+  loadStates($("select.state").val());
+  $("select.country").on("change", function() {
+    loadStates("");
+  });
+  
+  $(document).on('select2:open', () => {
+    document.querySelector('.select2-container--open .select2-search__field').focus();
+  });
+
+  $('.password-div i.fa').on('click', function() {
+    if ($(this).hasClass('fa-eye')) {
+      $(this).removeClass('fa-eye').addClass('fa-eye-slash').closest('.password-div').find('input[type=password]').attr('type','text');
+    } else {
+      $(this).removeClass('fa-eye-slash').addClass('fa-eye').closest('.password-div').find('input[type=text]').attr('type','password');
+    }
+  });
+});

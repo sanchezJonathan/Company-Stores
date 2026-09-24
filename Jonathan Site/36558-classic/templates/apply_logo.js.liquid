@@ -1,0 +1,13 @@
+// Legacy fallback for cached clients still requesting apply_logo as JS.
+(function () {
+  var dialog = $('.ui-dialog.view-logos:visible');
+
+  if (!dialog.length) return;
+
+  var imageContainer = dialog.find('.logo-preview-area');
+  var imageSrc = {% if image_src %}"{{ image_src | escape_javascript }}"{% else %}"{{ product_image.view_logo_preview_url | escape_javascript }}"{% endif %};
+
+  imageContainer.find('.image-wrapper img').one('load error', function() {
+    imageContainer.hideLoading();
+  }).attr('src', imageSrc);
+})();

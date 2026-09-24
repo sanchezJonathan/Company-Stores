@@ -1,0 +1,65 @@
+{% if settings.sitewide_font_family contains "Lato" or settings.sitewide_header_font_family contains "Lato" %}
+  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Roboto" or settings.sitewide_header_font_family contains "Roboto" %}
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Open Sans" or settings.sitewide_header_font_family contains "Open Sans" %}
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Poppins" or settings.sitewide_header_font_family contains "Poppins" %}
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Montserrat" or settings.sitewide_header_font_family contains "Montserrat" %}
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Archivo" or settings.sitewide_header_font_family contains "Archivo" %}
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Epilogue" or settings.sitewide_header_font_family contains "Epilogue" %}
+  @import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "JetBrains Mono" or settings.sitewide_header_font_family contains "JetBrains Mono" %}
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Nunito" or settings.sitewide_header_font_family contains "Nunito" %}
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Playfair Display" or settings.sitewide_header_font_family contains "Playfair Display" %}
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Raleway" or settings.sitewide_header_font_family contains "Raleway" %}
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family contains "Spectral" or settings.sitewide_header_font_family contains "Spectral" %}
+  @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+{% endif %}
+
+{% if settings.sitewide_font_family and settings.sitewide_font_family != "native" %}
+  body {
+    font-family: {{ settings.sitewide_font_family }};
+  }
+{% endif %}
+
+{% if settings.sitewide_header_font_family %}
+  h1, h2, h3, h4 {
+    font-family: {{ settings.sitewide_header_font_family }};
+  }
+{% endif %}
+
+{% if settings.sitewide_font_size %}
+  html {
+    font-size: {{ settings.sitewide_font_size }};
+  }
+{% endif %}

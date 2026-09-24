@@ -1,0 +1,6 @@
+{% if gift_certificate.amounts != empty %}
+  {{ gift_certificate.min_amount | points_or_currency }} to {{ gift_certificate.max_amount | points_or_currency }}{% if gift_certificate.allow_custom_amount? %},<br/>{% endif %}
+{% endif %}
+{% if gift_certificate.allow_custom_amount? %}
+  Enter Amount
+{% endif %}

@@ -1,0 +1,230 @@
+{% assign address = shop.address %}
+
+<div class="footer-container mt-5">
+  <div class="wrapper mx-auto {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok or settings.enable_custom_footer_links %}pt-3{% else %}pt-0{% endif %}">
+    <div class="container-fluid px-0 mx-0">
+      <div class="row w-100 mx-auto px-3">
+        <div class="
+        {%- if settings.enable_custom_footer_links == false -%}
+          col-lg-12
+        {%- else -%}
+          col-lg-6
+        {%- endif -%}
+        {{ ""  }}
+        {%- if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok -%}
+        {%- else -%}
+          col-lg-12
+        {%- endif -%} col-md-12 py-3 px-0 pe-lg-3
+        {{ ""  }}
+        {%- if settings.display_footer_logo or shop.company_name != blank or address.first_address != blank or address.second_address != blank or address.city != blank or address.state != blank or address.zip != blank or shop.primary_email != blank or shop.primary_phone != blank -%}
+        {%- else -%}
+          d-none
+        {%- endif -%}">
+          {% if settings.display_footer_logo %}
+          <div>
+            <a href="/" class="d-block">
+              <img
+                 alt="{{ shop.name }} footer logo"
+                 title="{{ shop.name }} footer logo"
+                 src="{{ "logo-footer.png" | asset_url }}"
+                 class="img-fluid footer-logo d-block"
+                 width="{{ settings.logo_footer_width }}"
+                 height="{{ settings.logo_footer_height }}"
+               >
+            </a>
+          </div>
+          {% endif %}
+          {% if shop.company_name != "" %}<h5>{{ shop.company_name }}</h5>{% endif %}
+          <p>
+            {{ address.first_address }}{% if address.first_address != blank and address.second_address != blank %}, {% endif %}{{ address.second_address }}
+            {% if address.city != blank or address.state != blank or address.zip != blank %}<br>{% endif %}{{ address.city }}{% if address.city != blank and address.state != blank %}, {% endif %}{{ address.state }} {{ address.zip }}
+          </p>
+          {% if shop.primary_email != blank %}<p class="my-0"><a href="mailto:{{ shop.primary_email }}">{{ shop.primary_email }}</a></p>{% endif %}
+          {% if shop.primary_phone != blank %}<p class="my-0"><a href="tel:{{ shop.primary_phone }}">{{ shop.primary_phone }}</a></p>{% endif %}
+        </div>
+        
+        {% if settings.enable_custom_footer_links %}
+          <div class="
+          {%- if settings.enable_custom_footer_links -%}
+            {%- if settings.display_footer_logo or shop.company_name != blank or address.first_address != blank or address.second_address != blank or address.city != blank or address.state != blank or address.zip != blank or shop.primary_email != blank or shop.primary_phone != blank -%}
+              col-lg-6
+            {%- else -%}
+              col-lg-12
+            {%- endif -%}
+          {%- else -%}
+            col-lg-6
+          {%- endif -%}{{ " " }} col-md-12 py-3 d-none d-lg-block px-0 ps-lg-3 custom-footer-links-container">
+            <ul class="nav custom-footer-links {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok %}float-lg-end{% endif %}{{ " " }}{%- if settings.display_footer_logo or shop.company_name != blank or address.first_address != blank or address.second_address != blank or address.city != blank or address.state != blank or address.zip != blank or shop.primary_email != blank or shop.primary_phone != blank -%}float-lg-end{% endif%}">
+              {% if settings.enable_footer_link_1 %}
+                <li class='nav-item'>
+                  <a
+                   class='nav-link pl-0 py-1' 
+                   href='{{ settings.custom_footer_link_1 }}'
+                   {% if settings.custom_footer_link_1_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  >
+                    <span>{{ settings.custom_footer_link_text_1 }}</span>
+                  </a>
+              	</li>
+              {% endif %}
+              {% if settings.enable_footer_link_2 %}
+                <li class='nav-item'>
+                  <a
+                   class='nav-link pl-0 py-1' 
+                   href='{{ settings.custom_footer_link_2 }}'
+                   {% if settings.custom_footer_link_2_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  >
+                    <span>{{ settings.custom_footer_link_text_2 }}</span>
+                  </a>
+              	</li>
+              {% endif %}
+              {% if settings.enable_footer_link_3 %}
+                <li class='nav-item'>
+                  <a
+                   class='nav-link pl-0 py-1' 
+                   href='{{ settings.custom_footer_link_3 }}'
+                   {% if settings.custom_footer_link_3_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  >
+                    <span>{{ settings.custom_footer_link_text_3 }}</span>
+                  </a>
+              	</li>
+              {% endif %}
+              {% if settings.enable_footer_link_4 %}
+                <li class='nav-item'>
+                  <a
+                   class='nav-link pl-0 py-1' 
+                   href='{{ settings.custom_footer_link_4 }}'
+                   {% if settings.custom_footer_link_4_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  >
+                    <span>{{ settings.custom_footer_link_text_4 }}</span>
+                  </a>
+              	</li>
+              {% endif %}
+              {% if settings.enable_footer_link_5 %}
+                <li class='nav-item'>
+                  <a
+                   class='nav-link pl-0 py-1' 
+                   href='{{ settings.custom_footer_link_5 }}'
+                   {% if settings.custom_footer_link_5_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  >
+                    <span>{{ settings.custom_footer_link_text_5 }}</span>
+                  </a>
+              	</li>
+              {% endif %}
+            </ul>
+          </div>
+        {% endif %}
+        
+        {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok or settings.enable_custom_footer_links %}
+        <div class="col-md-12 pb-3 d-lg-none d-xl-none px-0 pe-lg-3">
+          <div class="accordion" id="footer-accordion">
+            {% if settings.enable_custom_footer_links %}
+           	  <h4 class="font-weight-bolder">{{ settings.custom_footer_links_title }}</h4>
+              <ul class="nav flex-column custom-footer-links float-lg-end">
+                {% if settings.enable_footer_link_1 %}
+                  <li class='nav-item'>
+                    <a
+                     class='nav-link pl-0 py-1' 
+                     href='{{ settings.custom_footer_link_1 }}'
+                     {% if settings.custom_footer_link_1_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    >
+                      <span>{{ settings.custom_footer_link_text_1 }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% if settings.enable_footer_link_2 %}
+                  <li class='nav-item'>
+                    <a
+                     class='nav-link pl-0 py-1' 
+                     href='{{ settings.custom_footer_link_2 }}'
+                     {% if settings.custom_footer_link_2_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    >
+                      <span>{{ settings.custom_footer_link_text_2 }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% if settings.enable_footer_link_3 %}
+                  <li class='nav-item'>
+                    <a
+                     class='nav-link pl-0 py-1' 
+                     href='{{ settings.custom_footer_link_3 }}'
+                     {% if settings.custom_footer_link_3_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    >
+                      <span>{{ settings.custom_footer_link_text_3 }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% if settings.enable_footer_link_4 %}
+                  <li class='nav-item'>
+                    <a
+                     class='nav-link pl-0 py-1' 
+                     href='{{ settings.custom_footer_link_4 }}'
+                     {% if settings.custom_footer_link_4_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    >
+                      <span>{{ settings.custom_footer_link_text_4 }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% if settings.enable_footer_link_5 %}
+                  <li class='nav-item'>
+                    <a
+                     class='nav-link pl-0 py-1' 
+                     href='{{ settings.custom_footer_link_5 }}'
+                     {% if settings.custom_footer_link_5_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    >
+                      <span>{{ settings.custom_footer_link_text_5 }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok %}
+        <div class="col-lg-6 col-md-12 py-3 d-none d-lg-block px-0 pe-lg-3">
+          <ul class="nav social-media">
+          	{% if settings.sm_facebook %}
+              <li class="nav-item"><a class="nav-link" href="{{ settings.sm_facebook_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/facebook' %}</a></li>
+            {% endif %}
+            {% if settings.sm_twitter %}
+              <li class="nav-item"><a class="nav-link" href="{{ settings.sm_twitter_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/twitter' %}</a></li>
+            {% endif %}
+            {% if settings.sm_linkedin %}
+              <li class="nav-item"><a class="nav-link" href="{{ settings.sm_linkedin_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/linkedin' %}</a></li>
+            {% endif %}
+            {% if settings.sm_instagram %}
+              <li class="nav-item"><a class="nav-link" href="{{ settings.sm_instagram_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/instagram' %}</a></li>
+            {% endif %}
+            {% if settings.sm_tiktok %}
+              <li class="nav-item"><a class="nav-link" href="{{ settings.sm_tiktok_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/tiktok' %}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        {% endif %}
+        <div class="px-0 py-3 {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok or settings.enable_custom_footer_links %}col-lg-6 ps-lg-3{% endif %} col-md-12 d-none d-lg-block">
+          <p class="my-0 {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok or settings.enable_custom_footer_links %}text-end pt-2{% else %}text-center{% endif %}">{{ settings.copyright_info }}</p>
+        </div>
+      </div>
+      <div class="mobile-copyright-section d-lg-none d-xl-none pt-2 pb-3 px-3 {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok or settings.enable_custom_footer_links %}mt-3{% endif %}">
+        <ul class="nav social-media float-md-end">
+          {% if settings.sm_facebook %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_facebook_link }}"  target="_blank" rel="noopener noreferrer">{% include 'icons/social/facebook' %}</a></li>
+          {% endif %}
+          {% if settings.sm_twitter %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_twitter_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/twitter' %}</a></li>
+          {% endif %}
+          {% if settings.sm_linkedin %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_linkedin_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/linkedin' %}</a></li>
+          {% endif %}
+          {% if settings.sm_instagram %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_instagram_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/instagram' %}</a></li>
+          {% endif %}
+          {% if settings.sm_tiktok %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_tiktok_link }}" target="_blank" rel="noopener noreferrer">{% include 'icons/social/tiktok' %}</a></li>
+          {% endif %}
+        </ul>
+        <p class="d-inline-block my-0 {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok or settings.enable_custom_footer_links %}pt-3{% else %}pt-2{% endif %}">{{ settings.copyright_info }}</p>
+      </div>
+    </div>
+  </div>
+</div>

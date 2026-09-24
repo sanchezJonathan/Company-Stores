@@ -1,0 +1,58 @@
+<div class="gift-certificate-details">
+  <h4>Recipient <span class="recipient-index">{{ index }}</span></h4>
+
+  <div class="mb-3">
+    <label class="form-label" for="gift_certificate_first_name_{{ index }}">First Name{% if form.required_first_name %}<span class="required-label">(required)</span>{% endif %}</label>
+    <div class="input string">
+      <input type="text" value="{{ variant.first_name }}"
+        name="product[details][{{ index }}][first_name]"
+        id="gift_certificate_first_name_{{ index }}" class="form-control {% if variant.errors contains 'first_name' %}is-invalid{% endif %}"
+        maxlength="{{ form.first_name_max_length }}"/>
+
+      {% if variant.errors contains 'first_name' %}
+        <div class="invalid-feedback">{{ variant.errors['first_name']}}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="gift_certificate_last_name_{{ index }}">Last Name{% if form.required_last_name %}<span class="required-label">(required)</span>{% endif %}</label>
+    <div class="input string">
+      <input type="text" value="{{ variant.last_name }}"
+        name="product[details][{{ index }}][last_name]"
+        id="gift_certificate_last_name_{{ index }}" class="form-control {% if variant.errors contains 'last_name' %}is-invalid{% endif %}"
+        maxlength="{{ form.last_name_max_length }}"/>
+
+      {% if variant.errors contains 'last_name' %}
+        <div class="invalid-feedback">{{ variant.errors['last_name']}}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="gift_certificate_email_{{ index }}">E-Mail{% if form.required_email %}<span class="required-label">(required)</span>{% endif %}</label>
+    <div class="input string">
+      <input type="text" value="{{ variant.email }}"
+        name="product[details][{{ index }}][email]"
+        id="gift_certificate_email_{{ index }}" class="form-control {% if variant.errors contains 'email' %}is-invalid{% endif %}"
+        maxlength="{{ form.email_max_length }}"/>
+
+      {% if variant.errors contains 'email' %}
+        <div class="invalid-feedback">{{ variant.errors['email']}}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="gift_certificate_message_{{ index }}">Message{% if form.required_message %}<span class="required-label">(required)</span>{% endif %}</label>
+    <div class="input string">
+      <textarea name="product[details][{{ index }}][message]"
+        id="gift_certificate_message_{{ index }}" class="form-control {% if variant.errors contains 'message' %}is-invalid{% endif %}"
+        maxlength="{{ form.message_max_length }}">{{ variant.message }}</textarea>
+
+      {% if variant.errors contains 'message' %}
+        <div class="invalid-feedback">{{ variant.errors['message']}}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>

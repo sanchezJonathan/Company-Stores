@@ -1,0 +1,16 @@
+{% capture logos %}
+  {% for logo in line_item.logos %}
+    <div class="mb-0 mt-2">
+      <span class="cart-inline-title-short">{{ logo.location_name | default: "Logo" }}:</span>{{ logo.name }}{% if logo.charge %} ({{ logo.charge | points_or_currency }}){% endif %}
+      <div class="mt-1">
+      	<span class="cart-inline-title-short"></span><img class="img-thumbnail" src="{{ logo.front_thumb_url }}"/>     
+      </div>
+	</div>
+  {% endfor %}
+{% endcapture %}
+
+{% if line_item.logos.size > 1 %}
+  <div class="logos-container">{{ logos }}</div>
+{% else %}
+  {{ logos }}
+{% endif %}

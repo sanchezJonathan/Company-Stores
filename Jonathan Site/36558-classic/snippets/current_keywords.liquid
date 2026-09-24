@@ -1,0 +1,9 @@
+  {% keyword_facets %}
+    {% for keyword in keywords.collection %}
+        <a class="btn secondary" href="{{ keyword.remove_keyword_url }}">{{ keyword.text }}&nbsp; &times;</a>
+    {% endfor %}
+
+    <!--{% if keywords.collection.size > 1 %}
+        <a class="btn primary" href="{{ keywords.remove_all_keywords_url }}">remove all&nbsp; &times;</a>
+    {% endif %}-->
+  {% endkeyword_facets %}

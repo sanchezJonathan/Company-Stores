@@ -1,0 +1,16 @@
+(function () {
+    var controller = AccountLogosController.pending;
+    var isValid = {{ logo.valid? }};
+    var emulateFileUpload = {{ logo.image_changed? }};
+    var dialogForm;
+
+    {% unless logo.valid? %}
+        {% capture logo_form %}
+            {% include "account_logo_form" %}
+        {% endcapture %}
+
+        dialogForm = $("{{ logo_form | escape_javascript }}");
+    {% endunless %}
+
+    controller.onUpdateAction(isValid, dialogForm, emulateFileUpload);
+}).call(this);

@@ -1,0 +1,37 @@
+<div class="bundle-gallery-panel gallery-main bundle-gallery-panel--summary d-none">
+  <div class="main-img-container bg-white">
+    <div class="main-img">
+      {% if bundle.image %}
+        <a href="{{ bundle.image.url }}" data-toggle="lightbox">
+          <img
+            alt="{{ bundle.name }} primary image"
+            title="{{ bundle.name }} primary image"
+            src="{{ bundle.image.url }}"
+          >
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="images-wrapper">
+    <button type="button" class="btn nav bundle-summary-nav prev" aria-label="Previous product images"></button>
+    <div class="images-container">
+      <ul class="clrfix bundle-summary-images mx-0">
+        {% for bundle_product in bundle.products %}
+          {% if bundle_product.primary_image %}
+            <li class="image" data-bundle-product-id="{{ bundle_product.id }}">
+              <a href="{{ bundle_product.primary_image.large_url }}" data-toggle="lightbox" tabindex="-1">
+                <img
+                  alt="{{ bundle_product.name }} image thumbnail"
+                  title="{{ bundle_product.name }} image thumbnail"
+                  src="{{ bundle_product.primary_image.medium_url }}"
+                  class="small-thumb"
+                >
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    <button type="button" class="btn nav bundle-summary-nav next" aria-label="Next product images"></button>
+  </div>
+</div>

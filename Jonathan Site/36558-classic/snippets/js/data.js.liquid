@@ -1,0 +1,216 @@
+"use strict";
+
+// Loads all global data that will be used throughout the store
+var pages = [];
+var categories = [];
+
+/**
+ * Takes a string and automatically replaces characters with proper values
+ * @param {string} string - unescaped collection of characters that might include ', ", <, >, and &.
+ */
+function escapeString(string) {
+  return string
+            .replaceAll("&", "%26")
+            .replaceAll("'", "&#39")
+            .replaceAll('"', "&#34")
+            .replaceAll("<", "&#60")
+            .replaceAll(">", "&#62")
+            .replaceAll("!", "%21")
+            .replaceAll("#", "%23")
+            .replaceAll("$", "%24")
+            .replaceAll("@", "%40")
+            .replaceAll("*", "%2A")
+            .replaceAll("(", "%28")
+            .replaceAll(")", "%29")
+            .replaceAll("=", "%3D")
+            .replaceAll(":", "%3A")
+            .replaceAll(";", "%3B")
+            .replaceAll("?", "%3F");
+}
+
+function compare( a, b ) {
+      if ( a.last_nom < b.last_nom ){
+        return -1;
+      }
+      if ( a.last_nom > b.last_nom ){
+        return 1;
+      }
+      return 0;
+    }
+function sortLinks(key) {
+  return function(prev, next) {
+    if (prev[key] < next[key]){
+      return -1;
+    }
+    if (prev[key] > next[key]){
+      return 1;
+    }
+    return 0;
+  }
+}
+
+// functions to process server data
+function loadPages() {
+  var pageData = JSON.parse("{{ pages | json | escape_javascript }}");
+  
+  var tierOnePageIDs = [];
+  var tierTwoPageIDs = [];
+  var t2ParentIdReference = {};
+  var tierOnePages = {};
+
+  for (var page of pageData) {
+    var linkIdentifier = page.custom_url || page.id;
+    
+    // tier one pages
+    if (!page.parent_id && page.is_active) {
+      tierOnePageIDs.push(page.id);
+      tierOnePages[page.id] = {
+        id: page.id,
+        link: page.link_url || encodeURI("/pages/"+ linkIdentifier),
+        title: page.title,
+        target: page.target,
+        list_order: page.list_order,
+        children: [],
+      };
+      
+      continue;
+    }
+    
+    // tier two pages
+    if (!!page.parent_id && tierOnePageIDs.indexOf(page.parent_id) > -1 && page.is_active) {
+      tierTwoPageIDs.push(page.id);
+      
+      t2ParentIdReference[page.id] = {
+        parent_id: page.parent_id,
+        index: tierOnePages[page.parent_id]["children"].length
+      };
+      
+      tierOnePages[page.parent_id]["children"].push({
+        id: page.id,
+        link: page.link_url || encodeURI("/pages/"+ linkIdentifier),
+        parent_id: page.parent_id,
+        title: page.title,
+        list_order: page.list_order,
+        target: page.target,
+        children: [],
+      });
+      
+      continue;
+    };
+    
+    // tier three pages
+    if (!!page.parent_id && tierTwoPageIDs.indexOf(page.parent_id) > -1 && page.is_active) {
+      var t2reference = t2ParentIdReference[page.parent_id];
+      
+      tierOnePages[t2reference.parent_id]["children"][t2reference.index]["children"].push({
+        id: page.id,
+        link: page.link_url || encodeURI("/pages/"+ linkIdentifier),
+        parent_id: page.parent_id,
+        title: page.title,
+        target: page.target,
+        list_order: page.list_order,
+      });
+      
+      t2reference = null;
+    }
+  }
+  
+  // transfer data(obj) to global variable(array)
+  for (page in tierOnePages) {
+    pages.push(tierOnePages[page])
+  }
+  
+  pages.sort(sortLinks("list_order"));
+  
+  pageData = null;
+  tierOnePageIDs = null;
+  tierTwoPageIDs = null;
+  t2ParentIdReference = null;
+}
+
+function loadCategories() {
+  var shop = {{ shop | json }};
+  var categoryData = {{ categories | json }};
+  
+  var tierOneCategoryIDs = [];
+  var tierTwoCategoryIDs = [];
+  
+  var tierOneCategories = {};
+  var t2ParentIdReference = {};
+  var parentCat;
+  
+  for (var category of categoryData) {
+    // tier one categories
+    if (!category.parent_id && category.enabled) {
+      tierOneCategoryIDs.push(category.id);
+      tierOneCategories[category.id] = {
+        id: category.id,
+        name: category.name,
+        link: categoryNavDom.find('ul.level-0 > li > a').filter(function() { return $(this).text() === `${category.name}`; }).attr("href"),
+        list_order: category.list_order,
+        children: [],
+      };
+      
+      continue;
+    }
+    
+    // tier two categories
+    if (!!category.parent_id && tierOneCategoryIDs.indexOf(category.parent_id) > -1 && category.enabled) {
+      parentCat = tierOneCategories[category.parent_id].name;
+
+      t2ParentIdReference[category.id] = {
+        parent_id: category.parent_id,
+        name: category.name,
+        parent_name: parentCat,
+        index: tierOneCategories[category.parent_id]["children"].length
+      };
+      
+      tierTwoCategoryIDs.push(category.id);
+      tierOneCategories[category.parent_id]["children"].push({
+        id: category.id,
+        parent_id: category.parent_id,
+        name: category.name,
+        link: categoryNavDom.find('li a').filter(function() { return $(this).text() === `${parentCat}`; }).closest('li').find('ul.level-1 > li > a').filter(function() { return $(this).text() === `${category.name}`; }).attr("href"),
+        list_order: category.list_order,
+        children: [],
+      });
+      
+      continue;
+    }
+    
+    // tier three categories
+    if (!!category.parent_id && tierTwoCategoryIDs.indexOf(category.parent_id) > -1 && category.enabled) {
+      var t2reference = t2ParentIdReference[category.parent_id];
+
+      tierOneCategories[t2reference.parent_id]["children"][t2reference.index]["children"].push({
+        id: category.id,
+        parent_id: category.parent_id,
+        name: category.name,
+        list_order: category.list_order,
+        link: categoryNavDom.find('li a').filter(function() { return $(this).text() === `${t2reference.parent_name}`; }).closest('ul').find('li a').filter(function() { return $(this).text() === `${t2reference.name}`; }).closest('li').find('ul.level-2 > li > a').filter(function() { return $(this).text() === `${category.name}`; }).attr("href"),
+      });
+      
+      t2reference = null;
+      continue;
+    }
+  }
+  
+  // transfer data(obj) to global variable(array)
+  for (category in tierOneCategories) {
+    categories.push(tierOneCategories[category])
+  }
+  
+  categories.sort(sortLinks("list_order"));
+  
+  shop = null;
+  categoryData = null;
+  tierOneCategoryIDs = null;
+  tierTwoCategoryIDs = null;
+  tierOneCategories = null;
+  t2ParentIdReference = null;
+  linkEncoded = null;
+}
+
+// execute functions
+loadPages();
+loadCategories();

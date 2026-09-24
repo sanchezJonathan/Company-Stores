@@ -1,0 +1,33 @@
+{{ 'underconstruction.js' | asset_url | script_tag }}
+{{ 'underconstruction.css' | asset_url | stylesheet_tag }}
+<div id="splash">
+  <div class="splash-container">
+    {% if settings.display_under_construction_password %}
+      <div id="splashtop">
+        {% assign logoMargins = settings.logo_margin | split: ' ' %}
+        {% assign logoMarginTop = logoMargins[0] %}
+        {% if logoMargins[2] %}{% assign logoMarginBottom = logoMargins[2] %}{% else %}{% assign logoMarginBottom = logoMargins[0] %}{% endif %}
+        <img id="logoimg" src="{{ 'logo_custom_bg_image.jpg' | asset_url }}" style="max-height: calc({{ settings.header_height }} - {{ logoMarginTop }} - {{ logoMarginBottom }} - 14px);">
+
+        <div id="descform">
+          <div id="group-login" class="clrfix">
+            <h2>{{ settings.under_construction_pwbox_message }}</h2>
+            <div class="group-login-form password-div">
+              <input id="password" name="password" type="password">
+              <i class="fa fa-solid fa-eye"></i>
+              <input type="button" id="group-login-form-submit" value="Submit"/>
+            </div>
+          </div>
+        </div>
+        <div id="login-error-msg">
+          <h2>ERROR: Incorrect Password.</h2>
+        </div>
+      </div>
+    {% else %}
+      <div id="splash-static">
+        <h1>{{ settings.under_construction_header }}</h1>
+        <p>{{ settings.under_construction_message }}</p>
+      </div>
+    {% endif %}
+  </div>
+</div>

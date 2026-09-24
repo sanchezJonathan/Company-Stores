@@ -1,0 +1,31 @@
+{% unless field_prefix %}
+  {% assign field_prefix = 'product' %}
+{% endunless %}
+
+{% if logo_locations.size > 0 or custom_logos_upload_enabled %}
+  <div class="prod_option_block logo-wrapper">
+    {% for location in logo_locations %}
+      <div class="logo-info clrfix">
+        <div class="form-item clrfix">
+          <div class="product-option-wrapper">
+            <label class="mb-2">
+              {{ location.name }}
+              {% if location.required? -%}
+                <span class="required-label">(required)</span>
+              {%- endif %}
+            </label>
+
+            {% render 'logo_location_select', location: location, shop: shop, form: form, field_prefix: field_prefix %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    {% render 'logo_buttons',
+      shop: shop,
+      product: product,
+      custom_logos_upload_enabled: custom_logos_upload_enabled,
+      new_product_logo_url: new_product_logo_url
+    %}
+  </div>
+{% endif %}

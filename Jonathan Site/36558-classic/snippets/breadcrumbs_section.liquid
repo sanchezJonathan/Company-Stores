@@ -1,0 +1,49 @@
+{% render_breadcrumbs %}
+
+{% if template_name == 'product'
+  or template_name == 'catalog_product'
+  or template_name == 'gift_certificate_product'
+  or template_name == 'bundle'
+%}
+  {% assign is_template_product = true %}
+{% else %}
+  {% assign is_template_product = false %}
+{% endif %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb pl-0">
+    <li class="breadcrumb-item"><a href="{{ root_url }}">Home</a></li>
+
+    {% for page in pages %}
+      {% if forloop.last and is_template_product != true and categories == empty %}
+        <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
+      {% else %}
+        <li class="breadcrumb-item">
+          <a href="{{ page['url'] }}">{{ page.title }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% for category in categories %}
+      {% if forloop.last and is_template_product != true %}
+        <li class="breadcrumb-item active" aria-current="page">{{ category.title }}</li>
+      {% else %}
+        <li class="breadcrumb-item">
+          <a href="{{ category['url'] }}">{{ category.title }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if is_template_product == true %}
+      <li class="breadcrumb-item active" aria-current="page">
+        {% if template_name == 'bundle' %}
+          {{ bundle.name }}
+        {% else %}
+          {{ product.name }}
+        {% endif %}
+      </li>
+    {% endif %}
+  </ol>
+</nav>
+
+{% endrender_breadcrumbs %}

@@ -1,0 +1,14 @@
+<div class="content-main clrfix">
+  {% if shop.catalog_enabled? %}
+    {% include 'page_with_active_ecommerce' with page.content %}
+  {% else %}
+    {{ page.content }}
+  {% endif %}
+</div>
+<script>
+  $(function () {
+      setup_carousels('.featured-products .product .image-carousel');
+      bind_product_body_clicker('.featured-products', '.product');
+    }
+  );
+</script>

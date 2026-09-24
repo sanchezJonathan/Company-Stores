@@ -1,0 +1,44 @@
+{% if paginate.pages > 1 %}
+  <nav aria-label="pagination">
+    <ul class="pagination">
+      {% if paginate.previous.is_link %}
+      	<li class="page-item">
+          <a class="page-link" href="{{ paginate.previous.url }}">{{ paginate.previous.title }}</a>
+      	</li>
+      {% else %}
+      	<li class="page-item disabled">
+          <span class="page-link">{{ paginate.previous.title | escape }}</span>
+        </li>
+      {% endif %}
+      
+      {% for part in paginate.parts %}
+        {% if part.is_link %}
+          <li class="page-item">
+            <a class="page-link" href="{{ part.url }}">{{ part.title }}</a>
+          </li>
+        {% else %}
+          {% if part.is_hellip %}
+            <li class="page-item ellipsis disabled">
+              <a class="page-link">{{ part.title }}</a>
+            </li>
+          {% else %}
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">{{ part.title }}</span>
+            </li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if paginate.next.is_link %}
+      	<li class="page-item">
+          <a class="page-link" href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+      	</li>
+      {% else %}
+      	<li class="page-item disabled">
+          <span class="page-link">{{ paginate.next.title | escape }}</span>
+        </li>
+      {% endif %}
+      
+    </ul>
+  </nav>
+{% endif %}

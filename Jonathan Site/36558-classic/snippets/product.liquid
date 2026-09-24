@@ -1,0 +1,7 @@
+{% if product.type == 'gift_certificate' %}
+  {% include "gift_certificate" with product %}
+{% elsif product.type == 'bundle' %}
+  {% include "bundle" with product %}
+{% else %}
+  {% include "basic_product" with product %}
+{% endif %}

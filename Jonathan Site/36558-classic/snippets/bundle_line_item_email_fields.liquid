@@ -1,0 +1,61 @@
+<tr class="line-item">
+  <td>
+    <table class="basic-info">
+      <tbody>
+        <tr>
+          <td class="image-cell">
+            <img width=100 alt="{{ bundle.name }} image" title="{{ bundle.name }} image"
+              src="{% if bundle.image %}{{ bundle.image.small_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </td>
+
+  <td class="product-info">
+    <p class="sub-option product-title">
+      {{ bundle.name }}
+      <span style="color: #888; font-weight: normal;">({{ bundle.products_count }} products)</span>
+    </p>
+
+    <div style="background: #f5f5f5; border: 1px solid #ddd; padding: 10px; margin: 10px;">
+      <p style="text-transform: uppercase; color: #888; font-size: 12px; margin: 0 0 8px 0;">
+        Bundle includes
+      </p>
+      {% for line_item in bundle.line_items %}
+        <table style="width: 100%;{% unless forloop.last %} margin-bottom: 8px;{% endunless %}">
+          <tr>
+            <td style="width: 50px; vertical-align: top; padding-right: 8px; border: 0; background: inherit;">
+              <img width="40" alt="{{ line_item.name }} image" title="{{ line_item.name }} image"
+                src="{% if line_item.image %}{{ line_item.image.small_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+            </td>
+            <td style="vertical-align: top; border: 0; background: inherit;">
+              {% if line_item.vendors != empty and settings.show_vendors %}
+                <p class="sub-option" style="margin: 0 0 3px 0; color: #888; font-size: 12px;">by {{ line_item.vendor_names }}</p>
+              {% endif %}
+              {% capture bundle_item_name %}{{ line_item.quantity | divided_by: bundle.quantity }}&times; {{ line_item.name }}{% endcapture %}
+              {% render 'line_item_info', line_item: line_item, name: bundle_item_name, settings: settings %}
+            </td>
+          </tr>
+        </table>
+      {% endfor %}
+    </div>
+
+    <p class="sub-option">
+      <span class="sub-option-name">Bundle price:</span>
+      <span class="sub-option-value">{{ bundle.unit_price | points_or_currency }}</span>
+    </p>
+  </td>
+
+  <td class="order-quantity">
+    <p class="line-item-quantity">
+      {{ bundle.quantity }}
+    </p>
+  </td>
+
+  <td class="product-price">
+    <p>
+      {{ bundle.total_price | points_or_currency }}
+    </p>
+  </td>
+</tr>

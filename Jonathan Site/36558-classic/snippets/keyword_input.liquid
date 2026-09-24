@@ -1,0 +1,20 @@
+{% form 'search', products_search %}
+  <div class="keyword clrfix">
+    <div class="input-group">
+      <input class="form-control border border-end-0" type="search" name="s[keyword]" id="s_keyword" placeholder="Search Product" aria-label="Search">
+      <div class="input-group-append">
+        <button class="btn btn-outline border border-start-0 search-btn" type="submit"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+{% endform %}
+
+<script>
+  $(function () {
+    $('.keyword input').on('keypress', function (event) {
+      if (event.keyCode == 13) {
+        $(this).closest('form').submit();
+      }
+    });
+  });
+</script>

@@ -1,0 +1,23 @@
+{% if reviews.size > 0 %}
+  {% paginate reviews by 5, ajax: true %}
+    {% capture reviews_content %}
+      {% for review in paginate.collection %}
+        {% include 'product_review', review: review %}
+      {% endfor %}
+    {% endcapture %}
+
+    {% capture paginator_content %}
+      {% include 'reviews_paginator', paginate: paginate %}
+    {% endcapture %}
+
+    var reviewController = $('.product-reviews-container').data('reviews-controller');
+
+    {% if paginate.first_page %}
+      reviewController.replaceReviews("{{ reviews_content | escape_javascript }}");
+    {% else %}
+      reviewController.appendReviews("{{ reviews_content | escape_javascript }}");
+    {% endif %}
+
+    reviewController.updatePagination("{{ paginator_content | escape_javascript }}");
+  {% endpaginate %}
+{% endif %}

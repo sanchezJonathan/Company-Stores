@@ -1,0 +1,20 @@
+{% form 'login' %}
+  <div class="mb-3">
+    <label class="mb-1" for="website_user[login]">Username or Email</label>
+    <input type="text" class="form-control" name="website_user[login]" id="website_user[login]" rel="login">
+  </div>
+  <div class="mb-3 password-div">
+    <label class="mb-1" for="website_user_password">Password</label>
+    <input type="password" name="website_user[password]" class="form-control" id="website_user_password" rel="password" autocomplete="off">
+    <i class="fa fa-solid fa-eye"></i>
+  </div>
+  <input type="hidden" name="website_user[timezone]" id="website_user_timezone">
+  <input type="submit" value="Sign in" class="btn secondary custom_btn btn_sign custom-button {% if template_name == 'login' %}btn-heather{% else %}btn-tradewind{% endif %}"/>
+{% endform %}
+
+<script>
+  (function() {
+    var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    $('#website_user_timezone').val(timezone);
+  })();
+</script>

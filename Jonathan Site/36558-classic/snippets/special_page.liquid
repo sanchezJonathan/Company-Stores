@@ -1,0 +1,73 @@
+{% assign special_page_content = special_page | replace: "<div id='page-showing' class='iframe-area text-content' style='width: 100%; position: relative'></div>", "" %}
+{{ if special_page_content != blank }}
+  <div class="content-block">
+    {{ special_page_content }}
+  </div>
+{{ endif }}
+
+{% if featured_products != empty %}
+  <div class="featured-products">
+    <h1 class="text-center mt-5">{{ settings.fp_verbiage }}</h1>
+    <div class="product-list px-0">
+      {% include 'product' with featured_products %}  
+    </div>
+  </div>
+
+  <script>
+    $(function () {
+      function adjustThumbnailWidth() {
+        var gutter = 15;
+        var containerWidth = $(".featured-products").width() + gutter;
+        var products_per_row = {{ settings.product_thumbnails_per_row }};
+        var thumbnail_division = containerWidth / products_per_row;
+        var thumbnail_width = thumbnail_division - gutter;
+        var thumbnail_margin = gutter / 2;
+        
+        if (window.innerWidth > 992) {
+          $(".featured-products").attr("style", "overflow: hidden");
+          $(".product-list").attr("style", "margin: 0 !important; margin-right: -20px !important;");
+          $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+
+          return;
+        }
+        
+        if (window.innerWidth > 768 && {{ settings.product_thumbnails_per_row }} >= 4) {
+          products_per_row = 4;
+          thumbnail_division = containerWidth / products_per_row;
+          thumbnail_width = thumbnail_division - gutter;
+          thumbnail_margin = gutter / 2;
+          
+          $(".featured-products").attr("style", "overflow: hidden");
+          $(".product-list").attr("style", "margin: 0 !important; margin-right: -20px !important;");
+          $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+
+          return;
+        }
+
+        $(".featured-products").removeAttr("style");
+        $(".product-list").removeAttr("style");
+        $(".product-thumbnail").removeAttr("style");
+      }
+
+      adjustThumbnailWidth();
+      $(window).resize(function() {
+        adjustThumbnailWidth();
+      });
+      
+      setup_carousels('.product-list .product .image-carousel');
+      bind_product_body_clicker('.product-list', '.product');
+    });
+  </script>
+{% endif %}
+
+{% if settings.display_slideshow and featured_products == empty %}
+<script>
+  $(".homepage-carousel-container").addClass("no-content");
+  $(".content-container").addClass("no-content");
+  $(".content-container").removeClass("my-3");
+  
+  $(document).ready(function() {
+    $(".footer-container").removeClass("mt-5");
+  });
+</script>
+{% endif %}

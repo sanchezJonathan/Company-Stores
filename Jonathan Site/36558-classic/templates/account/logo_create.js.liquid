@@ -1,0 +1,22 @@
+(function () {
+    var controller = AccountLogosController.pending;
+    var isValid = {{ logo.valid? }};
+    var logoJson, logoHtml, dialogForm;
+
+    {% if logo.valid? %}
+      {% capture logo_html %}
+        {% include "logo", logo: logo %}
+      {% endcapture %}
+
+      logoJson =  {{ logo | json }};
+      logoHtml = "{{ logo_html | escape_javascript }}";
+    {% else %}
+      {% capture logo_form %}
+        {% include "account_logo_form" %}
+      {% endcapture %}
+
+      dialogForm = $("{{ logo_form | escape_javascript }}");
+    {% endif %}
+
+    controller.onCreateAction(isValid, dialogForm, logoJson, logoHtml);
+}).call(this);

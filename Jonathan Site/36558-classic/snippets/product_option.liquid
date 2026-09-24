@@ -1,0 +1,145 @@
+{% unless field_prefix %}
+  {% assign field_prefix = 'product' %}
+{% endunless %}
+
+<div class="product-option-wrapper form-item {% if product_option.friendly_name == "Color" or product_option.friendly_name == "color" %}color-product-option{% endif %}">
+  <label class="mb-2">
+    {{- product_option.friendly_name -}}
+    {%- if product_option.required? -%}
+      <span class="required-label">(required)</span>
+    {%- endif -%}
+  </label>
+  <div class="select-area {% if product_option.show_as_thumbs? %}thumbnail{% endif %}">
+    {% if product_option.show_as_thumbs? %}
+      <div class="">
+        <div class="product-option-text-{{ product_option.id }} pb-2">
+          <span class="text-muted">Please select</span>
+        </div>
+        {% for sub_option in product_option.sub_options %}
+          <button
+            class="btn border p-0 product-option-thumb product-option-button-{{ product_option.id }} {% if form.options[product_option.id].sub_option == sub_option.id %}selected{% endif %}"
+            type="button"
+            data-value="{{ sub_option.id }}"
+            data-name="{{ sub_option.name }}"
+            data-id="{{ product_option.id }}"
+          >
+            {% if sub_option.thumb_url %}
+              <img src="{{ sub_option.thumb_url }}" class="img-thumbnail p-2">
+            {% elsif product_option.show_as_thumbs? %}
+              <img src="{{ 'product-image-preview/no_thumb.png' | asset_url }}" class="img-thumbnail p-2">
+            {% endif %}
+          </button>
+        {% endfor %}
+      </div>
+
+      <script>
+        var currentValue = $('.product-option-button-{{ product_option.id }}.selected').attr('data-name');
+        $('.product-option-button-{{ product_option.id }}').click(function () {
+          if ($(this).hasClass('selected-prod-option')) {
+            $('.product-option-text-{{ product_option.id }}').html('<span class="text-muted">Please select</span>');
+            $("select[name='{{ field_prefix }}[options][{{ product_option.id }}][sub_option]']").val(null);
+            $("select[name='{{ field_prefix }}[options][{{ product_option.id }}][sub_option]']").trigger('change');
+            $(this).removeClass('selected-prod-option');
+            $(this).blur();
+            return false;
+          }
+
+          $('.product-option-text-{{ product_option.id }}').text($(this).attr('data-name'));
+          $("select[name='{{ field_prefix }}[options][{{ product_option.id }}][sub_option]']").val(
+            $(this).attr('data-value')
+          );
+          $("select[name='{{ field_prefix }}[options][{{ product_option.id }}][sub_option]']")
+            .trigger('change')
+            .closest('.product-option-wrapper')
+            .find('.product-option-thumb')
+            .removeClass('selected-prod-option');
+          $(this).addClass('selected-prod-option');
+
+          $('.line-items-reflective-view, .total-info').find('select').trigger('change');
+          $('.line-items-reflective-view, .total-info').find('input').trigger('change');
+        });
+
+        $('.product-option-text-{{ product_option.id }}').text(currentValue);
+      </script>
+    {% endif %}
+
+    <select
+      data-type="product-option"
+      data-name="{{ product_option.friendly_name }}"
+      data-option-type="{{ product_option.option_type }}"
+      name="{{ field_prefix }}[options][{{ product_option.id }}][sub_option]"
+      class="form-select msdropdown-select {% if form.options[product_option.id].errors.any? %}is-invalid{% endif %} {% if product_option.show_as_thumbs? %}d-none{% endif %}"
+    >
+      <option></option>
+      {% for sub_option in product_option.sub_options %}
+        <option
+          data-name="{{ sub_option.name }}"
+          data-label="{{ sub_option.name }}"
+          data-charge="{% if sub_option.amount and sub_option.amount != 0 %} ({% if sub_option.amount > 0 %}+{% endif %}{{ sub_option.amount | points_or_currency }}){% endif %}"
+          {% if sub_option.product_image_id %}
+            data-image-id="{{ sub_option.product_image_id }}"
+          {% endif %}
+          {% if sub_option.thumb_url %}
+            data-image="{{ sub_option.thumb_url }}"
+          {% elsif product_option.show_as_thumbs? %}
+            data-image="{{ 'product-image-preview/no_thumb.png' | asset_url }}"
+          {% endif %}
+          {% if sub_option.large_url %}
+            data-new-image="{{ sub_option.large_url }}"
+          {% endif %}
+          {% if form.options[product_option.id].sub_option == sub_option.id %}
+            selected
+          {% endif %}
+          value="{{ sub_option.id }}"
+        >
+          {% render 'modifier', title: sub_option.name, amount: sub_option.amount %}
+        </option>
+      {% endfor %}
+    </select>
+
+    {% if form.options[product_option.id].errors.any? %}
+      <div class="error invalid-feedback" data-type="product-option-error">
+        {{ form.options[product_option.id].errors | default_errors }}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="clear"></div>
+</div>
+
+{% if product_option.friendly_name contains 'Size' %}
+  <div class="product-options-wrapper-qd-sc" style="display: none;"></div>
+{% endif %}
+
+{% if product_option.show_as_thumbs? %}
+{% else %}
+  <script>
+    function formatOption(option) {
+      const image = $(option.element).data('image');
+      const origLabel = $(option.element).data('label');
+      const charge = !!$(option.element).data('charge') ? $(option.element).data('charge') : '';
+      const label = origLabel + charge;
+
+      if (!label) {
+        return false;
+      }
+      if (!image) {
+        return label;
+      }
+
+      var $option = $(
+        '<span class="select2-option">' + label + ' <img  class="img-thumbnail" src="' + image + '" /></span>'
+      );
+
+      return $option;
+    }
+
+    $("select[name='{{ field_prefix }}[options][{{ product_option.id }}][sub_option]']").select2({
+      placeholder: 'Please select',
+      templateResult: formatOption,
+      minimumResultsForSearch: Infinity,
+      theme: 'bootstrap4',
+      allowClear: true,
+    });
+  </script>
+{% endif %}

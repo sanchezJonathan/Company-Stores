@@ -1,0 +1,48 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    var stickyHeaderHeight = $(".sticky-header").height() + 10;
+    $(".product-left-section .product-info").css("top", stickyHeaderHeight + "px");
+    
+    function adjustThumbnailWidth() {
+      var gutter = 15;
+      var containerWidth = $(".product-page-right.recently-viewed-products").width() + gutter;
+      var products_per_row = {{ settings.product_thumbnails_per_row }};
+      var thumbnail_division = containerWidth / products_per_row;
+      var thumbnail_width = thumbnail_division - gutter;
+      var thumbnail_margin = gutter / 2;
+      
+      if (window.innerWidth > 992) {
+        $(".recently-viewed-products-thumbnails").attr("style", "margin: 0; margin-right: -20px !important;");
+        $(".related-products-thumbnails").attr("style", "margin: 0; margin-right: -20px !important;");
+        $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+        
+        return;
+      }
+      
+      if (window.innerWidth > 768 && {{ settings.product_thumbnails_per_row }} >= 4) {
+        products_per_row = 4;
+        thumbnail_division = containerWidth / products_per_row;
+        thumbnail_width = thumbnail_division - gutter;
+        thumbnail_margin = gutter / 2;
+
+        $(".product-list").attr("style", "margin: 0 !important; margin-right: -20px !important;");
+        $(".recently-viewed-products-thumbnails").attr("style", "margin: 0; margin-right: -20px !important;");
+        $(".related-products-thumbnails").attr("style", "margin: 0; margin-right: -20px !important;");
+        $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+
+        return;
+      }
+      
+      $(".product-list").removeAttr("style");
+      $(".recently-viewed-products-thumbnails").removeAttr("style");
+      $(".related-products-thumbnails").removeAttr("style");
+      $(".product-thumbnail").removeAttr("style");
+    }
+    
+    adjustThumbnailWidth();
+
+    $(window).resize(function() {
+      adjustThumbnailWidth();
+    });
+  });
+</script>

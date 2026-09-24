@@ -1,0 +1,28 @@
+<div class="product-header clrfix">
+  <div class="product-title">
+    <h2 class="truncated">
+      {{ product.name }}
+    </h2>
+    <div class="review-social-share-wrapper">
+      {% include 'social_share' %}
+    </div>
+	  {% if settings.show_sku %}
+      <span>SKU: {{ product.sku }}</span>
+	  {% endif %}
+  </div>
+  <div class="product-price clrfix mt-2">
+    <div class="current-price ">
+      {% if product.save_price > 0 %}
+        <div class="d-inline-block text-muted text-decoration-line-through pe-2">{{ product.retail_price | points_or_currency }}</div>
+      	<div class="d-inline-block fw-bolder fs-5 pe-2">{{ product.final_price | points_or_currency }}</div>
+      	<div class="d-inline-block text-success">You save {{ product.save_price | points_or_currency }}</div>
+      {% else %}
+        <div class="d-inline-block fw-bold">{{ product.final_price | points_or_currency }}</div>
+      {% endif %}
+    </div>
+  </div>
+  {% include 'product_overview' %}
+  {% if product.size_charts.size > 0 %}
+    <div class="size-chart"><button type="button" class="btn btn-link px-0" data-bs-toggle="modal" data-bs-target="#modal-sizeChart">Size Charts</a></div>
+  {% endif %}
+</div>

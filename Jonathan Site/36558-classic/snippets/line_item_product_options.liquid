@@ -1,0 +1,152 @@
+{% unless field_prefix %}
+  {% assign field_prefix = 'product' %}
+{% endunless %}
+
+{% if product.product_options_enabled? and product.options_or_groups != empty %}
+  <div class="prod_option_block">
+    <h4>Product Options</h4>
+
+    <div class="product-options">
+      {% for option_or_group in product.options_or_groups %}
+        {% if option_or_group.group? %}
+          {% render 'product_option_group',
+            product_option_group: option_or_group,
+            form: form,
+            field_prefix: field_prefix
+          %}
+        {% elsif option_or_group.option? %}
+          {% render 'product_option', product_option: option_or_group, form: form, field_prefix: field_prefix %}
+        {% endif %}
+      {% endfor %}
+      {% if settings.move_color_above_logo %}
+        <script>
+          if ($('.prod_option_block.logo-wrapper').length) {
+            $('.prod_option_block h4').parent().addClass('other-product-options');
+            $('.other-product-options h4').remove();
+            $('.color-product-option').wrap('<div class="prod_option_block color_option_block"></div>');
+            $('.color-product-option').prepend('<h4>Product Option</h4>');
+            $('.color_option_block').detach().insertBefore($('.prod_option_block.logo-wrapper'));
+          }
+        </script>
+      {% endif %}
+
+      {% unless bundle_mode %}
+        {% if product.options_or_groups.multiple_quantity != empty %}
+          <div class="product-option-wrapper form-item flex-column">
+            {% if product.options_or_groups.multiple_quantity.size == 1 %}
+              {% assign option = product.options_or_groups.multiple_quantity[0] %}
+
+              <div class="multiple-quantity-product-option">
+                <label class="mb-2">{{ option.friendly_name }}</label>
+                <div class="product-sub-option-container">
+                  {% for sub_option in option.sub_options %}
+                    <div class="product-sub-option">
+                      <label for="qnt_{{ sub_option.id }}">
+                        {% render 'modifier', title: sub_option.name, amount: sub_option.amount %}
+                      </label>
+
+                      <input
+                        type="number"
+                        class="form-control quantity"
+                        data-type="quantity"
+                        name="{{ field_prefix }}[grid][{{ sub_option.id }}][quantity]"
+                        value="{{ form.grid[sub_option.id].quantity | default: 0 }}"
+                        min="0"
+                        data-ids="{{ sub_option.id }}"
+                      >
+
+                      <span class="stock" id="stock_{{ sub_option.id }}"></span>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% elsif product.options_or_groups.multiple_quantity.size == 2 %}
+              {% assign col = product.options_or_groups.multiple_quantity[0] %}
+              {% assign row = product.options_or_groups.multiple_quantity[1] %}
+
+              <div class="accordion" id="multiple-product-accordion">
+                {% for sub_x in col.sub_options %}
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="mult-prod-head-{{ sub_x.id }}">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mult-{{ sub_x.id }}"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      >
+                        {% if sub_x.thumb_url %}
+                          <img src="{{ sub_x.thumb_url }}" alt="{{ sub_x.name }}" title="{{ sub_x.name }}">
+                        {% endif %}
+                        {% render 'modifier', title: sub_x.name, amount: sub_x.amount %}
+                      </button>
+                    </h2>
+                    <div id="mult-{{ sub_x.id }}" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                      <div class="accordion-body mult-prod-container-{{ sub_x.id }}"></div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+
+              {% for sub_y in row.sub_options %}
+                {% for sub_x in col.sub_options %}
+                  <script>
+                    $('.mult-prod-container-{{ sub_x.id }}').append(`
+                     <div class='mb-3 row multi-prod-options'>
+                        <div class='col-3'>
+                          <label class='w-100'>{% render 'modifier', title: sub_y.name, amount: sub_y.amount %}</label>
+                        </div>
+                        <div class='col-3 p-0'>
+                          <input type='number' class='form-control quantity' data-type='quantity'
+                            name='{{ field_prefix }}[grid][{{ sub_x.id }}][{{ sub_y.id }}][quantity]'
+                            value='{{ form.grid[sub_x.id][sub_y.id].quantity | default: 0 }}'
+                            data-ids="{{ sub_x.id }}.{{ sub_y.id }}">
+                        </div>
+                  		<div class='col-6 align-middle p-0'>
+                          <label class='w-100'><span class='stock' id='stock_{{ sub_x.id }}_{{ sub_y.id }}'></span></label>
+                        </div>
+                      </div>
+                   `);
+                  </script>
+                {% endfor %}
+              {% endfor %}
+            {% endif %}
+
+            {% if product.minimum_order_quantity > 0 or product.maximum_order_quantity > 0 %}
+              <div class="minimum-order-quantity-help mt-3">
+                {% render 'quantity_limits_message', product: product %}
+              </div>
+            {% endif %}
+            {% if product.size_charts.size > 0 and product.options_or_groups.multiple_quantity.size == 2 %}
+              <div class="mult-prod-opt mt-3">
+                <div class="size-chart">
+                  <button
+                    type="button"
+                    class="btn btn-link px-0"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-sizeChart"
+                  >
+                    Size Charts
+                  </button>
+                </div>
+              </div>
+            {% endif %}
+            {% if product.quantity_discounts_enabled? %}
+              <div class="quantity-discount ms-0 {% if product.size_charts.size > 0 and product.options_or_groups.multiple_quantity.size == 2 %}mt-0{% endif %}">
+                <button
+                  type="button"
+                  class="btn btn-link px-0"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal-quantity-discount"
+                >
+                  Quantity Discount
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endunless %}
+    </div>
+  </div>
+{% endif %}

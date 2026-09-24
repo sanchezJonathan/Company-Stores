@@ -1,0 +1,180 @@
+{% include 'top_notification_bar' %}
+{% include 'top_bar' %}
+
+<div class="header-container mx-auto border-bottom {% if settings.category_links_position == "inline_with_logo" %}top-0 sticky-header{% endif %}">
+  <div class="wrapper mx-auto">
+    <div class="container-fluid px-3">
+      <nav class="navbar navbar-expand-lg header-navbar">
+        <button id="mobile-slider-button" class="btn d-lg-none d-xl-none" type="button" aria-label="Toggle navigation"><span>{% include 'icons/menu' %}</span><span style="display: none;">{% include 'icons/close' %}</span></button>
+        {% if settings.display_logo %}
+          {% assign logoMargins = settings.logo_margin | split: ' ' %}
+          {% assign logoMarginTop = logoMargins[0] %}
+          {% if logoMargins[2] %}{% assign logoMarginBottom = logoMargins[2] %}{% else %}{% assign logoMarginBottom = logoMargins[0] %}{% endif %}
+        	<a class="navbar-brand logo-container" href="/"><img alt="{{ shop.name }} logo" title="{{ shop.name }} logo" src="{{ "logo_custom_bg_image.jpg" | asset_url }}" style="max-height: calc({{ settings.header_height }} - {{ logoMarginTop }} - {{ logoMarginBottom }} - 14px);"></a>
+        {% endif %}
+        {% if shop.catalog_enabled? %}
+          <button class="btn d-lg-none d-xl-none px-0" type="button" aria-label="Search" data-bs-toggle="modal" data-bs-target="#search-modal">{% include 'icons/search' %}</button>
+        {% else %}
+          <div>&nbsp;</div>
+        {% endif %}
+        {% include 'inline_links' %}
+      </nav>
+    </div>
+  </div>
+</div>
+
+{% if settings.nav_links_position == "bottom_bar" or settings.category_links_position == "bottom_bar" %}
+<div class="category-container mx-auto d-none d-lg-block d-xl-block {% if settings.category_links_position == "bottom_bar" %}top-0 sticky-header{% endif %}">
+  <div class="wrapper mx-auto">
+    <div class="container-fluid px-3">
+      <nav class="navbar navbar-expand-lg header-navbar">
+        <div class="collapse navbar-collapse headerLinks">
+          <ul class="navbar-nav header-links {% if settings.nav_links_position == "bottom_bar" %}pages{% endif %} {% if settings.category_links_position == "bottom_bar" %}categories{% endif %} mr-auto">
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% include 'passcode_modal' %}
+{% include 'remove_passcode_modal' %}
+
+{% if shop.catalog_enabled? %}
+  <div class="modal fade" id="search-modal" tabindex="-1" aria-labelledby="search-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          {% form 'search' %}
+            <div class="input-group input-group-lg">
+              <input class="form-control border border-right-0 popup-search" type="search" name="s[keyword]" id="s_keyword" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline border border-left-0 search-btn" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="mobile-slider d-lg-none d-xl-none" style="display: none">
+  <ul class="nav flex-column links pages categories"></ul>
+</div>
+<div class="mobile-slider-overlay" style="display: none"></div>
+
+<div class="quick-actions-menu d-lg-none d-xl-none">
+  {% if template_name == "checkout" and checkout_flow.state == 'confirm'  %}
+    <div class="bg-white p-3 border-top">
+      <button type="button" class="btn fs-5 py-2 px-3 w-100 primary place-order-btn">
+        Place Order
+      </button>
+    </div>
+  {% endif %}
+  {% if template_name == "wishlist" and wishlist.cart_items_count > 0 %}
+    <div class="bg-white p-3 border-top">
+      <div class="mb-3">
+        <span class="">{{ wishlist.cart_items_count }} items</span>
+        <span class="fw-bold float-end d-inline-block ps-3">{{ wishlist.cart_total | points_or_currency }}</span>
+      </div>
+      <div class="container-fluid px-0">
+        <div class="row">
+          <div class="col-12 col-md-6 px-0 pe-md-1 mb-2 mb-md-0">
+            <button type="button" class="btn fs-5 py-2 px-3 w-100 primary wishlist-request-quote">
+              <span class="fw-bold text-uppercase">Request Quote</span>
+            </button>
+          </div>
+          <div class="col-12 col-md-6 px-0 ps-md-1">
+            <button type="button" class="btn fs-5 py-2 px-3 w-100 primary wishlist-add-to-cart">
+              <span class="fw-bold text-uppercase">Add All to Cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if template_name == "cart" and order.cart_items_count > 0 %}
+    <div class="bg-white p-3 border-top">
+      <div class="d-md-none mb-3">
+        <span class="d-md-none">{{ order.cart_items_count | pluralize: 'item', 'items' }}</span>
+        <span class="fw-bold float-end d-inline-block ps-3 d-md-none">{{ order.cart_total | points_or_currency }}</span>
+      </div>
+      <button type="button" class="btn fs-5 py-2 px-3 w-100 primary text-md-start" id="qa-checkout-button">
+        <span class="fw-bold text-uppercase">Proceed to Checkout</span>
+        <span class="fw-bold float-end d-inline-block ps-3 d-none d-md-inline-block">{{ order.cart_total | points_or_currency }}</span>
+        <span class="float-end d-none d-md-inline-block">{{ order.cart_items_count | pluralize: 'item', 'items' }}</span>
+      </button>
+    </div>
+  {% endif %}
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link quick-nav-link" href="/">
+        {% include 'icons/home' %}
+        Home
+      </a>
+    </li>
+    {% if shop.store_enabled? %}
+      <li class="nav-item">
+        <a class="nav-link quick-nav-link" href="{{ cart_url }}">
+          {% include 'icons/cart' %}
+          Cart
+        </a>
+      </li>
+    {% endif %}
+    {% if current_user and shop.wishlist_enabled? %}
+      <li class="nav-item">
+        <a class="nav-link quick-nav-link" href="{{ wishlist_url }}">
+          {% include 'icons/wishlist' %}
+          Wishlist
+        </a>
+      </li>
+    {% endif %}
+    {% if current_user or shop.show_login? or shop.show_registration? %}
+      <li class="nav-item">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" type="button" id="quick-action-profile" data-bs-toggle="dropdown" aria-expanded="false">
+            {% include 'icons/profile' %}
+            Profile
+          </button>
+          <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="quick-action-profile">
+            {% if current_user %}
+              <a class="dropdown-item" href="{{ account_dashboard_url }}">Dashboard</a>
+              {% if shop.store_enabled? %}<a class="dropdown-item" href="{{ order_history_url }}">Order History</a>{% endif %}
+              <a class="dropdown-item" href="{{ edit_account_url }}">Account Settings</a>
+              {% if shop.store_enabled? %}<a class="dropdown-item" href="{{ address_book_url }}">Address Book</a>{% endif %}
+              {% if shop.store_enabled? and shop.show_account_balance? %}<a class="dropdown-item" href="{{ account_balance_url }}">Account Balance</a>{% endif %}
+              {% if shop.catalog_enabled? %}{% if shop.custom_logos_upload_enabled? or current_user.logos.size != 0  %}<a class="dropdown-item" href="{{ logos_url }}">Logo</a>{% endif %}{% endif %}
+              {% if shop.budget_enabled? and current_user.has_budgets? %}<a class="dropdown-item" href="{{ budget_info_url }}">Budget</a>{% endif %}
+              <a class="dropdown-item mt-2 border-top" href="{{ logout_url }}">Log Out</a>
+            {% else %}
+              {% if shop.show_login? %}<a class="dropdown-item" href="{{ login_url }}">Log In</a>{% endif %}
+              {% if shop.show_registration? %}<a class="dropdown-item" href="{{ signup_url }}">Register</a>{% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+
+{{ 'header.js' | asset_url | script_tag }}
+
+<script>
+  {% if shop.active_multi_storefront? and session_passcode == blank %}
+    var groupPasscodeModal = new bootstrap.Modal('#group-passcode-modal');
+    $("ul.header-links.pages").append("<li class='nav-item'><a class='nav-link group-passcode-button' href='#!' data-bs-toggle='modal' data-bs-target='#group-passcode-modal'>Enter Group Passcode</a></li>");
+
+    {% if settings.require_user_passcode and session_passcode == blank %}
+      groupPasscodeModal.show();
+      $("#group-passcode-modal button.btn-close").remove();
+    {% endif %}
+  {% endif %}
+
+  {% if shop.active_multi_storefront? and session_passcode != blank %}
+    var removeGroupPasscodeModal = new bootstrap.Modal('#remove-group-passcode-modal');
+    $("ul.header-links.pages").append("<li class='nav-item'><a class='nav-link clear-group-passcode-button' href='#!'>{{ settings.clear_button_text }}</a></li>");
+    $(".clear-group-passcode-button").click(function() {
+      removeGroupPasscodeModal.show();
+    });
+  {% endif %}
+</script>

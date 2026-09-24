@@ -1,0 +1,55 @@
+<div class="collapse navbar-collapse headerLinks d-md-none d-sm-none d-xs-none">
+  <ul class="navbar-nav header-links {% if settings.category_links_position == "inline_with_logo" %}categories{% endif %} {% if settings.nav_links_position == "inline_with_logo" %}pages{% endif %} me-auto">
+  </ul>
+  <div>
+    {% if settings.nav_links_position == "top_bar" %}
+      {% if shop.catalog_enabled? %}
+        {% form 'search' %}
+          <div class="input-group">
+            <input class="form-control border border-right-0" type="search" name="s[keyword]" id="s_keyword" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-outline border border-start-0 search-btn" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        {% endform %}
+      {% endif %}
+    {% else %}
+      <div class="header-icons">
+        {% if shop.catalog_enabled? %}
+          <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#search-modal">{% include 'icons/search' %}</button>
+        {% endif %}
+        {% if shop.primary_phone != blank and settings.show_phone %}<a href="tel:{{ shop.primary_phone }}">{% include 'icons/phone' %}</a>{% endif %}
+
+        {% if authentication_enabled %}
+          {% if current_user or shop.show_login? or shop.show_registration? %}
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="inline-link-profile" data-bs-toggle="dropdown" aria-expanded="false">
+                {% include 'icons/profile' %}
+              </button>
+
+                  <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="inline-link-profile">
+                    {% if current_user %}
+                      <a class="dropdown-item" href="{{ account_dashboard_url }}">Dashboard</a>
+                      {% if shop.store_enabled? %}<a class="dropdown-item" href="{{ order_history_url }}">Order History</a>{% endif %}
+                      <a class="dropdown-item" href="{{ edit_account_url }}">Account Settings</a>
+                      {% if shop.store_enabled? %}<a class="dropdown-item" href="{{ address_book_url }}">Address Book</a>{% endif %}
+                      {% if shop.store_enabled? and shop.show_account_balance? %}<a class="dropdown-item" href="{{ account_balance_url }}">{% if shop.points_store? %}Points{% else %}Account{% endif %} Balance: <span>{{ current_user.balance | points_or_currency }}</span></a>{% endif %}
+                      {% if shop.catalog_enabled? %}{% if shop.custom_logos_upload_enabled? or current_user.logos.size != 0  %}<a class="dropdown-item" href="{{ logos_url }}">Logo</a>{% endif %}{% endif %}
+                      {% if shop.budget_enabled? and current_user.has_budgets? %}<a class="dropdown-item" href="{{ budget_info_url }}">Budget</a>{% endif %}
+                      <a class="dropdown-item mt-2 border-top" href="{{ logout_url }}">Log Out</a>
+                    {% else %}
+                      {% if shop.show_login? %}<a class="dropdown-item" href="{{ login_url }}">Log In</a>{% endif %}
+                      {% if shop.show_registration? %}<a class="dropdown-item" href="{{ signup_url }}">Register</a>{% endif %}
+                    {% endif %}
+                  </div>
+
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% if current_user and shop.wishlist_enabled? %}<a href="{{ wishlist_url }}">{% include 'icons/wishlist' %}</a>{% endif %}
+        {% if shop.store_enabled? %}<a href="{{ cart_url }}">{% include 'icons/cart' %}</a>{% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>

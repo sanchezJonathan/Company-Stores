@@ -1,0 +1,19 @@
+<div class="product-thumbnail bundle" data-product-url="{{ bundle.url }}">
+  <div class="thumbnail-img-container">
+    <a href="{{ bundle.url }}">
+      {% if bundle.thumbnail_image %}
+        <img class="img-fluid" src="{{ bundle.thumbnail_image.small_url }}" alt="Image of {{ bundle.name }}" title="Image of {{ bundle.name }}" />
+      {% else %}
+        <img class="img-fluid" src="{{ 'no-image.jpg' | asset_url }}" alt="Displaying no image available for {{ bundle.name }}" title="Displaying no image available for {{ bundle.name }}" />
+      {% endif %}
+    </a>
+  </div>
+  <div class="thumbnail-description-container pt-3">
+    <a href="{{ bundle.url }}">
+      {% assign truncated_text_length = settings.truncated_length %}
+      <h5 class="card-title fw-bold lh-base">{% if settings.truncate_product_thumbnail_text %}{{ bundle.name | truncate: truncated_text_length }}{% else %}{{ bundle.name }}{% endif %}</h5>
+      {% if settings.show_vendors and bundle.vendor_names != blank %}<h6 class="card-subtitle mb-2 text-muted">{{ bundle.vendor_names }}</h6>{% endif %}
+      <p class="card-text">{{ bundle.total_price | points_or_currency }}</p>
+    </a>
+  </div>
+</div>

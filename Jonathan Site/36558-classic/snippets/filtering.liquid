@@ -1,0 +1,12 @@
+{% if shop.filtering_active %}
+<div class="mb-4">
+  {% if shop.filtering_active %}
+    {% include 'keyword_input' %}
+  {% endif %}
+</div>
+
+<div class="accordion" id="filter-container">
+  {% include 'filter_rule' with filter_rules %}
+</div>
+
+{% endif %}

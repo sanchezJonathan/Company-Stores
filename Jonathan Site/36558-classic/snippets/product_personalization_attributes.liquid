@@ -1,0 +1,13 @@
+{% for personalization in line_item.product_personalizations %}
+  <p class="mb-0 font-weight-bold pl-2">{% include 'modifier', title: personalization.title, amount: personalization.amount %}</p>
+  {% for attribute in personalization.attributes %}
+    <p class="mb-0 pl-3">
+      <span>{{ attribute.key }}:</span>
+      {% if attribute.value != empty %}
+        <span class="value">{{ attribute.value | join: ', ' }}</span>
+      {% else %}
+        <span class="not-specified">&lt;not specified&gt;</span>
+      {% endif %}
+    </p>
+  {% endfor %}
+{% endfor %}

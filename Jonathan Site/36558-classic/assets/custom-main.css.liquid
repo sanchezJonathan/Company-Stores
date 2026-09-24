@@ -1,0 +1,229 @@
+/*-------------------
+This theme uses Bootstrap v5.1.
+
+It is highly recommended to check out Bootstrap's guiding principles,
+strategies, and techniques at https://getbootstrap.com/docs/5.1/extend/approach/
+before adding custom styling.
+
+To learn more about Bootstrap v5.1, please check
+out https://getbootstrap.com/docs/5.1/getting-started/introduction/.
+/*-------------------*/
+
+/*-------------------*/
+/* GENERAL */
+/*-------------------*/
+.btn.primary, .btn.secondary {
+  border-radius: 50px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.65rem 1.6rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.btn.primary:hover, .btn.primary:focus,
+.btn.secondary:hover, .btn.secondary:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+}
+.btn.secondary.outline {
+  box-shadow: none;
+}
+
+/*-------------------*/
+/* TOP NAV */
+/*-------------------*/
+
+/*-------------------*/
+/* HEADER */
+/*-------------------*/
+.header-container {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index: 10;
+}
+.header-container .navbar-brand.logo-container img {
+  transition: transform 0.2s ease;
+}
+.header-container .navbar-brand.logo-container:hover img {
+  transform: scale(1.03);
+}
+
+/*-------------------*/
+/* CATEGORY NAV */
+/*-------------------*/
+
+/*-------------------*/
+/* CONTENT */
+/*-------------------*/
+
+/* Hero / homepage slideshow */
+.homepage-carousel-container {
+  overflow: hidden;
+}
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 12px;
+  padding: 1.75rem 2.25rem;
+  max-width: 90%;
+}
+.carousel-caption-header {
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.carousel-caption p {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  padding: 22px;
+  background-size: 45%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+.homepage-carousel-container:hover .carousel-control-prev-icon,
+.homepage-carousel-container:hover .carousel-control-next-icon {
+  opacity: 1;
+}
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: #fff;
+}
+.carousel-indicators {
+  bottom: 1rem;
+}
+.carousel-indicators [data-bs-target] {
+  width: 26px;
+  height: 4px;
+  border-radius: 2px;
+  opacity: 0.6;
+}
+.carousel-indicators .active {
+  opacity: 1;
+}
+
+/*-------------------*/
+/* PRODUCT THUMBS */
+/*-------------------*/
+.product-thumbnail {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease-in;
+}
+.product-thumbnail:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+.product-thumbnail .thumbnail-img-container {
+  overflow: hidden;
+}
+.product-thumbnail .thumbnail-img-container img {
+  transition: transform 0.35s ease;
+}
+.product-thumbnail:hover .thumbnail-img-container img {
+  transform: scale(1.06);
+}
+.product-thumbnail .thumbnail-description-container a h5 {
+  font-size: 0.95rem;
+}
+.product-thumbnail p.card-text {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.product-thumbnail p.card-text del {
+  font-weight: 400;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+.discount-container {
+  top: 10px;
+  left: 10px;
+  padding: 0.35rem 0.7rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.new-item-label {
+  bottom: auto;
+  top: 10px;
+  right: 10px;
+  left: auto;
+  width: auto;
+  border-radius: 50px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.new-item-productname {
+  border-radius: 50px;
+  margin-right: 0.35rem;
+}
+
+/*-------------------*/
+/* PRODUCT */
+/*-------------------*/
+
+/*-------------------*/
+/* CART/CHECKOUT */
+/*-------------------*/
+
+/*-------------------*/
+/* FOOTER */
+/*-------------------*/
+.footer-container h4 {
+  position: relative;
+  padding-bottom: 0.6rem;
+  margin-bottom: 1rem;
+}
+.footer-container h4::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 3px;
+  background: currentColor;
+  opacity: 0.5;
+  border-radius: 2px;
+}
+
+
+/*-------------------*/
+/* MEDIA QUERIES */
+/*-------------------*/
+@media screen and (min-width: 661px){
+
+}
+
+@media screen and (max-width: 1200px){
+
+}
+
+@media screen and (max-width: 660px){
+  .carousel-caption {
+    padding: 1rem 1.25rem;
+    max-width: 94%;
+  }
+  .carousel-caption-header {
+    font-size: 1.5rem;
+  }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    opacity: 1;
+    padding: 16px;
+  }
+  .product-thumbnail:hover {
+    transform: none;
+  }
+}
+
+@media screen and (max-width: 340px){
+
+}

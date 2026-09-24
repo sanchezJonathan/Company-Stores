@@ -1,0 +1,52 @@
+<div class='images-wrapper'>
+  {% if product.images.size > 1 %}
+    <button class="btn nav prev"></button>
+  {% endif %}
+
+  <div class='images-container'>
+    <ul class="clrfix images mx-0">
+      {% for image in product.images %}
+        <li class='image {% if image.primary? %} primary {% endif %}' data-id="{{ image.id }}" data-group-id="{{ image.group_id }}">
+          <a href="{{ image.large_url }}" data-toggle="lightbox" ><img alt="{{ product.name }} image thumbnail" title="{{ product.name }} image thumbnail" src="{{ image.medium_url }}" class="small-thumb"/></a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% if product.images.size > 1 %}
+    <button class="btn nav next"></button>
+  {% endif %}
+</div>
+<script>
+  (function () {
+    var $wrapper = $(document.currentScript).prev('.images-wrapper');
+    if (!$wrapper.length) return;
+
+    var scrollerId = 'gallery-scroll-' + Math.random().toString(36).slice(2);
+    $wrapper.attr('data-scroller-id', scrollerId);
+
+    var scrollOptions = {
+      containerSelector: '[data-scroller-id="' + scrollerId + '"] ul.images',
+      nextButtonSelector: '[data-scroller-id="' + scrollerId + '"] button.nav.next',
+      prevButtonSelector: '[data-scroller-id="' + scrollerId + '"] button.nav.prev',
+      itemClass: 'image',
+      displayedCount: 3,
+    };
+
+    var viewportSize = $(window).width();
+    if (viewportSize >= 1200) {
+      scrollOptions.itemWidth = 208;
+    } else if (viewportSize >= 992 && viewportSize < 1200) {
+      scrollOptions.itemWidth = 158;
+    } else if (viewportSize >= 768 && viewportSize < 992) {
+      scrollOptions.itemWidth = 117;
+    } else if (viewportSize >= 576 && viewportSize < 768) {
+      scrollOptions.itemWidth = 143;
+    } else if (viewportSize >= 451 && viewportSize < 576) {
+      scrollOptions.itemWidth = 110;
+    } else if (viewportSize < 451) {
+      scrollOptions.itemWidth = 68;
+    }
+
+    $wrapper.data('scrolling', new HorizontalScrolling(scrollOptions));
+  })();
+</script>

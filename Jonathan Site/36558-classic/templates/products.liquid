@@ -1,0 +1,31 @@
+<div id="content" class="content-page container-fluid">
+  {% if category_banner != blank %}
+    <div class="category-banner my-4 border border-white"><img class="img-fluid w-100" src="{{category_banner}}" /></div>
+  {% endif %}
+  {% include 'update_breadcrumbs' %}
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "10" %}
+    {% include 'paginate_by_10' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "20" %}
+  	{% include 'paginate_by_20' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "30" %}
+  	{% include 'paginate_by_30' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "40" %}
+  	{% include 'paginate_by_40' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "50" %}
+  	{% include 'paginate_by_50' %}
+  {% endif %}
+</div>
+
+{% include 'category_page_js' %}
