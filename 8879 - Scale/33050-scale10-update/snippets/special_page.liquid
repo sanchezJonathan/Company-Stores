@@ -1,0 +1,335 @@
+{% assign special_page_content = special_page | replace: "<div id='page-showing' class='iframe-area text-content' style='width: 100%; position: relative'></div>", "" %}
+
+<div class="homepage-welcome">
+  <h1>Welcome to the Scale Store</h1>
+  <p>
+    Where all you Scale related goods can be found. Our mission is to deliver elevated products for all of your Scale needs, whether it be tech accessories or comfy tees, we've got you convered.
+  </p>
+  <div class="homepage-ctas">
+    <a href="/products" class="btn primary">Shop All</a>
+    <a href="#" class="btn secondary">
+      See More
+      <svg id="uuid-01844206-ef90-496e-8168-fba73b262de3" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
+        <g id="uuid-d908331b-ffd8-4b67-855c-f828aff85293" data-name="Layer 1">
+          <path d="m16.63.38c-.24-.24-.57-.38-.91-.38H6.83c-.71,0-1.28.58-1.28,1.29s.58,1.29,1.28,1.29h5.78S.38,14.81.38,14.81c-.5.5-.5,1.32,0,1.82h0c.25.25.58.37.91.37s.66-.12.91-.37L14.43,4.39v5.78c0,.71.58,1.29,1.28,1.29s1.29-.58,1.29-1.29V1.29c0-.34-.13-.67-.37-.91Z" style="stroke-width: 0px;"/>
+        </g>
+      </svg>
+    </a>
+  </div>
+</div>
+
+{% if featured_products != empty %}
+  <div class="featured-products">
+    <div class="fp-carousel">
+      <button type="button" class="fp-arrow fp-prev" aria-label="Previous products">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="fp-viewport">
+        <div class="product-list fp-track px-0">
+          {% include 'product' with featured_products %}
+        </div>
+      </div>
+      <button type="button" class="fp-arrow fp-next" aria-label="Next products">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+{% endif %}
+
+<!-- Featured categories (edited in Store Design > Featured Categories) -->
+{% if settings.display_featured_categories %}
+  {% assign merch_eyebrow = settings.featured_categories_eyebrow %}
+  {% assign merch_title = settings.featured_categories_heading %}
+  {% assign merch_intro = settings.featured_categories_description %}
+
+  {% assign merch_1_title = settings.category_item_01_name %}
+  {% assign merch_1_url = settings.category_item_1_link %}
+  {% assign merch_1_image = "category_item_01.jpg" %}
+
+  {% assign merch_2_title = settings.category_item_02_name %}
+  {% assign merch_2_url = settings.category_item_2_link %}
+  {% assign merch_2_image = "category_item_02.jpg" %}
+
+  {% assign merch_3_title = settings.category_item_03_name %}
+  {% assign merch_3_url = settings.category_item_3_link %}
+  {% assign merch_3_image = "category_item_03.jpg" %}
+
+  {% assign merch_4_title = settings.category_item_04_name %}
+  {% assign merch_4_url = settings.category_item_4_link %}
+  {% assign merch_4_image = "category_item_04.jpg" %}
+
+  {% if merch_1_url == blank %}{% assign merch_1_url = "#" %}{% endif %}
+  {% if merch_2_url == blank %}{% assign merch_2_url = "#" %}{% endif %}
+  {% if merch_3_url == blank %}{% assign merch_3_url = "#" %}{% endif %}
+  {% if merch_4_url == blank %}{% assign merch_4_url = "#" %}{% endif %}
+
+  {% comment %} Categories 3 and 4 share a row; if only one of them is shown, it takes the full row {% endcomment %}
+  {% assign merch_half_class = "" %}
+  {% if settings.show_category_item_3 and settings.show_category_item_4 %}
+  {% elsif settings.show_category_item_3 or settings.show_category_item_4 %}
+    {% assign merch_half_class = " merch-card--hero" %}
+  {% endif %}
+
+  <div class="featured-categories">
+    {% if merch_eyebrow != blank %}<p class="hs-eyebrow">{{ merch_eyebrow }}</p>{% endif %}
+    {% if merch_title != blank %}<h2 class="hs-title">{{ merch_title }}</h2>{% endif %}
+    {% if merch_intro != blank %}<p class="hs-intro">{{ merch_intro }}</p>{% endif %}
+    <div class="merch-grid">
+      {% if settings.show_category_item_1 %}
+        <a class="merch-card merch-card--hero" href="{{ merch_1_url }}" style="background-image: url({{ merch_1_image | asset_url }});">
+          <span class="merch-card-title">{{ merch_1_title }}</span>
+        </a>
+      {% endif %}
+      {% if settings.show_category_item_2 %}
+        <a class="merch-card merch-card--wide" href="{{ merch_2_url }}" style="background-image: url({{ merch_2_image | asset_url }});">
+          <span class="merch-card-title">{{ merch_2_title }}</span>
+        </a>
+      {% endif %}
+      {% if settings.show_category_item_3 %}
+        <a class="merch-card{{ merch_half_class }}" href="{{ merch_3_url }}" style="background-image: url({{ merch_3_image | asset_url }});">
+          <span class="merch-card-title">{{ merch_3_title }}</span>
+        </a>
+      {% endif %}
+      {% if settings.show_category_item_4 %}
+        <a class="merch-card{{ merch_half_class }}" href="{{ merch_4_url }}" style="background-image: url({{ merch_4_image | asset_url }});">
+          <span class="merch-card-title">{{ merch_4_title }}</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% if featured_products != empty %}
+  <!-- Featured products grid (same products as the carousel above) -->
+  <div class="featured-products-grid">
+    <p class="hs-eyebrow">Anniversary Collection</p>
+    <h2 class="hs-title">Celebrating 10 Years</h2>
+    <p class="hs-intro">
+      The 10-year Anniversary collection is here. You did the work, you grinded day-in and day-out, and took no shortcuts to get here. Let’s honor that achievement with a custom tee that celebrates your journey in driving excellence in AI.
+    </p>
+    <div class="product-list px-0">
+      {% include 'product' with featured_products %}
+    </div>
+  </div>
+
+  <script>
+    $(function () {
+      // Infinite featured products carousel: arrows, swipe/drag, slow auto-advance.
+      // The track is moved with translate3d (sub-pixel, GPU) instead of scrollLeft for smooth motion.
+      var $carousel = $(".featured-products .fp-carousel");
+      var $viewport = $carousel.find(".fp-viewport");
+      var $track = $carousel.find(".fp-track");
+      var viewport = $viewport[0];
+      var track = $track[0];
+      var shapes = ["shape-square", "shape-wide", "shape-tall"];
+      var AUTO_SPEED = 0.03;       // auto-advance, px per ms (30px/s)
+      var STEP_DURATION = 700;     // arrow slide, ms
+      var DRAG_THRESHOLD = 6;      // px before a press becomes a drag
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // Lock each product's shape to its original order before cloning, so clones keep it
+      var $originals = $track.children(".product-thumbnail");
+      if (!$originals.length) return;
+      $originals.each(function (i) {
+        $(this).addClass(shapes[i % shapes.length]);
+      });
+
+      // Break out of the page container so the carousel spans the full window width
+      function fitFullWidth() {
+        $carousel.css({ width: "auto", marginLeft: 0 });
+        var left = $carousel[0].getBoundingClientRect().left;
+        $carousel.css({ width: document.documentElement.clientWidth + "px", marginLeft: -left + "px" });
+      }
+
+      function cloneOf($items) {
+        return $items.clone().attr("aria-hidden", "true").addClass("fp-clone")
+          .find("a").attr("tabindex", "-1").end();
+      }
+
+      var setCount = 0;
+      var setWidth = 0;
+
+      function measure() {
+        var items = track.children;
+        setWidth = items[setCount * 2].offsetLeft - items[setCount].offsetLeft;
+      }
+
+      // Repeat the products until one set is wider than the viewport, then add one full set on each side
+      function build() {
+        $track.children(".fp-clone").remove();
+        while (track.scrollWidth < viewport.clientWidth * 1.2) {
+          $track.append(cloneOf($originals));
+        }
+        var $set = $track.children();
+        setCount = $set.length;
+        $track.prepend(cloneOf($set));
+        $track.append(cloneOf($set));
+        measure();
+      }
+
+      fitFullWidth();
+      build();
+
+      var pos = setWidth;   // current offset of the track, px
+      var speed = 0;        // current auto-advance speed (eased toward AUTO_SPEED or 0)
+      var velocity = 0;     // swipe momentum, px per ms
+      var tween = null;     // arrow slide in progress
+      var drag = null;      // pointer drag in progress
+      var suppressClick = false;
+      var hovering = false, keyboardFocus = false, resumeAt = 0;
+
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      // Keep the offset inside the middle set; jumping by one set width is invisible
+      function wrap() {
+        var shift = 0;
+        if (pos < setWidth * 0.5) shift = setWidth;
+        else if (pos >= setWidth * 1.5) shift = -setWidth;
+        if (!shift) return;
+        pos += shift;
+        if (tween) { tween.from += shift; tween.to += shift; }
+        if (drag) drag.startPos += shift;
+      }
+
+      function render() {
+        track.style.transform = "translate3d(" + (-pos) + "px, 0, 0)";
+      }
+
+      function step(dir) {
+        var base = tween ? tween.to : pos;
+        var target = null;
+        $track.children().each(function () {
+          var x = this.offsetLeft;
+          if (dir > 0 && x > base + 1) { target = x; return false; }
+          if (dir < 0 && x < base - 1) target = x;
+        });
+        if (target === null) return;
+        velocity = 0;
+        tween = { from: pos, to: target, start: performance.now() };
+        resumeAt = performance.now() + 2500;
+      }
+
+      $carousel.find(".fp-next").on("click", function () { step(1); });
+      $carousel.find(".fp-prev").on("click", function () { step(-1); });
+
+      // Swipe (touch) and drag (mouse / pen)
+      $viewport.on("pointerdown", function (e) {
+        var ev = e.originalEvent;
+        if (ev.pointerType === "mouse" && ev.button !== 0) return;
+        drag = { id: ev.pointerId, startX: ev.clientX, startPos: pos, lastX: ev.clientX, lastT: ev.timeStamp, moved: false };
+        suppressClick = false;
+        tween = null;
+        velocity = 0;
+        speed = 0;
+      });
+
+      $(document).on("pointermove", function (e) {
+        var ev = e.originalEvent;
+        if (!drag || ev.pointerId !== drag.id) return;
+        var dx = ev.clientX - drag.startX;
+        if (!drag.moved) {
+          if (Math.abs(dx) < DRAG_THRESHOLD) return;
+          drag.moved = true;
+          $carousel.addClass("fp-dragging");
+        }
+        var dt = ev.timeStamp - drag.lastT;
+        if (dt > 0) velocity = 0.8 * (-(ev.clientX - drag.lastX) / dt) + 0.2 * velocity;
+        drag.lastX = ev.clientX;
+        drag.lastT = ev.timeStamp;
+        pos = drag.startPos - dx;
+      });
+
+      $(document).on("pointerup pointercancel", function (e) {
+        var ev = e.originalEvent;
+        if (!drag || ev.pointerId !== drag.id) return;
+        // No fling if the pointer was held still before release
+        if (!drag.moved || e.type === "pointercancel" || ev.timeStamp - drag.lastT > 100) velocity = 0;
+        velocity = Math.max(-3, Math.min(3, velocity));
+        suppressClick = drag.moved;
+        drag = null;
+        $carousel.removeClass("fp-dragging");
+        if (ev.pointerType !== "mouse") resumeAt = performance.now() + 2500;
+      });
+
+      // A drag should not open the product it started on
+      viewport.addEventListener("click", function (e) {
+        if (suppressClick) {
+          e.preventDefault();
+          e.stopPropagation();
+          suppressClick = false;
+        }
+      }, true);
+      $track.on("dragstart", function (e) { e.preventDefault(); });
+
+      // Pause auto-advance while a mouse hovers or the keyboard is focused inside
+      $carousel.on("pointerenter", function (e) { if (e.originalEvent.pointerType === "mouse") hovering = true; })
+               .on("pointerleave", function () { hovering = false; })
+               .on("focusin", function (e) {
+                 try { keyboardFocus = e.target.matches(":focus-visible"); } catch (err) { keyboardFocus = false; }
+               })
+               .on("focusout", function () { keyboardFocus = false; });
+
+      var lastTime = null;
+      function tick(now) {
+        var dt = lastTime === null ? 0 : Math.min(now - lastTime, 50);
+        lastTime = now;
+
+        if (tween) {
+          var t = Math.min((now - tween.start) / STEP_DURATION, 1);
+          pos = tween.from + (tween.to - tween.from) * easeInOutCubic(t);
+          if (t >= 1) tween = null;
+          speed = 0;
+        } else if (!drag) {
+          if (velocity) {
+            pos += velocity * dt;
+            velocity *= Math.pow(0.95, dt / 16.67);
+            if (Math.abs(velocity) < 0.01) velocity = 0;
+          }
+          var paused = reduceMotion || hovering || keyboardFocus || velocity !== 0 || now < resumeAt;
+          // Ease in and out of the drift instead of starting/stopping abruptly
+          speed += ((paused ? 0 : AUTO_SPEED) - speed) * Math.min(dt / 400, 1);
+          pos += speed * dt;
+        }
+
+        wrap();
+        render();
+        window.requestAnimationFrame(tick);
+      }
+      render();
+      window.requestAnimationFrame(tick);
+
+      $(window).on("resize", function () {
+        var ratio = pos / setWidth;
+        fitFullWidth();
+        if (setWidth < viewport.clientWidth * 1.2) build();
+        else measure();
+        pos = ratio * setWidth;
+        wrap();
+        render();
+      });
+
+      setup_carousels('.product-list .product .image-carousel');
+      bind_product_body_clicker('.product-list', '.product');
+    });
+  </script>
+{% endif %}
+
+{{ if special_page_content != blank }}
+  <div class="content-block">
+    {{ special_page_content }}
+  </div>
+{{ endif }}
+
+{% if settings.display_slideshow and featured_products == empty %}
+<script>
+  $(".homepage-carousel-container").addClass("no-content");
+  $(".content-container").addClass("no-content");
+  $(".content-container").removeClass("my-3");
+  
+  $(document).ready(function() {
+    $(".footer-container").removeClass("mt-5");
+  });
+</script>
+{% endif %}

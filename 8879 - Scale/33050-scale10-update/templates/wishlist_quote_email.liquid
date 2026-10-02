@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>
+    Wishlist Quote Email
+  </title>
+  <style type="text/css">
+    body, td {
+      color: #555;
+      font-size: 14px;
+      font-family: Verdana, Helvetica, Arial, sans-serif;
+    }
+
+    p, h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      padding: 0;
+      color: #555;
+      font-family: Verdana, Helvetica, Arial, sans-serif;
+    }
+
+    a, a:visited {
+      color: #1414ff;
+    }
+
+    table {
+      border: 0;
+      border-collapse: collapse;
+      max-width: 600px;
+    }
+
+    table td, table th {
+      padding: 0;
+    }
+
+    table tr.section-header {
+      text-indent: 10px;
+    }
+
+    table#background table tr.section-header {
+      /*background:
+    {{ settings.order_confirm_heading_bars_color }} ;*/
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      vertical-align: middle;
+    }
+
+    table#background table tr.section-header td,
+    table#background table#order-information tr.section-header td,
+    table#background table#order-summary tr.section-header td {
+      padding: 7px 0;
+      /*background: #f5f5f5!important;*/
+      background: {{ settings.order_confirm_heading_bars_color }};
+    }
+
+    table#background table tr.section-header td p,
+    table#background table#order-information tr.section-header td p,
+    table#background table#order-summary tr.section-header td p {
+      color: {{ settings.order_confirm_heading_bars_text_color }};
+      line-height: 16px;
+      vertical-align: middle;
+    }
+
+    table#background table tr.section-header.right-aligned td p {
+      text-align: right;
+      margin-right: 10px;
+    }
+
+    table#order-information {
+      border-collapse: separate;
+      border-spacing: 0 10px;
+    }
+
+    table#order-information tr td {
+      width: 300px;
+    }
+
+    table#order-information tr td h3 {
+      text-indent: 15px;
+    }
+
+    table#order-information tr td p {
+      margin: 3px 0;
+      text-indent: 15px;
+    }
+
+    table#order-information tr {
+      vertical-align: top;
+    }
+
+    table#order-summary tr:nth-child(even):not(.section-header) > td {
+      background: #fff;
+    }
+
+    table#order-summary tr:nth-child(odd):not(.section-header) > td {
+      background: #fcfcfc;
+    }
+
+    table#order-summary tr td {
+      border: 1px solid #DDD;
+    }
+
+    table#order-summary tr.line-item {
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      vertical-align: top;
+    }
+
+    table#order-summary tr.line-item td.product-info p.sub-option {
+      margin: 5px 10px;
+    }
+
+    table#order-summary tr.line-item td.product-info p.sub-option span.sub-option-name {
+      text-transform: capitalize;
+    }
+
+    table#order-summary tr.line-item td.product-info div.product-personalization {
+      padding: 10px;
+      margin: 0px;
+      border-top: 1px dashed #ddd;
+    }
+
+    table#order-summary tr.line-item td.product-info div.product-personalization span.title {
+      margin: 0px 0px 5px;
+      color: #555;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    table#order-summary tr.line-item td.product-info div.product-personalization div.row {
+      display: block;
+      padding: 0px 0px 5px;
+    }
+
+    table#order-summary tr.line-item td.product-info div.product-personalization label {
+      font-weight: bold;
+    }
+
+    table#order-summary tr.line-item td.product-info div.product-personalization span.attribute-value {
+      padding: 0px 5px;
+    }
+
+    table#order-summary tr.line-item td.product-info div.sub-options {
+      margin: 15px 0;
+    }
+
+    table#order-summary tr.line-item td.product-info p.logo span.logo-image {
+      display: block;
+      position: relative;
+      margin-left: 50px;
+    }
+
+    table#order-summary tr.line-item td.product-info p.logo span.logo-image img {
+      max-height: 32px;
+      max-width: 48px;
+      position: absolute;
+      bottom: 0;
+    }
+
+    table#order-summary tr.line-item table.basic-info {
+      width: 100px;
+      max-width: 100px;
+      vertical-align: top;
+      margin: 0px 10px;
+    }
+
+    table#order-summary tr.line-item table.basic-info tr td {
+      padding: 0px;
+      border: 0px;
+      vertical-align: top;
+      background: inherit;
+    }
+
+    table#order-summary tr.line-item td.image-cell img {
+      display: block;
+      max-width: 100px;
+      height: auto;
+      padding: 10px 5px 10px 10px;
+    }
+
+    table#order-summary tr.line-item td.product-info {
+      vertical-align: top;
+      width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0px 0px 10px;
+    }
+
+    table#order-summary tr.line-item p.product-title {
+      color: {{ settings.order_confirm_heading_bars_color }};
+      margin: 10px 10px 10px 0px;
+    }
+
+    table#order-summary tr.line-item td.order-quantity {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    table#order-summary tr.line-item td.product-price {
+      vertical-align: middle;
+      text-align: center;
+      color: #555;
+    }
+
+    table#order-summary tr.order-calculations {
+      color: #2c5987;
+    }
+
+    table#order-summary tr.order-calculations p {
+      margin-bottom: 2px;
+    }
+
+    table#order-summary tr.order-calculations td.titles {
+      text-align: right;
+
+      width: 300px;
+      max-width: 300px;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    table#order-summary tr.order-calculations td.titles p {
+      width: 300px;
+      max-width: 300px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    tr.calculation-item {
+      color: #000;
+    }
+
+    tr.calculation-item.order-total {
+      font-weight: bold;
+    }
+
+    tr.calculation-item:first-child td {
+      border-top: 0px;
+    }
+
+    tr.calculation-item td {
+      vertical-align: middle;
+    }
+
+    tr.calculation-item td p {
+      margin: 10px;
+    }
+
+    tr.calculation-item td.title {
+      text-align: right;
+    }
+
+    tr.calculation-item td.title p {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    tr.calculation-item td.value p {
+      text-align: right;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<table id="background">
+  <tr>
+    <td>
+      <table id="order-information">
+        <tr>
+          <td colspan="2">
+            <h3>
+              Customer information
+            </h3>
+            <p>
+              First name: {{ customer.first_name }}
+            </p>
+            <p>
+              Last name: {{ customer.last_name }}
+            </p>
+            <p>
+              Email: <a href="mailto:{{ customer.email }}">{{ customer.email }}</a>
+            </p>
+            <br>
+          </td>
+        </tr>
+      </table>
+
+      <table id="order-summary">
+        <tr class="section-header">
+          <td colspan="4">
+            <p>
+              Wishlist Information
+            </p>
+          </td>
+        </tr>
+        <tr class="section-header">
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=120>
+            <p style="margin: 3px 0px;">
+              Image
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=380>
+            <p style="margin: 3px 0px;">
+              Details
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=100>
+            <p style="margin: 3px 0px;">
+              Qty
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width="100">
+            <p style="margin: 3px 0px;">
+              Total
+            </p>
+          </td>
+        </tr>
+        {% for line_item in wishlist.line_items %}
+          <tr class="line-item">
+
+            <td>
+              <table class="basic-info">
+                <tbody>
+                <tr>
+                  <td class="image-cell">
+                    <img width=100 alt="{{ line_item.name }} image"
+                      src="{% if line_item.image %}{{ line_item.image.small_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+
+            <td class="product-info">
+              <p class="sub-option product-title">
+                {{ line_item.name }}
+              </p>
+              {% if settings.show_sku %}
+                <p class="sub-option">
+                  <span class="sub-option-name">SKU#</span> <span
+                    class="sub-option-value">{{ line_item.final_sku }}</span>
+                </p>
+              {% endif %}
+
+              {% for choice in line_item.choices %}
+                {% if choice.sub_option %}
+                  <p class="sub-option">
+                    <span class="sub-option-name">{{ choice.option.friendly_name }}{% if choice.has_group? %} ({{ choice.group.name }}) {% endif %}:</span>
+                    <span class="sub-option-value">{% include 'modifier', title: choice.sub_option.name, amount: choice.amount %}</span>
+                  </p>
+                {% endif %}
+              {% endfor %}
+
+              {% if line_item.logos.size > 0 %}
+                <div class="sub-options">
+                  {% for logo in line_item.logos %}
+                    <p class="sub-option logo">
+                      <span class="sub-option-name logo-location">{{ logo.location_name | default: "logo" }}:</span>
+                      <span class="sub-option-name logo-name">{{ logo.name }}{% if logo.charge %} ({{ logo.charge | points_or_currency }}){% endif %}</span>
+                    </p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              {% if line_item.has_setup_charge? %}
+                <p class="sub-option">
+                  Setup Charge: {{ line_item.setup_charge | points_or_currency }}
+                </p>
+              {% endif %}
+
+              {% for personalization in line_item.product_personalizations %}
+                <div class="product-personalization">
+                  <span class="title" style="font-weight: bold;">
+                    {% include 'modifier', title: personalization.title, amount: personalization.amount %}
+                  </span>
+                  <br>
+                  {% for attribute in personalization.attributes %}
+                    <div class="row">
+                      <label>{{ attribute.key }}:</label>
+                      {% if attribute.value != empty %}
+                        <span class="attribute-value">{{ attribute.value | join: ', ' }}</span>
+                      {% else %}
+                        <span class="attribute-value not-specified">&lt;not specified&gt;</span>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endfor %}
+            </td>
+            <td class="order-quantity">
+              <p class="line-item-quantity">
+                {{ line_item.quantity }}
+              </p>
+            </td>
+            <td class="product-price">
+              <p>
+                {{ line_item.total_price | points_or_currency }}
+              </p>
+            </td>
+          </tr>
+        {% endfor %}
+
+        <tr class="calculation-item">
+          <td class="title" colspan=3>
+            <p>Total ({{ wishlist.line_items_count }} items):</p>
+          </td>
+          <td class="value">
+            <p>{{ wishlist.cart_total | points_or_currency }}</p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

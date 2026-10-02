@@ -1,0 +1,138 @@
+<script>
+  $(function() {
+    var stockEl = document.getElementById("stock");
+    var $form = $("form#edit_website_product");
+    if (!$form.length) $form = $(stockEl).closest("form");
+    var $selects = $form.find("select[data-type='product-option']");
+    var pricesUrl = "{{ product | calculate_prices_url }}";
+    var OUT_OF_STOCK_LABEL = " (Out of stock)";
+
+    // ---- Quantity and Add to Cart follow the stock message ----
+    function isStockMessageOut() {
+      return !!stockEl && stockEl.classList.contains("text-danger");
+    }
+    function syncPurchaseControls() {
+      var out = isStockMessageOut();
+      // readonly (not disabled) keeps the quantity in the form data the price/stock requests send
+      $form.find("#quantity input[data-type='quantity']").prop("readonly", out).toggleClass("is-out-of-stock", out);
+      $form.find(".pp-qty-btn").prop("disabled", out);
+      $form.find(".add-to-cart-area .add-to-cart").prop("disabled", out).toggleClass("is-out-of-stock", out);
+      $form.find("#quantity").toggleClass("is-out-of-stock", out);
+    }
+    if (stockEl) {
+      new MutationObserver(syncPurchaseControls).observe(stockEl, { attributes: true, attributeFilter: ["class"], childList: true, characterData: true, subtree: true });
+      syncPurchaseControls();
+    }
+
+    // ---- Product options ----
+    if (!$selects.length || !$form.length) return;
+
+    var select2Utils = $.fn.select2 && $.fn.select2.amd ? $.fn.select2.amd.require("select2/utils") : null;
+    var cache = {};      // request body -> Promise<boolean out of stock>
+    var runId = 0;
+    var debounce = null;
+    var spinnerTimer = null;
+
+    // The reply sets the main stock message in a block that starts with: var stockSpan = $("#stock");
+    // and marks out of stock (not backordered) with the class "stock text-danger"
+    function replyIsOutOfStock(js) {
+      var parts = String(js).split('var stockSpan = $("#');
+      for (var i = 1; i < parts.length; i++) {
+        if (parts[i].indexOf('stock")') === 0) {
+          return parts[i].indexOf('"stock text-danger"') > -1;
+        }
+      }
+      return false;
+    }
+
+    function checkSelection(selectName, value) {
+      var data = $form.serializeArray();
+      var found = false;
+      $.each(data, function(i, field) {
+        if (field.name === selectName) { field.value = value; found = true; }
+      });
+      if (!found) data.push({ name: selectName, value: value });
+      var body = $.param(data);
+      if (!cache[body]) {
+        // always resolves (never rejects), so one failed check can't stop the others
+        var result = $.Deferred();
+        cache[body] = result.promise();
+        $.ajax(pricesUrl, {
+          type: "POST",
+          data: body,
+          dataType: "text", // read the reply, don't run it
+          headers: { Accept: "text/javascript, application/javascript, */*; q=0.01" }
+        }).done(function(js) {
+          result.resolve(replyIsOutOfStock(js));
+        }).fail(function() {
+          delete cache[body];   // try again next time
+          result.resolve(false); // on an error, leave the value enabled
+        });
+      }
+      return cache[body];
+    }
+
+    function setValueState($select, option, out) {
+      var $option = $(option);
+      var value = option.value;
+      // thumbnails
+      $form.find(".product-option-thumb[data-id='" + $select.attr("name").match(/\[(\d+)\]/)[1] + "'][data-value='" + value + "']")
+        .prop("disabled", out)
+        .attr("aria-disabled", out ? "true" : null)
+        .toggleClass("is-out-of-stock", out);
+      // dropdown option: label used by select2 (data-label) and the option text
+      if ($option.data("ppLabel") === undefined) {
+        $option.data("ppLabel", $option.data("label"));
+        $option.data("ppText", $option.text());
+      }
+      var label = $option.data("ppLabel");
+      var text = $.trim($option.data("ppText"));
+      option.disabled = out;
+      $option.data("label", out ? label + OUT_OF_STOCK_LABEL : label);
+      $option.text(out ? text + OUT_OF_STOCK_LABEL : text);
+      // select2 keeps its own copy of each option; drop it so the dropdown reads the new state
+      if (select2Utils) select2Utils.RemoveData(option);
+    }
+
+    function showChecking(on) {
+      clearTimeout(spinnerTimer);
+      if (on) {
+        // only show the spinner when the checks take a moment, so quick answers don't flicker
+        spinnerTimer = setTimeout(function() { $form.find(".product-options").addClass("pp-stock-checking"); }, 250);
+      } else {
+        $form.find(".product-options").removeClass("pp-stock-checking");
+      }
+    }
+
+    function refresh() {
+      var id = ++runId;
+      var checks = [];
+      $selects.each(function() {
+        var $select = $(this);
+        var current = $select.val();
+        $select.find("option").each(function() {
+          var option = this;
+          if (!option.value) return;
+          checks.push(checkSelection($select.attr("name"), option.value).then(function(out) {
+            // a value that is already picked stays enabled so it can be unpicked
+            return { $select: $select, option: option, out: out && option.value !== current };
+          }));
+        });
+      });
+      showChecking(true);
+      $.when.apply($, checks).always(function() {
+        if (id !== runId) return; // a newer change started its own checks
+        $.each(arguments, function(i, result) {
+          if (result && result.option) setValueState(result.$select, result.option, result.out);
+        });
+        showChecking(false);
+      });
+    }
+
+    $selects.on("change", function() {
+      clearTimeout(debounce);
+      debounce = setTimeout(refresh, 150);
+    });
+    refresh();
+  });
+</script>

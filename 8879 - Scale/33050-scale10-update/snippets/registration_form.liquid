@@ -1,0 +1,100 @@
+<div class="mb-3">
+  <label class="mb-1" for="website_user[first_name]">First name <span class="required-label">(required)</span></label>
+  <input type="text" class="form-control {% if form.errors contains 'first_name' %}is-invalid{% endif %}" id="website_user_first_name" name="website_user[first_name]" size="50" value="{{ form.first_name }}">
+  {% if form.errors contains 'first_name' %}
+    <div class="invalid-feedback">
+      {{ form.errors['first_name'] }}
+    </div>
+  {% endif %}
+</div>
+
+<div class="mb-3">
+  <label class="mb-1" for="website_user[last_name]">Last name <span class="required-label">(required)</span></label>
+  <input type="text" class="form-control {% if form.errors contains 'last_name' %}is-invalid{% endif %}" id="website_user_last_name" name="website_user[last_name]" size="50" value="{{ form.last_name }}">
+  {% if form.errors contains 'last_name' %}
+    <div class="invalid-feedback">
+      {{ form.errors['last_name'] }}
+    </div>
+  {% endif %}
+</div>
+
+<div class="mb-3">
+  <label class="mb-1" for="website_user[username]">Username <span class="required-label">(required)</span></label>
+  <input type="text" class="form-control {% if form.errors contains 'username' %}is-invalid{% endif %}" id="website_user_username" name="website_user[username]" size="50" value="{{ form.username }}">
+  {% if form.errors contains 'username' %}
+    <div class="invalid-feedback">
+      {{ form.errors['username'] }}
+    </div>
+  {% endif %}
+</div>
+
+<div class="mb-3">
+  <label class="mb-1" for="website_user[email]">E-Mail <span class="required-label">(required)</span></label>
+  <input type="text" class="form-control {% if form.errors contains 'email' %}is-invalid{% endif %}" id="website_user_email" name="website_user[email]" size="50" value="{{ form.email }}">
+  {% if form.errors contains 'email' %}
+    <div class="invalid-feedback">
+      {{ form.errors['email'] }}
+    </div>
+  {% endif %}
+</div>
+
+{% if shop.slack_integration_enabled? %}
+  <div class="mb-3">
+    <label class="mb-1" for="website_user[slack_handle]">Slack handle <span class="required-label">(required)</span></label>
+    <input type="text" class="form-control {% if form.errors contains 'slack_handle' %}is-invalid{% endif %}" id="website_user_slack_handle" name="website_user[slack_handle]" size="50" value="{{ form.slack_handle }}">
+    {% if form.errors contains 'slack_handle' %}
+      <div class="invalid-feedback">
+        {{ form.errors['slack_handle'] }}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if shop.custom_user_fields_enabled? %}
+  {% for field in form.custom_user_fields %}
+    {% include 'custom_user_field', field: field %}
+  {% endfor %}
+{% endif %}
+
+{% if shop.active_group_passcode? %}
+  <div class="mb-3">
+    <label class="mb-1" for="website_user_group_passcode">Group passcode</label>
+    <input type="text" class="form-control {% if form.errors contains 'group_passcode' %}is-invalid{% endif %}" id="website_user_group_passcode" name="website_user[group_passcode]" size="50" value="{{ form.group_passcode }}">
+    {% if form.errors contains 'group_passcode' %}
+      <div class="invalid-feedback">
+        {{ form.errors['group_passcode'] }}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+<div class="mb-3 password-div">
+  <label class="mb-1" for="website_user_password">Password <span class="required-label">(required)</span></label>
+  <input type="password" class="form-control {% if form.errors contains 'password' %}is-invalid{% endif %}" id="website_user_password" name="website_user[password]" size="50" value="{{ form.password }}">
+  <i class="fa fa-solid fa-eye"></i>
+  {% if form.errors contains 'password' %}
+    <div class="invalid-feedback">
+      {{ form.errors['password'] }}
+    </div>
+  {% endif %}
+</div>
+
+<div class="mb-3 password-div">
+  <label class="mb-1" for="website_user_password_confirmation">Password confirmation <span class="required-label">(required)</span></label>
+  <input type="password" class="form-control {% if form.errors contains 'password_confirmation' %}is-invalid{% endif %}" id="website_user_password_confirmation" name="website_user[password_confirmation]" size="50" value="{{ form.password_confirmation }}">
+  <i class="fa fa-solid fa-eye"></i>
+  {% if form.errors contains 'password_confirmation' %}
+    <div class="invalid-feedback">
+      {{ form.errors['password_confirmation'] }}
+    </div>
+  {% endif %}
+</div>
+
+<input type="hidden" name="website_user[timezone]" id="website_user_timezone">
+
+<script>
+  (function() {
+    var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    $('#website_user_timezone').val(timezone);
+  })();
+</script>

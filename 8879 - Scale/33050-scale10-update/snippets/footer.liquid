@@ -1,0 +1,129 @@
+<div class="footer-container site-footer mt-5">
+  <div class="wrapper mx-auto px-3">
+    <div class="site-footer-top">
+      <div class="site-footer-brand">
+        <a href="/" class="site-footer-logo">
+          {% if settings.display_footer_logo %}
+            <img src="{{ "logo-footer.png" | asset_url }}" alt="{{ shop.name }} logo" title="{{ shop.name }} logo">
+          {% else %}
+            <img src="{{ "logo_custom_bg_image.jpg" | asset_url }}" alt="{{ shop.name }} logo" title="{{ shop.name }} logo">
+          {% endif %}
+        </a>
+        <p class="site-footer-tagline">The world’s most important decisions need reliable AI systems.</p>
+      </div>
+
+      <!-- Shop (all categories) and Pages (store pages) columns, filled in from the global categories / pages data -->
+      <nav class="site-footer-categories" aria-label="Footer navigation"></nav>
+
+      {% if settings.sm_facebook or settings.sm_twitter or settings.sm_instagram or settings.sm_youtube or settings.sm_linkedin or settings.sm_tiktok or settings.sm_bluesky %}
+        <ul class="nav social-media site-footer-social">
+          {% if settings.sm_facebook %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_facebook_link }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">{% include 'icons/social/facebook' %}</a></li>
+          {% endif %}
+          {% if settings.sm_twitter %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_twitter_link }}" target="_blank" rel="noopener noreferrer" aria-label="X">{% include 'icons/social/x' %}</a></li>
+          {% endif %}
+          {% if settings.sm_instagram %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_instagram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">{% include 'icons/social/instagram' %}</a></li>
+          {% endif %}
+          {% if settings.sm_youtube %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_youtube_link }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">{% include 'icons/social/youtube' %}</a></li>
+          {% endif %}
+          {% if settings.sm_linkedin %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_linkedin_link }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{% include 'icons/social/linkedin' %}</a></li>
+          {% endif %}
+          {% if settings.sm_tiktok %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_tiktok_link }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok">{% include 'icons/social/tiktok' %}</a></li>
+          {% endif %}
+          {% if settings.sm_bluesky %}
+            <li class="nav-item"><a class="nav-link" href="{{ settings.sm_bluesky_link }}" target="_blank" rel="noopener noreferrer" aria-label="Bluesky">{% include 'icons/social/bluesky' %}</a></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="site-footer-bottom">
+    <div class="wrapper mx-auto px-3">
+      <p class="site-footer-copyright">{{ settings.copyright_info }}</p>
+      <!-- Links from Store Design > Footer > Custom Footer Links -->
+      {% if settings.enable_custom_footer_links %}
+        <ul class="site-footer-legal">
+          {% if settings.enable_footer_link_1 and settings.custom_footer_link_text_1 != blank %}
+            <li><a href="{{ settings.custom_footer_link_1 }}"{% if settings.custom_footer_link_1_target_blank %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ settings.custom_footer_link_text_1 }}</a></li>
+          {% endif %}
+          {% if settings.enable_footer_link_2 and settings.custom_footer_link_text_2 != blank %}
+            <li><a href="{{ settings.custom_footer_link_2 }}"{% if settings.custom_footer_link_2_target_blank %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ settings.custom_footer_link_text_2 }}</a></li>
+          {% endif %}
+          {% if settings.enable_footer_link_3 and settings.custom_footer_link_text_3 != blank %}
+            <li><a href="{{ settings.custom_footer_link_3 }}"{% if settings.custom_footer_link_3_target_blank %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ settings.custom_footer_link_text_3 }}</a></li>
+          {% endif %}
+          {% if settings.enable_footer_link_4 and settings.custom_footer_link_text_4 != blank %}
+            <li><a href="{{ settings.custom_footer_link_4 }}"{% if settings.custom_footer_link_4_target_blank %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ settings.custom_footer_link_text_4 }}</a></li>
+          {% endif %}
+          {% if settings.enable_footer_link_5 and settings.custom_footer_link_text_5 != blank %}
+            <li><a href="{{ settings.custom_footer_link_5 }}"{% if settings.custom_footer_link_5_target_blank %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ settings.custom_footer_link_text_5 }}</a></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    var $nav = $(".site-footer-categories");
+    if (!$nav.length) return;
+
+    function sorted(list) {
+      list = (list || []).slice();
+      return typeof sortLinks === "function" ? list.sort(sortLinks("list_order")) : list;
+    }
+
+    // Adds each link followed by its sub-links (indented), for every level
+    function addItems($list, items, depth, labelKey) {
+      sorted(items).forEach(function (item) {
+        var $link = $("<a></a>").attr("href", item.link).text(item[labelKey]);
+        if (item.target) {
+          $link.attr("target", item.target);
+          if (item.target === "_blank") $link.attr("rel", "noopener noreferrer");
+        }
+        $("<li></li>").toggleClass("is-sub is-sub-" + depth, depth > 0).append($link).appendTo($list);
+        addItems($list, item.children, depth + 1, labelKey);
+      });
+    }
+
+    // One footer column; on phones the heading becomes a toggle that opens the list (accordion)
+    function addColumn(title, items, labelKey, index) {
+      if (!items || !items.length) return;
+      var listId = "site-footer-list-" + index;
+      var $col = $("<div class='site-footer-col'></div>");
+      $("<span class='site-footer-heading'></span>").text(title).appendTo($col);
+      var $toggle = $("<button type='button' class='site-footer-toggle' aria-expanded='false'></button>")
+        .attr("aria-controls", listId)
+        .append($("<span></span>").text(title))
+        .append("<svg viewBox='0 0 24 24' aria-hidden='true'><path d='m3 8 9 9 9-9' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+        .appendTo($col);
+
+      var $list = $("<ul class='site-footer-list'></ul>").attr("id", listId);
+      addItems($list, items, 0, labelKey);
+      // long lists flow into two columns (top to bottom, so subcategories stay under their parent)
+      $list.toggleClass("is-two-col", $list.children().length >= 8);
+      $col.append($list);
+
+      $toggle.on("click", function () {
+        var open = !$col.hasClass("is-open");
+        $col.toggleClass("is-open", open);
+        $toggle.attr("aria-expanded", open ? "true" : "false");
+      });
+      $nav.append($col);
+    }
+
+    // Shop: every category in the store, subcategories under their parent
+    addColumn("Shop", typeof categories !== "undefined" ? categories : [], "name", 0);
+    // Pages: the store pages (the Home page is left out, as in the header)
+    addColumn("Pages", typeof pages !== "undefined" ? pages.filter(function (page) {
+      return (page.title || "").toLowerCase() !== "home";
+    }) : [], "title", 1);
+  });
+</script>

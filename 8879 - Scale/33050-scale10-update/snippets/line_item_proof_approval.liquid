@@ -1,0 +1,18 @@
+{% if shop.virtual_samples_enabled? and product.virtual_samples_enabled? and product.require_proof_approval? %}
+  <div class="prod_option_block proof-approval-wrapper">
+    <h4>Proof Approval</h4>
+
+    <div class="proof-approval form-item clrfix">
+      <label for="proof-approval">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="proof-approval"
+          name="product[proof_approval]"
+          value="1"
+          {% if form.proof_approval %}checked{% endif %} />
+        I approve this proof
+      </label>
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,81 @@
+{% comment %}
+  Subtle motion, sitewide (styles in the MOTION section of custom-main.css.liquid):
+  - sections and product cards fade up once as they scroll into view
+  - product card images fade in when they finish loading
+  - the header gets a soft shadow once the page is scrolled
+  Fade-ins only start once this script runs ("motion-ready" on <html>), so nothing stays hidden without it,
+  and they are skipped for visitors who prefer reduced motion.
+{% endcomment %}
+<script>
+  (function() {
+    var root = document.documentElement;
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // ---- Header shadow on scroll ----
+    var header = document.querySelector(".header-container");
+    if (header) {
+      var ticking = false;
+      var updateHeader = function() {
+        header.classList.toggle("is-scrolled", window.scrollY > 10);
+        ticking = false;
+      };
+      window.addEventListener("scroll", function() {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(updateHeader); }
+      }, { passive: true });
+      updateHeader();
+    }
+
+    if (reduceMotion || !("IntersectionObserver" in window)) return;
+    root.classList.add("motion-ready");
+
+    var CARDS = ".featured-products-grid .product-list .product-thumbnail, .category-listing .product-list .product-thumbnail, .related-products-thumbnails .product-thumbnail";
+
+    // ---- Product card images fade in as they load ----
+    document.querySelectorAll(
+      ".featured-products-grid .product-list .thumbnail-img-container img, .category-listing .product-list .thumbnail-img-container img, .related-products-thumbnails .thumbnail-img-container img"
+    ).forEach(function(img) {
+      if (img.complete && img.naturalWidth > 0) return; // already loaded (or cached): show right away
+      img.classList.add("img-fade");
+      var done = function() { img.classList.add("is-loaded"); };
+      img.addEventListener("load", done, { once: true });
+      img.addEventListener("error", done, { once: true });
+    });
+
+    // ---- Fade up on scroll (once per element) ----
+    var targets = document.querySelectorAll([
+      ".homepage-welcome",
+      ".featured-products",
+      ".featured-categories > .hs-eyebrow, .featured-categories > .hs-title, .featured-categories > .hs-intro",
+      ".featured-categories .merch-card",
+      ".featured-products-grid > .hs-eyebrow, .featured-products-grid > .hs-title, .featured-products-grid > .hs-intro",
+      CARDS
+    ].join(", "));
+    if (!targets.length) return;
+
+    // when the fade-up is over, drop the reveal styles so each element's own transitions (hover lift) apply again
+    var finish = function(el) {
+      el.removeAttribute("data-reveal");
+      el.classList.remove("is-revealed");
+      el.style.transitionDelay = "";
+    };
+
+    var observer = new IntersectionObserver(function(entries) {
+      var shown = 0;
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        observer.unobserve(el);
+        // items arriving together come in one after another, a few hundredths of a second apart
+        el.style.transitionDelay = Math.min(shown, 5) * 70 + "ms";
+        shown++;
+        el.classList.add("is-revealed");
+        setTimeout(function() { finish(el); }, 1200);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.1 });
+
+    targets.forEach(function(el) {
+      el.setAttribute("data-reveal", "");
+      observer.observe(el);
+    });
+  })();
+</script>

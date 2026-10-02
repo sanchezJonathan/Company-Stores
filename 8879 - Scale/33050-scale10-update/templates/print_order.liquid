@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    {% include 'order_email_headers' %}
+    <title>
+        Order #{{ order.order_id }}
+    </title>
+</head>
+<body>
+{% include 'order_information' %}
+</body>
+</html>

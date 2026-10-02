@@ -1,0 +1,19 @@
+{% if logo_locations.size > 0 or custom_logos_upload_enabled %}
+  <div class="prod_option_block logo-wrapper">
+    {% for location in logo_locations %}
+      <div class="logo-info clrfix">
+        <div class="form-item clrfix">
+          <div class='product-option-wrapper'>
+            <label class="mb-2">
+              {{ location.name }} {% if location.required? %}<span class="required-label">(required)</span>{% endif %}
+            </label>
+
+            {% include 'logo_location_select', location: location %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    {% include 'logo_buttons', product: product %}
+  </div>
+{% endif %}

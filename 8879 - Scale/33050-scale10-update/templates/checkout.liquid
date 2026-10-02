@@ -1,0 +1,102 @@
+{% capture checkout_page_content %}
+{% form 'checkout' %}
+  {% assign isSFHQ = 0 %}
+  {% assign isBudapest = 0 %}
+  {% assign isMexicoCityOffice = 0 %}
+  {% assign isMexico = 0 %}
+  {% assign isArgentina = 0 %}
+  {% assign isWashingtonDCOffice = 0 %}
+  {% assign isNewYorkCityOffice = 0 %}
+  {% assign isStLouisOffice = 0 %}
+  {% assign isLondonOffice = 0 %}
+  {% for group in current_user.groups %}
+    {% if group.title == "SFHQ" or group.title == "San Francisco" or group.title == "San Francisco Office" %}
+      {% assign isSFHQ = 1 %}
+    {% elsif group.title == "Budapest" %}
+      {% assign isBudapest = 1 %}
+    {% elsif group.title == "Mexico City Office" %}
+      {% assign isMexicoCityOffice = 1 %}
+    {% elsif group.title == "Mexico" %}
+      {% assign isMexico = 1 %}
+    {% elsif group.title == "Argentina" %}
+      {% assign isArgentina = 1 %}
+    {% elsif group.title == "Washington DC Office" %}
+      {% assign isWashingtonDCOffice = 1 %}
+    {% elsif group.title == "New York City Office" %}
+      {% assign isNewYorkCityOffice = 1 %}
+    {% elsif group.title == "St. Louis Office" %}
+      {% assign isStLouisOffice = 1 %}
+    {% elsif group.title == "London Office" %}
+      {% assign isLondonOffice = 1 %}
+    {% endif %}
+  {% endfor %}
+
+  {% if custom_data_collections != empty and checkout_flow.state == 'custom_data_collection' %}
+    {% include 'checkout/cdc' %}
+  {% endif %}
+
+  {% if shop.show_shipping_address? and checkout_flow.state == 'address' %}
+    {% include 'checkout/shipping_address' %}
+  {% endif %}
+
+  {% if shop.show_ship_method? and checkout_flow.state == 'delivery' %}
+    {% include 'checkout/shipping_method' %}
+  {% endif %}
+
+  {% if checkout_flow.state == 'payment' %}
+    {% if shop.show_billing_address? %}
+      {% include 'checkout/billing_address' %}
+    {% endif %}
+    {% if shop.payment_required? %}
+      {% include 'checkout/billing_method' %}
+    {% endif %}
+  {% endif %}
+
+  {% if shop.budget_enabled? and current_user.has_budgets? and order.budget_order? and checkout_flow.state == 'budget' %}
+    {% include 'checkout/budget' %}
+  {% endif %}
+
+  {% if checkout_flow.state == 'confirm' %}
+    {% include 'checkout/summary' %}
+  {% endif %}
+{% endform %}
+{% endcapture %}
+
+{% include 'checkout_page' with checkout_page_content, order: order %}
+
+<script>
+
+$(function () {
+  var user_balance = {{ current_user.balance | minus: order.grand_total }};
+  var checkoutController = new CheckoutController('{{ checkout_flow.state }}');
+  $('div.checkout-main').data('checkoutController', checkoutController);
+
+  $('#switch').click(function () {
+    var $this = $(this);
+    if ($this.is(':checked')) {
+      $('.shcompany').show();
+      
+      if (user_balance > 0) {
+        $(".pm").hide();
+        $(".napr").removeClass("d-none");
+      }
+    } else {
+      $('.shcompany').hide();
+      $(".pm").show();
+      $(".napr:not(.d-none)").addClass("d-none");
+    }
+  });
+
+  if ($('#switch').is(':checked')) {
+    $('.shcompany').show();
+  }
+
+  $('.notification-area .notification-error:contains("Checkout process failed. Your payment total does not cover this order, please choose another payment method or reduce the items in your cart.")').text("There are too many items in your cart. Please reduce the items in your cart to total 12 points or less to checkout.");
+});
+</script>
+
+<style>
+.shcompany {
+  display: none
+}
+</style>

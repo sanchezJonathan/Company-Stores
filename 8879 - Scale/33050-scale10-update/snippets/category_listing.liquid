@@ -1,0 +1,127 @@
+{% assign listing_title = "Products" %}
+{% for category_filter in categories_filtering %}
+  {% assign listing_title = category_filter['name'] %}
+{% endfor %}
+
+<div class="category-listing">
+  <div class="cl-header{% if category_banner != blank %} has-banner{% endif %}">
+    <div class="cl-heading">
+      {% if settings.show_breadcrumbs %}
+        {% include 'breadcrumbs_section' %}
+      {% endif %}
+      <h1 class="cl-title">{{ listing_title }}</h1>
+      <script>
+        // Category pages are /products?s[f][c][]=/Products/Parent/Child. Build the trail and ti
+        // "Home • Parent • Child" instead of "Home • Products"tle from that path:
+        $(function() {
+          var paths = new URLSearchParams(window.location.search).getAll("s[f][c][]");
+          if (paths.length !== 1) return; // no category, or several ticked in the filters: keep "Products"
+
+          var names = paths[0].split("/").filter(function(name) { return name !== ""; });
+          var topLevel = typeof categories !== "undefined" ? categories : []; // global category tree from js/data.js
+          var isTopLevel = function(name) { return topLevel.some(function(category) { return category.name === name; }); };
+          // the path starts at the store's root ("Products"): drop it unless the store really has a top-level category with that name
+          var rootPath = "";
+          if (names.length > 1 && !isTopLevel(names[0])) {
+            rootPath = "/" + names.shift();
+          }
+          if (!names.length) return;
+
+          var crumbs = [];
+          var level = topLevel;
+          var path = rootPath;
+          names.forEach(function(name) {
+            var category = level.filter(function(item) { return item.name === name; })[0];
+            path += "/" + name;
+            crumbs.push({
+              name: name,
+              url: (category && category.link) || "/products?s%5Bf%5D%5Bc%5D%5B%5D=" + encodeURIComponent(path).replace(/%20/g, "+")
+            });
+            level = category ? category.children : [];
+          });
+
+          var title = crumbs[crumbs.length - 1].name;
+          $(".cl-title").text(title);
+          $(".cl-banner img").attr("alt", title);
+
+          var $trail = $(".cl-heading ol.breadcrumb");
+          if (!$trail.length) return;
+          $trail.children("li:not(:first-child)").remove(); // keep "Home"
+          crumbs.forEach(function(crumb, i) {
+            var $item = $("<li class='breadcrumb-item'>");
+            if (i === crumbs.length - 1) {
+              $item.addClass("active").attr("aria-current", "page").text(crumb.name);
+            } else {
+              $item.append($("<a>").attr("href", crumb.url).text(crumb.name));
+            }
+            $trail.append($item);
+          });
+        });
+      </script>
+    </div>
+    {% if category_banner != blank %}
+      <div class="cl-banner"><img src="{{ category_banner }}" alt="{{ listing_title }}"></div>
+    {% endif %}
+  </div>
+
+  <div class="category-page">
+    {% if filter_rules != blank %}
+      <div class="col-md-12 col-lg-3 d-none d-lg-block pe-4">
+        {% include "filtering" %}
+      </div>
+    {% endif %}
+
+    <div class="col-md-12 {% if filter_rules != blank %}col-lg-9{% endif %} px-0 category-page-content-section">
+      {% if shop.filtering_active and filter_rules == blank %}
+        <div class="cl-keyword">{% include 'keyword_input' %}</div>
+      {% endif %}
+
+      <div class="cl-toolbar">
+        <p class="cl-count">Showing {{ paginate.collection.size }} of {{ products_search.total | pluralize: 'product', 'products' }}</p>
+        <div class="cl-tools">
+          {% if filter_rules != blank %}
+            <button type="button" class="btn secondary cl-filter-btn d-lg-none" data-bs-toggle="modal" data-bs-target="#filter-mobile-modal">{% include "icons/filter" %} Filter</button>
+          {% endif %}
+          {% include 'sort', caller: "listing" %}
+        </div>
+      </div>
+
+      {% if filter_rules != blank %}
+        {% assign logoMargins = settings.logo_margin | split: ' ' %}
+        {% assign logoMarginTop = logoMargins[0] %}
+        {% if logoMargins[2] %}{% assign logoMarginBottom = logoMargins[2] %}{% else %}{% assign logoMarginBottom = logoMargins[0] %}{% endif %}
+        <div class="modal fade" id="filter-mobile-modal" tabindex="-1" aria-labelledby="filter-mobile-modal" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><img class="img-fluid" src="{{ "logo_custom_bg_image.jpg" | asset_url }}" style="max-height: calc({{ settings.header_height }} - {{ logoMarginTop }} - {{ logoMarginBottom }} - 14px);"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="accordion" id="mobile-filter-container">
+                  {% include 'filter_rule' with filter_rules, caller: "mobile-" %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% capture listing_selections %}{% include 'current_filters' %}{% include 'current_keywords' %}{% endcapture %}
+      {% assign listing_selections = listing_selections | strip %}
+      {% if listing_selections != blank %}
+        <div class="cl-selections">
+          <span class="me-2">Your Selections:</span>
+          {{ listing_selections }}
+        </div>
+      {% endif %}
+
+      <div class="product-list">
+        {% include "product" with paginate.collection %}
+      </div>
+      {% include "paginator", paginate: paginate %}
+      {% include 'product_list_js' %}
+    </div>
+  </div>
+</div>
+

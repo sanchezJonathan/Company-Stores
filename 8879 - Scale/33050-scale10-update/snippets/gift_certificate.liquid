@@ -1,0 +1,18 @@
+<div class="product-thumbnail gift-certificate {% if gift_certificate.featured %} featured {% endif %}" data-product-url="{{ gift_certificate | product_url }}">
+  <div class="thumbnail-img-container">
+    <a href="{{ product | product_url }}">
+      {% if gift_certificate.images != empty %}
+        <img class="img-fluid" src="{{ product.primary_image.small_url }}" alt="Image of {{ product.name }}" title="Image of {{ product.name }}" />
+      {% else %}
+        <img class="img-fluid" src="{{ 'no-image.jpg' | asset_url }}" alt="Displaying no image available for {{ product.name }}" title="Displaying no image available for {{ product.name }}" />
+      {% endif %}
+    </a>
+  </div>
+  <div class="thumbnail-description-container pt-3">
+    <a href="{{ gift_certificate | product_url }}" class="text-dark">
+      <h5 class="card-title fw-bold lh-base">{{ gift_certificate.name | truncate: 40 }}</h5>
+      <p class="card-text">{% include 'gift_certificate_pricing' %}</p>
+    </a>
+  </div>
+
+</div>

@@ -1,9 +1,0 @@
-(function() {
-    var controller = AccountLogosController.pending;
-
-    {% capture logo_form %}
-        {% include "account_logo_form" %}
-    {% endcapture %}
-
-    controller.prepareDialog($("{{ logo_form | escape_javascript }}"), "Edit logo \"{{logo.name}}\"", 'Update', true);
-}).call(this);
