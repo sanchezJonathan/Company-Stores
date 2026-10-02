@@ -1,0 +1,46 @@
+if (window.innerWidth > 991) {
+  {% if settings.category_links_position == "bottom_bar" or settings.nav_links_position == "bottom_bar" %}
+    var notifTextHeight = $(".top-navbar-notification-container").height() || 0;
+    var topBarHeight = $(".navbar-container").height() || 0;
+    var headerContainer = $("div.header-container").height() || 0;
+
+    var headerContainerMarginTop = notifTextHeight + topBarHeight;
+    var categoryContainerMarginTop = headerContainerMarginTop + headerContainer;
+    if (topBarHeight > 0) {
+      $("div.header-container").css("margin-top", topBarHeight + "px");
+      $("div.category-container").css("margin-top", topBarHeight + "px");
+    }
+    $("div.category-container").css("margin-top", categoryContainerMarginTop + "px");
+
+    function checkHeaderScroll() {
+      var scrollTop = $(window).scrollTop(); 
+
+      if (scrollTop > categoryContainerMarginTop) {
+        $("div.category-container").addClass("fixed");
+        return;
+      } 
+      $("div.category-container").removeClass("fixed");
+    }
+  {% else %}
+    var notifTextHeight = $(".top-navbar-notification-container").height() || 0;
+    var topBarHeight = $(".navbar-container").height() || 0;
+
+    var headerContainerMarginTop = notifTextHeight + topBarHeight;
+    $("div.header-container").css("margin-top", headerContainerMarginTop + "px");
+
+    function checkHeaderScroll() {
+      var scrollTop = $(window).scrollTop(); 
+
+      if (scrollTop > headerContainerMarginTop) {
+        $("div.header-container").addClass("fixed");
+        return;
+      } 
+      $("div.header-container").removeClass("fixed");
+    }
+  {% endif %}
+
+  checkHeaderScroll();
+  $(window).scroll(function() { 
+    checkHeaderScroll();
+  }); 
+}

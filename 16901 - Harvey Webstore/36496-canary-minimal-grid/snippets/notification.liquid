@@ -1,0 +1,28 @@
+<div aria-live="assertive" aria-atomic="true" class="notification-container position-fixed top-0 end-0 p-3">
+  {% for notice in flash_notices %}
+   {% if notice contains "Order processed successfully" %}
+   {% else %}
+    <div class="toast notif-success mt-2" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-transparent">
+        <strong class="me-auto text-white">Success</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body text-white">
+        {{ notice }}
+      </div>
+    </div>
+   {% endif %}
+  {% endfor %}
+  
+  {% for error_message in flash_errors %}
+  	<div class="toast notif-error mt-2" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-transparent">
+        <strong class="me-auto text-white">Sorry, there was a problem</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body text-white">
+        {{ error_message }}
+      </div>
+    </div>
+  {% endfor %}
+</div>

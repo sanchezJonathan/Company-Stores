@@ -1,0 +1,536 @@
+{% include 'top_bar' %}
+
+<div class="header-container mx-auto border-bottom {% if settings.category_links_position == "inline_with_logo" %}top-0 sticky-header{% endif %}">
+  <div class="wrapper mx-auto">
+    <div class="container-fluid px-3">
+      <nav class="navbar navbar-expand-lg header-navbar">
+        <button id="mobile-slider-button" class="btn d-lg-none d-xl-none" type="button" aria-label="Toggle navigation"><span>{% include 'icons/menu' %}</span><span style="display: none;">{% include 'icons/close' %}</span></button>
+        {% if settings.display_logo %}
+          {% assign logoMargins = settings.logo_margin | split: ' ' %}
+          {% assign logoMarginTop = logoMargins[0] %}
+          {% if logoMargins[2] %}{% assign logoMarginBottom = logoMargins[2] %}{% else %}{% assign logoMarginBottom = logoMargins[0] %}{% endif %}
+        	<a class="navbar-brand logo-container" href="/"><img alt="{{ shop.name }} logo" title="{{ shop.name }} logo" src="{{ "logo_custom_bg_image.jpg" | asset_url }}" style="max-height: calc({{ settings.header_height }} - {{ logoMarginTop }} - {{ logoMarginBottom }} - 14px);"></a>
+        {% endif %}
+        {% if shop.catalog_enabled? %}
+          <button class="btn d-lg-none d-xl-none px-0" type="button" aria-label="Search" data-bs-toggle="modal" data-bs-target="#search-modal">{% include 'icons/search' %}</button>
+        {% else %}
+          <div>&nbsp;</div>
+        {% endif %}
+        {% include 'inline_links' %}
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+{% if shop.catalog_enabled? %}
+  <div class="custom-searchbox-container search-box-container">
+    <form class="custom-search-form">
+      <div class="custom-search-header">
+        <div class="search-icon-input">
+          <button class="btn btn-outline border border-left-0 search-btn" type="submit">
+            <img src="{{ 'search-icon.svg' | asset_url }}">
+          </button>
+          <input class="form-control" type="search" name="s[keyword]" id="s_keyword" placeholder="Search">
+          <div class="close-search">
+            <img src="{{ 'close-icon.svg' | asset_url }}">
+          </div>
+        </div>
+        <div class="search-results product-list px-0"></div>
+      </div>
+    </form>
+
+    <!-- Hidden product pool -->
+    <div id="search-product-pool" style="display:none;">
+      {% for product in products %}
+        <div class="search-product" data-name="{{ product.name | downcase }}" data-sku="{{ product.sku | downcase }}">
+          {% include "product" with product %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% if page.is_home_page %}
+{% if settings.nav_links_position == "bottom_bar" or settings.category_links_position == "bottom_bar" %}
+<div class="category-container mx-auto d-none d-lg-block d-xl-block {% if settings.category_links_position == "bottom_bar" %}top-0 sticky-header{% endif %}">
+  <div class="wrapper mx-auto">
+    <div class="container-fluid px-3">
+      <nav class="navbar navbar-expand-lg header-navbar">
+        <div class="collapse navbar-collapse headerLinks">
+          <ul class="navbar-nav header-links {% if settings.nav_links_position == "bottom_bar" %}pages{% endif %} {% if settings.category_links_position == "bottom_bar" %}categories{% endif %} mr-auto">
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endif %}
+
+{% if page.is_home_page %}
+{% include 'top_notification_bar' %}
+{% endif %}
+
+{% include 'passcode_modal' %}
+{% include 'remove_passcode_modal' %}
+
+{% if shop.catalog_enabled? %}
+  <div class="modal fade" id="search-modal" tabindex="-1" aria-labelledby="search-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          {% form 'search' %}
+            <div class="input-group input-group-lg">
+              <input class="form-control border border-right-0 popup-search" type="search" name="s[keyword]" id="s_keyword" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline border border-left-0 search-btn" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="mobile-slider d-lg-none d-xl-none" style="display: none">
+  <ul class="nav flex-column links pages categories"></ul>
+</div>
+<div class="mobile-slider-overlay" style="display: none"></div>
+
+
+
+<div class="cart-drawer-overlay"></div>
+<div class="cart-drawer-container hidden">
+  <a class="close-cart-drawer">
+    <img src="{{ 'close-icon.svg' | asset_url }}"/>
+  </a>
+  <div class="cart-update-success">
+    <div class="message">Cart update message.</div>
+    <div class="close-success-notif">+</div>
+  </div>
+  {% form 'cart' %}
+    <div class="shopping-cart" id="shopping-cart">
+      {% if order.line_items_count > 0 %}
+        <div class="table table-borderless">
+          <div class="mb-3">
+            <h4>Your Cart - {{ order.cart_items_count | pluralize: 'item', 'items' }}</h4>
+            <div class="mt-2">
+              <div class="cart-headings-container pb-3 border-bottom d-flex justify-content-between">
+                <h1 class="mb-0">Your cart</h1>
+                {% comment %}
+                <small class="p-0">PRODUCT</small>
+                <small class="p-0">TOTAL</small>
+                {% endcomment %}
+              </div>
+              {% for bundle in order.bundle_line_items %}
+                {% include 'drawer_bundle_line_item_fields', bundle: bundle %}
+              {% endfor %}
+              {% for line_item in order.line_items %}
+                {% include 'drawer_line_item_fields', line_item: line_item %}
+              {% endfor %}
+            </div>
+          </div>
+          <div>
+            <div class="cart-drawer-subtotal pt-3">
+              <h4 class="fw-bold px-0 py-2 mb-0">Estimated total</h4>
+              <div class="text-end py-2 pe-0">{{ order.cart_total | points_or_currency }}</div>
+              <div class="loader" style="display: none;"></div>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="empty_cart_container">
+          <h4 class="empty_cart fw-bold mb-4">
+            Your cart is empty
+          </h4>
+          <a href="/products" class="btn secondary continue-shopping py-2 px-3">Continue shopping</a>
+        </div>
+      {% endif %}
+    </div>
+    {% if order.line_items_count > 0 %}
+      <div class="cart-checkout-container">
+        <div class="cart-more-info mb-3">
+          Taxes, discounts and shipping calculated at checkout 
+        </div>
+        <div class="proceed-to-checkout-btn">
+          <div class="mt-2 py-0 px-0">
+            <a href="{{ cart_url }}" class="btn fw-bold primary px-lg-5">Go to Cart page</a>
+          </div>
+          <div class="mt-3 py-0 px-0">
+            <button type="submit" name="checkout" class="btn fw-bold secondary px-lg-5 w-100">Check out</button>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endform %}
+</div>
+
+
+<div class="quick-actions-menu d-lg-none d-xl-none">
+  {% if template_name == "checkout" and checkout_flow.state == 'confirm'  %}
+    <div class="bg-white p-3 border-top">
+      <button type="button" class="btn fs-5 py-2 px-3 w-100 primary place-order-btn">
+        Place Order
+      </button>
+    </div>
+  {% endif %}
+  {% if template_name == "wishlist" and wishlist.line_items_count > 0 %}
+    <div class="bg-white p-3 border-top">
+      <div class="mb-3">
+        <span class="">{{ wishlist.line_items_count }} items</span>
+        <span class="fw-bold float-end d-inline-block ps-3">{{ wishlist.cart_total | points_or_currency }}</span>
+      </div>
+      <div class="container-fluid px-0">
+        <div class="row">
+          <div class="col-12 col-md-6 px-0 pe-md-1 mb-2 mb-md-0">
+            <button type="button" class="btn fs-5 py-2 px-3 w-100 primary wishlist-request-quote">
+              <span class="fw-bold text-uppercase">Request Quote</span>
+            </button>
+          </div>
+          <div class="col-12 col-md-6 px-0 ps-md-1">
+            <button type="button" class="btn fs-5 py-2 px-3 w-100 primary wishlist-add-to-cart">
+              <span class="fw-bold text-uppercase">Add All to Cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if template_name == "cart" and order.line_items_count > 0 %}
+    <div class="bg-white p-3 border-top">
+      <div class="d-md-none mb-3">
+        <span class="d-md-none">{{ order.line_items_count | pluralize: 'item', 'items' }}</span>
+        <span class="fw-bold float-end d-inline-block ps-3 d-md-none">{{ order.cart_total | points_or_currency }}</span>
+      </div>
+      <button type="button" class="btn fs-5 py-2 px-3 w-100 primary text-md-start" id="qa-checkout-button">
+        <span class="fw-bold text-uppercase">Proceed to Checkout</span>
+        <span class="fw-bold float-end d-inline-block ps-3 d-none d-md-inline-block">{{ order.cart_total | points_or_currency }}</span>
+        <span class="float-end d-none d-md-inline-block">{{ order.line_items_count | pluralize: 'item', 'items' }}</span>
+      </button>
+    </div>
+  {% endif %}
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link quick-nav-link" href="/">
+        {% include 'icons/home' %}
+        Home
+      </a>
+    </li>
+    {% if shop.store_enabled? %}
+      <li class="nav-item">
+        <a class="nav-link quick-nav-link view-hide-cart" href="{{ cart_url }}">
+          {% include 'icons/cart' %}
+          Cart
+        </a>
+      </li>
+    {% endif %}
+    {% if current_user and shop.wishlist_enabled? %}
+      <li class="nav-item">
+        <a class="nav-link quick-nav-link" href="{{ wishlist_url }}">
+          {% include 'icons/wishlist' %}
+          Wishlist
+        </a>
+      </li>
+    {% endif %}
+    {% if current_user or shop.show_login? or shop.show_registration? %}
+      <li class="nav-item">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" type="button" id="quick-action-profile" data-bs-toggle="dropdown" aria-expanded="false">
+            {% include 'icons/profile' %}
+            Profile
+          </button>
+          <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="quick-action-profile">
+            {% if current_user %}
+              <a class="dropdown-item" href="{{ account_dashboard_url }}">Dashboard</a>
+              {% if shop.store_enabled? %}<a class="dropdown-item" href="{{ order_history_url }}">Order History</a>{% endif %}
+              <a class="dropdown-item" href="{{ edit_account_url }}">Account Settings</a>
+              {% if shop.store_enabled? %}<a class="dropdown-item" href="{{ address_book_url }}">Address Book</a>{% endif %}
+              {% if shop.store_enabled? and shop.show_account_balance? %}<a class="dropdown-item" href="{{ account_balance_url }}">Account Balance</a>{% endif %}
+              {% if shop.catalog_enabled? %}{% if shop.custom_logos_upload_enabled? or current_user.logos.size != 0  %}<a class="dropdown-item" href="{{ logos_url }}">Logo</a>{% endif %}{% endif %}
+              {% if shop.budget_enabled? and current_user.has_budgets? %}<a class="dropdown-item" href="{{ budget_info_url }}">Budget</a>{% endif %}
+              <a class="dropdown-item mt-2 border-top" href="{{ logout_url }}">Log Out</a>
+            {% else %}
+              {% if shop.show_login? %}<a class="dropdown-item" href="{{ login_url }}">Log In</a>{% endif %}
+              {% if shop.show_registration? %}<a class="dropdown-item" href="{{ signup_url }}">Register</a>{% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+
+{{ 'header.js' | asset_url | script_tag }}
+
+<script>
+  {% if shop.active_multi_storefront? and session_passcode == blank %}
+    var groupPasscodeModal = new bootstrap.Modal('#group-passcode-modal');
+    $("ul.header-links.pages").append("<li class='nav-item'><a class='nav-link group-passcode-button' href='#!' data-bs-toggle='modal' data-bs-target='#group-passcode-modal'>Enter Group Passcode</a></li>");
+
+    {% if settings.require_user_passcode and session_passcode == blank %}
+      groupPasscodeModal.show();
+      $("#group-passcode-modal button.btn-close").remove();
+    {% endif %}
+  {% endif %}
+
+  {% if shop.active_multi_storefront? and session_passcode != blank %}
+    var removeGroupPasscodeModal = new bootstrap.Modal('#remove-group-passcode-modal');
+    $("ul.header-links.pages").append("<li class='nav-item'><a class='nav-link clear-group-passcode-button' href='#!'>{{ settings.clear_button_text }}</a></li>");
+    $(".clear-group-passcode-button").click(function() {
+      removeGroupPasscodeModal.show();
+    });
+  {% endif %}
+</script>
+
+<!-- Start search functions -->
+<script>
+  const searchInput = document.querySelector(".search-box-container input");
+  const resultsContainer = document.querySelector(".search-results");
+
+  const MAX_RESULTS = 8;
+
+  function generateSearchProducts() {
+    const term = searchInput.value.toLowerCase().trim();
+    resultsContainer.innerHTML = "";
+
+    if (!term) {
+      resultsContainer.style.display = "none";
+      setSearchState(false);
+      return;
+    }
+
+    let matches = [];
+    const allProducts = document.querySelectorAll(".search-product");
+
+    allProducts.forEach(function (product) {
+      const name = (product.getAttribute("data-name") || "").toLowerCase().trim();
+      const sku = (product.getAttribute("data-sku") || "").toLowerCase().trim();
+
+      if (name.includes(term) || sku.includes(term)) {
+        matches.push(product.innerHTML);
+      }
+    });
+
+    if (matches.length > 0) {
+  	  setSearchState(true);
+      // Limit to 8 results
+      const limitedResults = matches.slice(0, MAX_RESULTS);
+
+      // Build "View All" link
+      const encodedTerm = encodeURIComponent(searchInput.value.trim());
+      const viewAllLink = `
+        <div class="view-all-results" style="width:100%; text-align:center;border-bottom: 1px solid #000;border-top: 1px solid #000;margin-top: -1px;">
+          <a href="/products?s%5Bkeyword%5D=${encodedTerm}" 
+             style="display:inline-block; padding:20px 12px;  text-decoration:none;width: 100%;font-size: 18px;color: #000;">
+            View all results
+          </a>
+        </div>
+      `;
+
+      // Inject results + button
+      resultsContainer.innerHTML = limitedResults.join("") + viewAllLink;
+
+      resultsContainer.style.display = "flex";
+      resultsContainer.style.flexWrap = "wrap";
+
+      // Only scroll if more than 8 results exist
+      resultsContainer.style.maxHeight = matches.length > MAX_RESULTS ? "100%" : "none";
+      resultsContainer.style.overflowY = matches.length > MAX_RESULTS ? "scroll" : "visible";
+
+    } else {
+      setSearchState(false);
+      resultsContainer.style.display = "none";
+    }
+  }
+
+  function setSearchState(isOpen) {
+    document.body.classList.toggle("search-open", isOpen);
+  }
+  // Show results on focus
+  searchInput.addEventListener("focus", function () {
+    if (searchInput.value.trim()) {
+      resultsContainer.style.display = "flex";
+    }
+  });
+
+  // Hide when clicking outside
+  document.addEventListener("click", function (event) {
+    const searchBox = document.querySelector(".search-box-container");
+
+    if (!event.target.closest(".search-box-container")) {
+      searchInput.value = "";
+      resultsContainer.innerHTML = "";
+      resultsContainer.style.display = "none"; 
+      setSearchState(false);
+    }
+  });
+
+  // Events
+  searchInput.addEventListener("input", generateSearchProducts);
+
+  searchInput.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      searchInput.value = "";
+      resultsContainer.innerHTML = "";
+      resultsContainer.style.display = "none";
+      setSearchState(false);
+    }
+
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  });
+  
+  //Toggle the visibility of the custom search box
+  $('#custom-search-btn, .close-search').on('click', function () {
+    const searchBox = $('.custom-searchbox-container');
+    const searchInput = $('.search-box-container input');
+    const resultsContainer = $('.search-results');
+
+    searchBox.fadeToggle(300, function () {
+      if (!searchBox.is(':visible')) {
+        searchInput.val('');
+        resultsContainer.empty();
+        resultsContainer.hide();
+        $('body').removeClass('search-open');
+      }
+    });
+  });
+</script>
+<!-- End search functions -->
+
+<!-- Start cart functions -->
+<script>
+  $(function() {
+    function openCartDrawer() {
+      $('.cart-drawer-overlay').show();
+      $('.cart-drawer-container').show().removeClass('hidden');
+    }
+    function closeCartDrawer() {
+      $('.cart-drawer-overlay').hide();
+      $('.cart-drawer-container').hide().addClass('hidden');
+    }
+    function updateCart(form) {
+      $('.cart-drawer-subtotal .text-end').hide();
+      $('.cart-drawer-subtotal .loader').show();
+      
+      return $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize()
+      }).then(() => {
+        return fetch('/cart')
+          .then(res => res.text())
+          .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+
+            $('#shopping-cart').replaceWith(doc.querySelector('#shopping-cart').outerHTML);
+            $('#shopping-cart-page').replaceWith(doc.querySelector('#shopping-cart-page').outerHTML);
+
+            $('.loader').hide();
+            $('.item-total-price-value, .cart-drawer-subtotal .text-end').show();
+          });
+      });
+    }
+    
+    function handleQuantityChange(button, type) {
+      const item = button.closest('.cart-item');
+      const input = button.siblings('input');
+
+      const currentQty = parseInt(input.val());
+      const increment = parseInt(item.data('product-internalid')) || 1;
+      const min = parseInt(item.data('product-minoq')) || 1;
+      const max = parseInt(item.data('product-maxoq')) || null;
+
+      let newQty = currentQty;
+
+      if (type === 'plus') {
+        newQty += increment;
+        if (max && newQty > max) {
+          showError(item, `Item "${item.data('product-name')}" allows a maximum order of ${max}`);
+          return;
+        }
+      }
+
+      if (type === 'minus') {
+        newQty -= increment;
+        if (newQty < min) {
+          showError(item, `Item "${item.data('product-name')}" allows a minimum order of ${min}`);
+          return;
+        }
+      }
+
+      input.val(newQty);
+
+      // Show loaders
+      //item.find('.item-total-price-value').hide();
+      $('.cart-drawer-subtotal .text-end').hide();
+      //item.find('.loader').show();
+      $('.cart-drawer-subtotal .loader').show();
+
+      $('.cart-drawer-container').addClass('update-cart');
+      item.find('button[type="submit"]').prop('disabled', false);
+
+      $('.cart-quantity-container button').click();
+    }
+    
+    function showError(item, message) {
+      const errorBox = item.find('.custom-moq-error');
+      errorBox.find('span').text(message);
+      errorBox.show();
+
+      $('.cart-quantity-container button').prop('disabled', true);
+    }
+    
+    
+    $('.view-hide-cart').on('click', function (e) {
+      e.preventDefault();
+      $('.cart-drawer-container').attr('class');
+      if ($('.cart-drawer-container').hasClass('hidden')) {
+        openCartDrawer();
+      } else {
+        closeCartDrawer();
+      }
+    });
+
+    $('.cart-drawer-overlay, .close-cart-drawer').on('click', closeCartDrawer);
+
+    // Quantity buttons
+    $(document).on('click', '#shopping-cart .plus', function () {
+      handleQuantityChange($(this), 'plus');
+    });
+
+    $(document).on('click', '#shopping-cart .minus', function () {
+      handleQuantityChange($(this), 'minus');
+    });
+
+    // Remove / empty
+    $(document).on('click', '#shopping-cart .remove-cart-item, #shopping-cart .empty-cart', function () {
+      const container = $(this).closest('.cart-item, #shopping-cart');
+
+      container.find('.cart-quantity-input').val(0);
+
+      $('.cart-drawer-container').addClass('update-cart');
+      $('.cart-quantity-container button').prop('disabled', false).click();
+    });
+
+    // Form submit
+    $(document).on('submit', '.cart-drawer-container form', function (e) {
+      if ($('.cart-drawer-container').hasClass('update-cart')) {
+        e.preventDefault();
+
+        updateCart($(this)).then(() => {
+          $('.cart-quantity-container button')
+            .prop('disabled', true)
+            .addClass('btn-dark')
+            .removeClass('secondary');
+        });
+      }
+    });
+    
+    $('.proceed-to-checkout-btn button').on('click', function () {
+      $('.cart-drawer-container').removeClass('update-cart');
+    });
+  });
+</script>
+<!-- End cart functions -->

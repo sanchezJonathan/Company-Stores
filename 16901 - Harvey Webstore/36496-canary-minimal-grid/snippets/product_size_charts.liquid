@@ -1,0 +1,67 @@
+{% if product.size_charts.size > 0 %}
+  {% assign size_chart_modal_id = modal_id | default: 'modal-sizeChart' %}
+  <div
+    class="modal fade"
+    id="{{ size_chart_modal_id }}"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="ModalLabel"
+    aria-hidden="true"
+    style="display: none;"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Size Charts</h5>
+          <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <!-- <span aria-hidden="true">&times;</span> -->
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="product-tabs">
+            <div class="tabs-body">
+              <div class="product-size-charts visible text-center">
+                {% for chart in product.size_charts %}
+                  {% if chart.url contains 'PNG' or chart.url contains 'png' %}
+                    <a
+                      target="_blank"
+                      class="size-chart-item border rounded text-center d-inline-flex flex-column m-2"
+                      href="{{chart.url}}"
+                    >
+                      <div class="d-block py-3 px-5">{% include 'icons/download-png' %}</div>
+                      <span class="border-top py-2">{{ chart.name | replace: ' PNG', '' }}</span>
+                    </a>
+                  {% endif %}
+                  {% if chart.url contains 'PDF' or chart.url contains 'pdf' %}
+                    <a
+                      target="_blank"
+                      class="size-chart-item border rounded text-center d-inline-flex flex-column m-2"
+                      href="{{chart.url}}"
+                    >
+                      <div class="d-block py-3 px-5">{% include 'icons/download-pdf' %}</div>
+                      <span class="border-top py-2">{{ chart.name | replace: ' PDF', '' }}</span>
+                    </a>
+                  {% endif %}
+                  {% if chart.url contains 'JPG'
+                    or chart.url contains 'JPEG'
+                    or chart.url contains 'jpg'
+                    or chart.url contains 'jpeg'
+                  %}
+                    <a
+                      target="_blank"
+                      class="size-chart-item border rounded text-center d-inline-flex flex-column m-2"
+                      href="{{chart.url}}"
+                    >
+                      <div class="d-block py-3 px-5">{% include 'icons/download-jpg' %}</div>
+                      <span class="border-top py-2">{{ chart.name | replace: ' JPG', '' }}</span>
+                    </a>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

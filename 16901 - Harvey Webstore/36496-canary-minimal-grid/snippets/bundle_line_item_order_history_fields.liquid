@@ -1,0 +1,41 @@
+<div class="row border border-end-0 mx-0 order-item" data-id="{{ bundle.id }}" data-qty="{{ bundle.quantity }}">
+  <div class="col-4 col-md-2 py-2 border-end">
+    <div class="order-img-container">
+      <img class="img-fluid" alt="{{ bundle.name }} image" title="{{ bundle.name }} image" src="{% if bundle.image %}{{ bundle.image.thumb_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+    </div>
+  </div>
+  <div class="col-8 col-md-6 py-2 border-end">
+    <p class="fw-bold mb-2">
+      {{ bundle.name }}
+      <span class="text-muted fw-normal">({{ bundle.products_count }} products)</span>
+    </p>
+
+    <div class="bundle-includes bg-light border rounded p-3 mb-2">
+      <p class="cart-inline-title-short text-uppercase text-muted mb-2">Bundle includes</p>
+      {% for line_item in bundle.line_items %}
+        <div class="bundle-includes-item d-flex align-items-start {% unless forloop.last %}mb-2{% endunless %}">
+          <div class="bundle-includes-image pe-2">
+            <img class="bundle-includes-img" alt="{{ line_item.name }} image" src="{% if line_item.image %}{{ line_item.image.small_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+          </div>
+          <div>
+            {% if line_item.vendors != empty and settings.show_vendors %}
+              <p class="mb-0 small text-muted">by {{ line_item.vendor_names }}</p>
+            {% endif %}
+            {% capture bundle_item_name %}{{ line_item.quantity | divided_by: bundle.quantity }}&times; {{ line_item.name }}{% endcapture %}
+            {% render 'line_item_info', line_item: line_item, name: bundle_item_name, settings: settings %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <p class="mb-0">
+      <span class="cart-inline-title-short">Bundle price:</span>
+      {{ bundle.unit_price | points_or_currency }}
+    </p>
+
+    <div class="d-md-none"><span class="fw-bold qty">Quantity: </span>{{ bundle.quantity }}</div>
+    <div class="d-md-none"><span class="fw-bold">Total: </span>{{ bundle.total_price | points_or_currency }}</div>
+  </div>
+  <div class="col-6 col-md-2 py-2 d-none d-md-block border-end">{{ bundle.quantity }}</div>
+  <div class="col-6 col-md-2 py-2 d-none d-md-block border-end">{{ bundle.total_price | points_or_currency }}</div>
+</div>

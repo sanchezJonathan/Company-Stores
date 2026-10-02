@@ -1,0 +1,483 @@
+<table id="background">
+  <tr>
+    <td>
+      <table id="main">
+        <tr>
+          <td width="300">
+            <div style="
+              width: {% if settings.logo_width != empty %}{{ settings.logo_width }}{% else %}auto{% endif %};
+              height: auto;
+              display:block;
+              float: left;">
+              {% if settings.confirmation_emails_logo %}
+                <img src="{{ 'email_logo_custom_bg_image.png' | asset_url }}" style="max-height: {{ settings.header_height }};">
+              {% elsif settings.show_logo %}
+                <img src="{{ 'logo_custom_bg_image.jpg' | asset_url }}" style="max-height: {{ settings.header_height }};">
+              {% endif %}
+            </div>
+          </td>
+          <td width="300" class="service">
+            {% if shop.primary_phone %}
+              Questions? {{ shop.primary_phone | number_to_phone }}
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="welcome-message">
+            {% if order.moas_pending? %}
+              <p class="moas-pending">
+                Thank you for your order! Your order has been sent for approval. You will be notified if your order is approved or denied.
+              </p>
+            {% elsif order.moas_denied? %}
+              <p class="moas-denied">
+                Your order has been denied. If you have any questions please contact your approver.
+              </p>
+            {% else %}
+              <p>
+                Thank you for your order at {{ shop.name }}. You can check the status of your order any
+                time by <a href="{{ login_url }}">logging into your account</a>.
+              </p>
+            {% endif %}
+          </td>
+        </tr>
+
+      </table>
+      <table id="order-information">
+        <tr class="section-header">
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" colspan="2">
+            <p>
+              Order Information
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1">
+            <p>
+              <strong>Order Number:</strong> {{ order.order_id }}
+            </p>
+            <p>
+              <strong>Date:</strong> {{ order.completed_at | date: "%a, %b %d, %Y  %I:%M%p (%Z)" }}
+            </p>
+
+            <p>
+              <strong>Total:</strong> {{ order.grand_total | points_or_currency }}
+            </p>
+          </td>
+          <td colspan="1" style="vertical-align:middle;">
+            <p>
+              <strong>Ordered By:</strong>
+              {{ order.best_customer_name }}
+            </p>
+            <p>
+              <strong>Shipping method:</strong> {{ order.shipment_friendly_name }}
+            </p>
+            {% if order.shipment.in_hands_date %}
+              <p>
+                <strong>In Hands Date:</strong> {{ order.shipment.in_hands_date }}
+              </p>
+            {% endif %}
+            {% if order.shipment and order.shipment.tracking_number and order.shipment.tracking_number != empty %}
+              <p>
+                <strong>Tracking number:</strong> {{ order.shipment | tracking_link }}
+              </p>
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              <strong>Shipped To:</strong>
+            </p>
+
+            <p>
+              {{ order.shipping_contact.name }}
+            </p>
+
+            <p>
+              {{ order.shipping_address.company }}
+            </p>
+
+            <p>
+              {{ order.shipping_address.first_address }}
+            </p>
+
+            <p>
+              {{ order.shipping_address.second_address }}
+            </p>
+
+            <p>
+              {{ order.shipping_address.city }}, {% if order.shipping_address.state != empty %}{{ order.shipping_address.state }}, {% endif %}{{ order.shipping_address.zip }}
+            </p>
+
+            <p>
+              {{ order.shipping_address.country }}
+            </p>
+
+            <p>
+              {{ order.shipping_contact.email }}
+            </p>
+
+            <p>
+              {{ order.shipping_contact.phone }}
+            </p>
+
+          </td>
+          <td class="billing-information">
+            <p>
+              <strong>Billed To:</strong>
+            </p>
+
+            <p>
+              {{ order.billing_contact.name }}
+            </p>
+
+            <p>
+              {{ order.billing_address.company }}
+            </p>
+
+            <p>
+              {{ order.billing_address.first_address }}
+            </p>
+
+            <p>
+              {{ order.billing_address.second_address }}
+            </p>
+
+            <p>
+              {{ order.billing_address.city }}, {% if order.billing_address.state != empty %}{{ order.billing_address.state }}, {% endif %}{{ order.billing_address.zip }}
+            </p>
+
+            <p>
+              {{ order.billing_address.country }}
+            </p>
+
+            <p>
+              {{ order.billing_contact.email }}
+            </p>
+
+            <p>
+              {{ order.billing_contact.phone }}
+            </p>
+
+          </td>
+        </tr>
+        {% if order.custom_data_collections != empty %}
+          <tr>
+            <td colspan="2">
+              <p>
+                <strong>
+                  {% if shop.custom_data_collections_name %}{{ shop.custom_data_collections_name }}:{% endif %}
+                </strong>
+              </p>
+
+              <div style='margin-left: 10px; margin-top: 10px;'>
+                {% for custom_data_collection in order.custom_data_collections %}
+                  <p class="custom-data-collection">
+                  <p>
+                    <strong>
+                      {% include 'modifier', title: custom_data_collection.title, amount: custom_data_collection.amount %}
+                    </strong>
+                  </p>
+
+                  {% for attribute in custom_data_collection.custom_data_attributes %}
+                    <p style="padding-left: 10px;">
+                      <span class="attribute-key"><strong>{{ attribute.key }}:</strong></span>
+                      {% if attribute.value != empty %}
+                        <span class="attribute-value">{{ attribute.value | join: ', ' }}</span>
+                      {% else %}
+                        <span class="attribute-value not-specified">&lt;not specified&gt;</span>
+                      {% endif %}
+                    </p>
+                  {% endfor %}
+                  </p>
+                  <br>
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+        {% endif %}
+      </table>
+
+      <br>
+
+      <table id="order-summary">
+        <tr class="section-header">
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=120>
+            <p style="margin: 3px 0px;">
+              Image
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=380>
+            <p style="margin: 3px 0px;">
+              Details
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=100>
+            <p style="margin: 3px 0px;">
+              Qty
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width="100">
+            <p style="margin: 3px 0px;">
+              Total
+            </p>
+          </td>
+        </tr>
+        {% for bundle in order.bundle_line_items %}
+          {% render 'bundle_line_item_email_fields', bundle: bundle %}
+        {% endfor %}
+        {% for line_item in order.line_items %}
+          <tr class="line-item">
+
+            <td>
+              <table class="basic-info">
+                <tbody>
+                <tr>
+                  <td class="image-cell">
+                    <img width=100 alt="{{ line_item.name }} image" title="{{ line_item.name }} image"
+                      src="{% if line_item.image %}{{ line_item.image.small_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+
+            <td class="product-info">
+              <p class="sub-option product-title">
+                {{ line_item.name }}
+              </p>
+              {% if settings.show_sku %}
+                <p class="sub-option">
+                  <span class="sub-option-name">SKU#</span> <span
+                    class="sub-option-value">{{ line_item.final_sku }}</span>
+                </p>
+              {% endif %}
+
+              {% for choice in line_item.choices %}
+                {% if choice.sub_option %}
+                  <p class="sub-option">
+                    <span class="sub-option-name">{{ choice.option.friendly_name }}{% if choice.has_group? %} ({{ choice.group.name }}) {% endif %}:</span>
+                    <span class="sub-option-value">{% include 'modifier', title: choice.sub_option.name, amount: choice.amount %}</span>
+                  </p>
+                {% endif %}
+              {% endfor %}
+
+              {% if line_item.logos.size > 0 %}
+                <div class="sub-options">
+                  {% for logo in line_item.logos %}
+                    <p class="sub-option logo">
+                      <span class="sub-option-name logo-location">{{ logo.location_name | default: "logo" }}:</span>
+                      <span class="sub-option-name logo-name">{{ logo.name }}{% if logo.charge %} ({{ logo.charge | points_or_currency }}){% endif %}</span>
+                    </p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              {% if line_item.has_setup_charge? %}
+                <p class="sub-option">
+                  Setup Charge: {{ line_item.setup_charge | points_or_currency }}
+                </p>
+              {% endif %}
+
+              {% for personalization in line_item.product_personalizations %}
+                <div class="product-personalization">
+                  <p class="title" style="font-weight: bold;">
+                    {% include 'modifier', title: personalization.title, amount: personalization.amount %}
+                  </p>
+                  {% for attribute in personalization.attributes %}
+                    <p class="row">
+                      <label>{{ attribute.key }}:</label>
+                      {% if attribute.value != empty %}
+                        <span class="attribute-value">{{ attribute.value | join: ', ' }}</span>
+                      {% else %}
+                        <span class="attribute-value not-specified">&lt;not specified&gt;</span>
+                      {% endif %}
+                    </p>
+                  {% endfor %}
+                </div>
+              {% endfor %}
+
+              {% if line_item.gift_certificate? %}
+                {% assign cert_details = line_item.gift_certificate_details %}
+                {% assign first_name = cert_details.first_name %}
+                {% assign last_name = cert_details.last_name %}
+                {% assign email = cert_details.email %}
+                {% assign message = cert_details.message %}
+                {% assign code = line_item.gift_certificate_code %}
+
+                <p class="sub-option mt-10">
+                  <strong>Recipient Information</strong>
+                </p>
+
+                {% if first_name != blank %}
+                  <p class="sub-option">
+                    <span class="sub-option-name">First name:</span>
+                    <span class="sub-option-value">{{ first_name }}</span>
+                  </p>
+                {% endif %}
+
+                {% if last_name != blank %}
+                  <p class="sub-option">
+                    <span class="sub-option-name">Last name:</span>
+                    <span class="sub-option-value">{{ last_name }}</span>
+                  </p>
+                {% endif %}
+
+                {% if email != blank %}
+                  <p class="sub-option">
+                    <span class="sub-option-name">Email:</span>
+                    <span class="sub-option-value">
+                      <a href="mailto:{{ email }}">{{ email }}</a>
+                    </span>
+                  </p>
+                {% endif %}
+
+                {% if message != blank %}
+                  <p class="sub-option">
+                    <span class="sub-option-name">Message:</span>
+                    <span class="sub-option-value">{{ message }}</span>
+                  </p>
+                {% endif %}
+
+                {% if code != blank %}
+                  <p class="sub-option">
+                    <span class="sub-option-name">Code:</span>
+                    <span class="sub-option-value">{{ code }}</span>
+                  </p>
+                {% endif %}
+              {% endif %}
+            </td>
+            <td class="order-quantity">
+              <p class="line-item-quantity">
+                {{ line_item.quantity }}
+              </p>
+            </td>
+            <td class="product-price">
+              <p>
+                {{ line_item.total_price | points_or_currency }}
+              </p>
+            </td>
+          </tr>
+        {% endfor %}
+        <tr class="calculation-item">
+          <td class="title" colspan=3>
+            <p>Item Subtotal:</p>
+          </td>
+          <td class="value">
+            <p>{{ order.item_total | points_or_currency }}</p>
+          </td>
+        </tr>
+
+        {% if order.setup_charge_total > 0 %}
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>Setup Charges:</p>
+            </td>
+            <td class="value">
+              <p>{{ order.setup_charge_total | points_or_currency }}</p>
+            </td>
+          </tr>
+        {% endif %}
+
+        {% for custom_data_collection in order.custom_data_collections %}
+          {% if custom_data_collection.amount > 0 %}
+            <tr class="calculation-item">
+              <td class="title" colspan=3>
+                <p>{{ custom_data_collection.title }}:</p>
+              </td>
+              <td class="value">
+                <p>{{ custom_data_collection.amount | points_or_currency }}</p>
+              </td>
+            </tr>
+          {% endif %}
+
+        {% endfor %}
+
+        {% if site.show_shipping_base_rate? %}
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>Shipping ({{ order.shipment_friendly_name }}):</p>
+            </td>
+            <td class="value">
+              <p>{{ order.shipment_total_without_base_rate | points_or_currency }}</p>
+            </td>
+          </tr>
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>{{ site.shipping_base_rate_name }}:</p>
+            </td>
+            <td class="value">
+              <p>{{ order.shipment_base_rate | points_or_currency }}</p>
+            </td>
+          </tr>
+        {% else %}
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>Shipping ({{ order.shipment_friendly_name }}):</p>
+            </td>
+            <td class="value">
+              <p>{{ order.shipment_total | points_or_currency }}</p>
+            </td>
+          </tr>
+        {% endif %}
+
+        {% if order.total_tax > 0 %}
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>Tax:</p>
+            </td>
+            <td class="value">
+              <p>{{ order.total_tax | points_or_currency }}</p>
+            </td>
+          </tr>
+        {% endif %}
+
+        <tr class="calculation-item order-total">
+          <td class="title" colspan=3>
+            <p>Order Subtotal:</p>
+          </td>
+          <td class="value">
+            <p>{{ order.order_total | points_or_currency }}</p>
+          </td>
+        </tr>
+
+        <tr class="calculation-item">
+          <td class="title" colspan=3>
+            <p>Coupon Savings:</p>
+          </td>
+          <td class="value">
+            <p>{{ order.promo_total | points_or_currency }}</p>
+          </td>
+        </tr>
+
+        <tr class="calculation-item order-total">
+          <td class="title" colspan=3>
+            <p>Order total:</p>
+          </td>
+          <td class="value">
+            <p>{{ order.grand_total | points_or_currency }}</p>
+          </td>
+        </tr>
+
+        {% for payment in order.payments %}
+          <tr class="calculation-item order-payments">
+            <td class="title" colspan=3>
+              {% if payment.type == "Custom Payment" %}
+                <p>{{ payment.payment_name }} ({{ payment.custom_payment_value }}):</p>
+                {% elsif payment.type == "Credit Card" %}
+                <p>Credit Card #{{ payment.credit_card_lastfour }}:</p>
+                {% elsif payment.type == "Balance" %}
+                <p>Account Balance Used:</p>
+              {% else %}
+                <p>{{ payment.type }}:</p>
+              {% endif %}
+            </td>
+            <td class="value">
+              <p>-{{ payment.amount }}</p>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </td>
+  </tr>
+</table>

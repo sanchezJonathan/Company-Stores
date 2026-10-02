@@ -1,0 +1,34 @@
+<div class='images-wrapper d-none d-lg-block'>
+  {% if product.images.size > 1 %}
+    <button class="btn nav prev"></button>
+  {% endif %}
+
+  <div class='images-container'>
+    <ul class="clrfix images mx-0">
+      {% for image in product.images %}
+        <li class='image {% if image.primary? %} primary {% endif %}' data-id="{{ image.id }}" data-group-id="{{ image.group_id }}">
+          <a href="{{ image.large_url }}" data-toggle="lightbox" ><img alt="{{ product.name }} image thumbnail" title="{{ product.name }} image thumbnail" src="{{ image.large_url }}" class="small-thumb"/></a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% if product.images.size > 1 %}
+    <button class="btn nav next"></button>
+  {% endif %}
+</div>
+<script>
+  var viewportSize = $(window).width();
+  if (viewportSize >= 1200 ) {
+  	$('div.images-wrapper').data('scrolling', new HorizontalScrolling({containerSelector: 'div.product-gallery div.gallery-main ul.images', itemClass: 'image', displayedCount: 3, itemWidth: 208}));
+  } else if (viewportSize >= 992 && viewportSize < 1200 ) {
+  	$('div.images-wrapper').data('scrolling', new HorizontalScrolling({containerSelector: 'div.product-gallery div.gallery-main ul.images', itemClass: 'image', displayedCount: 3, itemWidth: 158}));
+  } else if (viewportSize >= 768 && viewportSize < 992 ) {
+    $('div.images-wrapper').data('scrolling', new HorizontalScrolling({containerSelector: 'div.product-gallery div.gallery-main ul.images', itemClass: 'image', displayedCount: 3, itemWidth: 117}));
+  } else if (viewportSize >= 576 && viewportSize < 768 ) {
+	$('div.images-wrapper').data('scrolling', new HorizontalScrolling({containerSelector: 'div.product-gallery div.gallery-main ul.images', itemClass: 'image', displayedCount: 3, itemWidth: 143}));
+  } else if (viewportSize >= 451 && viewportSize < 576 ) {
+	$('div.images-wrapper').data('scrolling', new HorizontalScrolling({containerSelector: 'div.product-gallery div.gallery-main ul.images', itemClass: 'image', displayedCount: 3, itemWidth: 110}));
+  } else if (viewportSize < 451 ) {
+	$('div.images-wrapper').data('scrolling', new HorizontalScrolling({containerSelector: 'div.product-gallery div.gallery-main ul.images', itemClass: 'image', displayedCount: 3, itemWidth: 68}));
+  }
+</script>

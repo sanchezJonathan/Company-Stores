@@ -1,0 +1,151 @@
+<div class="guest-checkout container-fluid px-lg-0 mt-5">
+  <div class="row mx-0">
+    <div class="col-12 px-0">
+      <ul class="nav nav-tabs">
+        {% if shop.show_login? %}
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold border border-bottom-0 login-tab" href="#!"><h5 class="mb-0"><b>Log In</b></h5></a>
+          </li>
+        {% endif %}
+        {% if shop.show_registration? %}
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold border border-bottom-0 register-tab" href="#!"><h5 class="mb-0"><b>Register</b></h5></a>
+          </li>
+        {% endif %}
+        {% if shop.guest_checkout_allowed? %}
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold border border-bottom-0 guest-tab" href="#!"><h5 class="mb-0"><b>Guest Checkout</b></h5></a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  {% if shop.show_login? %}
+    <div class="row px-2 border border-top-0 mx-0 login-container">
+      <div class="col-lg-6 col-md-12 mx-auto py-5 px-4">
+        <div class="sign-in">
+          <div class="content-block">
+            <div class="sign-in-form">
+              {% include "login_form" %}
+            </div>
+          </div>
+          <div class="pt-3">
+            <p class="mb-0">
+              <a href="{{ forgot_password_url }}" class="forgot-link">Forgot password?</a>
+              <br>
+              <a href="{{ resent_confirmation_url }}" class="resend-link">Resend confirmation E-Mail</a>  
+            </p>
+
+            {% google_sso_button %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if shop.show_registration? %}
+    <div class="row px-2 border border-top-0 mx-0 register-container">
+      <div class="col-lg-6 col-md-12 mx-auto py-5 px-4">
+        <div class="sign-in">
+          <div class="content-block">
+            {% if shop.show_registration? %}
+              <div class="sign-in-form">
+                {% form 'checkout_registration' %}
+                  {% include "registration_form" %}
+                  <button type="submit" class="btn secondary" name="commit">Create account</button>
+                {% endform %}
+              </div>
+            {% else %}
+              <p class="text-center">Registration is disabled</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if shop.guest_checkout_allowed? %}
+    <div class="row px-2 border border-top-0 mx-0 guest-container">
+      <div class="col-lg-6 col-md-12 mx-auto py-5 px-4">
+        {% form 'guest_checkout' %}
+          <div class="mb-3">
+            <label class="string required control-label email" for="website_order_customer_email">Email address</label>
+            <input type="text" class="form-control {% if form.errors contains 'email' %}is-invalid{% endif %}" id="website_order_customer_email" name="guest[email]"  rel="login">
+            {% if form.errors contains 'email' %}
+              <div class="invalid-feedback">
+                {{ form.errors['email'] }}
+              </div>
+            {% endif %}
+          </div>
+          <input type="submit" value="Continue as Guest" class="btn secondary"/>
+        {% endform %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  function showLogin() {
+  	$(".login-container").show();
+    $(".register-container").hide();
+    $(".guest-container").hide();
+    
+    $(".login-tab").addClass("active");
+    $(".register-tab").removeClass("active");
+    $(".guest-tab").removeClass("active");
+    
+    $(".login-tab").closest(".nav-item").addClass("active-tab");
+    $(".register-tab").closest(".nav-item").removeClass("active-tab");
+    $(".guest-tab").closest(".nav-item").removeClass("active-tab");
+  }
+  
+  function showRegister() {
+    $(".login-container").hide();
+    $(".register-container").show();
+    $(".guest-container").hide();
+    
+    $(".login-tab").removeClass("active");
+    $(".register-tab").addClass("active");
+    $(".guest-tab").removeClass("active");
+    
+    $(".login-tab").closest(".nav-item").removeClass("active-tab");
+    $(".register-tab").closest(".nav-item").addClass("active-tab");
+    $(".guest-tab").closest(".nav-item").removeClass("active-tab");
+  }
+  
+  function showGuest() {
+    $(".login-container").hide();
+    $(".register-container").hide();
+    $(".guest-container").show();
+    
+    $(".login-tab").removeClass("active");
+    $(".register-tab").removeClass("active");
+    $(".guest-tab").addClass("active");
+    
+    $(".login-tab").closest(".nav-item").removeClass("active-tab");
+    $(".register-tab").closest(".nav-item").removeClass("active-tab");
+    $(".guest-tab").closest(".nav-item").addClass("active-tab");
+  }
+  
+  var activeTab = sessionStorage.getItem("checkout-tab") || {% if shop.show_login? %}"login"{% endif %}{% if shop.show_login? == false and shop.show_registration? %}"register"{% endif %}{% if shop.show_login? == false and shop.show_registration? == false %}"guest"{% endif %};
+  var activeTabMap = {
+    login: showLogin,
+    register: showRegister,
+    guest: showGuest,
+  };
+  
+  activeTabMap[activeTab]();
+  
+  $(".login-tab").click(function() {
+  	showLogin();
+    sessionStorage.setItem("checkout-tab", "login");
+  });
+  
+  $(".register-tab").click(function() {
+  	showRegister();
+    sessionStorage.setItem("checkout-tab", "register");
+  });
+  
+  $(".guest-tab").click(function() {
+  	showGuest();
+    sessionStorage.setItem("checkout-tab", "guest");
+  });
+</script>

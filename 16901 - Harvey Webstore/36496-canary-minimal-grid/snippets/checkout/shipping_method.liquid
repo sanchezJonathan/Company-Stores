@@ -1,0 +1,51 @@
+<h2>Shipping method</h2>
+<h4 class="mt-5">Shipping method</h4>
+<div class="mb-3">
+  {% for shipment in form.shipments %}
+    <div class="form-check">
+      <input class="form-check-input" 
+        type="radio"
+        id="{{ shipment.shipment_id }}"
+        name="checkout[delivery][shipment_id]"
+        value="{{ shipment.id }}"
+        {% if order.shipment_id == shipment.id %} checked="checked" {% endif %}>
+      <label class="form-check-label" for="{{ shipment.shipment_id }}">
+        {{ shipment.name }} ({{ shipment.amount | points_or_currency }})
+      </label>
+    </div>
+  {% endfor %}
+
+  {% for error in form.shipment_errors %}
+    <div class="text-danger">{{ error }}</div>
+  {% endfor %}
+
+  {% if shop.show_in_hands_date? %}
+    <div class="my-3 in-hands-date">
+      <label class="form-label" for="shipping-in-hands-date">In Hands Date:</label>
+      <input type="date"
+        name="checkout[delivery][in_hands_date]"
+        value="{{ order.shipment.in_hands_date }}"
+        id="shipping-in-hands-date"
+        class="form-control"
+        autocomplete="off">
+    </div>
+  
+    <script>
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+      var yyyy = today.getFullYear();
+      if(dd<10){
+        dd='0'+dd
+      } 
+      if(mm<10){
+        mm='0'+mm
+      } 
+
+      today = yyyy+'-'+mm+'-'+dd;
+      $("#shipping-in-hands-date").attr("min", today)
+    </script>
+  {% endif %}
+</div>
+
+<input type="submit" value="Continue" class="btn secondary"/>

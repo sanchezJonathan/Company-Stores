@@ -1,0 +1,57 @@
+<div class="content-item shipping">
+  <h2>Budget</h2>
+
+  {% if checkout_flow.passed_states contains 'budget' %}
+    <div class="edit-checkout-container btn_2">
+      <a href="/checkout/budget" class="edit-budget"><i class="fa fa-pencil-square-o"></i>edit </a>
+    </div>
+
+    <div>
+      <p class="truncated">
+        {% if order.budget %}
+          {{ order.budget.name }} ({{ order.budget.code }})
+        {% else %}
+          No Budget
+        {% endif %}
+      </p>
+    </div>
+  {% endif %}
+
+  {% if checkout_flow.state == 'budget' %}
+    <div class="checkout-cols clrfix mb-3">
+      <div>
+        <h4>Budget Selection</h4>
+          {% if current_user.budget_optional? %}
+            <div class="form-check">
+              <input type="radio"
+                class="form-check-input"
+                name="checkout[budget][budget_id]"
+                id="checkout[budget][budget_id]"
+                value=""
+                {% if order.budget_id == blank %} checked="checked" {% endif %}
+              />
+              <label class="form-check-label" for="checkout[budget][budget_id]">No Budget</label>
+        	</div>
+          {% endif %}
+
+          {% for budget in current_user.budgets %}
+            <div class="form-check">
+              <input type="radio"
+                  class="form-check-input"
+                  name="checkout[budget][budget_id]"
+                  id="checkout[budget][budget_id][{{ budget.id }}]"
+                  value="{{ budget.id }}"
+                  {% if budget.allow_negative? == false and order.grand_total > budget.balance %} disabled="disabled" {% endif %}
+                  {% if order.budget_id == budget.id %} checked="checked" {% endif %}
+                />
+              <label for="checkout[budget][budget_id]" {% if budget.allow_negative? == false and order.grand_total > budget.balance %} class="low-budget form-check-label" {% else %} class="form-check-label" {% endif %}>
+                {{ budget.name }} ({{ budget.balance | points_or_currency }})
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+
+    <input type="submit" value="Continue" class="btn secondary"/>
+  {% endif %}
+</div>

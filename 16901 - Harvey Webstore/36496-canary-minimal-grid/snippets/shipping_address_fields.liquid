@@ -1,0 +1,168 @@
+<h4 class="mt-5">Personal Information</h4>
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_contact_attributes_first_name">First name<span class="required-label">(required)</span></label>
+  <input type="text"
+    value="{{ form.first_name.value }}"
+    name="checkout[address][first_name]"
+    id="website_order_shipping_contact_attributes_first_name"
+    class="form-control first-name {% if form.first_name.errors != empty %}is-invalid{% endif %}"
+    placeholder="First name"
+    maxlength="{{ form.first_name_maxlength }}"/>
+
+  {% for error in form.first_name.errors %}
+  	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_contact_attributes_last_name">Last name<span class="required-label">(required)</span></label>
+  <input type="text"
+    value="{{ form.last_name.value }}"
+    name="checkout[address][last_name]"
+    id="website_order_shipping_contact_attributes_last_name"
+    class="form-control last-name {% if form.last_name.errors != empty %}is-invalid{% endif %}"
+    placeholder="Last name"
+    maxlength="{{ form.last_name_maxlength }}"/>
+
+  {% for error in form.last_name.errors %}
+  	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_contact_attributes_email">Email Address<span class="required-label">(required)</span></label>
+  <input type="text"
+    value="{{ form.email.value }}"
+    name="checkout[address][email]"
+    id="website_order_shipping_contact_attributes_email"
+    class="form-control email {% if form.email.errors != empty %}is-invalid{% endif %}"
+    placeholder="Email Address"
+    maxlength="{{ form.email_maxlength }}"/>
+
+  {% for error in form.email.errors %}
+  	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_contact_attributes_phone">Phone<span class="required-label">(required)</span></label>
+  <input type="text"
+    value="{{ form.phone.value }}"
+    name="checkout[address][phone]"
+    id="website_order_shipping_contact_attributes_phone"
+    class="form-control phone {% if form.phone.errors != empty %}is-invalid{% endif %}"
+    placeholder="Phone"
+    maxlength="{{ form.phone_maxlength }}"/>
+
+  {% for error in form.phone.errors %}
+  	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_address_attributes_company">Company</label>
+  <input type="text"
+    value="{{ form.company.value }}"
+    name="checkout[address][company]"
+    id="website_order_shipping_address_attributes_company"
+    class="form-control company {% if form.company.errors != empty %}is-invalid{% endif %}"
+    placeholder="Company"
+    maxlength="{{ form.company_maxlength }}"/>
+
+  {% for error in form.company.errors %}
+  	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<h4 class="mt-5">Shipping Address</h4>
+
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_address_attributes_first_address">Address<span class="required-label">(required)</span></label>
+  <input type="text"
+    value="{{ form.first_address.value }}"
+    name="checkout[address][first_address]"
+    id="website_order_shipping_address_attributes_first_address"
+    class="form-control first-address {% if form.first_address.errors != empty %}is-invalid{% endif %}"
+    placeholder="Address line 1"
+    maxlength="{{ form.first_address_maxlength }}"/>
+
+  {% for error in form.first_address.errors %}
+  	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+
+  <input type="text"
+    value="{{ form.second_address.value }}"
+    name="checkout[address][second_address]"
+    id="website_order_shipping_address_attributes_second_address"
+    class="form-control second-address mt-2  {% if form.second_address.errors != empty %}is-invalid{% endif %}"
+    placeholder="Address line 2"
+    maxlength="{{ form.second_address_maxlength }}"/>
+
+  {% for error in form.second_address.errors %}
+      	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_address_attributes_city">City<span class="required-label">(required)</span></label>
+  <input type="text"
+    value="{{ form.city.value }}"
+    name="checkout[address][city]"
+    id="website_order_shipping_address_attributes_city"
+    class="form-control city {% if form.city.errors != empty %}is-invalid{% endif %}"
+    placeholder="City"
+    maxlength="{{ form.city_maxlength }}"/>
+
+  {% for error in form.city.errors %}
+  	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_address_attributes_country">Country<span class="required-label">(required)</span></label>
+  <div>
+    <select name="checkout[address][country]" class="form-select country {% if form.country.errors != empty %}is-invalid{% endif %}" id="website_order_shipping_address_attributes_country">
+      {% country_select_options selected: form.country.value %}
+    </select>  
+  </div>
+  
+  {% for error in form.country.errors %}
+  	<div class="invalid-feedback d-block">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<div class="mb-3 state-container">
+  <label class="form-label" for="website_order_shipping_address_attributes_state">State<span class="required-label">(required)</span></label>
+  <div>
+    <select name="checkout[address][state]" class="form-select state {% if form.state.errors != empty %}is-invalid{% endif %}" id="website_order_shipping_address_attributes_state">
+      {% state_select_options country: form.country.value, selected: form.state.value %}
+    </select>
+  </div>
+
+  {% for error in form.state.errors %}
+  	<div class="invalid-feedback d-block">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<div class="mb-3">
+  <label class="form-label" for="website_order_shipping_address_attributes_zip">Zip code<span class="required-label">(required)</span></label>
+  <input type="text"
+    value="{{ form.zip.value }}"
+    name="checkout[address][zip]"
+    id="website_order_shipping_address_attributes_zip"
+    class="form-control zip {% if form.zip.errors != empty %}is-invalid{% endif %}"
+    placeholder="Zip code"
+    maxlength="{{ form.zip_maxlength }}"/>
+
+  {% for error in form.zip.errors %}
+  	<div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+
+<input 
+  type="hidden"
+  value="{{ form.nickname.value }}"
+  name="checkout[address][nickname]"
+  class="nickname"
+  id="website_order_shipping_address_nickname"
+/>

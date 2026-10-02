@@ -1,0 +1,77 @@
+"use strict";
+
+// Loads all global data that will be used throughout the store
+var pages = [];
+var categories = [];
+
+// functions to convert server data to usable data
+function loadPages() {
+  var pageData = {{ pages | json }};
+  var tierOnePageIDs = [];
+  var tierTwoPageIDs = [];
+  var t2ParentIdReference = {};
+  var tierOnePages = {};
+  
+  for (var page of pageData) {
+    // tier one pages
+    if (!page.parent_id && page.is_active) {
+      tierOnePageIDs.push(page.id);
+      tierOnePages[page.id] = {
+        id: page.id,
+        link: encodeURIComponent("/pages/"+ page.id),
+        title: page.title,
+        children: [],
+      };
+      
+      continue;
+    }
+    
+    // tier two pages
+    if (!!page.parent_id && tierOnePageIDs.indexOf(page.parent_id) > -1 && page.is_active) {
+      tierTwoPageIDs.push(page.id);
+      
+      t2ParentIdReference[page.id] = {
+        parent_id: page.parent_id,
+        index: tierOnePages[page.parent_id]["children"].length
+      };
+      
+      tierOnePages[page.parent_id]["children"].push({
+        id: page.id,
+        link: encodeURIComponent("/pages/"+ page.id),
+        parent_id: page.parent_id,
+        title: page.title,
+        children: [],
+      });
+      
+      continue;
+    };
+    
+    // tier three pages
+    if (!!page.parent_id && tierTwoPageIDs.indexOf(page.parent_id) > -1 && page.is_active) {
+      var t2reference = t2ParentIdReference[page.parent_id];
+      
+      tierOnePages[t2reference.parent_id]["children"][t2reference.index]["children"].push({
+        id: page.id,
+        link: encodeURIComponent("/pages/"+ page.id),
+        parent_id: page.parent_id,
+        title: page.title,
+      });
+      
+      t2reference = null;
+    }
+  }
+  
+  // transfer data to global variable
+  for (page in tierOnePages) { pages.push(tierOnePages[page]) }
+  
+  pageData = null;
+  tierOnePageIDs = null;
+  tierTwoPageIDs = null;
+  t2ParentIdReference = null;
+}
+
+// execute functions
+loadPages();
+
+// data check
+console.log(pages);

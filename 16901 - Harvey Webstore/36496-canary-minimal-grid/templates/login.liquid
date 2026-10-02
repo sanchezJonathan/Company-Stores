@@ -1,0 +1,23 @@
+<div class="container-fluid px-lg-0 mt-5">
+  <div class="row mx-0">
+    <div class="col-12 px-0">
+      <ul class="nav nav-tabs">
+        {% if shop.show_login? %}
+          <li class="nav-item">
+            <a class="nav-link active font-weight-bold" href="{{ login_url }}"><h5 class="mb-0"><b>Log In</b></h5></a>
+          </li>
+        {% endif %}
+        {% if shop.show_registration? %}
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold border" href="{{ signup_url }}"><h5 class="mb-0"><b>Register</b></h5></a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  <div class="row px-2 border border-top-0 mx-0">
+    <div class="col-lg-6 col-md-12 mx-auto py-5 px-4">
+      {% include 'login' %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="checkout-steps position-relative mt-3">
+  {% if custom_data_collections != empty %}
+    <div class="text-center mb-3 mb-md-0">
+      <div>{{ shop.custom_data_collections_name }}</div>
+      {% if checkout_flow.passed_states contains 'custom_data_collection' %}
+        <a href="/checkout/custom_data_collection" class="btn btn-sm secondary rounded-pill">{% include 'icons/check' %}</a>
+      {% else %}
+        {% if checkout_flow.state == 'custom_data_collection' %}
+          <button type="button" class="btn btn-sm secondary rounded-pill"><span class="checkout-step-count"></span></button>
+        {% else %}
+          <button type="button" class="btn btn-sm btn-dark rounded-pill" disabled><span class="checkout-step-count"></span></button>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if shop.show_shipping_address? %}
+    <div class="text-center mb-3 mb-md-0">
+      <div>Shipping Address</div>
+      {% if checkout_flow.passed_states contains 'address' %}
+        <a href="/checkout/address" class="btn btn-sm secondary rounded-pill">{% include 'icons/check' %}</a>
+      {% else %}
+        {% if checkout_flow.state == 'address' %}
+          <button type="button" class="btn btn-sm secondary rounded-pill"><span class="checkout-step-count"></span></button>
+        {% else %}
+          <button type="button" class="btn btn-sm btn-dark rounded-pill" disabled><span class="checkout-step-count"></span></button>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if shop.show_shipping_address? %}
+    <div class="text-center mb-3 mb-md-0">
+      <div>Shipping Method</div>
+      {% if checkout_flow.passed_states contains 'delivery' %}
+        <a href="/checkout/delivery" class="btn btn-sm secondary rounded-pill">{% include 'icons/check' %}</a>
+      {% else %}
+        {% if checkout_flow.state == 'delivery' %}
+          <button type="button" class="btn btn-sm secondary rounded-pill"><span class="checkout-step-count"></span></button>
+        {% else %}
+          <button type="button" class="btn btn-sm btn-dark rounded-pill" disabled><span class="checkout-step-count"></span></button>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if shop.show_billing_address? %}
+    <div class="text-center mb-3 mb-md-0">
+      <div>Billing Address</div>
+      {% if checkout_flow.passed_states contains 'payment' %}
+        <a href="/checkout/payment?steps=billing-address" class="btn btn-sm secondary rounded-pill">{% include 'icons/check' %}</a>
+      {% else %}
+        {% if checkout_flow.state == 'payment' %}
+          <button type="button" class="btn btn-sm secondary rounded-pill billing-address"><span class="checkout-step-count"></span></button>
+          <a href="#!" class="btn btn-sm secondary rounded-pill billing-address-passed d-none">{% include 'icons/check' %}</a>
+        {% else %}
+          <button type="button" class="btn btn-sm btn-dark rounded-pill" disabled><span class="checkout-step-count"></span></button>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if shop.payment_required? %}
+    <div class="text-center mb-3 mb-md-0">
+      <div>Billing Method</div>
+      {% if checkout_flow.passed_states contains 'payment' %}
+        <a href="/checkout/payment?steps=billing-method" class="btn btn-sm secondary rounded-pill">{% include 'icons/check' %}</a>
+      {% else %}
+        {% if checkout_flow.state == 'payment' %}
+          <button type="button" class="btn btn-sm secondary rounded-pill billing-method"><span class="checkout-step-count"></span></button>
+        {% else %}
+          <button type="button" class="btn btn-sm btn-dark rounded-pill" disabled><span class="checkout-step-count"></span></button>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if shop.budget_enabled? and current_user.has_budgets? and order.budget_order? %}
+    <div class="text-center mb-3 mb-md-0">
+      <div>Budget</div>
+      {% if checkout_flow.passed_states contains 'budget' %}
+        <a href="/checkout/address" class="btn btn-sm secondary rounded-pill">{% include 'icons/check' %}</a>
+      {% else %}
+        {% if checkout_flow.state == 'budget' %}
+          <button type="button" class="btn btn-sm secondary rounded-pill"><span class="checkout-step-count"></span></button>
+        {% else %}
+          <button type="button" class="btn btn-sm btn-dark rounded-pill" disabled><span class="checkout-step-count"></span></button>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="text-center mb-3 mb-md-0">
+    <div>Summary</div>
+     <button type="button" {% if checkout_flow.last_state? %}class="btn btn-sm secondary rounded-pill"{% else %}class="btn btn-sm btn-dark rounded-pill" disabled{% endif %}>
+      <span class="checkout-step-count"></span>
+    </button>  
+  </div>
+</div>
+
+
+

@@ -1,0 +1,109 @@
+{% assign first_img_link = "" %}
+<div class="product-thumbnail{% if product.images.size > 1 %} multiple-images{% endif %}" data-product-url="{{ product | product_url }}" data-product-id="{{ product.id }}">
+  <div class="thumbnail-img-container">
+    <a href="{{ product | product_url }}">
+
+      {% if product.images != empty %}
+
+        {% assign primary_img = blank %}
+        {% assign hover_img = blank %}
+        {% assign primary_index = 0 %}
+
+        {% for image in product.images %}
+          {% if product.thumbnail_image.image_url != blank and image.image_url == product.thumbnail_image.image_url %}
+            {% assign primary_img = image.large_url %}
+            {% assign primary_index = forloop.index0 %}
+          {% endif %}
+        {% endfor %}
+
+        {% if primary_img == blank %}
+          {% assign primary_img = product.primary_image.large_url %}
+        {% endif %}
+
+        {% if primary_img == blank %}
+          {% assign primary_img = product.images[0].large_url %}
+          {% assign primary_index = 0 %}
+        {% endif %}
+
+        {% assign hover_found = false %}
+
+        {% for image in product.images %}
+          {% if forloop.index0 != primary_index and hover_found == false %}
+            {% assign hover_img = image.large_url %}
+            {% assign hover_found = true %}
+          {% endif %}
+        {% endfor %}
+
+        {% if primary_img != blank %}
+          <img class="img-fluid primary-img" src="{{ primary_img }}" alt="Image of {{ product.name }}" title="Image of {{ product.name }}" />
+        {% endif %}
+
+        {% if hover_img != blank %}
+          <img class="img-fluid hover-img" src="{{ hover_img }}" alt="Image of {{ product.name }}" title="Image of {{ product.name }}" />
+        {% endif %}
+
+      {% else %}
+
+        <img class="img-fluid" src="{{ 'no-image.jpg' | asset_url }}" alt="No image available for {{ product.name }}" title="No image available for {{ product.name }}" />
+
+      {% endif %}
+
+    </a>
+  </div>
+
+  <div class="thumbnail-description-container pt-3">
+    <a href="{{ product | product_url }}">
+      {% assign truncated_text_length = settings.truncated_length %}
+      <h5 class="card-title fw-bold lh-base">
+        {% if product.new_product? and settings.show_new_products == true and settings.new_product_position == "productname" %}
+          <span class="new-item-productname">{{ settings.new_product_label }}</span>
+        {% endif %}
+        
+        <span class="product-name">
+        {% if settings.truncate_product_thumbnail_text %}
+          {{ product.name | truncate: truncated_text_length }}
+        {% else %}
+          {{ product.name }}
+        {% endif %}
+        </span>
+        
+        {% for product_option in product.options_or_groups %}
+          {% if product_option.option_type == "size" or product_option.option_type == "Size" %}
+            <div class="available-sizes-container">
+              {% for sub_option in product_option.sub_options %}
+                {% assign sizes = sub_option.name | split: '/' %}
+                {% for size in sizes %}
+                  {% assign size_key = size | replace: ' ', '' %}
+                  {% if size_key == "X-Large" %}
+                    {% assign size_key = "XL" %}
+                  {% elsif size_key == "2x-Large" %}
+                    {% assign size_key = "2XL" %}
+                  {% elsif size_key == "3x-Large" %}
+                    {% assign size_key = "3XL" %}
+                  {% elsif size_key == "4x-Large" %}
+                    {% assign size_key = "4XL" %}
+                  {% elsif size_key == "5x-Large" %}
+                    {% assign size_key = "5XL" %}
+                  {% endif %}
+                  <span class="size-swatch" data-size="{{ size_key }}">{{ size_key }}</span>
+                {% endfor %}
+              {% endfor %}
+              <script>$('.product-thumbnail[data-product-id="{{ product.id }}"]').addClass('has-sizes');</script>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </h5>
+      
+      {% if settings.show_vendors %}<h6 class="card-subtitle mb-2 text-muted">{{ product.vendor_names }}</h6>{% endif %}
+      {% if product.discount > 0 %}
+        <p class="card-text">
+          <del class="text-muted">{{ product.retail_price | points_or_currency }}</del>
+          <span class="font-weight-bold">{{ product.total_price | points_or_currency }}</span>
+        </p>
+        <div class="discount-container font-weight-bold">-{{ product.discount | round }}%</div>
+      {% else %}
+        <p class="card-text">{{ product.total_price | points_or_currency }}</p>
+      {% endif %}
+    </a>
+  </div>
+</div>
