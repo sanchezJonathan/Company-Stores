@@ -8,61 +8,14 @@
 {% if featured_products != empty %}
   <div class="featured-products">
     {% comment %}<h1 class="text-center mt-5">{{ settings.fp_verbiage }}</h1>{% endcomment %}
-<<<<<<< HEAD
-    <div class="product-list px-0">
-      {% include 'product' with featured_products %}  
-=======
     {% comment %}Layout comes from .featured-products-grid in custom-main.css.liquid: 2 tiles in the first row, then 3 per row.{% endcomment %}
     <div class="product-list featured-products-grid px-0">
       {% include 'product' with featured_products %}
->>>>>>> harvey-store
     </div>
   </div>
 
   <script>
     $(function () {
-<<<<<<< HEAD
-      function adjustThumbnailWidth() {
-        var gutter = 15;
-        var containerWidth = $(".featured-products").width() + gutter;
-        var products_per_row = {{ settings.product_thumbnails_per_row }};
-        var thumbnail_division = containerWidth / products_per_row;
-        var thumbnail_width = thumbnail_division - gutter;
-        var thumbnail_margin = gutter / 2;
-        
-        if (window.innerWidth > 992) {
-          $(".featured-products").attr("style", "overflow: hidden");
-          $(".product-list").attr("style", "margin: 0 !important;");
-          $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
-
-          return;
-        }
-        
-        if (window.innerWidth > 768 && {{ settings.product_thumbnails_per_row }} >= 4) {
-          products_per_row = 4;
-          thumbnail_division = containerWidth / products_per_row;
-          thumbnail_width = thumbnail_division - gutter;
-          thumbnail_margin = gutter / 2;
-          
-          $(".featured-products").attr("style", "overflow: hidden");
-          $(".product-list").attr("style", "margin: 0 !important;");
-          $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
-
-          return;
-        }
-
-        $(".featured-products").removeAttr("style");
-        $(".product-list").removeAttr("style");
-        $(".product-thumbnail").removeAttr("style");
-      }
-
-      adjustThumbnailWidth();
-      $(window).resize(function() {
-        adjustThumbnailWidth();
-      });
-      
-=======
->>>>>>> harvey-store
       setup_carousels('.product-list .product .image-carousel');
       bind_product_body_clicker('.product-list', '.product');
     });

@@ -111,10 +111,7 @@
   {% endif %}
 </head>
 <body class="{{ template_name }} ">
-<<<<<<< HEAD
-=======
 <h1 class="d-none">{{ page.title }}</h1>
->>>>>>> harvey-store
 {% if settings.display_under_construction_page %}
   {% include 'under_construction_page' %}
   <div id="homecontent">
@@ -126,47 +123,12 @@
   {% include 'bootstrap-carousel' %}
 {% endif %}
 
-<<<<<<< HEAD
-{% if page.is_home_page and settings.display_featured_categories %}
-  <div class="homepage-categories-outer-container">
-    {% if settings.featured_categories_heading != "" %}<h2 class="mt-5 mb-3">{{ settings.featured_categories_heading }}</h2>{% endif %}
-    <div class="homepage-categories-container">
-      
-      <div class="category-box">
-        <a href="{{ settings.category_item_1_link }}">
-          <h3>{{ settings.category_item_01_name }}</h3>
-          <img src="{{ 'category_item_01.jpg' | asset_url }}">
-        </a>
-      </div>
-      <div class="category-box">
-        <a href="{{ settings.category_item_2_link }}">
-          <h3>{{ settings.category_item_02_name }}</h3>
-          <img src="{{ 'category_item_02.jpg' | asset_url }}">
-        </a>
-      </div>
-      
-       <div class="category-box">
-        <a href="{{ settings.category_item_2_link }}">
-          <h3> Featured Category 3 </h3>
-          <img src="{{ 'category_item_02.jpg' | asset_url }}">
-        </a>
-      </div>
-      
-    </div>
-    
-  </div>
-{% endif %}
-    
-=======
->>>>>>> harvey-store
 <div class="content-container mx-xl-auto mx-xxl-auto my-3">
   <div class="container-fluid px-3">
     {{ content_for_layout }}
   </div>
 </div>
 
-<<<<<<< HEAD
-=======
 {% if page.is_home_page and settings.display_featured_categories %}
   <div class="homepage-categories-outer-container">
     <h2 class="homepage-categories-heading">{{ settings.featured_categories_heading | default: 'Shop' }}</h2>
@@ -178,7 +140,6 @@
   </div>
 {% endif %}
 
->>>>>>> harvey-store
 {% if settings.current_theme == "classic" %}
   {% include 'footer' %}
 {% endif %}

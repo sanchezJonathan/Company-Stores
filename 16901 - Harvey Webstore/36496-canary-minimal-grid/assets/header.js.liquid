@@ -35,8 +35,6 @@ for (var category of categories) {
   ");
 }
 
-<<<<<<< HEAD
-=======
 // header "Shop" dropdown: every category (subcategories indented one step per level), then the Shop All link (/products) at the bottom
 function appendShopCategories(list, level) {
   for (var shopCategory of list.slice().sort(sortLinks("list_order"))) {
@@ -50,7 +48,6 @@ function appendShopCategories(list, level) {
 }
 appendShopCategories(categories, 0);
 
->>>>>>> harvey-store
 function generateTarget(target) {
   if (target) return target + "' rel='noopener noreferrer";
   return "_self";
@@ -101,8 +98,6 @@ for (var page of pages) {
   ");
 }
 
-<<<<<<< HEAD
-=======
 // underline the header link for the current page; Shop also covers category and product pages (body has the template name as a class)
 $("ul.header-links.pages a.nav-link").each(function() {
   if (this.pathname === window.location.pathname && $(this).attr("href") !== "#") {
@@ -113,7 +108,6 @@ if ($("body").is(".products, .product, .bundle, .catalog_product, .gift_certific
   $("a.shop-link").addClass("active");
 }
 
->>>>>>> harvey-store
 // for active quick nav
 var activeQuickNavMap = {
   "/" : function() { $("a.quick-nav-link:contains(Home)").addClass("active") },
@@ -160,8 +154,6 @@ if ($(".category-container ul.header-links li").length < 1) {
     });
   {% endif %}
 {% endif %}
-<<<<<<< HEAD
-=======
 
 // fade product and category tiles up as they scroll into view, 90ms apart within each batch (styles: ANIMATIONS in custom-main.css)
 // skips the hidden search product pool and the search dropdown, which copies tiles from that pool
@@ -197,4 +189,3 @@ $(function() {
     });
   }).observe(document.body, { childList: true, subtree: true });
 });
->>>>>>> harvey-store
