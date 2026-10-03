@@ -3,6 +3,8 @@
     {% include 'breadcrumbs_section' %}
   {% endif %}
 
+  {% render 'product_category_nav', product: product %}
+
   <div class="product-page-main">
     <div class="product-wrapper clrfix row">
       <div class="product-left-section clrfix col-md-6 col-sm-12 col-xs-12">
@@ -68,10 +70,9 @@
                 </div>
               {% endif %}
 
+              {% include 'product_overview' %}
               {% include 'product_summary' %}
               {% include 'line_item_add_buttons' %}
-              
-              {% include 'product_overview' %}
             </div>
           {% endform %}
         </div>
@@ -90,6 +91,7 @@
     </div>
   </div>
 {% endif %}
+{% endcomment %}
 
 <div class="row">
   <div class="col col-md-12 col-sm-12 col-xs-12">
@@ -97,6 +99,7 @@
   </div>
 </div>
 
+{% comment %}
 <div class="row">
   <div class="col col-md-12 col-sm-12 col-xs-12">
     {% include 'product_related_products' %}

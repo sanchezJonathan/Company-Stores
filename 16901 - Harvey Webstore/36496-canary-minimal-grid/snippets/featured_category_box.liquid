@@ -1,0 +1,14 @@
+{% comment %}
+  Homepage featured category tile: title above a rounded image box.
+  Params: name, link, image (theme asset file name). Renders nothing when name is blank.
+{% endcomment %}
+{% if name != blank %}
+  <div class="category-box">
+    <a href="{{ link }}">
+      <h3>{{ name }}</h3>
+      <div class="category-box-img">
+        <img src="{{ image | asset_url }}" alt="{{ name | escape }}">
+      </div>
+    </a>
+  </div>
+{% endif %}

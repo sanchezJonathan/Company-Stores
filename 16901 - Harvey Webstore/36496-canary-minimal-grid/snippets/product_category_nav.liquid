@@ -1,0 +1,15 @@
+<nav class="category-title-nav product-category-nav" aria-label="Product categories">
+  <span class="category-title-item"><a href="/products">Shop All</a></span>
+  {% for category in product.categories %}
+    <span class="category-title-item product-category"><a data-category-name="{{ category.name | escape }}">{{ category.name }}</a></span>
+  {% endfor %}
+</nav>
+
+<script>
+  // Category drops have no URL; take each link from the {% category_navigation %} markup loaded in theme.liquid.
+  $(".product-category-nav a[data-category-name]").each(function() {
+    var name = $(this).text().trim();
+    var href = categoryNavDom.find("li a").filter(function() { return $(this).text().trim() === name; }).first().attr("href");
+    if (href) $(this).attr("href", href);
+  });
+</script>

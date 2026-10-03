@@ -3610,6 +3610,44 @@
           }
         ],
         "children": []
+      },
+      {
+        "title": "Category 3",
+        "form": [
+          {
+            "type": "image",
+            "label": {
+              "name": "category_item_03.jpg",
+              "text": "Image"
+            },
+            "input": {
+              "name": "category_item_03.jpg"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "category_item_03_name",
+              "text": "Category Name"
+            },
+            "input": {
+              "name": "category_item_03_name"
+            }
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "category_item_3_link",
+              "text": "Category Link"
+            },
+            "input": {
+              "name": "category_item_3_link"
+            },
+            "help": null
+          }
+        ],
+        "children": []
       }
     ]
   },

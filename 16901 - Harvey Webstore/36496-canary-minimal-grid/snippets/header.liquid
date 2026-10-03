@@ -1,9 +1,9 @@
 {% include 'top_bar' %}
 
-<div class="header-container mx-auto border-bottom {% if settings.category_links_position == "inline_with_logo" %}top-0 sticky-header{% endif %}">
+<div class="header-container mx-auto {% if settings.category_links_position == "inline_with_logo" %}top-0 sticky-header{% endif %}">
   <div class="wrapper mx-auto">
     <div class="container-fluid px-3">
-      <nav class="navbar navbar-expand-lg header-navbar">
+      <nav class="navbar navbar-expand-lg header-navbar site-header-nav">
         <button id="mobile-slider-button" class="btn d-lg-none d-xl-none" type="button" aria-label="Toggle navigation"><span>{% include 'icons/menu' %}</span><span style="display: none;">{% include 'icons/close' %}</span></button>
         {% if settings.display_logo %}
           {% assign logoMargins = settings.logo_margin | split: ' ' %}
@@ -93,7 +93,9 @@
 {% endif %}
 
 <div class="mobile-slider d-lg-none d-xl-none" style="display: none">
-  <ul class="nav flex-column links pages categories"></ul>
+  <ul class="nav flex-column links pages categories">
+    <li class="nav-item"><a class="nav-link shop-link" href="/products">Shop</a></li>
+  </ul>
 </div>
 <div class="mobile-slider-overlay" style="display: none"></div>
 
@@ -330,7 +332,7 @@
       // Inject results + button
       resultsContainer.innerHTML = limitedResults.join("") + viewAllLink;
 
-      resultsContainer.style.display = "flex";
+      resultsContainer.style.display = "grid";
       resultsContainer.style.flexWrap = "wrap";
 
       // Only scroll if more than 8 results exist
@@ -349,7 +351,7 @@
   // Show results on focus
   searchInput.addEventListener("focus", function () {
     if (searchInput.value.trim()) {
-      resultsContainer.style.display = "flex";
+      resultsContainer.style.display = "grid";
     }
   });
 
