@@ -1,0 +1,9 @@
+{% comment %}
+  One custom footer link (Store Design > Footer > custom links).
+  Params: enabled, url, text, new_tab. Renders nothing unless enabled and text is set.
+{% endcomment %}
+{% if enabled and text != blank %}
+  <li class="footer-link">
+    <a href="{{ url }}"{% if new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ text }}</a>
+  </li>
+{% endif %}

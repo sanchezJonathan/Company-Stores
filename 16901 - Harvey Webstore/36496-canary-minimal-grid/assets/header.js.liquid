@@ -35,6 +35,22 @@ for (var category of categories) {
   ");
 }
 
+<<<<<<< HEAD
+=======
+// header "Shop" dropdown: every category (subcategories indented one step per level), then the Shop All link (/products) at the bottom
+function appendShopCategories(list, level) {
+  for (var shopCategory of list.slice().sort(sortLinks("list_order"))) {
+    if (shopCategory.link) {
+      $(".shop-dropdown-menu .shop-all-item").before("<li><a class='dropdown-item shop-category-level-" + level + "' href='" + shopCategory.link + "'>" + shopCategory.name + "</a></li>");
+    }
+    if (shopCategory.children && shopCategory.children.length) {
+      appendShopCategories(shopCategory.children, level + 1);
+    }
+  }
+}
+appendShopCategories(categories, 0);
+
+>>>>>>> harvey-store
 function generateTarget(target) {
   if (target) return target + "' rel='noopener noreferrer";
   return "_self";
@@ -85,6 +101,19 @@ for (var page of pages) {
   ");
 }
 
+<<<<<<< HEAD
+=======
+// underline the header link for the current page; Shop also covers category and product pages (body has the template name as a class)
+$("ul.header-links.pages a.nav-link").each(function() {
+  if (this.pathname === window.location.pathname && $(this).attr("href") !== "#") {
+    $(this).addClass("active");
+  }
+});
+if ($("body").is(".products, .product, .bundle, .catalog_product, .gift_certificate_product")) {
+  $("a.shop-link").addClass("active");
+}
+
+>>>>>>> harvey-store
 // for active quick nav
 var activeQuickNavMap = {
   "/" : function() { $("a.quick-nav-link:contains(Home)").addClass("active") },
@@ -131,3 +160,41 @@ if ($(".category-container ul.header-links li").length < 1) {
     });
   {% endif %}
 {% endif %}
+<<<<<<< HEAD
+=======
+
+// fade product and category tiles up as they scroll into view, 90ms apart within each batch (styles: ANIMATIONS in custom-main.css)
+// skips the hidden search product pool and the search dropdown, which copies tiles from that pool
+$(function() {
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.filter(function(entry) { return entry.isIntersecting; }).forEach(function(entry, index) {
+      entry.target.style.transitionDelay = (index * 90) + "ms";
+      entry.target.addEventListener("transitionend", function() { this.style.transitionDelay = ""; }, { once: true });
+      entry.target.classList.add("is-visible");
+      revealObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -40px 0px" });
+
+  function watchTiles(root) {
+    $(root).find(".product-thumbnail, .category-box").addBack(".product-thumbnail, .category-box")
+      .not("#search-product-pool *, .search-results *, .reveal")
+      .each(function() {
+        this.classList.add("reveal");
+        revealObserver.observe(this);
+      });
+  }
+
+  watchTiles(document.body);
+
+  // tiles added later (e.g. Recently Viewed, loaded by AJAX)
+  new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      mutation.addedNodes.forEach(function(node) {
+        if (node.nodeType === 1) watchTiles(node);
+      });
+    });
+  }).observe(document.body, { childList: true, subtree: true });
+});
+>>>>>>> harvey-store

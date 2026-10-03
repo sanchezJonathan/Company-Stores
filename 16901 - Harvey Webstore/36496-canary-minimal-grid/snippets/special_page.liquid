@@ -8,13 +8,20 @@
 {% if featured_products != empty %}
   <div class="featured-products">
     {% comment %}<h1 class="text-center mt-5">{{ settings.fp_verbiage }}</h1>{% endcomment %}
+<<<<<<< HEAD
     <div class="product-list px-0">
       {% include 'product' with featured_products %}  
+=======
+    {% comment %}Layout comes from .featured-products-grid in custom-main.css.liquid: 2 tiles in the first row, then 3 per row.{% endcomment %}
+    <div class="product-list featured-products-grid px-0">
+      {% include 'product' with featured_products %}
+>>>>>>> harvey-store
     </div>
   </div>
 
   <script>
     $(function () {
+<<<<<<< HEAD
       function adjustThumbnailWidth() {
         var gutter = 15;
         var containerWidth = $(".featured-products").width() + gutter;
@@ -54,6 +61,8 @@
         adjustThumbnailWidth();
       });
       
+=======
+>>>>>>> harvey-store
       setup_carousels('.product-list .product .image-carousel');
       bind_product_body_clicker('.product-list', '.product');
     });

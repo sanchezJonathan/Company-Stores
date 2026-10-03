@@ -1,0 +1,30 @@
+{% assign active_category_name = '' %}
+{% for category in categories %}
+  {% if category.selected? %}
+    {% assign active_category = category %}
+    {% if category.parent_id != blank %}
+      {% for parent in categories %}
+        {% if parent.id == category.parent_id %}{% assign active_category = parent %}{% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if active_category.parent_id != blank %}
+      {% for grandparent in categories %}
+        {% if grandparent.id == active_category.parent_id %}{% assign active_category = grandparent %}{% endif %}
+      {% endfor %}
+    {% endif %}
+    {% assign active_category_name = active_category.name %}
+  {% endif %}
+{% endfor %}
+
+<nav class="category-title-nav" aria-label="Categories">
+  <span class="category-title-item"><a href="/products"{% if active_category_name == blank %} class="active" aria-current="page"{% endif %}>Shop All</a></span>
+  {% category_navigation max_depth: 1 %}
+</nav>
+
+{% if active_category_name != blank %}
+  <script>
+    $(".category-title-nav ul.level-0 > li > a").filter(function() {
+      return $(this).text().trim() === {{ active_category_name | json }};
+    }).addClass("active").attr("aria-current", "page");
+  </script>
+{% endif %}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% assign address = shop.address %}
 
 <div class="footer-container mt-5">
@@ -242,4 +243,51 @@
   <div class="footer-bottom" style="width: 100%;">
     <img src="{{ 'logo-footer.png' | asset_url }}">
   </div>
+=======
+{% comment %}
+  Footer: logo + social icons (if enabled) on the left, custom footer links centered, copyright on the right.
+  Links and copyright are managed in Store Design > Footer.
+{% endcomment %}
+<div class="footer-container mt-5">
+  <div class="wrapper mx-auto">
+    <div class="site-footer">
+      <div class="site-footer-brand">
+        {% if settings.display_footer_logo %}
+          <a href="/" class="site-footer-logo">
+            <img
+              src="{{ 'logo-footer.png' | asset_url }}"
+              alt="{{ shop.name }} footer logo"
+              width="{{ settings.logo_footer_width | remove: 'px' }}"
+              height="{{ settings.logo_footer_height | remove: 'px' }}"
+            >
+          </a>
+        {% endif %}
+
+        {% if settings.sm_facebook or settings.sm_twitter or settings.sm_linkedin or settings.sm_instagram or settings.sm_tiktok %}
+          <div class="footer-social">
+            {% if settings.sm_facebook %}<a href="{{ settings.sm_facebook_link }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">{% include 'icons/social/facebook' %}</a>{% endif %}
+            {% if settings.sm_twitter %}<a href="{{ settings.sm_twitter_link }}" target="_blank" rel="noopener noreferrer" aria-label="X">{% include 'icons/social/twitter' %}</a>{% endif %}
+            {% if settings.sm_linkedin %}<a href="{{ settings.sm_linkedin_link }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{% include 'icons/social/linkedin' %}</a>{% endif %}
+            {% if settings.sm_instagram %}<a href="{{ settings.sm_instagram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">{% include 'icons/social/instagram' %}</a>{% endif %}
+            {% if settings.sm_tiktok %}<a href="{{ settings.sm_tiktok_link }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok">{% include 'icons/social/tiktok' %}</a>{% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <ul class="site-footer-links">
+        {% if settings.enable_custom_footer_links %}
+          {% render 'footer_link', enabled: settings.enable_footer_link_1, url: settings.custom_footer_link_1, text: settings.custom_footer_link_text_1, new_tab: settings.custom_footer_link_1_target_blank %}
+          {% render 'footer_link', enabled: settings.enable_footer_link_2, url: settings.custom_footer_link_2, text: settings.custom_footer_link_text_2, new_tab: settings.custom_footer_link_2_target_blank %}
+          {% render 'footer_link', enabled: settings.enable_footer_link_3, url: settings.custom_footer_link_3, text: settings.custom_footer_link_text_3, new_tab: settings.custom_footer_link_3_target_blank %}
+          {% render 'footer_link', enabled: settings.enable_footer_link_4, url: settings.custom_footer_link_4, text: settings.custom_footer_link_text_4, new_tab: settings.custom_footer_link_4_target_blank %}
+          {% render 'footer_link', enabled: settings.enable_footer_link_5, url: settings.custom_footer_link_5, text: settings.custom_footer_link_text_5, new_tab: settings.custom_footer_link_5_target_blank %}
+        {% endif %}
+      </ul>
+
+      <div class="site-footer-copyright">
+        {{ settings.copyright_info }}
+      </div>
+    </div>
+  </div>
+>>>>>>> harvey-store
 </div>

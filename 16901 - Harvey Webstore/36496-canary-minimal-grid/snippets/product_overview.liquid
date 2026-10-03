@@ -1,3 +1,12 @@
+<<<<<<< HEAD
 <div class="product-overview clrfix">
   {{ product.description }}
 </div>
+=======
+{% if product.description != blank %}
+<div class="product-overview clrfix">
+  {% comment %} %}<h4 class="product-section-label">Description</h4>{% endcomment %}
+  {{ product.description }}
+</div>
+{% endif %}
+>>>>>>> harvey-store
