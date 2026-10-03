@@ -1,0 +1,69 @@
+<div class="product-page-right recently-viewed-products" style="display: none">
+  <h2>
+    Recently Viewed Products
+  </h2>
+  <div class="recently-viewed-products-thumbnails">
+    <script>
+      $(function () {
+        function load_recently_viewed_products(container) {
+          $.ajax({
+            url: '/recently_viewed_products',
+            cache: false,
+            dataType: 'html',
+            success: function (response, status) {
+              var jContainer = $(container);
+              if (status == "success" && jContainer.length > 0) {
+                jContainer.append(response);
+                jContainer.show();
+
+                setup_carousels(jContainer.find('.product .image-carousel'));
+                bind_product_body_clicker(jContainer, '.product');
+                $('.product-page-right.recently-viewed-products').show();
+                
+                
+                function adjustRecentlyViewedThumbnailWidth() {
+                  var gutter = 15;
+                  var containerWidth = $(".product-page-right.recently-viewed-products").width() + gutter;
+                  var products_per_row = {{ settings.product_thumbnails_per_row }};
+                  var thumbnail_division = containerWidth / products_per_row;
+                  var thumbnail_width = thumbnail_division - gutter;
+                  var thumbnail_margin = gutter / 2;
+
+                  if (window.innerWidth > 992) {
+                    $(".recently-viewed-products-thumbnails").attr("style", "margin: 0; margin-right: -20px !important;");
+                    $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+
+                    return;
+                  }
+
+                  if (window.innerWidth > 768 && {{ settings.product_thumbnails_per_row }} >= 4) {
+                    products_per_row = 4;
+                    thumbnail_division = containerWidth / products_per_row;
+                    thumbnail_width = thumbnail_division - gutter;
+                    thumbnail_margin = gutter / 2;
+
+                    $(".product-page-right.recently-viewed-products").attr("style", "overflow: hidden");
+                    $(".recently-viewed-products-thumbnails").attr("style", "margin: 0; margin-right: -20px !important;");
+                    $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+
+                    return;
+                  }
+
+                  $(".product-page-right.recently-viewed-products").removeAttr("style");
+                  $(".recently-viewed-products-thumbnails").removeAttr("style");
+                  $(".product-thumbnail").removeAttr("style");
+                }
+
+                adjustRecentlyViewedThumbnailWidth();
+                $(window).resize(function() {
+                  adjustRecentlyViewedThumbnailWidth();
+                });
+              }
+            }
+          });
+        }
+        load_recently_viewed_products('.recently-viewed-products-thumbnails');
+      });
+    </script>
+  </div>
+</div>

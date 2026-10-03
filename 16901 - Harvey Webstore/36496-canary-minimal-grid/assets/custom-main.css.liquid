@@ -160,14 +160,13 @@ button:focus {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-/* "Shop" dropdown: Shop All + categories (built in header.js.liquid); each subcategory level is indented 16px more. */
 .site-header-nav .shop-link.dropdown-toggle::after {
   margin-left: 6px;
   vertical-align: 2px;
   transition: transform 0.2s ease;
 }
 .site-header-nav .shop-link.dropdown-toggle.show::after {
-  transform: rotate(180deg); /* arrow points up while the menu is open */
+  transform: rotate(180deg);
 }
 .shop-dropdown-menu {
   min-width: 220px;
@@ -196,7 +195,7 @@ button:focus {
 .shop-dropdown-menu .shop-all-item:first-child {
   margin-top: 0;
   padding-top: 0;
-  border-top: none; /* no categories above it */
+  border-top: none;
 }
 .custom-searchbox-container {
   position: absolute;
@@ -859,10 +858,8 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
 .category-container .categories > li:last-of-type::after {
   content: none;
 }
-/* Category page title nav (snippets/category_title_nav.liquid): "Shop All, Apparel, …" in large serif,
-   grey links, active one black + underlined, black commas between. */
 .category-title-nav, .category-title-nav * {
-  font-family: 'Harvey Serif', serif; /* overrides the sitewide * { sans } rule */
+  font-family: 'Harvey Serif', serif;
 }
 .category-title-nav {
   margin: 64px 0 56px;
@@ -877,7 +874,8 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   list-style: none;
 }
 .category-title-nav ul ul {
-  display: none; /* top-level categories only */
+  display: none; 
+
 }
 .category-title-nav a {
   color: #6F6C66;
@@ -1002,8 +1000,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
 /*-------------------*/
 /* PRODUCT THUMBS */
 /*-------------------*/
-/* Product lists are CSS grids: 3 per row on desktop, 2 on tablet, 1 on phone (see media queries).
-   The header search dropdown is excluded from display here because header.liquid shows/hides it inline. */
 .product-list:not(.search-results), .related-products-thumbnails, .recently-viewed-products-thumbnails {
   display: grid !important;
 }
@@ -1012,7 +1008,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   gap: 48px 20px;
   margin: 0 !important;
 }
-/* Tile: rounded image box filled edge to edge, details underneath on the page background. */
 .product-thumbnail {
   position: relative;
   width: auto !important;
@@ -1042,7 +1037,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   width: 100%;
   height: 100% !important;
   max-height: none !important;
-  /* Whole image always visible: whichever side reaches the box edge first fills it, the other scales proportionally. */
   object-fit: contain;
   object-position: center;
   transition: opacity 0.3s ease;
@@ -1059,7 +1053,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
 .product-thumbnail.multiple-images:hover .thumbnail-img-container img.hover-img {
   opacity: 1;
 }
-/* Details: name followed by the price in grey on one line; vendor (if shown) drops to its own line. */
 .thumbnail-description-container {
   border-top: none;
   padding: 12px 0 0 !important;
@@ -1125,7 +1118,6 @@ body.search-open .custom-searchbox-container {
 /*-------------------*/
 /* PRODUCT */
 /*-------------------*/
-/* Layout per mockup: gallery ~49% wide; info column (max 400px) starts ~59% across. */
 .product-left-section {
   padding: 0 !important;
 }
@@ -1151,7 +1143,6 @@ body.search-open .custom-searchbox-container {
     padding-left: 4rem !important;
   }
 }
-/* Product category line above the product ("Shop All, Apparel"): smaller than on the category page. */
 .product-category-nav {
   margin: 48px 0 40px;
   font-size: clamp(28px, 2.2vw, 36px);
@@ -1162,7 +1153,6 @@ body.search-open .custom-searchbox-container {
 .product-category-nav .category-title-item:last-child::after {
   content: none;
 }
-/* Title + price */
 .product-header {
   border-bottom: none;
   padding: 0 0 64px;
@@ -1190,8 +1180,6 @@ body.search-open .custom-searchbox-container {
   height: auto;
   max-width: 100%;
 }
-/* Gallery: listed images stacked full width, styled like the category page tiles
-   (rounded light-grey 7:8 box, whole image visible). The main image stays hidden on desktop. */
 .product-page-main .images-wrapper ul {
   position: relative;
   width: 100%;
@@ -1227,7 +1215,6 @@ body.search-open .custom-searchbox-container {
   max-height: none;
   object-fit: contain;
 }
-/* Info sections (options, quantity, description): light grey divider above each, small label, small body text. */
 .product-page-main .prod_option_block .product-options .product-option-wrapper, .multiple-quantity-product-option, .product-options-wrapper-qd-sc {
   margin-bottom: 0;
   border: none;
@@ -1238,7 +1225,7 @@ body.search-open .custom-searchbox-container {
   margin: 0;
 }
 .product-page-main .prod_option_block:not(.logo-wrapper) > h4 {
-  display: none; /* "Product Options" heading; each option has its own label */
+  display: none;
 }
 .product-page-main .product-info .total-info {
   margin-top: 0;
@@ -1281,7 +1268,6 @@ body.search-open .custom-searchbox-container {
   margin-top: 24px;
   border: none;
 }
-/* Add to Cart: compact dark button (mockup ~120 x 46px) instead of full-width. */
 .product-page-main .add-to-cart-area {
   display: flex;
   flex-wrap: wrap;
@@ -1319,7 +1305,6 @@ body.search-open .custom-searchbox-container {
 .product-option-thumb img, .logo-location-thumb img {
   max-height: 80px;
 }
-/* Sizes shown as thumbnails ("Show as thumbnails" on): plain initials, selected one black + underlined. */
 .size-options [class*="product-option-text-"] {
   display: none !important;
 }
@@ -1354,7 +1339,6 @@ body.search-open .custom-searchbox-container {
 .product-size-charts span {
   padding: 10px 18px !important;
 }
-/* Recently Viewed (below the product): thin line, small label, then the standard product tiles. */
 .recently-viewed-products {
   margin-top: 80px;
   padding-top: 16px;
@@ -1404,7 +1388,6 @@ body.search-open .custom-searchbox-container {
 /*-------------------*/
 /* FOOTER */
 /*-------------------*/
-/* Three areas: logo + social icons left, links centered, copyright right. */
 .footer-container {
   border: none;
 }
@@ -1455,7 +1438,7 @@ body.search-open .custom-searchbox-container {
   margin-left: 24px;
 }
 .site-footer-brand > .footer-social:first-child {
-  margin-left: 0; /* no logo shown */
+  margin-left: 0;
 }
 .footer-social svg {
   display: block;
@@ -1530,8 +1513,6 @@ body.search-open .custom-searchbox-container {
   .product-category-nav {
     margin: 24px 16px;
   }
-  /* Main image (tablet/mobile only): same 7:8 rounded tile as the desktop gallery, full width,
-     but never taller than 80% of the screen. The carousel fills the box; images scale to fit inside it. */
   .product-page-main .main-img-container {
     position: relative;
     width: 100%;
@@ -1622,7 +1603,6 @@ body.search-open .custom-searchbox-container {
     background-position: center;
   }
 }
-/* Large phones / tablets: cap the main image height so the 7:8 box doesn't get too tall on wider screens. */
 @media screen and (min-width: 540px) and (max-width: 991.99px){
   .product-page-main .main-img-container {
     max-height: min(600px, 80vh);
@@ -1649,8 +1629,6 @@ body.search-open .custom-searchbox-container {
 /*-------------------*/
 /* HOMEPAGE FEATURED PRODUCTS GRID */
 /*-------------------*/
-/* 6-column grid: the first 2 tiles span 3 columns (2 per row), every tile after spans 2 (3 per row).
-   Tile styling comes from PRODUCT THUMBS; the wide first-row images use the mockup's near-square ratio. */
 .product-list.featured-products-grid {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
@@ -1683,7 +1661,7 @@ body.search-open .custom-searchbox-container {
 /* SITE WIDTH */
 /*-------------------*/
 .footer-container .wrapper {
-  box-sizing: content-box; /* 1rem side padding outside the max-width, matching the header */
+  box-sizing: content-box; 
   max-width: {{ settings.site_width }};
   padding: 0 40px;
 }
@@ -1694,7 +1672,6 @@ body.search-open .custom-searchbox-container {
   margin-right: auto !important;
   padding: 0 40px;
 }
-/* Full-width search dropdown: background spans the screen, results stay within site_width. */
 .search-results.product-list {
   padding-left: max(20px, calc((100% - {{ settings.site_width }}) / 2)) !important;
   padding-right: max(20px, calc((100% - {{ settings.site_width }}) / 2)) !important;
@@ -1703,14 +1680,11 @@ body.search-open .custom-searchbox-container {
 /*-------------------*/
 /* ANIMATIONS */
 /*-------------------*/
-/* Subtle motion modelled on harvey.ai: same easing curves, short durations, hover-driven.
-   Everything here is switched off for visitors with "reduce motion" enabled (bottom of this section). */
 :root {
-  --ease-out: cubic-bezier(0, .7, .3, 1);     /* harvey.ai --ease-out: things arriving */
-  --ease-in-out: cubic-bezier(.7, 0, .3, 1);  /* harvey.ai --ease-in-out: things changing state */
+  --ease-out: cubic-bezier(0, .7, .3, 1);
+  --ease-in-out: cubic-bezier(.7, 0, .3, 1);
 }
 
-/* Image zoom on hover (102% over 500ms) inside the rounded boxes; product tiles keep their hover-image fade. */
 .product-thumbnail .thumbnail-img-container img,
 .category-box-img img,
 .product-page-main .images-wrapper ul li .small-thumb {
@@ -1722,16 +1696,12 @@ body.search-open .custom-searchbox-container {
   transform: scale(1.02);
 }
 
-/* Homepage featured categories: hovering one card fades the others to 40%. */
 .homepage-categories-container .category-box {
   transition: opacity .4s var(--ease-in-out);
 }
 .homepage-categories-container:has(.category-box:hover) .category-box:not(:hover) {
   opacity: .4;
 }
-
-/* Header dropdowns (Shop, Account) fade and drop in instead of popping open.
-   Uses the separate translate property so it doesn't fight Bootstrap/Popper's inline transform. */
 @keyframes dropdown-in {
   from { opacity: 0; translate: 0 -6px; }
   to { opacity: 1; translate: 0 0; }
@@ -1743,7 +1713,6 @@ body.search-open .custom-searchbox-container {
   transition: transform .2s var(--ease-in-out);
 }
 
-/* Underline that grows left to right (header links, category title line) instead of appearing instantly. */
 .site-header-nav .header-center-links .nav-link,
 .category-title-nav a {
   text-decoration: none !important;
@@ -1754,7 +1723,7 @@ body.search-open .custom-searchbox-container {
   transition: background-size .3s var(--ease-out), color .3s var(--ease-in-out);
 }
 .site-header-nav .header-center-links .nav-link {
-  background-origin: content-box; /* underline spans the text, not the link padding */
+  background-origin: content-box;
 }
 .category-title-nav a {
   background-position: 0 92%;
@@ -1768,8 +1737,6 @@ body.search-open .custom-searchbox-container {
 .category-title-nav a.active {
   background-size: 100% 2px;
 }
-
-/* Product tiles fade up as they scroll into view, 90ms apart (classes added by header.js.liquid). */
 .reveal {
   opacity: 0;
   translate: 0 16px;
@@ -1780,7 +1747,7 @@ body.search-open .custom-searchbox-container {
   translate: 0 0;
 }
 .homepage-categories-container .category-box.reveal {
-  transition: opacity .5s var(--ease-out), translate .5s var(--ease-out); /* also drives the hover fade above */
+  transition: opacity .5s var(--ease-out), translate .5s var(--ease-out);
 }
 
 @media (prefers-reduced-motion: reduce) {

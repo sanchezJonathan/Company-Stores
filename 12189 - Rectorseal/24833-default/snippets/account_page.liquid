@@ -1,0 +1,30 @@
+<div id="content" class="content-page container-fluid account-page">
+  <h1>{{ section_title }}</h1>
+  <div class="content-main clrfix">
+    <div class="row">
+      <div class="account-nav-menu col col-md-3">
+        <ul>
+          <script>console.log('{{ template_name }}');</script>
+          <li class="{% if template_name == 'account/dashboard' %}selected{% endif %}"><a href="{{ account_dashboard_url }}">Dashboard</a><i class="fas fa-caret-right"></i></li>
+          {% if shop.store_enabled? %}
+            <li class="{% if template_name == 'account/order_history' %}selected{% endif %}"><a href="{{ order_history_url }}">Order History</a><i class="fas fa-caret-right"></i></li>{% endif %}
+          <li class="{% if template_name == 'account/edit' %}selected{% endif %}"><a href="{{ edit_account_url }}">Account Settings</a><i class="fas fa-caret-right"></i></li>
+          {% if shop.store_enabled? %}
+            <li class="{% if template_name == 'account/address_book' %}selected{% endif %}"><a href="{{ address_book_url }}">Address Book</a><i class="fas fa-caret-right"></i></li>{% endif %}
+          {% if shop.store_enabled? and shop.show_account_balance? %}
+            <li class="{% if template_name == 'account/balance' %}selected{% endif %}"><a href="{{ account_balance_url }}">{% if shop.points_store? %}Points{% else %}Account{% endif %} Balance</a><i class="fas fa-caret-right"></i></li>{% endif %}
+          {% if shop.catalog_enabled? and custom_logos_upload_enabled or current_user.logos.size != 0 %}
+            <li class="{% if template_name == 'account/logos' %}selected{% endif %}"><a href="{{ logos_url }}">Logos</a><i class="fas fa-caret-right"></i></li>{% endif %}
+          {% if shop.budget_enabled? and current_user.has_budgets? %}
+            <li class="{% if template_name == 'account/budget_info' %}selected{% endif %}"><a href="{{ budget_info_url }}">Budget Information</a><i class="fas fa-caret-right"></i></li>{% endif %}
+        </ul>
+      </div>
+      <div class="main col col-md-9" id="account-main">
+        <div class="content-area">
+          <!--<img src="img/dd2ha.jpg" />-->
+          {{ account_page }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

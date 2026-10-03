@@ -1,0 +1,133 @@
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+    <h5>Address Name</h5>
+    <div class="form-item">
+      <label class="string required control-label" for="{{ form.id }}-nickname">
+        <!-- <abbr title="required">*</abbr> -->
+        Name<span class="required-label">(required)</span></label>
+      <input id="{{ form.id }}-nickname" class="form-control required input-text {% if form.errors contains 'nickname' %}is-invalid{% endif %}" name="address[nickname]" placeholder="For example 'Work'" type="text" value="{{ form.nickname }}" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'nickname' %}
+        <div class="invalid-feedback">{{ form.errors['nickname'] }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+    
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+    <h5>Personal Information</h5>
+    <div class="form-item">
+      <label class="string control-label" for="{{ form.id }}-first_name">First Name</label>
+      <input class="form-control input-text {% if form.errors contains 'first_name' %}is-invalid{% endif %}" id="{{ form.id }}-first_name" name="address[first_name]" placeholder="first name" type="text" value="{{ form.first_name }}" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'first_name' %}
+        <div class="invalid-feedback">{{ form.errors['first_name'] }}</div>
+      {% endif %}
+    </div>
+    <div class="form-item">
+      <label class="string control-label" for="{{ form.id }}-last_name">Last Name</label>
+      <input id="{{ form.id }}-last_name" class="form-control input-text {% if form.errors contains 'last_name' %}is-invalid{% endif %}" name="address[last_name]" placeholder="last name" type="text" value="{{ form.last_name }}" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'last_name' %}
+        <div class="invalid-feedback">{{ form.errors['last_name'] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-item">
+      <label class="string control-label" for="{{ form.id }}-company">Company</label>
+      <input id="{{ form.id }}-company" class="form-control input-text {% if form.errors contains 'company' %}is-invalid{% endif %}" name="address[company]" placeholder="company name" type="text" value="{{ form.company }}" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'company' %}
+        <div class="invalid-feedback">{{ form.errors['company'] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-item">
+      <label class="string control-label" for="{{ form.id }}-email">Email</label>
+      <input id="{{ form.id }}-email" class="form-control input-text {% if form.errors contains 'email' %}is-invalid{% endif %}" name="address[email]" placeholder="email" type="text" value="{{ form.email }}" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'email' %}
+        <div class="invalid-feedback">{{ form.errors['email'] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-item">
+      <label class="string control-label" for="{{ form.id }}-phone">Phone</label>
+      <input id="{{ form.id }}-phone" class="form-control input-text {% if form.errors contains 'phone' %}is-invalid{% endif %}" name="address[phone]" placeholder="phone" type="text" value="{{ form.phone }}" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'phone' %}
+        <div class="invalid-feedback">{{ form.errors['phone'] }}</div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+    <h5>Address</h5>
+    <div class="form-item">
+      <label class="string required control-label" for="{{ form.id }}-first_address">
+        <!-- <abbr title="required">*</abbr> -->
+        Address<span class="required-label">(required)</span></label>
+      <input id="{{ form.id }}-first_address" class="form-control input-text {% if form.errors contains 'first_address' %}is-invalid{% endif %}" name="address[first_address]" placeholder="address line 1" type="text" value="{{ form.first_address }}" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'first_address' %}
+        <div class="invalid-feedback">{{ form.errors['first_address'] }}</div>
+      {% endif %}
+      <input class="form-control input-text {% if form.errors contains 'second_address' %}is-invalid{% endif %}" name="address[second_address]" placeholder="address line 2" type="text" value="{{ form.second_address }}" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'second_address' %}
+        <div class="invalid-feedback">{{ form.errors['second_address'] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-item">
+      <label class="string required control-label" for="{{ form.id }}-city">
+        <!-- <abbr title="required">*</abbr> -->
+        City<span class="required-label">(required)</span></label>
+      <input id="{{ form.id }}-city" class="form-control input-text {% if form.errors contains 'second_address' %}is-invalid{% endif %}" name="address[city]" type="text" value="{{ form.city }}" placeholder="city" maxlength="{{ form.default_str_max_length }}"/>
+      {% if form.errors contains 'city' %}
+        <div class="invalid-feedback">{{ form.errors['city'] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-item country">
+      <label class="string required control-label" for="{{ form.id }}-country">
+        <!-- <abbr title="required">*</abbr> -->
+        Country<span class="required-label">(required)</span></label>
+      <select id="{{ form.id }}-country" class="form-select input-text country country-states-country {% if form.errors contains 'country' %}is-invalid{% endif %}" name="address[country]">
+        {% country_select_options selected: form.country %}
+      </select>
+      {% if form.errors contains 'country' %}
+        <div class="invalid-feedback">{{ form.errors['country'] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-item state">
+      <label class="string required control-label" for="{{ form.id }}-state">
+        <!-- <abbr title="required">*</abbr> -->
+        State<span class="required-label">(required)</span></label>
+      <select id="{{ form.id }}-state" class="form-select state input-text {% if form.errors contains 'state' %}is-invalid{% endif %}" name="address[state]">
+        {% state_select_options country: form.country, selected: form.state %}
+      </select>
+      {% if form.errors contains 'state' %}
+        <div class="invalid-feedback">{{ form.errors['state'] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-item">
+      <label class="string required control-label" for="{{ form.id }}-zip">
+        <!-- <abbr title="required">*</abbr> -->
+        Zip Code<span class="required-label">(required)</span></label>
+      <input id="{{ form.id }}-zip" class="form-control input-text {% if form.errors contains 'zip' %}is-invalid{% endif %}" name="address[zip]" rel="zip code" type="text" value="{{ form.zip }}" placeholder="zip code" maxlength="{{ form.zip_max_length }}"/>
+      {% if form.errors contains 'zip' %}
+        <div class="invalid-feedback">{{ form.errors['zip'] }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <label>
+      <input type="hidden" name="address[default_shipping]" value="false"/>
+      <input type="checkbox" name="address[default_shipping]" class="default-shipping-address" value="true" {% if form.default_shipping? %}checked="{{ form.id }}-checked"{% endif %}/>
+      Default Shipping Address
+    </label>
+
+    <label>
+      <input type="hidden" name="address[default_billing]" value="false"/>
+      <input type="checkbox" name="address[default_billing]" class="default-billing-address" value="true" {% if form.default_billing? %}checked="checked"{% endif %}/>
+      Default Billing Address
+    </label>
+  </div>
+</div>

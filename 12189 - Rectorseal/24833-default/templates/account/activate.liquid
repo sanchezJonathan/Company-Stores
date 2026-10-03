@@ -1,0 +1,36 @@
+<div class="container-fluid border px-lg-0 my-5">
+  <div class="row px-2 mx-0">
+    <div class="col-lg-6 col-md-12 mx-auto py-5 px-4">
+      <h1>Activate Account</h1>
+  
+      <div class="notice mb-3">
+        Create your password to activate your account
+      </div>
+
+      <div class="sign-in-form input_frgt mb-3">
+        {% form 'activate_account' %}
+
+          <div class="mb-3 password-div">
+            <label class="mb-2" for="website_user_password">Password <span class="required-label">(required)</span></label>
+            <input class="{% if form.errors contains 'password' %}is-invalid{% endif %} form-control" id="website_user_password" placeholder="" name="website_user[password]" size="50" type="password" autocomplete="off"/>
+            <i class="fa fa-solid fa-eye"></i>
+            {% if form.errors contains 'password' %}
+              <div class="invalid-feedback">{{ form.errors['password'] }}</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3 password-div">
+            <label class="mb-2" for="website_user_password_confirmation">Re-enter password <span class="required-label">(required)</span></label>
+            <input class="{% if form.errors contains 'password_confirmation' %}is-invalid{% endif %} form-control" id="website_user_password_confirmation" placeholder="" name="website_user[password_confirmation]" size="50" type="password" autocomplete="off"/>
+            <i class="fa fa-solid fa-eye"></i>
+            {% if form.errors contains 'password_confirmation' %}
+              <div class="invalid-feedback">{{ form.errors['password_confirmation'] }}</div>
+            {% endif %}
+          </div>
+
+          <input type="submit" class="btn secondary frgt_btn" value="Activate user"/>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>

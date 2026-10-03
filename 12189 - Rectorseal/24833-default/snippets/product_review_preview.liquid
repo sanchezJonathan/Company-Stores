@@ -1,0 +1,23 @@
+<div class="review-preview-wrapper">
+  <div class="product-review">
+    <div class="product-review-header">
+      <h5 class='review-author'>{{ current_user | short_name }}</h5>
+      <div class="product-rating">
+        <div class="show-star" data-rating="{{ review.rating }}" data-star-count="5"></div>
+      </div>
+      <span class="review-date">Just now</span>
+    </div>
+    <div class="review-title-body">
+      <h4 class="review-title">{{ review.title }}</h4>
+      <div class="review-body">{{ review.body }}</div>
+    </div>
+  </div>
+  <div class="controls">
+    <a class="btn secondary btn_2 custom-button submit-review-btn" href="javascript:void(0)">Submit Review</a>
+
+    <div class="controls-container">
+      <a class="btn secondary edit-review" href="javascript:void(0)">Edit review</a>
+      <a class="btn secondary cancel-review" href="javascript:void(0)">Cancel review</a>
+    </div>
+  </div>
+</div>
