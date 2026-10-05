@@ -1,0 +1,30 @@
+<h2>Shipping Address</h2>
+{% include 'shipping_addresses_drop_down', form: form %}
+{% include 'shipping_address_fields', form: form %}
+
+{% if current_user %}
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="true" id="checkout[save_to_address]" name="checkout[save_to_address]" {% if form.save_to_address %}checked{% endif %}>
+    <label class="form-check-label" for="checkout[save_to_address]">
+      Save my Address Information
+    </label>
+  </div>
+{% endif %}
+
+<input type="submit" value="Continue" class="btn secondary"/>
+<script>
+gtag("event", "begin_checkout", {
+  currency: "USD",
+  value: {{ order.cart_total }},
+  items: [
+    {% for line_item in order.line_items %}
+    {
+      item_id: "{{ line_item.sku }}",
+      item_name: "{{ line_item.name }}",
+      price: {{ line_item.unit_price }},
+      quantity: {{ line_item.quantity }}
+    }{% if forloop.last == false %},{% endif %}
+    {% endfor %}
+  ]
+});
+</script>

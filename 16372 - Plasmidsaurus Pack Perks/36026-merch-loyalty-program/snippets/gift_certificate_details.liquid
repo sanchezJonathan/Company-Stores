@@ -1,0 +1,41 @@
+{% assign cert_details = line_item.gift_certificate_details %}
+{% assign first_name = cert_details.first_name %}
+{% assign last_name = cert_details.last_name %}
+{% assign email = cert_details.email %}
+{% assign message = cert_details.message %}
+{% assign code = line_item.gift_certificate_code %}
+
+{% if first_name != blank %}
+  <p class="mb-0 ps-2">
+	<span>First Name: </span>
+    {{ first_name }}
+  </p>
+{% endif %}
+
+{% if last_name != blank %}
+  <p class="mb-0 ps-2">
+	<span>Last Name: </span>
+    {{ last_name }}
+  </p>
+{% endif %}
+
+{% if email != blank %}
+  <p class="mb-0 ps-2">
+	<span>E-Mail: </span>
+    {{ email }}
+  </p>
+{% endif %}
+
+{% if message != blank %}
+  <p class="mb-0 ps-2">
+	<span>Message: </span>
+    {{ message }}
+  </p>
+{% endif %}
+
+{% if code != blank %}
+  <p class="mb-0 ps-2">
+	<span>Code: </span>
+    {{ code }}
+  </p>
+{% endif %}

@@ -1,0 +1,135 @@
+<div class='product-option-wrapper form-item {% if product_option.friendly_name == "Color" or product_option.friendly_name == "color" %}color-product-option{% endif %}'>
+  <label class="mb-2">
+    {{ product_option.friendly_name }}{% if product_option.required? %}<span class="required-label">(required)</span>{% endif %}
+  </label>
+
+  <div class="select-area">
+    
+    {% comment %} Determine if we should show Pills instead of a Dropdown {% endcomment %}
+    {% assign show_as_pills = false %}
+    {% if product_option.show_as_thumbs? or product_option.friendly_name contains "Size" or product_option.friendly_name contains "size" %}
+      {% assign show_as_pills = true %}
+    {% endif %}
+
+    {% if show_as_pills %}
+      <div class="product-pill-container d-flex flex-wrap mb-3">
+        {% for sub_option in product_option.sub_options %}
+          <button
+            class="btn-pill product-option-button-{{ product_option.id }} {% if form.options[product_option.id].sub_option == sub_option.id %}active-pill{% endif %}"
+            type="button"
+            data-value="{{ sub_option.id }}"
+            data-name="{{ sub_option.name }}"
+            data-id="{{ product_option.id }}"
+          >
+            {% comment %} Keep your shorthand labels (S, M, L) logic {% endcomment %}
+            {% if sub_option.name == "X-Small" %}XS
+            {% elsif sub_option.name == "Small" %}Small
+            {% elsif sub_option.name == "Medium" %}Medium
+            {% elsif sub_option.name == "Large" %}Large
+            {% elsif sub_option.name == "X-Large" %}X Large
+            {% elsif sub_option.name == "2x-Large" %}XX Large
+            {% else %}{{ sub_option.name }}{% endif %}
+          </button>
+        {% endfor %}
+      </div>
+
+      <script>
+        $(document).ready(function() {
+          $(".product-option-button-{{ product_option.id }}").click(function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $parent = $this.closest('.product-option-wrapper');
+            var $hiddenSelect = $parent.find('select');
+
+            // Toggle logic
+            if ($this.hasClass("active-pill")) {
+              $this.removeClass("active-pill");
+              $hiddenSelect.val(null).trigger('change');
+            } else {
+              $parent.find(".btn-pill").removeClass("active-pill");
+              $this.addClass("active-pill");
+              $hiddenSelect.val($this.attr("data-value")).trigger('change');
+            }
+
+            // Trigger global updates for pricing/reflective views
+            $('.line-items-reflective-view, .total-info').find('select, input').trigger('change');
+          });
+        });
+      </script>
+    {% endif %}
+
+    {% comment %} The Hidden Select (Keep this for form submission) {% endcomment %}
+    <select data-type="product-option"
+      data-name="{{ product_option.friendly_name }}"
+      data-option-type="{{ product_option.option_type }}"
+      name="product[options][{{ product_option.id }}][sub_option]"
+      class="form-select msdropdown-select {% if form.options[product_option.id].errors %}is-invalid{% endif %} {% if show_as_pills %}d-none{% endif %}"
+      {% if show_as_pills %}style="display:none;"{% endif %}>
+
+      <option value="">Please select</option>
+      {% for sub_option in product_option.sub_options %}
+        <option data-name="{{ sub_option.name }}"
+          data-label="{{ sub_option.name }}"
+          {% if form.options[product_option.id].sub_option == sub_option.id %}selected{% endif %}
+          value="{{ sub_option.id }}">
+          {{ sub_option.name }} {% if sub_option.amount and sub_option.amount != 0 %}({% include 'price', price_value: sub_option.amount %}){% endif %}
+        </option>
+      {% endfor %}
+    </select>
+
+    {% if form.options[product_option.id].errors %}
+      <div class="error invalid-feedback d-block" data-type="product-option-error">
+        {{ form.options[product_option.id].errors | default_errors }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% comment %} Styling for the Pills {% endcomment %}
+<style>
+  .product-pill-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .btn-pill {
+    background: transparent;
+    border: 1.5px solid #8a9a7b; /* Olive green border */
+    color: #1a331e; /* Dark forest green text */
+    border-radius: 12px; /* Pill shape */
+    padding: 10px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+  }
+  .btn-pill:hover {
+    background-color: #f1f3ef;
+  }
+  .btn-pill.active-pill {
+    background-color: #DFECC6; /* Filled olive green */
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  /* Ensure Select2 doesn't initialize if pills are showing */
+  {% if show_as_pills %}
+    .select2-container--bootstrap4[data-select2-id*="{{ product_option.id }}"] {
+      display: none !important;
+    }
+  {% endif %}
+</style>
+
+{% comment %} Only initialize Select2 for non-pill options {% endcomment %}
+{% unless show_as_pills %}
+<script>
+  $(document).ready(function() {
+    $("select[name='product[options][{{ product_option.id }}][sub_option]']").select2({
+      placeholder: "Please select",
+      minimumResultsForSearch: Infinity,
+      theme: 'bootstrap4',
+      allowClear: true,
+    });
+  });
+</script>
+{% endunless %}

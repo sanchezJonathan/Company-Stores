@@ -1,0 +1,107 @@
+{% if logos.size > 0 or custom_logos_upload_enabled %}
+  <div class="prod_option_block logo-wrapper">
+    <div class="logo-info clrfix">
+      <div class="form-item clrfix">
+        <div class='product-option-wrapper'>
+          <label class="mb-2">
+            Logo{% if logo_required %}<span class="required-label">(required)</span>{% endif %}
+          </label>
+          
+          <div class="select-area {% if shop.show_logos_as_thumbs? %}thumbnail{% endif %}">
+            {% if shop.show_logos_as_thumbs? %}
+              <div class="virtual-logo-container">
+                <div class="logo-location-text logo-location-text-{{ location.id }} pb-2"><span class="text-muted">Please select</span></div>
+                {% for logo in logos %}
+                  <button
+                    class="btn p-0 logo-location-thumb border rounded logo-location-button-{{ product_option.id }} {% if form.selected_logos[location.id].id == logo.id %}selected{% endif %}"
+                    type="button"
+                    data-value="{{ logo.id }}"
+                    data-name="{{ logo.name }}{% if logo.charge %} ({% include 'price', price_value: logo.charge %}){% endif %}"
+                    data-id="{{ location.id }}"
+                  >
+                    {% if logo.front_thumb_url %}
+                      <img src="{{ logo.front_thumb_url }}" class="img-fluid p-2" />
+                    {% else %}
+                      <img src="{{ 'product-image-preview/no_thumb.png' | asset_url }}" class="img-fluid p-2" />
+                    {% endif %}
+                  </button>
+                {% endfor %}
+              </div>
+
+              <script>
+                var currentValue = $(".logo-location-button-{{ location.id }}.selected").attr("data-name");
+                $(document).on("click", ".logo-location-thumb", function() {
+                  if ($(this).hasClass("selected-logo")) {
+                    $(".logo-location-text-{{ location.id }}").html('<span class="text-muted">Please select</span>');
+                    $("select[name='product[logo]']").val(null);
+                    $("select[name='product[logo]']").trigger('change');
+                    $(this).removeClass("selected-logo");
+                    $(this).blur();
+                    return false;
+                  }
+                  
+                  $(".logo-location-text-{{ location.id }}").text($(this).attr("data-name"));
+                  $("select[name='product[logo]").val($(this).attr("data-value"));
+                  $("select[name='product[logo]").trigger('change');
+                  $(this).siblings(".logo-location-thumb").removeClass("selected-logo");
+                  $(this).addClass("selected-logo");
+                  $('.line-items-reflective-view, .total-info').find('select').trigger('change');
+                  $('.line-items-reflective-view, .total-info').find('input').trigger('change');
+                });
+
+                $(".logo-location-text-{{ location.id }}").text(currentValue);
+              </script>
+            {% endif %}
+            
+            <select name="product[logo]" data-type="virtual-logo" class="form-select msdropdown-select {% if shop.show_logos_as_thumbs? %}d-none{% endif %}">
+              <option></option>
+
+              {% for logo in logos %}
+                <option data-image="{{ logo.front_thumb_url }}" value="{{ logo.id }}"
+                  data-label="{{ logo.name }}"
+                  {% if logo.charge %}data-charge="{% include 'price', price_value: logo.charge %}"{% endif %} 
+                  {% if logo.has_colors_restrictions? %}data-colors-restrictions="true"{% endif %}
+                  {% if logo.colors_whitelist %}data-colors-whitelist="{{ logo.colors_whitelist }}"{% endif %}
+                  {% if logo.colors_blacklist %}data-colors-blacklist="{{ logo.colors_blacklist }}"{% endif %}
+                  {% if logo.id == form.logo_id %} selected {% endif %}>
+                  {{ logo.name }}{% if location.charge? and logo.charge %} ({% include 'price', price_value: logo.charge %}){% endif %}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'logo_buttons', product: product %}
+  </div>
+
+  {% if shop.show_logos_as_thumbs? %}
+  {% else %}
+    <script>
+      function formatOption(option) {
+        const image = $(option.element).data("image");
+        const origLabel = $(option.element).data("label");
+        const charge = $(option.element).data("charge");
+        const label = origLabel + (!!charge ? " (" + charge + ")" : "");
+
+        if (!label) { return false; }
+        if (!image) { return label; }
+
+        var $option = $(
+          '<span class="select2-option">' + label + ' <img  class="img-thumbnail" src="' + image + '" /></span>'
+        );
+
+        return $option;
+      };
+
+      $("select[name='product[logo]']").select2({
+        placeholder: "Please select",
+        templateResult: formatOption,
+        minimumResultsForSearch: Infinity,
+        theme: 'bootstrap4',
+        allowClear: true
+      });
+    </script>
+  {% endif %}
+{% endif %}

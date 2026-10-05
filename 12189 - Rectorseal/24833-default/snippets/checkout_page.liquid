@@ -74,34 +74,17 @@
       return field
     }
 
-    // Always update shipping address fields
+    setField('input.company', data.company);
     setField('input.first-address', data.first_address);
     setField('input.second-address', data.second_address);
     setField('input.city', data.city);
     setField('select.country', data.country).trigger('change');
     setField('select.state', data.state).trigger('change');
     setField('input.zip', data.zip);
-
-    // Liquid loop through the Website::Group objects on current_user
-    {% assign is_marketing_user = false %}
-    {% if current_user %}
-      {% for group in current_user.groups %}
-        {% if group.title == "Marketing" or group.name == "Marketing" %}
-          {% assign is_marketing_user = true %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-
-    var isMarketing = {{ is_marketing_user | json }};
-
-    // Only populate personal fields if the user is NOT in the Marketing group
-    if (!isMarketing) {
-      setField('input.company', data.company);
-      setField('input.first-name', data.first_name);
-      setField('input.last-name', data.last_name);
-      setField('input.email', data.email);
-      setField('input.phone', data.phone);
-    }
+    setField('input.first-name', data.first_name);
+    setField('input.last-name', data.last_name);
+    setField('input.email', data.email);
+    setField('input.phone', data.phone);
   }
 
   $("select[name='saved_address']").change(function() {

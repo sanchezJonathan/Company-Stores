@@ -1,3 +1,18 @@
+{% comment %} Marketing group users never get an autopopulated shipping address. Values are kept only when a submitted form comes back with errors. {% endcomment %}
+{% capture is_marketing %}{% render 'is_marketing_user' %}{% endcapture %}
+{% assign is_marketing = is_marketing | strip %}
+{% assign clear_fields = false %}
+{% if is_marketing == 'true' %}
+  {% assign clear_fields = true %}
+  {% assign address_field_names = 'first_name,last_name,email,phone,company,first_address,second_address,city,country,state,zip' | split: ',' %}
+  {% for field_name in address_field_names %}
+    {% if form[field_name].errors != empty %}
+      {% assign clear_fields = false %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
 <h4 class="mt-5">Personal Information</h4>
 <div class="mb-3">
   <label class="form-label" for="website_order_shipping_contact_attributes_first_name">First name<span class="required-label">(required)</span></label>
@@ -158,3 +173,17 @@
   	<div class="invalid-feedback">{{ error }}</div>
   {% endfor %}
 </div>
+
+{% if clear_fields %}
+  <script>
+    // Marketing users: start with an empty shipping address every time they land on this step.
+    // Runs before sitewide.js builds the country/state select2 dropdowns, so they start from the cleared values. The Saved Address dropdown still fills the fields afterwards.
+    $(function () {
+      var container = $("form.edit_website_order");
+      container.find("input.first-name, input.last-name, input.email, input.phone, input.company, input.first-address, input.second-address, input.city, input.zip").val("");
+      container.find("select[name='saved_address']").val("-1");
+      container.find("select.country").val(container.find("select.country option:first").val()).trigger("change");
+      container.find("select.state").val("").trigger("change");
+    });
+  </script>
+{% endif %}

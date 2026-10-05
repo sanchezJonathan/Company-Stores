@@ -1,0 +1,1 @@
+{{ title }}{% if amount and amount != 0 %}<span class="modifier"> ({% if amount > 0 %}+{% endif %}{% include 'price', price_value: amount %})</span>{% endif %}

@@ -1,0 +1,69 @@
+{% paginate products_search by 100 %}
+  <div class="category-page">
+    <div class="col-md-12 {% if filter_rules != blank %}col-lg-9{% endif %} px-0 category-page-content-section">
+      
+      <div class="category-pill-wrapper mb-4 hide-scrollbar">
+        <div class="category-pill-container custom-pill-nav">
+          <a href="/products" class="category-pill">All</a>
+          {% category_navigation %}
+        </div>
+      </div>
+      
+      <div class="container-fluid px-0">
+        <div class="row m-auto align-items-center">
+          <div class="col-sm-6 px-0">
+            <p class='products-result-verbiage'>We found {{ products_search.total | pluralize: 'item', 'items' }}</p>
+          </div>
+          <div class="col-sm-6 px-0 text-end">
+            <div class="d-block d-lg-none mb-3">
+              <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#filter-mobile-modal">Filter</button>
+              <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#sort-mobile-modal">Sort By</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-list pt-3">
+        {% if products_search.total == 0 %}
+          <div class="no-results-message text-center my-5">
+            <h3>No results found</h3>
+          </div>
+        {% else %}
+          {% include "product" with paginate.collection %}
+        {% endif %}
+      </div>
+
+      {% include "paginator", paginate: paginate %}
+    </div>
+
+    <div class="modal fade" id="filter-mobile-modal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Filter</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body">{% include 'filter_rule' with filter_rules, caller: "mobile-" %}</div></div></div></div>
+    <div class="modal fade" id="sort-mobile-modal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Sort By</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body">{% include 'sort', caller: "mobile" %}</div></div></div></div>
+
+  </div>
+{% endpaginate %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const currentPath = window.location.pathname;
+  const currentQuery = window.location.search;
+
+  const pillLinks = document.querySelectorAll(".category-pill-wrapper a");
+
+  pillLinks.forEach(link => {
+    const linkUrl = new URL(link.href, window.location.origin);
+    const linkPath = linkUrl.pathname;
+    const linkQuery = linkUrl.search;
+
+    link.classList.remove("active-pill");
+
+    /* "All" pill */
+    if (linkPath === "/products" && linkQuery === "" && currentPath === "/products" && currentQuery === "") {
+      link.classList.add("active-pill");
+    }
+
+    /* Category pills */
+    if (linkPath === currentPath && linkQuery === currentQuery && linkQuery !== "") {
+      link.classList.add("active-pill");
+    }
+  });
+});
+</script>

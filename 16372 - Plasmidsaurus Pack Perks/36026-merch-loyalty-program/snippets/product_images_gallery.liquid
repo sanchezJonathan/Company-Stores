@@ -1,0 +1,64 @@
+<div class='images-wrapper'>
+  {% if product.images.size > 1 %}
+    <button class="btn nav prev"></button>
+  {% endif %}
+
+  <div class='images-container'>
+    <ul class="clrfix images mx-0">
+      {% for image in product.images %}
+        <li class='image {% if image.primary? %} primary {% endif %}' data-id="{{ image.id }}" data-group-id="{{ image.group_id }}">
+          <a href="{{ image.large_url }}">
+            <img alt="{{ product.name }} image thumbnail" 
+                 title="{{ product.name }} image thumbnail" 
+                 src="{{ image.medium_url }}" 
+                 class="small-thumb"/>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% if product.images.size > 1 %}
+    <button class="btn nav next"></button>
+  {% endif %}
+</div>
+
+<script>
+$(document).ready(function() {
+  
+  // 1. BLOCK ALL HOVER EVENTS (Delegated)
+  // This tells the gallery to catch and kill any hover events before they trigger other scripts
+  $(document).on('mouseenter mouseover mousemove', '.images-wrapper .images li.image', function(e) {
+      e.stopImmediatePropagation();
+      e.stopPropagation();
+      return false; 
+  });
+
+  // 2. SWAP LOGIC
+  $('.images-wrapper .images li.image a').on('click', function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    var newImageSrc = $(this).attr('href');
+    var $mainImg = $('.product-page-main .main-img img');
+
+    // Swap the source
+    $mainImg.attr('src', newImageSrc);
+
+    // 3. Kill Zoom (ElevateZoom/CloudZoom)
+    // These plugins are the #1 reason images revert on hover
+    $('.zoomContainer').remove();
+    $mainImg.removeData('elevateZoom');
+    $mainImg.removeData('zoomImage');
+
+    // Update the border
+    $('.images-wrapper .images li.image').removeClass('primary');
+    $(this).parent().addClass('primary');
+  });
+
+  // 4. Pause carousels if they exist
+  if ($.fn.carousel) {
+      $('.carousel').carousel('pause');
+  }
+});
+</script>

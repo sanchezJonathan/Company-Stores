@@ -1,0 +1,161 @@
+{% assign hasCA = 0 %}
+{% assign hasOther = 0 %}
+{% for line_item in order.line_items %}
+  {% for cats in line_item.categories %}
+    {% if cats.name contains "Customer Appreciation" %}
+      {% assign hasCA = 1 %}
+    {% else %}
+      {% assign hasOther = 1%}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+{% if hasCA == 1 and hasOther == 1 %}
+  <div class="notification-container position-fixed top-0 end-0 p-3">
+    <div class="toast notif-warning mt-2" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-transparent">
+        <strong class="me-auto">Warning</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Please order Customer Appreciation Vouchers separately.
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% include 'cart_redemption_limit_check_transaction' %}
+<div class="cart-page mt-5">
+  {% form 'cart' %}
+    <div class="mb-3 mb-md-0">
+      <h2 class="d-block">
+        Cart
+      </h2>
+	  <!--
+      <div class="float-md-end">
+        {% if order.line_items_count > 0 %}
+          <a href="#" class="btn secondary empty-cart">Clear Cart</a>
+          <span class="px-1">or</span>
+        {% endif %}
+
+        {% assign most_recently_viewed_product = recently_viewed_products.first %}
+
+        {% if most_recently_viewed_product %}
+          <a href="{{ most_recently_viewed_product | product_url }}" class="btn_2 continue-shopping custom-button">Continue Shopping</a>
+        {% else %}
+          <a href="{{ root_url }}" class="btn secondary">Continue Shopping</a>
+        {% endif %}
+      </div>
+	  -->
+  	</div>
+
+    <div class="shopping-cart pt-3">
+      {% if order.line_items_count > 0 %}
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col" class="pl-0 h4 fw-bolder d-none d-lg-table-cell border-bottom">Product</th>
+              <th scope="col" class="h4 fw-bolder d-none d-lg-table-cell border-bottom">Price</th>
+              <th scope="col" class="h4 fw-bolder d-none d-lg-table-cell border-bottom">Quantity</th>
+              <th scope="col" class="h4 fw text-end pe-0 d-none d-lg-table-cell border-bottom">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for line_item in order.line_items %}
+              {% include 'line_item_fields', line_item: line_item %}
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr class="d-none d-lg-table-row">
+              <td></td>
+              <td></td>
+              <td>Subtotal ({{ order.line_items_count }} items)</td>
+              <td class="fw-bolder text-end pe-0">{% include 'price', price_value: order.cart_total, price_suffix: true %}</td>
+            </tr>
+            {% if redemption_limit_exceeded %}
+              <tr>
+                <td colspan="5" class="text-danger pt-3 px-0 mb-2">
+                  {{ redemption_limit_messages }}
+                </td>
+              </tr>
+            {% endif %}
+            <tr class="d-none d-lg-table-row">
+              <td colspan="5" class="text-end pt-3 px-0">
+                {% if most_recently_viewed_product %}
+                  <a href="{{ most_recently_viewed_product | product_url }}" class="btn_2 continue-shopping custom-button">Continue Shopping</a>
+                {% else %}
+                  <a href="{{ root_url }}" class="btn secondary">Continue Shopping</a>
+                {% endif %}
+                {% if hasCA == 1 and hasOther == 1 %}
+                {% elsif redemption_limit_exceeded %}
+                {% else %}
+                  <input type="submit" name="checkout" class="btn fs-5 fw-bold primary px-lg-5 cart-checkout-btn" value="Checkout"/>
+                {% endif %}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      
+        <div class="zip-input">
+          <!--
+          <label>enter your zip code for updated shipping rates</label>
+          <input type="text" class="custom-input-text clearHint with-hint" value="zip" rel="zip"/>
+          -->
+        </div>
+      {% else %}
+        <p class="empty_cart">
+          The cart is empty!
+        </p>
+      {% endif %}
+    </div>
+  {% endform %}
+</div>
+
+<script>
+  $("#qa-checkout-button").click(function() {
+    $("input[name='checkout']").click();
+  });
+  
+  $(".cart-quantity-decoy").change(function() {
+    var id = $(this).attr("id");
+    
+    /*if (+$(this).attr("data-max-quantity") < $(this).val()) {
+      $(this).addClass("is-invalid")
+      return;
+    }*/
+    
+    $(this).removeClass("is-invalid")
+  	$(this).closest('td').find('button[type="submit"]').removeAttr('disabled');
+    $(this).closest('td').find('button[type="submit"]').removeClass('btn-dark');
+    $(this).closest('td').find('button[type="submit"]').addClass('secondary');
+    $('input[name="line_items['+ id +'][quantity]"]').val($(this).val());
+  });
+  
+  $(".cart-quantity-input").change(function() {
+    var id = $(this).attr("id");
+    
+    /*if (+$(this).attr("data-max-quantity") < $(this).val()) {
+      $(this).addClass("is-invalid")
+      return;
+    } */
+    
+    $(this).removeClass("is-invalid")
+    $(this).closest('td').find('button[type="submit"]').removeAttr('disabled');
+    $(this).closest('td').find('button[type="submit"]').removeClass('btn-dark');
+    $(this).closest('td').find('button[type="submit"]').addClass('secondary');
+  })
+</script>
+<script>
+gtag("event", "view_cart", {
+  currency: "USD",
+  value: {{ order.cart_total }},
+  items: [
+    {% for line_item in order.line_items %}
+    {
+      item_id: "{{ line_item.sku }}",
+      item_name: "{{ line_item.name }}",
+      price: {{ line_item.unit_price }},
+      quantity: {{ line_item.quantity }}
+    }{% if forloop.last == false %},{% endif %}
+    {% endfor %}
+  ]
+});
+</script>

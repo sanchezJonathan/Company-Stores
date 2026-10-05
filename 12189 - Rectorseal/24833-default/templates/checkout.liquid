@@ -1,3 +1,18 @@
+{% capture is_marketing %}{% render 'is_marketing_user' %}{% endcapture %}
+{% assign is_marketing = is_marketing | strip %}
+{% if is_marketing == 'true' and shop.show_shipping_address? %}
+  <script>
+    // Marketing users: if the platform skipped the Shipping Address step (default address on file), send them back to it
+    try {
+      if (sessionStorage.getItem("marketing_checkout_started")) {
+        sessionStorage.removeItem("marketing_checkout_started");
+        {% if checkout_flow.state != 'address' and checkout_flow.passed_states contains 'address' %}
+          window.location.replace("/checkout/address");
+        {% endif %}
+      }
+    } catch (e) {}
+  </script>
+{% endif %}
 
 {% capture checkout_page_content %}
 {% form 'checkout' %}

@@ -1,0 +1,42 @@
+{%- comment -%}
+  Usage:
+    {% include 'price', price_value: line_item.total_price %}
+    {% include 'price', price_value: order.grand_total, price_suffix: true %}
+  price_suffix appends " points" - only in points mode, never in currency mode.
+{%- endcomment -%}
+
+{%- assign omg_price_raw = price_value | points_or_currency -%}
+
+{%- if shop.points_store? -%}
+
+  {%- assign omg_price_str = omg_price_raw | append: "" -%}
+  {%- assign omg_price_sign = "" -%}
+  {%- assign omg_first_char = omg_price_str | slice: 0, 1 -%}
+
+  {%- if omg_first_char == "-" -%}
+    {%- assign omg_price_sign = "-" -%}
+    {%- assign omg_price_str = omg_price_str | remove_first: "-" -%}
+  {%- endif -%}
+
+  {%- assign omg_price_parts = omg_price_str | split: "." -%}
+  {%- assign omg_int_str = omg_price_parts | first -%}
+  {%- assign omg_len = omg_int_str | size -%}
+  {%- assign omg_formatted = "" -%}
+  {%- assign omg_count = 0 -%}
+
+  {%- for i in (1..omg_len) -%}
+    {%- assign omg_index = omg_len | minus: i -%}
+    {%- assign omg_digit = omg_int_str | slice: omg_index, 1 -%}
+    {%- assign omg_formatted = omg_digit | append: omg_formatted -%}
+    {%- assign omg_count = omg_count | plus: 1 -%}
+    {%- if omg_count == 3 and omg_index > 0 -%}
+      {%- assign omg_formatted = "," | append: omg_formatted -%}
+      {%- assign omg_count = 0 -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {{- omg_price_sign -}}{{- omg_formatted -}}{%- if omg_price_parts.size > 1 -%}.{{ omg_price_parts[1] }}{%- endif -%}{%- if price_suffix %} points{% endif -%}
+
+{%- else -%}
+  {{- omg_price_raw -}}
+{%- endif -%}

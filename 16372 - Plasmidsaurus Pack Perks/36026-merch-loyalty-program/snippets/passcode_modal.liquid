@@ -1,0 +1,28 @@
+{% if shop.active_multi_storefront? and session_passcode == blank %}
+  <div class="modal fade" id="group-passcode-modal" {% if settings.require_user_passcode and session_passcode == blank %}data-bs-backdrop="static"{% endif %} tabindex="-1" role="dialog" aria-labelledby="group-passcode-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          {% assign logoMargins = settings.logo_margin | split: ' ' %}
+          {% assign logoMarginTop = logoMargins[0] %}
+          {% if logoMargins[2] %}{% assign logoMarginBottom = logoMargins[2] %}{% else %}{% assign logoMarginBottom = logoMargins[0] %}{% endif %}
+          <h5 class="modal-title"><img class="img-fluid" src="{{ "logo_custom_bg_image.jpg" | asset_url }}" style="max-height: calc({{ settings.header_height }} - {{ logoMarginTop }} - {{ logoMarginBottom }} - 14px);"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        {% form 'passcode' %}
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">{{ settings.enter_password_label }}</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="passcode" name="passcode" aria-label="Group Passcode" aria-describedby="groupPasscode">
+                <div class="input-group-append">
+                  <button class="btn secondary" type="submit" id="groupPasscode">Go</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+{% endif %}

@@ -1,4 +1,11 @@
 {% assign carousel_count = 0 %}
+{% comment %} Slides 4 and 5 are only for logged-in "Marketing" group members, who see only those slides {% endcomment %}
+{% capture marketing_check %}{% render 'is_marketing_user' %}{% endcapture %}
+{% assign marketing_check = marketing_check | strip %}
+{% assign is_marketing = false %}
+{% if marketing_check == 'true' %}
+  {% assign is_marketing = true %}
+{% endif %}
 {% assign captionposition = "flex-column" %}
 {% if settings.caption_position != "center" %}
   {% assign captionposition = settings.caption_position | append: "-align-captions" %}
@@ -6,7 +13,7 @@
 <div class="homepage-carousel-container mx-auto">
   <div id="homepage-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      {% if settings.show_carousel_item_1 %}
+      {% if settings.show_carousel_item_1 and is_marketing == false %}
         <div class="carousel-item car-item-1">
           <a class="d-block w-100" href="{{ settings.carousel_item_1_link }}">
             <img src="{{ 'carousel-item-01.jpg' | asset_url }}" class="d-block w-100" alt="{{ settings.carousel_item_1_alt }}" title="{{ settings.carousel_item_1_alt }}">
@@ -42,7 +49,7 @@
         </div>
       {% endif %}
 
-      {% if settings.show_carousel_item_2 %}
+      {% if settings.show_carousel_item_2 and is_marketing == false %}
         <div class="carousel-item car-item-2">
           <a class="d-block w-100" href="{{ settings.carousel_item_2_link }}">
             <img src="{{ 'carousel-item-02.jpg' | asset_url }}" class="d-block w-100" alt="{{ settings.carousel_item_2_alt }}" title="{{ settings.carousel_item_2_alt }}">
@@ -78,7 +85,7 @@
         </div>
       {% endif %}
 
-      {% if settings.show_carousel_item_3 %}
+      {% if settings.show_carousel_item_3 and is_marketing == false %}
         <div class="carousel-item car-item-3">
           <a class="d-block w-100" href="{{ settings.carousel_item_3_link }}">
             <img src="{{ 'carousel-item-03.jpg' | asset_url }}" class="d-block w-100" alt="{{ settings.carousel_item_3_alt }}" title="{{ settings.carousel_item_3_alt }}">
@@ -114,7 +121,7 @@
         </div>
       {% endif %}
 
-      {% if settings.show_carousel_item_4 %}
+      {% if settings.show_carousel_item_4 and is_marketing %}
         <div class="carousel-item car-item-4">
           <a class="d-block w-100" href="{{ settings.carousel_item_4_link }}">
             <img src="{{ 'carousel-item-04.jpg' | asset_url }}" class="d-block w-100" alt="{{ settings.carousel_item_4_alt }}" title="{{ settings.carousel_item_4_alt }}">
@@ -150,7 +157,7 @@
         </div>
       {% endif %}
 
-      {% if settings.show_carousel_item_5 %}
+      {% if settings.show_carousel_item_5 and is_marketing %}
         <div class="carousel-item car-item-5">
           <a class="d-block w-100" href="{{ settings.carousel_item_5_link }}">
             <img src="{{ 'carousel-item-05.jpg' | asset_url }}" class="d-block w-100" alt="{{ settings.carousel_item_5_alt }}" title="{{ settings.carousel_item_5_alt }}">
@@ -187,25 +194,25 @@
       {% endif %}
     </div>
     <div class="carousel-indicators d-none">
-      {% if settings.show_carousel_item_1 %}
+      {% if settings.show_carousel_item_1 and is_marketing == false %}
         {% assign carousel_count = carousel_count | plus: 1 %}
-        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="{{ carousel_count | minus: 1 }}" aria-current="true" aria-label="Slide {{ carousel_count }}"></button>
       {% endif %}
-      {% if settings.show_carousel_item_2 %}
+      {% if settings.show_carousel_item_2 and is_marketing == false %}
         {% assign carousel_count = carousel_count | plus: 1 %}
-        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="1" aria-current="true" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="{{ carousel_count | minus: 1 }}" aria-current="true" aria-label="Slide {{ carousel_count }}"></button>
       {% endif %}
-      {% if settings.show_carousel_item_3 %}
+      {% if settings.show_carousel_item_3 and is_marketing == false %}
         {% assign carousel_count = carousel_count | plus: 1 %}
-        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="2" aria-current="true" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="{{ carousel_count | minus: 1 }}" aria-current="true" aria-label="Slide {{ carousel_count }}"></button>
       {% endif %}
-      {% if settings.show_carousel_item_4 %}
+      {% if settings.show_carousel_item_4 and is_marketing %}
         {% assign carousel_count = carousel_count | plus: 1 %}
-        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="3" aria-current="true" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="{{ carousel_count | minus: 1 }}" aria-current="true" aria-label="Slide {{ carousel_count }}"></button>
       {% endif %}
-      {% if settings.show_carousel_item_5 %}
+      {% if settings.show_carousel_item_5 and is_marketing %}
         {% assign carousel_count = carousel_count | plus: 1 %}
-        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="4" aria-current="true" aria-label="Slide 5"></button>
+        <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="{{ carousel_count | minus: 1 }}" aria-current="true" aria-label="Slide {{ carousel_count }}"></button>
       {% endif %}
     </div>
     {% if carousel_count > 1 %}

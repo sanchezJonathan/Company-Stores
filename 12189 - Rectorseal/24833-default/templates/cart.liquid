@@ -71,6 +71,15 @@
   $("#qa-checkout-button").click(function() {
     $("input[name='checkout']").click();
   });
+
+  {% capture is_marketing %}{% render 'is_marketing_user' %}{% endcapture %}
+  {% assign is_marketing = is_marketing | strip %}
+  {% if is_marketing == 'true' and shop.show_shipping_address? %}
+    // Marketing users: flag the start of checkout so checkout.liquid can detect a skipped Shipping Address step
+    $("input[name='checkout']").click(function() {
+      try { sessionStorage.setItem("marketing_checkout_started", "1"); } catch (e) {}
+    });
+  {% endif %}
   
   $(".cart-quantity-decoy").change(function() {
     var id = $(this).attr("id");

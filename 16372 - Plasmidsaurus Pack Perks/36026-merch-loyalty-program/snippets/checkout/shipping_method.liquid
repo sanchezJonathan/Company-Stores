@@ -1,0 +1,121 @@
+<h2>Shipping method</h2>
+<h4 class="mt-5">Shipping method</h4>
+<p id="international-text">For shoppers outside the U.S., please note that while the currency on your order confirmation may show as United States Dollars (USD), our credit card processor will convert this value to your local currency and reflect as such on your bank/credit card statement.</p>
+<div class="mb-3">
+  {% for shipment in form.shipments %}
+    <div class="form-check">
+      <input class="form-check-input" 
+        type="radio"
+        id="{{ shipment.shipment_id }}"
+        name="checkout[delivery][shipment_id]"
+        value="{{ shipment.id }}"
+        {% if order.shipment_id == shipment.id %} checked="checked" {% endif %}>
+      <label class="form-check-label" for="{{ shipment.shipment_id }}">
+        {{ shipment.name }} ({% include 'price', price_value: shipment.amount %})
+      </label>
+    </div>
+  {% endfor %}
+
+  {% for error in form.shipment_errors %}
+    <div class="text-danger">{{ error }}</div>
+  {% endfor %}
+
+  {% if shop.show_in_hands_date? %}
+    <div class="my-3 in-hands-date">
+      <label class="form-label" for="shipping-in-hands-date">In Hands Date:</label>
+      <input type="date"
+        name="checkout[delivery][in_hands_date]"
+        value="{{ order.shipment.in_hands_date }}"
+        id="shipping-in-hands-date"
+        class="form-control"
+        autocomplete="off">
+    </div>
+  
+    <script>
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+      var yyyy = today.getFullYear();
+      if(dd<10){
+        dd='0'+dd
+      } 
+      if(mm<10){
+        mm='0'+mm
+      } 
+
+      today = yyyy+'-'+mm+'-'+dd;
+      $("#shipping-in-hands-date").attr("min", today)
+    </script>
+  {% endif %}
+</div>
+
+<input type="submit" value="Continue" class="btn secondary"/>
+{% if order.shipping_address.country == "United States" %}
+  <script>
+    $('#custom-rate_InternationalEconomy').closest('div.form-check').remove();
+    $('#international-text').remove();
+  </script>
+{% else %}
+ 
+{% endif %}
+
+ <script>
+    $('#custom-rate_UPSGround').closest('div.form-check').remove();
+  </script>
+  
+<script>
+(function() {
+  function sendShippingInfo(radioElem) {
+    if (!radioElem) return;
+
+    var label = document.querySelector('label[for="' + radioElem.id + '"]') || radioElem.closest('label');
+    var labelText = label ? label.innerText.trim() : 'Standard';
+
+    var costMatch = labelText.match(/\$(\d+(?:\.\d+)?)/);
+    var shippingCost = costMatch ? parseFloat(costMatch[1]) : 0.00;
+
+    var shippingName = labelText.replace(/\s*\(\$\d+(?:\.\d+)?\)/, '').trim();
+
+    console.log("GA4 add_shipping_info firing:", { shippingName: shippingName, shippingCost: shippingCost });
+
+    gtag("event", "add_shipping_info", {
+      currency: "USD",
+      value: {{ order.cart_total | default: 0 }},
+      shipping_tier: shippingName,
+      shipping_cost: shippingCost,
+      items: [
+        {% for line_item in order.line_items %}
+        {
+          item_id: "{{ line_item.sku }}",
+          item_name: "{{ line_item.name }}",
+          price: {{ line_item.unit_price | default: 0 }},
+          quantity: {{ line_item.quantity | default: 1 }}
+        }{% if forloop.last == false %},{% endif %}
+        {% endfor %}
+      ]
+    });
+  }
+
+  document.addEventListener('click', function(e) {
+    var radio = e.target.closest('input[name="checkout[delivery][shipment_id]"]');
+    if (!radio) {
+      var label = e.target.closest('label');
+      if (label && label.getAttribute('for')) {
+        radio = document.getElementById(label.getAttribute('for'));
+      }
+    }
+    
+    if (radio && radio.name === 'checkout[delivery][shipment_id]') {
+      setTimeout(function() {
+        sendShippingInfo(radio);
+      }, 100);
+    }
+  }, true); 
+  window.addEventListener('load', function() {
+    var checkedRadio = document.querySelector('input[name="checkout[delivery][shipment_id]"]:checked');
+    if (checkedRadio) {
+      sendShippingInfo(checkedRadio);
+    }
+  });
+})();
+</script>

@@ -1,0 +1,66 @@
+<div class="decorations">
+  {% for decoration in line_item.decorations %}
+    <div class="decoration mb-2">
+      <div class="fw-bold">{{ decoration.location.name }}</div>
+      <div class="decoration-info">
+        {% if decoration.size.name != blank %}
+          <div class="ps-3">
+            Design Size: {% include 'modifier', title: decoration.size.name, amount: decoration.size.price_modifier %}
+          </div>
+        {% endif %}
+
+        {% if decoration.custom_text != blank %}
+          <div class="ps-3">
+            Text: {{ decoration.custom_text }}
+          </div>
+        {% endif %}
+
+        {% if decoration.font != blank %}
+          <div class="ps-3">
+            Font: {{ decoration.font }}
+          </div>
+        {% endif %}
+
+        {% if decoration.font_style != blank %}
+          <div class="ps-3">
+            Font Style: {{ decoration.font_style }}
+          </div>
+        {% endif %}
+
+        {% if decoration.font_decoration != blank %}
+          <div class="ps-3">
+            Font Decoration: {{ decoration.font_decoration.text }}
+          </div>
+        {% endif %}
+
+        {% if decoration.font_modifier != blank %}
+          <div class="ps-3">
+            Font Modifier: {{ decoration.font_modifier.text }}
+          </div>
+        {% endif %}
+
+        {% if decoration.number_of_colors > 0 %}
+          {% assign number_of_colors = decoration.number_of_colors | pluralize: 'color', 'colors' %}
+          <div class="ps-3">
+            Number of Colors: {% include 'modifier' title: number_of_colors, amount: decoration.color.price_modifier %}
+          </div>
+          {% for color in decoration.colors %}
+            <div class="ps-3">
+              {{ color.number }}: {{ color.display_name }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        {% if decoration.logo != blank %}
+          <div class="ps-3">
+            Logo:
+            <div class="ps-2">
+              <span class='d-block logo-name'>{% include 'modifier' title: decoration.logo.name, amount: decoration.logo_charge %}</span>
+              <img class="img-fluid img-thumbnail" src="{{ decoration.logo.front_thumb_url }}"/>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,43 @@
+<div id="product-reviews-section" class="product-reviews-container">
+  <div class="product-reviews">
+    {% if product.reviews_count > 0 %}
+      <div class="product-reviews-header">
+        <h2>Product Reviews</h2>
+        <div class="product-rating">
+          <span class=reviews-count>{{ product.reviews_count | pluralize: 'review', 'reviews' }}:</span>
+          <div class="show-star" data-rating="{{ product.average_rate }}" data-star-count="5"></div>
+        </div>
+      </div>
+      <div class="horizontal-separator"></div>
+      {% paginate product.reviews by 5, ajax: true %}
+        <div class="product-reviews-list">
+          {% for review in paginate.collection %}
+            {% include 'product_review' review: review %}
+          {% endfor %}
+        </div>
+
+        {% include 'reviews_paginator' paginate: paginate %}
+      {% endpaginate %}
+    {% else %}
+      <div class="product-reviews-header empty-set">
+        This product does not have any reviews. Be the first to leave a review.
+      </div>
+      <div class="product-reviews-list">
+      </div>
+    {% endif %}
+  </div>
+  
+  {% if current_user %}
+    <div class="add-review-button-container mt-3">
+      <a class="btn secondary add-review-btn btn_2" href="javascript:void(0)">Write Review</a>
+    </div>
+    <div class="add-review-form-container">
+      {% include 'product_review_form' %}
+    </div>
+  {% endif %}
+</div>
+<script type="text/javascript">
+  $(function () {
+    $('.product-reviews-container').data('reviews-controller', new ProductReviewsController());
+  });
+</script>

@@ -1,0 +1,43 @@
+<div class="add-to-cart-area">
+  {% if shop.store_enabled? %}
+    <input type="submit" name="add_to_cart" value="Add to Cart" class="btn primary add-to-cart"/>
+  {% endif %}
+
+  {% if shop.wishlist_enabled? %}
+    <input type="submit" name="add_to_wishlist" value="Add to Wishlist" class="btn secondary"/>
+  {% endif %}
+
+  {% if shop.request_sample_enabled? %}
+    <input type="submit" data-url="{{ product | request_sample_url }}" id="request-sample" value="Request Sample" class="btn secondary"/>
+  {% endif %}
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Find the add-to-cart button or its parent form
+  var addToCartBtn = document.querySelector('input[name="add_to_cart"]');
+  
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener('click', function(e) {
+      // Find quantity input on the page, default to 1 if not found
+      var qtyInput = document.querySelector('input[name="quantity"]') || 
+                     document.querySelector('input[name="qty"]') || 
+                     document.querySelector('#quantity');
+      
+      var quantity = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+      var unitPrice = parseFloat("{{ product.final_price | default: 0 }}") || 0;
+      var totalValue = unitPrice * quantity;
+
+      gtag("event", "add_to_cart", {
+        currency: "USD",
+        value: totalValue,
+        items: [{
+          item_id: "{{ product.sku }}",
+          item_name: "{{ product.name }}",
+          price: unitPrice,
+          quantity: quantity
+        }]
+      });
+    });
+  }
+});
+</script>

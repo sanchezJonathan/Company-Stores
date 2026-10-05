@@ -1,0 +1,34 @@
+$.fn.raty.defaults.path = "/assets";
+$.fn.raty.defaults.half_show = true;
+
+function createActiveRating(selector){
+    $(selector).raty({
+        readOnly: true,
+        score: function(){
+            return $(this).attr('data-rating')
+        },
+        number: function() {
+            return $(this).attr('data-star-count')
+        }
+    });
+
+}
+
+function createReadonlyRating(selector, color){
+    $(selector).raty({
+      readOnly: true,
+      score: function(){
+          return $(this).attr('data-rating')
+      },
+      number: function() {
+          return $(this).attr('data-star-count')
+      }
+    });
+
+}
+
+$(function(){
+    createActiveRating(".star");
+    createReadonlyRating(".show-star");
+});
+
