@@ -15,9 +15,6 @@
             <li class="{% if template_name == 'account/order_history' %}selected{% endif %}"><a href="{{ order_history_url }}">Merch Order History</a><i class="fas fa-caret-right"></i></li>
           {% endif %}
           <li class="{% if template_name == 'account/edit' %}selected{% endif %}"><a href="{{ edit_account_url }}">Account Settings</a><i class="fas fa-caret-right"></i></li>
-          {% if shop.store_enabled? %}
-            <li class="{% if template_name == 'account/address_book' %}selected{% endif %}"><a href="{{ address_book_url }}">Address Book</a><i class="fas fa-caret-right"></i></li>
-          {% endif %}
           {% if shop.catalog_enabled? and custom_logos_upload_enabled or current_user.logos.size != 0 %}
             <li class="{% if template_name == 'account/logos' %}selected{% endif %}"><a href="{{ logos_url }}">Logos</a><i class="fas fa-caret-right"></i></li>
           {% endif %}

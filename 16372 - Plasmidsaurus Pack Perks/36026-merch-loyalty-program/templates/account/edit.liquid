@@ -1,7 +1,7 @@
 {% assign account_section_title = 'Account Settings' %}
 {% capture account_page_content %}
 
-  <div class="content-block accountsettings">
+  <div class="content-block accountsettings pb-5 mb-5">
     <h3>Account Info</h3>
     {% form 'user' %}
     <div class="row">
@@ -167,6 +167,8 @@
     </div>
     {% endform %}
   </div>
+
+  {% render 'account_addresses' %}
 
 {% user_hot_spot_images %}
 {% endcapture %}

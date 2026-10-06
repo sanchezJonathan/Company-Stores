@@ -1,7 +1,8 @@
+<script>window.location.replace('{{ edit_account_url }}');</script>
 {% assign account_section_title = 'Address Book' %}
 {% capture account_page_content %}
 
-  <div class="content-block">
+  <div class="content-block d-none" aria-hidden="true">
     <h3>Your Addresses</h3>
     <div id="addresses-container" class="accordion address-list clrfix">
       {% for address in address_book %}

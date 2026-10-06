@@ -1,0 +1,102 @@
+{% if address %}
+  {% assign a_nickname = address.nickname %}
+  {% assign a_first_name = address.first_name %}
+  {% assign a_last_name = address.last_name %}
+  {% assign a_email = address.email %}
+  {% assign a_phone = address.phone %}
+  {% assign a_first_address = address.first_address %}
+  {% assign a_second_address = address.second_address %}
+  {% assign a_city = address.city %}
+  {% assign a_country = address.country %}
+  {% assign a_state = address.state %}
+  {% assign a_zip = address.zip %}
+{% else %}
+  {% assign a_first_name = current_user.first_name %}
+  {% assign a_last_name = current_user.last_name %}
+  {% assign a_email = current_user.email %}
+{% endif %}
+
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+    <h5>Address Name</h5>
+    <div class="form-item">
+      <label class="string required control-label" for="addr-{{ field_id }}-nickname">
+        Name<span class="required-label">(required)</span></label>
+      <input id="addr-{{ field_id }}-nickname" class="form-control required input-text" name="address[nickname]" placeholder="For example 'Work'" type="text" value="{{ a_nickname | escape_once }}" maxlength="255"/>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+    <h5>Personal Information</h5>
+    <div class="form-item">
+      <label class="string control-label" for="addr-{{ field_id }}-first_name">First Name</label>
+      <input id="addr-{{ field_id }}-first_name" class="form-control input-text" name="address[first_name]" placeholder="first name" type="text" value="{{ a_first_name | escape_once }}" maxlength="255"/>
+    </div>
+    <div class="form-item">
+      <label class="string control-label" for="addr-{{ field_id }}-last_name">Last Name</label>
+      <input id="addr-{{ field_id }}-last_name" class="form-control input-text" name="address[last_name]" placeholder="last name" type="text" value="{{ a_last_name | escape_once }}" maxlength="255"/>
+    </div>
+    <div class="form-item">
+      <label class="string control-label" for="addr-{{ field_id }}-email">Email</label>
+      <input id="addr-{{ field_id }}-email" class="form-control input-text" name="address[email]" placeholder="email" type="text" value="{{ a_email | escape_once }}" maxlength="255"/>
+    </div>
+    <div class="form-item">
+      <label class="string control-label" for="addr-{{ field_id }}-phone">Phone</label>
+      <input id="addr-{{ field_id }}-phone" class="form-control input-text" name="address[phone]" placeholder="phone" type="text" value="{{ a_phone | escape_once }}" maxlength="255"/>
+    </div>
+  </div>
+  <div class="col col-md-12 col-sm-12 col-xs-12">
+    <h5>Address</h5>
+    <div class="form-item">
+      <label class="string required control-label" for="addr-{{ field_id }}-first_address">
+        Address<span class="required-label">(required)</span></label>
+      <input id="addr-{{ field_id }}-first_address" class="form-control input-text" name="address[first_address]" placeholder="address line 1" type="text" value="{{ a_first_address | escape_once }}" maxlength="255"/>
+      <input class="form-control input-text" name="address[second_address]" placeholder="address line 2" type="text" value="{{ a_second_address | escape_once }}" maxlength="255"/>
+    </div>
+
+    <div class="form-item">
+      <label class="string required control-label" for="addr-{{ field_id }}-city">
+        City<span class="required-label">(required)</span></label>
+      <input id="addr-{{ field_id }}-city" class="form-control input-text" name="address[city]" type="text" value="{{ a_city | escape_once }}" placeholder="city" maxlength="255"/>
+    </div>
+
+    <div class="form-item country">
+      <label class="string required control-label" for="addr-{{ field_id }}-country">
+        Country<span class="required-label">(required)</span></label>
+      <select id="addr-{{ field_id }}-country" class="form-select input-text addr-country" name="address[country]">
+        {% country_select_options selected: a_country %}
+      </select>
+    </div>
+
+    <div class="form-item state">
+      <label class="string required control-label" for="addr-{{ field_id }}-state">
+        State<span class="required-label">(required)</span></label>
+      <select id="addr-{{ field_id }}-state" class="form-select input-text addr-state" name="address[state]">
+        {% state_select_options country: a_country, selected: a_state %}
+      </select>
+    </div>
+
+    <div class="form-item">
+      <label class="string required control-label" for="addr-{{ field_id }}-zip">
+        Zip Code<span class="required-label">(required)</span></label>
+      <input id="addr-{{ field_id }}-zip" class="form-control input-text" name="address[zip]" rel="zip code" type="text" value="{{ a_zip | escape_once }}" placeholder="zip code" maxlength="15"/>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <label>
+      <input type="hidden" name="address[default_shipping]" value="false"/>
+      <input type="checkbox" name="address[default_shipping]" class="default-shipping-address" value="true" {% if address and current_user.shipping_address.id == address.id %}checked="checked"{% endif %}/>
+      Default Shipping Address
+    </label>
+
+    <label>
+      <input type="hidden" name="address[default_billing]" value="false"/>
+      <input type="checkbox" name="address[default_billing]" class="default-billing-address" value="true" {% if address and current_user.billing_address.id == address.id %}checked="checked"{% endif %}/>
+      Default Billing Address
+    </label>
+  </div>
+</div>

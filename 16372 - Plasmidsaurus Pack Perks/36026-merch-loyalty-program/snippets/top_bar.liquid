@@ -16,7 +16,6 @@
                 <li><a class="dropdown-item" href="{{ account_dashboard_url }}">Dashboard</a></li>
                 {% if shop.store_enabled? %}<li><a class="dropdown-item" href="{{ order_history_url }}">Order History</a></li>{% endif %}
                 <li><a class="dropdown-item" href="{{ edit_account_url }}">Account Settings</a></li>
-                {% if shop.store_enabled? %}<li><a class="dropdown-item" href="{{ address_book_url }}">Address Book</a></li>{% endif %}
                 {% if shop.store_enabled? and shop.show_account_balance? %}<li><a class="dropdown-item" href="{{ account_balance_url }}">Account Balance</a></li>{% endif %}
                 {% if shop.catalog_enabled? %}{% if shop.custom_logos_upload_enabled? or current_user.logos.size != 0  %}<li><a class="dropdown-item" href="{{ logos_url }}">Logos</a></li>{% endif %}{% endif %}
                 {% if shop.budget_enabled? and current_user.has_budgets? %}<li><a class="dropdown-item" href="{{ budget_info_url }}">Budget</a></li>{% endif %}

@@ -172,7 +172,6 @@
               {% endcomment %}
               {% if shop.store_enabled? %}<a class="dropdown-item" href="{{ order_history_url }}">Merch Order History</a>{% endif %}
               <a class="dropdown-item" href="{{ edit_account_url }}">Account Settings</a>
-              {% if shop.store_enabled? %}<a class="dropdown-item" href="{{ address_book_url }}">Address Book</a>{% endif %}
               {% if shop.catalog_enabled? %}{% if shop.custom_logos_upload_enabled? or current_user.logos.size != 0  %}<a class="dropdown-item" href="{{ logos_url }}">Logo</a>{% endif %}{% endif %}
               {% if shop.budget_enabled? and current_user.has_budgets? %}<a class="dropdown-item" href="{{ budget_info_url }}">Budget</a>{% endif %}
               <a class="dropdown-item mt-2 border-top" href="{{ logout_url }}">Log Out</a>
