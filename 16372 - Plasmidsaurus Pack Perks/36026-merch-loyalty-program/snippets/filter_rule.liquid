@@ -1,0 +1,47 @@
+{% filtrate products_search by filter_rule %}
+  {% if filter.facets %}
+    {% assign filter_id = filter_rule.name | downcase | replace: " ", "-" %}
+    <div class="accordion-item">
+      <div class="accordion-header" id="header-{{ filter_id }}">
+        <button class="accordion-button bg-transparent collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{ caller }}{{ filter_id }}" aria-expanded="true" aria-controls="{{ filter_id }}">
+          {{ filter_rule.friendly_name }}
+        </button>
+      </div>
+
+      <div id="{{ caller }}{{ filter_id }}" class="accordion-collapse collapse accordion-{{ filter_id }}" aria-labelledby="header-{{ filter_id }}">
+        <div class="accordion-body border-bottom-0 p-0">
+          {% for facet in filter.facets %}
+            {% if filter_rule.name == 'Rating' %}
+              <div class="border-bottom px-3 py-2">
+                {% if facet.selected == true %}
+                  <a href="{{ facet.remove_filter_url }}" title='{{ facet.name | escape }} ({{ facet.count }} items)'>
+                    <div class="form-check">
+                      <input type="checkbox" id="checkbox-{{ facet.from }}" class="form-check-input position-static" onChange="window.location.replace('{{ facet.remove_filter_url }}')" checked>
+                      <label class="form-check-label float-start" onClick="window.location.replace('{{ facet.remove_filter_url }}')">
+                        <div class="d-inline show-star flo" data-rating="{{ facet.from }}" data-star-count="5"></div>
+                      </label>
+                      <span class='badge bg-secondary float-end px-2 rounded-pill'>{{ facet.count }}</span>
+                    </div>
+                  </a>
+                {% else %}
+                  <a href="{{ facet.filter_url }}" title='{{ facet.name | escape }} ({{ facet.count }} items)'>
+                    <div class="form-check">
+                      <input type="checkbox" id="checkbox-{{ facet.from }}" class="form-check-input position-static" onChange="window.location.replace('{{ facet.filter_url }}')">
+                      <label class="form-check-label float-start" onClick="window.location.replace('{{ facet.remove_filter_url }}')">
+                        <div class="d-inline show-star flo" data-rating="{{ facet.from }}" data-star-count="5"></div>
+                      </label>
+                      <span class='badge bg-secondary float-end px-2 rounded-pill'>{{ facet.count }}</span>
+                    </div>
+                  </a>
+                {% endif %}
+              </div>
+            {% else %}
+              {% include 'facet' with facet %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+{% endfiltrate %}

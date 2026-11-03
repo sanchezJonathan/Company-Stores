@@ -1,0 +1,35 @@
+{% form 'product_review', ajax: true %}
+  <div class="rating-title-wrapper">
+    <div class="product-reviews-header">
+      <h5>Write a Review:</h5>
+    </div>
+
+    <div class="form-item">
+      <label class="control-label" for="stars">Rate Product</label>
+      <div class="rating-stars"></div>
+      {% if form.errors contains 'stars' %}
+        <span class="error">{{ form.errors['stars'] }}</span>
+      {% endif %}
+    </div>
+
+    <div class="form-item">
+      <label class="control-label" for="title">Title</label>
+      <input class="form-control input-text title" id="title" placeholder="Review title" name="review[title]" size="50" type="text" value="{{ form.title }}">
+      {% if form.errors contains 'title' %}
+        <span class="error">{{ form.errors['title'] }}</span>
+      {% endif %}
+    </div>
+  </div>
+  <div class="form-item">
+    <label class="string control-label" for="body">Body</label>
+    <textarea id="body" name="review[body]" class="form-control input-text body">{{ form.body }}</textarea>
+    {% if form.errors contains 'body' %}
+      <span class="error">{{ form.errors['body'] }}</span>
+    {% endif %}
+  </div>
+  <div class="add-review-buttons">
+    <button class="btn secondary custom-button preview-review-btn btn_2">Preview</button>
+    <a class="btn secondary cancel-review" href="javascript:void(0)">Cancel</a>
+  </div>
+{% endform %}
+

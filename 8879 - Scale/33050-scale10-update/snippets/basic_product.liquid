@@ -1,4 +1,5 @@
 {% assign first_img_link = "" %}
+{% assign main_img_link = "" %}
 
 <div class="product-thumbnail" data-product-url="{{ product | product_url }}">
   <div class="thumbnail-img-container">
@@ -10,16 +11,28 @@
           {% endif %}
       
           {% if product.thumbnail_image.image_url != blank and image.image_url == product.thumbnail_image.image_url %}
+             {% assign main_img_link = image.medium_url %}
              <img class="img-fluid" src="{{ image.medium_url }}" alt="Image of {{ product.name }}" title="Image of {{ product.name }}" />
           {% endif %}
       	{% endfor %}
       
       	{% if product.thumbnail_image.image_url == blank and product.primary_image.medium_url != blank %}
+           {% assign main_img_link = product.primary_image.medium_url %}
            <img class="img-fluid" src="{{ product.primary_image.medium_url }}" alt="Image of {{ product.name }}" title="Image of {{ product.name }}" />
         {% endif %}
       
         {% if product.thumbnail_image.image_url == blank and product.primary_image.medium_url == blank %}
+           {% assign main_img_link = first_img_link %}
            <img class="img-fluid" src="{{ first_img_link }}" alt="Image of {{ product.name }}" title="Image of {{ product.name }}" />
+        {% endif %}
+
+        {% comment %} Hover swap: show the 2nd image, or the 1st when the 2nd is the one already shown {% endcomment %}
+        {% assign hover_image = product.images[1] %}
+        {% if hover_image.medium_url == main_img_link %}
+          {% assign hover_image = product.images[0] %}
+        {% endif %}
+        {% if main_img_link != blank and hover_image.medium_url != blank and hover_image.medium_url != main_img_link %}
+           <img class="img-fluid thumb-hover" src="{{ hover_image.medium_url }}" alt="" loading="lazy" aria-hidden="true" />
         {% endif %}
       {% else %}
         <img class="img-fluid" src="{{ 'no-image.jpg' | asset_url }}" alt="Displaying no image available for {{ product.name }}" title="Displaying no image available for {{ product.name }}" />

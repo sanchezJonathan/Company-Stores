@@ -1,11 +1,3 @@
-{% comment %}
-  Subtle motion, sitewide (styles in the MOTION section of custom-main.css.liquid):
-  - sections and product cards fade up once as they scroll into view
-  - product card images fade in when they finish loading
-  - the header gets a soft shadow once the page is scrolled
-  Fade-ins only start once this script runs ("motion-ready" on <html>), so nothing stays hidden without it,
-  and they are skipped for visitors who prefer reduced motion.
-{% endcomment %}
 <script>
   (function() {
     var root = document.documentElement;
@@ -32,7 +24,7 @@
 
     // ---- Product card images fade in as they load ----
     document.querySelectorAll(
-      ".featured-products-grid .product-list .thumbnail-img-container img, .category-listing .product-list .thumbnail-img-container img, .related-products-thumbnails .thumbnail-img-container img"
+      ".featured-products-grid .product-list .thumbnail-img-container img:not(.thumb-hover), .category-listing .product-list .thumbnail-img-container img:not(.thumb-hover), .related-products-thumbnails .thumbnail-img-container img:not(.thumb-hover)"
     ).forEach(function(img) {
       if (img.complete && img.naturalWidth > 0) return; // already loaded (or cached): show right away
       img.classList.add("img-fade");

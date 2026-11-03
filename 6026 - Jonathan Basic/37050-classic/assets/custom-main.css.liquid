@@ -1,0 +1,107 @@
+/*-------------------
+This theme uses Bootstrap v5.1.
+
+It is highly recommended to check out Bootstrap's guiding principles,
+strategies, and techniques at https://getbootstrap.com/docs/5.1/extend/approach/
+before adding custom styling.
+
+To learn more about Bootstrap v5.1, please check
+out https://getbootstrap.com/docs/5.1/getting-started/introduction/.
+/*-------------------*/
+
+/*-------------------*/
+/* GENERAL */
+/*-------------------*/
+
+.dark-mode-toggle {
+  line-height: 1;
+  border: 0;
+  background: transparent;
+}
+.dark-mode-toggle svg {
+  fill: currentColor;
+  display: inline-block;
+}
+.dark-mode-toggle .dark-mode-icon-sun,
+html.dark-mode .dark-mode-toggle .dark-mode-icon-moon {
+  display: none;
+}
+html.dark-mode .dark-mode-toggle .dark-mode-icon-sun {
+  display: inline-block;
+}
+
+/*-------------------*/
+/* TOP NAV */
+/*-------------------*/
+.navbar-container .dark-mode-toggle {
+  color: {{ settings.topbar_link_color }};
+  padding: {{ settings.topbar_link_padding }};
+}
+.navbar-container .dark-mode-toggle:hover, .navbar-container .dark-mode-toggle:focus {
+  color: {{ settings.topbar_hover_link_color }};
+}
+.navbar-container .dark-mode-toggle svg {
+  height: {{ settings.topbar_font_size }};
+  margin-top: -2px;
+}
+
+/*-------------------*/
+/* HEADER */
+/*-------------------*/
+.header-container .dark-mode-toggle {
+  color: {{ settings.header_hover_link_color }};
+}
+.header-container .dark-mode-toggle svg {
+  stroke: none;
+}
+.header-mobile-actions .dark-mode-toggle {
+  padding: 0;
+}
+.header-mobile-actions .dark-mode-toggle svg, .header-mobile-actions > button svg {
+  fill: {{ settings.header_hover_link_color }};
+  height: 20px;
+}
+
+/*-------------------*/
+/* CATEGORY NAV */
+/*-------------------*/
+
+/*-------------------*/
+/* CONTENT */
+/*-------------------*/
+
+/*-------------------*/
+/* PRODUCT THUMBS */
+/*-------------------*/
+
+/*-------------------*/
+/* PRODUCT */
+/*-------------------*/
+
+/*-------------------*/
+/* CART/CHECKOUT */
+/*-------------------*/
+
+/*-------------------*/
+/* FOOTER */
+/*-------------------*/
+
+
+/*-------------------*/
+/* MEDIA QUERIES */
+/*-------------------*/
+@media screen and (min-width: 661px){
+
+}
+
+@media screen and (max-width: 1200px){
+
+}
+
+@media screen and (max-width: 660px){
+
+}
+
+@media screen and (max-width: 340px){
+
+}

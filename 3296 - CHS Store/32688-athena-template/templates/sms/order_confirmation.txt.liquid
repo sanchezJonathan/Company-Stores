@@ -1,0 +1,5 @@
+{% if order.moas_pending? %}
+  Order #{{ order.order_id }} @ {{ shop.name }} submitted for approval.
+{% else %}
+  Order #{{ order.order_id }} @ {{ shop.name }} confirmed. Review order: {{ login_url }}
+{% endif %}

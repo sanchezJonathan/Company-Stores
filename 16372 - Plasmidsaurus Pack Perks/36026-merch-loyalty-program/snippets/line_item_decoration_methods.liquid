@@ -1,0 +1,222 @@
+{% if product.decoration_methods_enabled? %}
+  <script type="text/javascript">
+    window.pantone_colors = {{ product.pantone_dataset_json }};
+    window.thread_colors = {{ product.thread_dataset_json }};
+  </script>
+
+  <div class="product-decorations{% if form.decoration_method.custom_text_enabled? %} custom-text-enabled{% endif %}">
+    <div class="prod_option_block">
+      {% include 'circle_number' %}
+      <h4>Select Decoration Methods</h4>
+
+      <div class="form-group">
+        <select id="decoration-method"
+          class="form-select msdropdown-select"
+          name="product[decoration_method_id]"
+          autocomplete="off"
+          data-url="{{ product | decoration_method_url }}"
+          data-show-hex="{{ form.decoration_method.hex_colors_enabled? }}"
+          data-show-pantone="{{ form.decoration_method.pantone_colors_enabled? }}"
+          data-show-thread="{{ form.decoration_method.thread_colors_enabled? }}">
+
+          <option value="">Please select</option>
+
+          {% for method in product.decoration_methods %}
+            <option value="{{ method.id }}" {% if form.decoration_method.id == method.id %}selected{% endif %}>
+              {{ method.name }}
+              {% if method.price_modifier > 0 %}
+                ({% include 'price', price_value: method.price_modifier %})
+              {% endif %}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="prod_option_block decoration-details">
+      {% include 'circle_number' %}
+      <h4>Select Decoration Details</h4>
+
+      {% for location in logo_locations %}
+        {% assign decoration = form.decorations[location.id] %}
+
+        <div class="decoration-location"
+          data-small-image="{{ location.small_image_url }}"
+          data-medium-image="{{ location.medium_image_url }}"
+          data-large-image="{{ location.large_image_url }}">
+
+          <h5 class="form-control">{{ location.name }} {% if location.required? %}<span class="required-label">(required)</span>{% endif %}</h5>
+
+          <div class="container" style="display: none;">
+            
+
+            <div class="right-half">
+              <!-- Size -->
+              <div class="form-group decoration-sizes" {% if form.decoration_method.sizes == blank %}style="display:none;"{% endif %}>
+                <label>Design Size</label>
+
+                <select class="form-select decoration-size msdropdown-select"
+                  name="product[logo_location][{{ location.id }}][decoration][size_id]">
+
+                  <option value="">Please select</option>
+
+                  {% for size in form.decoration_method.sizes %}
+                    <option value="{{ size.id }}"
+                      data-size-value="{{ size.value }}"
+                      data-storefront-text="{{ size.storefront_text }}"
+                      {% if decoration.size.id == size.id %}selected{% endif %}>
+                      {{ size.name }}
+                      {% if size.price_modifier > 0 %}
+                        ({% include 'price', price_value: size.price_modifier %})
+                      {% endif %}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+              
+              <div class="left-half">
+                <div class="location-image mt-2">
+                    {% if decoration.size != blank %}
+                      {% assign location_image = decoration.size.value | append: '_image_url' %}
+                      <img class="img-thumbnail mt-2" src="{{ location[location_image] }}">
+                    {% endif %}
+                </div>
+
+                <div class="storefront-text">
+                  {{ decoration.size.storefront_text }}
+                </div>
+              </div>
+
+              <!-- Logos -->
+              <div class="form-group logo-info">
+                <label>Select {% if shop.custom_logos_upload_enabled? %}or upload {% endif %}Logo{% if location.required? %}<span class="required-label">(required)</span>{% endif %}</label>
+                {% include 'logo_location_select', location: location %}
+                {% include 'logo_buttons', product: product %}
+              </div>
+
+              <!-- Custom text -->
+              <div class="form-group decoration-custom-text">
+                <div class="form-group {% if decoration.errors['custom_text'] != blank %}has-error{% endif %}">
+                  <label>Text</label>
+                  <textarea class="form-control" name="product[logo_location][{{ location.id }}][decoration][custom_text]" cols="10" rows="10">{{ decoration.custom_text }}</textarea>
+
+                  {% for error in decoration.errors['custom_text'] %}
+                    <div class="error">{{ error }}</div>
+                  {% endfor %}
+                </div>
+                <div class="form-group {% if decoration.errors['font'] != blank %}has-error{% endif %}">
+                  <label>Font</label>
+                  <select class="form-select msdropdown-select font"
+                    name="product[logo_location][{{ location.id }}][decoration][font_id]">
+                    <option value="">Please select</option>
+                    {% for font in decoration_fonts %}
+                      <option value="{{ font.id }}"
+                        {% if decoration.font_id == font.id %}selected{% endif %}
+                        style="{{ font.font_styles.first.css_font_family }}"
+                        data-font-styles='{{ font.font_styles | json | escape }}'>
+                        {{ font.name }}
+                      </option>
+                    {% endfor %}
+                  </select>
+
+                  {% for error in decoration.errors['font'] %}
+                    <div class="error">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group {% if decoration.errors['font_style'] != blank %}has-error{% endif %}">
+                  <label>Font Style</label>
+                  <select class="form-select msdropdown-select font-style"
+                    name="product[logo_location][{{ location.id }}][decoration][font_style_id]"
+                    data-selected-id="{{ decoration.font_style_id }}">
+                  </select>
+
+                  {% for error in decoration.errors['font_style'] %}
+                    <div class="error">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group {% if decoration.errors['font_decoration'] != blank %}has-error{% endif %}">
+                  <label>Font Decoration</label>
+                  <select class="form-select msdropdown-select font-decoration"
+                    name="product[logo_location][{{ location.id }}][decoration][font_decoration]">
+
+                    {% for font_decoration in font_decorations %}
+                      <option value="{{ font_decoration.value }}" {% if decoration.font_decoration == font_decoration %}selected{% endif %}>
+                        {{ font_decoration.text }}
+                      </option>
+                    {% endfor %}
+                  </select>
+
+                  {% for error in decoration.errors['font_decoration'] %}
+                    <div class="error">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <div class="form-group {% if decoration.errors['font_modifier'] != blank %}has-error{% endif %}">
+                  <label>Font Modifier</label>
+                  <select class="form-select msdropdown-select font-modifier"
+                    name="product[logo_location][{{ location.id }}][decoration][font_modifier]">
+
+                    {% for font_modifier in font_modifiers %}
+                      <option value="{{ font_modifier.value }}" {% if decoration.font_modifier == font_modifier %}selected{% endif %}>
+                        {{ font_modifier.text }}
+                      </option>
+                    {% endfor %}
+                  </select>
+
+                  {% for error in decoration.errors['font_modifier'] %}
+                    <div class="error">{{ error }}</div>
+                  {% endfor %}
+                </div>
+              </div> <!-- .decoration-custom-input-text -->
+
+              <!-- Colors -->
+              <div class="form-group decoration-colors" {% if form.decoration_method.colors == blank %}style="display:none;"{% endif %}>
+                <div class="form-group">
+                  <label>Number of colors in design</label>
+                  <select class="form-select decoration-number-of-colors msdropdown-select"
+                    name="product[logo_location][{{ location.id }}][decoration][selected_color_id]">
+
+                    <option value="">Please select</option>
+
+                    {% for color in form.decoration_method.colors %}
+                      <option value="{{ color.id }}"
+                        data-color-value="{{ color.value }}"
+                        {% if decoration.selected_color_id == color.id %}selected{% endif %}>
+                        {{ color.name }}
+                        {% if color.price_modifier > 0 %}
+                          ({% include 'price', price_value: color.price_modifier %})
+                        {% endif %}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="decoration-color-choices">
+                  {% for color_choice in decoration.color_choices %}
+                    {% assign label = forloop.index | ordinalize | append: ' Color' %}
+                    {% include 'decoration_color', label: label, index: forloop.index, location: location, color_choice: color_choice %}
+                  {% endfor %}
+                </div>
+
+                <script class="decoration-color-template" type="text/template">
+                  {% include 'decoration_color', label: ':label', index: ':index', location: location %}
+                </script>
+              </div> <!-- .decoration-colors -->
+
+            </div> <!-- .right-half -->
+          </div> <!-- .container -->
+        </div> <!-- .decoration-location -->
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
+    {% for font in decoration_fonts %}
+      {% for font_style in font.font_styles %}
+        {{ font_style.css_font_face }}
+      {% endfor %}
+    {% endfor %}
+  </style>
+{% endif %}

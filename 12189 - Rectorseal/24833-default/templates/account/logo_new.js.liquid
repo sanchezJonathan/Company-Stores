@@ -1,0 +1,9 @@
+(function() {
+    var controller = $('div.logos-container').data('controller');
+
+    {% capture logo_form %}
+        {% include "account_logo_form" %}
+    {% endcapture %}
+
+    controller.prepareDialog($("{{ logo_form | escape_javascript }}"), 'Add new logo', 'Save');
+}).call(this);

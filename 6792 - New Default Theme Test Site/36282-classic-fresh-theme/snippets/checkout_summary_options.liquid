@@ -1,0 +1,20 @@
+{% comment %}
+  Selected product options for one line item in the checkout Item Summary.
+  Usage: {% render 'checkout_summary_options', line_item: line_item %}
+{% endcomment %}
+{%- capture option_rows -%}
+  {%- for choice in line_item.choices -%}
+    {%- if choice.sub_option -%}
+      <li>
+        <span class="option-name">{{ choice.option.friendly_name }}{% if choice.has_group? %} ({{ choice.group.name }}){% endif %}:</span>
+        <span class="option-value">{{ choice.sub_option.name }}</span>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if option_rows != blank -%}
+  <ul class="checkout-item-options list-unstyled small text-muted ms-2 mb-1">
+    {{ option_rows }}
+  </ul>
+{%- endif -%}

@@ -10,6 +10,7 @@
         {% include 'breadcrumbs_section' %}
       {% endif %}
       <h1 class="cl-title">{{ listing_title }}</h1>
+      <h3 class="cl-subtitle"{% unless listing_title == "Vintage" %} hidden{% endunless %}>Limited Quantities</h3>
       <script>
         // Category pages are /products?s[f][c][]=/Products/Parent/Child. Build the trail and ti
         // "Home • Parent • Child" instead of "Home • Products"tle from that path:
@@ -42,6 +43,7 @@
 
           var title = crumbs[crumbs.length - 1].name;
           $(".cl-title").text(title);
+          $(".cl-subtitle").prop("hidden", title !== "Vintage"); // Vintage-only subheading
           $(".cl-banner img").attr("alt", title);
 
           var $trail = $(".cl-heading ol.breadcrumb");

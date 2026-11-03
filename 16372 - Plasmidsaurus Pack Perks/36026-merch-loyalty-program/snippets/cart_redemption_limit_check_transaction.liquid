@@ -1,0 +1,74 @@
+{%- assign redemption_limit_exceeded = false -%}
+{%- assign redemption_limit_messages = "" -%}
+{%- assign redemption_processed_skus = "|" -%}
+
+{%- for line_item in order.line_items -%}
+  {%- assign redemption_sku_key = "|" | append: line_item.sku | append: "|" -%}
+  {%- unless redemption_processed_skus contains redemption_sku_key -%}
+    {%- capture redemption_limit_raw -%}{% include 'sku_redemption_limit', sku: line_item.sku %}{%- endcapture -%}
+    {%- assign redemption_limit_raw = redemption_limit_raw | strip -%}
+
+    {%- if redemption_limit_raw != blank -%}
+      {%- assign redemption_limit = redemption_limit_raw | plus: 0 -%}
+      {%- assign redemption_cart_qty = 0 -%}
+
+      {%- for cart_line_item in order.line_items -%}
+        {%- if cart_line_item.sku == line_item.sku -%}
+          {%- assign redemption_cart_qty = redemption_cart_qty | plus: cart_line_item.quantity -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- assign redemption_hist_qty = 0 -%}
+
+      {%- if current_user -%}
+        {%- paginate current_user.order_history by 1000 -%}
+          {%- for past_order in paginate.collection -%}
+            {%- assign redemption_past_order_status = past_order.status | downcase -%}
+
+            {%- unless redemption_past_order_status == "canceled" -%}
+              {%- for past_line_item in past_order.line_items -%}
+                {%- if past_line_item.sku == line_item.sku -%}
+                  {%- assign redemption_hist_qty = redemption_hist_qty | plus: past_line_item.quantity -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endpaginate -%}
+      {%- endif -%}
+
+      {%- assign redemption_total_qty = redemption_hist_qty | plus: redemption_cart_qty -%}
+
+      {%- if redemption_hist_qty >= redemption_limit -%}
+        {%- assign redemption_limit_exceeded = true -%}
+
+        {%- capture redemption_msg -%}
+          <div class="mb-2">You have already ordered {{ redemption_hist_qty }} of {{ line_item.name }}, which reaches the purchase limit of {{ redemption_limit }} per customer. Please remove it from your cart to check out.</div>
+        {%- endcapture -%}
+
+        {%- assign redemption_limit_messages = redemption_limit_messages | append: redemption_msg -%}
+
+      {%- elsif redemption_total_qty > redemption_limit and redemption_hist_qty > 0 -%}
+        {%- assign redemption_limit_exceeded = true -%}
+        {%- assign redemption_remaining_allowed = redemption_limit | minus: redemption_hist_qty -%}
+
+        {%- capture redemption_msg -%}
+          <div class="mb-2">You have already ordered {{ redemption_hist_qty }} of {{ line_item.name }} and have {{ redemption_cart_qty }} in your cart. You can only have {{ redemption_remaining_allowed }} more in your cart, with a purchase limit of {{ redemption_limit }} per customer. Please update the quantity in your cart.</div>
+        {%- endcapture -%}
+
+        {%- assign redemption_limit_messages = redemption_limit_messages | append: redemption_msg -%}
+
+      {%- elsif redemption_total_qty > redemption_limit -%}
+        {%- assign redemption_limit_exceeded = true -%}
+
+        {%- capture redemption_msg -%}
+          <div class="mb-2">You have {{ redemption_cart_qty }} of {{ line_item.name }} in your cart, which exceeds the purchase limit of {{ redemption_limit }} per customer. Please update the quantity in your cart.</div>
+        {%- endcapture -%}
+
+        {%- assign redemption_limit_messages = redemption_limit_messages | append: redemption_msg -%}
+
+      {%- endif -%}
+
+      {%- assign redemption_processed_skus = redemption_processed_skus | append: line_item.sku | append: "|" -%}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endfor -%}

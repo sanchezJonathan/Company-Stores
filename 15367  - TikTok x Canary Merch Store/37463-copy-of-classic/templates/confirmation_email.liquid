@@ -1,0 +1,103 @@
+<style type="text/css">
+  * { margin: 0; padding: 0; font-size: 100%; font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; line-height: 1.65; }
+  img {max-width: 100%;display: block;}
+  body, .body-wrap { width: 100% !important; height: 100%; background: #f8f8f8; }
+  a {color: #2b82c4;text-decoration: none;}
+  a:hover { text-decoration: underline; }
+  .text-center { text-align: center; }
+  .text-right { text-align: right; }
+  .text-left { text-align: left; }
+  .button {
+    display: inline-block;
+    color: {{ settings.sitewide_primary_text_color }};
+    font-weight: bold;
+    border-radius: 4px;
+    background-color: {{ settings.sitewide_primary_bg_color }};
+    border-top: 10px solid {{ settings.sitewide_primary_border_color}};
+    border-bottom: 8px solid {{ settings.sitewide_primary_border_color}};
+    border-right: 20px solid {{ settings.sitewide_primary_border_color}};
+    border-left: 20px solid {{ settings.sitewide_primary_border_color}};
+  }
+  .button:hover { text-decoration: none; }
+  h1, h2, h3, h4, h5, h6 { margin-bottom: 20px; line-height: 1.25; }
+  h1 {font-size: 1.5em;}
+  h2 {font-size: 1em;}
+  h3 { font-size: 24px; }
+  h4 { font-size: 20px; }
+  h5 { font-size: 16px; }
+  p, ul, ol { font-size: 16px; font-weight: normal; margin-bottom: 20px; }
+  .container { display: block !important; clear: both !important; margin: 0 auto !important; max-width: 580px !important; font-size: 16px;}
+  .container table { width: 100% !important; border-collapse: collapse; }
+  .container .masthead {padding: 20px 20px;background: #e5e5e5;color: white;}
+  .container .masthead h1 {margin: 0 auto !important;max-width: 90%;text-transform: uppercase;}
+  .container .content { background: white; padding: 30px 35px; }
+  .container .content.footer { background: none; }
+  .container .content.footer p { margin-bottom: 0; color: #888; text-align: center; font-size: 14px; }
+  .container .content.footer a { color: #888; text-decoration: none; font-weight: bold; }
+  .container .content.footer a:hover { text-decoration: underline; }
+</style>
+<table class="body-wrap">
+    <tr>
+        <td class="container">
+
+            <!-- Message start -->
+            <table>
+                <tr>
+                    <td align="left" class="masthead">
+                        {% if settings.confirmation_emails_logo %}
+                          <img src="{{ 'email_logo_custom_bg_image.png' | asset_url }}" style="max-height: {{ settings.header_height }};">
+                        {% elsif settings.show_logo %}
+                          <img src="{{ 'logo_custom_bg_image.jpg' | asset_url }}" style="max-height: {{ settings.header_height }};">
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content">
+
+                        <h2>Hi {{ user.name }},</h2>
+
+                        <p>An account has been created for you at {{ site.name }}.</p>
+
+                        <p>Your username is: <strong>{{ user.username }}</strong></p>
+
+                        {% if user.has_no_password? %}
+                            <p>To start shopping, you'll need to activate your account and set up a password.</p>
+                            <p>You can confirm your account through the link below:</p>
+                        {% else %}
+                            <p>To start shopping you’ll need to confirm your e-mail address through the link below:</p>
+                        {% endif %}
+
+                        <table>
+                            <tr>
+                                <td align="center">
+                                    <p>
+                                        <a href="{{ confirm_url }}" class="button">Confirm My Account</a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p><em>– {{ site.name }} Team</em></p>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td class="container">
+
+            <!-- Message start -->
+            <table>
+                <tr>
+                    <td class="content footer" align="center">
+                        <p>Sent by {{ site.name }}</p>
+                        <p><a href="mailto:{{ site.from_email }}">{{ site.from_email }}</a></p>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>

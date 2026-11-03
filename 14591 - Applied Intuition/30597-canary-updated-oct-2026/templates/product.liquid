@@ -1,0 +1,166 @@
+{% assign color_option = nil %}
+{% assign size_option = nil %}
+{% for option in product.options_or_groups %}
+  {% assign option_name = option.friendly_name | downcase %}
+  {% if option_name == 'color' %}{% assign color_option = option %}{% endif %}
+  {% if option_name == 'size' or option_name == 'size guide' %}{% assign size_option = option %}{% endif %}
+{% endfor %}
+
+{% comment %}
+  The description is split on its <h5> headings: text under DESCRIPTION (or before any heading)
+  is the intro, every other heading (DETAIL, MATERIAL & CARE, ...) becomes an expandable row.
+{% endcomment %}
+{% assign description_parts = product.description | split: '<h5>' %}
+{% assign intro = description_parts.first %}
+{% capture info_rows %}
+  {% for part in description_parts offset: 1 %}
+    {% assign heading_html = part | split: '</h5>' | first %}
+    {% assign heading = heading_html | strip_html | remove: ' -' | remove: '+' | strip %}
+    {% assign body = part | remove_first: heading_html | remove_first: '</h5>' %}
+    {% assign heading_key = heading | downcase %}
+    {% if heading_key == 'description' %}
+      {% assign intro = intro | append: body %}
+    {% else %}
+      <details class="product-info-row">
+        <summary>{{ heading }}</summary>
+        <div class="product-info-body">{{ body }}</div>
+      </details>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% if product.product_options_enabled? == false or product.options_or_groups.multiple_quantity == empty %}
+  {% assign uses_quantity_grid = false %}
+{% else %}
+  {% assign uses_quantity_grid = true %}
+{% endif %}
+
+{% comment %}Photos belong to a color by file name, e.g. large_slate_gray-1.png. Unmatched photos show for every color.{% endcomment %}
+{% assign rail_thumbs = '' %}
+{% capture photos %}
+  {% for image in product.images %}
+    {% assign image_color = '' %}
+    {% for sub_option in color_option.sub_options %}
+      {% assign needle = sub_option.name | downcase | replace: ' ', '_' | prepend: '/large_' | append: '-' %}
+      {% if image.large_url contains needle %}{% assign image_color = sub_option.id %}{% endif %}
+    {% endfor %}
+    <img class="product-photo" src="{{ image.large_url }}" data-photo="{{ image.id }}" data-color="{{ image_color }}" alt="{{ product.name | escape }}">
+    {% capture rail_thumb %}
+      <button type="button" class="product-rail-thumb" data-photo="{{ image.id }}" data-color="{{ image_color }}" aria-label="Show photo {{ forloop.index }}">
+        <img src="{{ image.small_url }}" alt="">
+      </button>
+    {% endcapture %}
+    {% assign rail_thumbs = rail_thumbs | append: rail_thumb %}
+  {% else %}
+    <img class="product-photo is-current" src="{{ 'no_img_placeholder.png' | asset_url }}" alt="No image available for {{ product.name | escape }}">
+  {% endfor %}
+{% endcapture %}
+
+<div class="product-detail">
+  <div class="product-rail">{{ rail_thumbs }}</div>
+
+  <div class="product-gallery">
+    <div class="product-photos">{{ photos }}</div>
+    {% if product.images.size > 1 %}
+      <button type="button" class="product-gallery-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 8 14" aria-hidden="true"><polyline points="7,1 1,7 7,13"/></svg></button>
+      <button type="button" class="product-gallery-arrow next" aria-label="Next photo"><svg viewBox="0 0 8 14" aria-hidden="true"><polyline points="1,1 7,7 1,13"/></svg></button>
+    {% endif %}
+  </div>
+
+  <div class="product-panel">
+    <div class="product-heading">
+      <h1 class="product-name">{{ product.name }}</h1>
+      <div class="product-price">{{ product.final_price | points_or_currency }}{% if shop.points_store? %} points{% endif %}</div>
+    </div>
+    <div class="product-intro">{{ intro }}</div>
+
+    {% form 'populate_product' %}
+      <div class="line-items-reflective-view">
+        {% unless product.decoration_methods_enabled? %}
+          {% if product.logo_locations_enabled? %}
+            {% include 'line_item_logo_locations' %}
+          {% else %}
+            {% include 'line_item_logos' %}
+          {% endif %}
+        {% endunless %}
+        {% include 'line_item_product_options' %}
+        {% include 'line_item_decoration_methods' %}
+        {% include 'line_item_product_personalizations' %}
+        {% include 'line_item_proof_approval' %}
+      </div>
+
+      {% unless uses_quantity_grid %}
+        <div class="total-info">
+          <input type="hidden" name="product[quantity]" data-type="quantity" value="{{ form.quantity | default: product.minimum_order_quantity | default: 1 }}">
+          <span class="stock d-none" id="stock"></span>
+        </div>
+
+        {% if size_option %}
+          <button type="button" class="product-label product-size-guide-link">Size guide</button>
+          <div class="product-sizes">
+            {% for sub_option in size_option.sub_options %}
+              {% assign is_selected = false %}
+              {% if form.options[size_option.id].sub_option == sub_option.id %}{% assign is_selected = true %}{% endif %}
+              <button type="button" class="product-size{% if is_selected %} is-selected{% endif %}"
+                data-option="{{ size_option.id }}" data-value="{{ sub_option.id }}" aria-pressed="{{ is_selected }}">{{ sub_option.name }}</button>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if shop.store_enabled? %}
+          <button type="submit" name="add_to_cart" value="ADD TO CART" class="product-add">
+            {% if size_option %}Select size{% else %}Add to bag{% endif %}
+          </button>
+        {% endif %}
+      {% endunless %}
+    {% endform %}
+
+    {% if color_option %}
+      <div class="product-colors{% if color_option.sub_options.size < 2 %} d-none{% endif %}">
+        {% for sub_option in color_option.sub_options %}
+          <button type="button" class="product-color{% if form.options[color_option.id].sub_option == sub_option.id %} is-selected{% endif %}"
+            data-option="{{ color_option.id }}" data-value="{{ sub_option.id }}"
+            style="background-image: url('{{ sub_option.small_url }}')"
+            aria-label="{{ sub_option.name | escape }}" aria-pressed="false"></button>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if info_rows != blank %}
+      <div class="product-info-rows">{{ info_rows }}</div>
+    {% endif %}
+  </div>
+</div>
+
+{% comment %}Admin-picked related products, or other store products when none are set.{% endcomment %}
+{% if product.related_products_enabled? and related_products != empty %}
+  {% assign related = related_products %}
+{% else %}
+  {% assign related = products %}
+{% endif %}
+{% assign related_count = 0 %}
+{% capture related_tiles %}
+  {% for item in related %}
+    {% if item.id == product.id %}{% continue %}{% endif %}
+    {% render 'basic_product', product: item %}
+    {% assign related_count = related_count | plus: 1 %}
+    {% if related_count == 4 %}{% break %}{% endif %}
+  {% endfor %}
+{% endcapture %}
+{% if related_count > 0 %}
+  <section class="product-related">
+    <h2 class="section-title">Related Products</h2>
+    <div class="product-grid">{{ related_tiles }}</div>
+  </section>
+{% endif %}
+
+{% if settings.show_reviews %}
+  {% include 'product_reviews' %}
+{% endif %}
+
+{% if size_option %}
+  {% render 'product_size_guide' %}
+{% endif %}
+
+{% include 'product_javascript' %}
+{% render 'product_page_script' %}

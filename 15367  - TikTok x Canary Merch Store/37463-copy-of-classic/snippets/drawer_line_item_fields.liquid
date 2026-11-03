@@ -1,0 +1,147 @@
+<div class="cart-item test border-bottom {% if line_item.outdated? %}outdated{% endif %}" data-product-internalid="{{ line_item.internal_id }}" data-product-name="{{ line_item.name }}" data-product-id="{{ line_item.id }}" data-product-maxoq="{{ line_item.maximum_order_quantity }}" data-product-minoq="{{ line_item.minimum_order_quantity }}" data-setup-charge="{% if line_item.has_setup_charge? %}{{ line_item.setup_charge }}{% else %}0{% endif %}">
+  <div class="d-flex px-0">
+  	<div class="item-image pe-3">
+      <img alt="{{ line_item.name }} image" title="{{ line_item.name }} image" class="cart-product-img" src="{% if line_item.image %}{{ line_item.image.small_url }}{% else %}{{ "no-image.jpg" | asset_url }}{% endif %}" />
+    </div>
+    <div class="item-description w-100">
+      <a href="{{line_item.url }}"><h4 class="mb-0">{{ line_item.name }}</h4></a>
+      <!-- SKU -->
+      {% if settings.show_sku %}
+        <div><span class="cart-inline-title-short">SKU: </span>{{ line_item.final_sku }} </div>
+      {% endif %}
+      <!-- VENDORS -->
+      {% if line_item.vendors != empty and settings.show_vendors %}
+      <div><span class="cart-inline-title-short">by:</span>{{ line_item.vendor_names }}</div>
+      {% endif %}
+      {% if line_item.errors contains "quantity" %}
+        <div>
+          <span class="error">{{ line_item.errors["quantity"] }}</span>
+        </div>
+      {% endif %}
+      <div class="custom-moq-error">
+        <span class="error"></span>
+      </div>
+
+      <!-- INLINE PRODUCT OPTIONS -->
+      {% assign rendered_groups = "" %}
+      {% for choice in line_item.choices %}
+          {% if choice.has_group? %}
+            {% capture group_id %}[{{ choice.group.id }}]{% endcapture %}
+            {% unless rendered_groups contains group_id %}
+              {% include "product_option_group_attributes", group: choice.group, choices: line_item.choices.groups[choice.group.id] %}
+            {% assign rendered_groups = rendered_groups | append: group_id %}
+            {% endunless %}
+          {% else %}
+            {% include "product_option_attributes" option: choice.option, sub_option: choice.sub_option %}
+          {% endif %}
+      {% endfor %}
+
+      {% include "logo_attributes" %}
+      
+      <div class="mt-0">
+        {% if line_item.display_stock contains "We"re almost out of stock" %}
+          <p class="mb-0 text-danger">{{ line_item.display_stock }}</p>
+        {% elsif line_item.display_stock contains "Sorry, we"re out of stock" %}
+          <p class="mb-0 text-danger">{{ line_item.display_stock }}</p>
+        {% else %}
+          <p class="mb-0 text-success">{{ line_item.display_stock }}</p>
+        {% endif %}
+      </div>
+      
+      {% if shop.store_enabled? and wishlist_item == true %}
+        <a href="{{ line_item | move_line_item_to_cart_url }}" class="d-inline-block d-lg-none btn secondary" data-method="post">Add to Cart</a><br />
+      {% endif %}
+
+      {% if line_item.personalizations != empty or line_item.has_certificate_details %}
+        <div class="pt-2">
+          <button class="btn secondary" type="button" data-bs-toggle="collapse" data-bs-target="#line-item-{{ line_item.id }}" aria-expanded="false" aria-controls="line-item-{{ line_item.id }}">
+            Show additional item information 
+          </button>
+          <div class="collapse mt-2" id="line-item-{{ line_item.id }}">
+            <div class="card card-body">
+              {% include "line_item_attributes" line_item: line_item %}
+            </div>
+          </div>
+      	</div>
+      {% endif %}
+      
+      <div class="pricing-column">
+        <p class="mb-0 item-price" data-item-price="{{ line_item.unit_price }}">
+          <span class="cart-inline-title ">Item price:</span>
+          {{ line_item.unit_price | points_or_currency }}
+        </p>
+        {% if line_item.display_stock contains "We"re almost out of stock" %}
+          <p class="mb-0 text-danger"><span class="cart-inline-title"></span> {{ line_item.display_stock }}</p>
+        {% elsif line_item.display_stock contains "Sorry, we"re out of stock" %}
+          <p class="mb-0 text-danger"><span class="cart-inline-title"></span> {{ line_item.display_stock }}</p>
+        {% elsif line_item.display_stock != blank %}
+          <p class="mb-0 text-success"><span class="cart-inline-title"></span> {{ line_item.display_stock }}</p>
+        {% else %}
+        {% endif %}
+        {% if line_item.has_quantity_discount? %}
+          <p class="mb-0 base-price" data-base-price="{{ line_item.product_price }}">
+            <span class="cart-inline-title">Base price:</span>
+            {{ line_item.product_price | points_or_currency }}
+          </p>
+        {% endif %}
+        {% if line_item.has_setup_charge? %}
+          <p class="mb-0 setup-charge" data-setup-charge="{{ line_item.setup_charge }}">
+            <span class="cart-inline-title">Setup charge:</span>
+            {{ line_item.setup_charge | points_or_currency }}
+          </p>
+        {% endif %}
+      </div>
+      <div class="mt-2 small-quantity-container">
+        <div class="cart-quantity-container">
+          <div class="cart-quantity">
+            <a class="minus"><img src="{{ "minus-icon.svg" | asset_url }}"/></a>
+            <input
+             type="number"
+             class="cart-quantity-input form-control qty-input-{{ line_item.id }} {% if form.errors contains "quantity" %}is-invalid{% endif %}"
+             name="line_items[{{ line_item.id }}][quantity]"
+             value="{{ line_item.quantity }}"
+             id="{{ line_item.id }}"
+             min="0"
+             data-max-quantity="{{ line_item.display_stock | replace: " in stock", "" }}"
+             {% if line_item.gift_certificate? %}readonly{% endif %} readonly="readonly"
+            >
+            <a class="plus"><img src="{{ "plus-icon.svg" | asset_url }}"/></a>
+            {% if form.errors contains "quantity" %}
+              <div class="invalid-feedback">
+                {{ form.errors["quantity"] }}
+              </div>
+            {% endif %}
+          </div>
+
+          {% unless line_item.gift_certificate? %}
+            <button type="submit" class="btn w-100 btn-dark d-none" disabled>Update</button>
+          {% endunless %}
+        </div>
+        <button class="btn btn-link text-danger d-inline-block remove-cart-item px-0">Remove</button>
+      </div>
+      <div class="pe-0 mt-3 mb-2">
+        {% if shop.store_enabled? and wishlist_item == true %}
+          <div>
+            <a href="{{ line_item | move_line_item_to_cart_url }}" class="btn mt-2 d-inline-block secondary" data-method="post">
+              Cart >
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="total-price-container ps-3">
+      <div class="item-total-price" data-item-total-quantity="{{ line_item.quantity }}" data-total-price-value="{{ line_item.total_price }}">
+        <div class="item-total-price-value">{{ line_item.total_price | points_or_currency }}</div>
+        <div class="loader" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if line_item.errors contains "quantity" %}
+  <script>
+    $(".decoy-{{ line_item.id }}").addClass("is-invalid");
+    $(".qty-input-{{ line_item.id }}").addClass("is-invalid");
+  </script>
+{% endif %}
+

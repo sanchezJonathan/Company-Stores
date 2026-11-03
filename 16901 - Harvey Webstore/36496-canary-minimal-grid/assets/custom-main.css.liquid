@@ -122,19 +122,18 @@ button:focus {
   border: none;
   border-radius: 0;
 }
-/* Desktop header: logo left, Shop + page links centered, Search / Account / Cart right. */
+/* Desktop header: logo left, every link right-aligned in one row. */
 @media screen and (min-width: 992px){
   .site-header-nav {
     display: grid !important;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    column-gap: 24px;
   }
   .site-header-nav .logo-container {
     justify-self: start;
   }
   .site-header-nav .header-center-links {
-    justify-self: center;
+    justify-self: end;
     flex-direction: row;
     margin: 0;
   }
@@ -152,7 +151,7 @@ button:focus {
   color: #0F0E0D;
 }
 .site-header-nav .header-center-links .nav-link {
-  padding: 4px 10px !important;
+  padding: 4px 12px !important;
 }
 .site-header-nav .header-center-links .nav-link:hover,
 .site-header-nav .nav-link.active,
@@ -160,14 +159,13 @@ button:focus {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-/* "Shop" dropdown: Shop All + categories (built in header.js.liquid); each subcategory level is indented 16px more. */
 .site-header-nav .shop-link.dropdown-toggle::after {
   margin-left: 6px;
   vertical-align: 2px;
   transition: transform 0.2s ease;
 }
 .site-header-nav .shop-link.dropdown-toggle.show::after {
-  transform: rotate(180deg); /* arrow points up while the menu is open */
+  transform: rotate(180deg);
 }
 .shop-dropdown-menu {
   min-width: 220px;
@@ -196,7 +194,7 @@ button:focus {
 .shop-dropdown-menu .shop-all-item:first-child {
   margin-top: 0;
   padding-top: 0;
-  border-top: none; /* no categories above it */
+  border-top: none;
 }
 .custom-searchbox-container {
   position: absolute;
@@ -859,10 +857,8 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
 .category-container .categories > li:last-of-type::after {
   content: none;
 }
-/* Category page title nav (snippets/category_title_nav.liquid): "Shop All, Apparel, …" in large serif,
-   grey links, active one black + underlined, black commas between. */
 .category-title-nav, .category-title-nav * {
-  font-family: 'Harvey Serif', serif; /* overrides the sitewide * { sans } rule */
+  font-family: 'Harvey Serif', serif;
 }
 .category-title-nav {
   margin: 64px 0 56px;
@@ -877,7 +873,7 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   list-style: none;
 }
 .category-title-nav ul ul {
-  display: none; /* top-level categories only */
+  display: none; 
 }
 .category-title-nav a {
   color: #6F6C66;
@@ -896,6 +892,12 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   .category-title-nav {
     margin: 32px 0 32px;
   }
+}
+.products-result-verbiage {
+  display: none !important;
+}
+.sort-form {
+  display: none !important;
 }
 /*-------------------*/
 /* CONTENT */
@@ -1002,8 +1004,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
 /*-------------------*/
 /* PRODUCT THUMBS */
 /*-------------------*/
-/* Product lists are CSS grids: 3 per row on desktop, 2 on tablet, 1 on phone (see media queries).
-   The header search dropdown is excluded from display here because header.liquid shows/hides it inline. */
 .product-list:not(.search-results), .related-products-thumbnails, .recently-viewed-products-thumbnails {
   display: grid !important;
 }
@@ -1012,7 +1012,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   gap: 48px 20px;
   margin: 0 !important;
 }
-/* Tile: rounded image box filled edge to edge, details underneath on the page background. */
 .product-thumbnail {
   position: relative;
   width: auto !important;
@@ -1042,7 +1041,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   width: 100%;
   height: 100% !important;
   max-height: none !important;
-  /* Whole image always visible: whichever side reaches the box edge first fills it, the other scales proportionally. */
   object-fit: contain;
   object-position: center;
   transition: opacity 0.3s ease;
@@ -1059,7 +1057,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
 .product-thumbnail.multiple-images:hover .thumbnail-img-container img.hover-img {
   opacity: 1;
 }
-/* Details: name followed by the price in grey on one line; vendor (if shown) drops to its own line. */
 .thumbnail-description-container {
   border-top: none;
   padding: 12px 0 0 !important;
@@ -1125,7 +1122,6 @@ body.search-open .custom-searchbox-container {
 /*-------------------*/
 /* PRODUCT */
 /*-------------------*/
-/* Layout per mockup: gallery ~49% wide; info column (max 400px) starts ~59% across. */
 .product-left-section {
   padding: 0 !important;
 }
@@ -1135,7 +1131,7 @@ body.search-open .custom-searchbox-container {
 .product-right-section .product-info {
   position: sticky;
   top: 0;
-  max-width: 500px;
+  max-width: 397px;
 }
 .product-wrapper {
   margin: 0;
@@ -1148,10 +1144,9 @@ body.search-open .custom-searchbox-container {
   .product-page-main .product-right-section {
     flex: 1 1 0;
     width: auto;
-    padding-left: 4rem !important;
+    padding-left: 160px !important;
   }
 }
-/* Product category line above the product ("Shop All, Apparel"): smaller than on the category page. */
 .product-category-nav {
   margin: 48px 0 40px;
   font-size: clamp(28px, 2.2vw, 36px);
@@ -1162,19 +1157,18 @@ body.search-open .custom-searchbox-container {
 .product-category-nav .category-title-item:last-child::after {
   content: none;
 }
-/* Title + price */
 .product-header {
   border-bottom: none;
-  padding: 0 0 64px;
+  padding: 0 0 80px;
   margin-bottom: 0;
 }
 .product-title h2 {
-  margin: 0 0 10px;
+  margin: 0;
   font-family: 'HarveySans Diatype Variable', sans-serif;
   font-size: 40px;
   font-weight: normal;
-  line-height: 1.1;
-  letter-spacing: 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
   color: #0F0E0D;
 }
 .product-price {
@@ -1183,15 +1177,14 @@ body.search-open .custom-searchbox-container {
 .product-price * {
   font-size: 40px;
   font-weight: normal !important;
-  line-height: 1.1;
-  color: #6F6C66;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  color: #706D66;
 }
 .product-page-main .images-container {
   height: auto;
   max-width: 100%;
 }
-/* Gallery: listed images stacked full width, styled like the category page tiles
-   (rounded light-grey 7:8 box, whole image visible). The main image stays hidden on desktop. */
 .product-page-main .images-wrapper ul {
   position: relative;
   width: 100%;
@@ -1227,7 +1220,6 @@ body.search-open .custom-searchbox-container {
   max-height: none;
   object-fit: contain;
 }
-/* Info sections (options, quantity, description): light grey divider above each, small label, small body text. */
 .product-page-main .prod_option_block .product-options .product-option-wrapper, .multiple-quantity-product-option, .product-options-wrapper-qd-sc {
   margin-bottom: 0;
   border: none;
@@ -1238,7 +1230,7 @@ body.search-open .custom-searchbox-container {
   margin: 0;
 }
 .product-page-main .prod_option_block:not(.logo-wrapper) > h4 {
-  display: none; /* "Product Options" heading; each option has its own label */
+  display: none;
 }
 .product-page-main .product-info .total-info {
   margin-top: 0;
@@ -1250,44 +1242,59 @@ body.search-open .custom-searchbox-container {
   margin: 0;
   padding: 20px 0 !important;
   border: none;
-  border-top: 1px solid #D9D7D2 !important;
+  border-top: 1px solid #CCCAC6 !important;
 }
 .product-page-main .prod_option_block .product-option-wrapper > label,
-.product-page-main .product-quantity > label,
+.product-page-main .total-info .product-quantity > label,
 .product-page-main .product-section-label,
-.product-page-main .prod_option_block.logo-wrapper > h4 {
+.product-page-main .prod_option_block.logo-wrapper > h4,
+.product-page-main .product-overview h4 {
   display: block;
-  margin: 0 0 8px !important;
+  width: auto;
+  margin: 0 0 10px !important;
+  padding: 0;
   font-family: 'HarveySans Diatype Variable', sans-serif;
+  font-size: 16px;
   font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
   color: #0F0E0D;
 }
 .product-page-main .product-overview {
   font-size: 16px;
-  line-height: 1.45;
-  color: #3D3B38;
+  line-height: 1.3;
+  color: #33312C;
 }
 .product-page-main .product-overview p {
-  margin: 0 0 12px;
+  margin: 0 0 1.3em;
+}
+/* Description / Product details headings come from the product description HTML */
+.product-page-main .product-overview h4 ~ h4 {
+  margin-top: 20px !important;
+  padding-top: 20px;
+  border-top: 1px solid #CCCAC6;
+}
+.product-page-main .product-overview p:has(+ h4),
+.product-page-main .product-overview p:last-child {
+  margin-bottom: 0;
+}
+.product-page-main .total-info .product-quantity {
+  display: block;
 }
 .product-page-main .product-quantity input.amount {
-  padding: 6px 8px 5px 12px;
-  border: 1px solid #C9C7C2;
+  width: 73px;
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #ADABA5;
   border-radius: 4px !important;
   font-size: 16px;
 }
-.product-page-main .product-summary {
-  padding: 0;
-  margin-top: 24px;
-  border: none;
-}
-/* Add to Cart: compact dark button (mockup ~120 x 46px) instead of full-width. */
 .product-page-main .add-to-cart-area {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  margin-top: 48px;
+  margin-top: 60px;
   padding: 0;
   border: none;
 }
@@ -1296,14 +1303,17 @@ body.search-open .custom-searchbox-container {
 }
 .product-page-main .add-to-cart-area .btn,
 .product-page-main .add-to-cart-area .btn.primary.add-to-cart {
+  display: inline-flex;
+  align-items: center;
   width: auto;
+  height: 48px;
   margin: 0;
-  padding: 12px 20px !important;
+  padding: 0 20px !important;
   font-size: 16px;
-  font-weight: normal;
-  line-height: 1.6;
+  font-weight: 500;
+  line-height: 1.3;
   text-transform: none;
-  border-radius: 6px !important;
+  border-radius: 4px !important;
 }
 .select2-container .select2-selection--single .select2-selection__clear span {
   line-height: 1;
@@ -1319,7 +1329,6 @@ body.search-open .custom-searchbox-container {
 .product-option-thumb img, .logo-location-thumb img {
   max-height: 80px;
 }
-/* Sizes shown as thumbnails ("Show as thumbnails" on): plain initials, selected one black + underlined. */
 .size-options [class*="product-option-text-"] {
   display: none !important;
 }
@@ -1354,7 +1363,6 @@ body.search-open .custom-searchbox-container {
 .product-size-charts span {
   padding: 10px 18px !important;
 }
-/* Recently Viewed (below the product): thin line, small label, then the standard product tiles. */
 .recently-viewed-products {
   margin-top: 80px;
   padding-top: 16px;
@@ -1404,14 +1412,14 @@ body.search-open .custom-searchbox-container {
 /*-------------------*/
 /* FOOTER */
 /*-------------------*/
-/* Three areas: logo + social icons left, links centered, copyright right. */
 .footer-container {
   border: none;
 }
+/* Mockup: logo takes the left ~45%, then links and copyright share equal-width columns, all top-aligned. */
 .site-footer {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
+  grid-template-columns: 45fr 41fr 14fr;
+  align-items: start;
   column-gap: 24px;
   padding: 60px 0px;
 }
@@ -1426,20 +1434,16 @@ body.search-open .custom-searchbox-container {
   height: auto;
 }
 .site-footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 48px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 8px 24px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.site-footer-copyright {
-  justify-self: end;
-  max-width: 240px;
-  text-align: right;
-}
 .site-footer-links a, .site-footer-copyright, .site-footer-copyright a, .footer-social a {
+  font-size: 14px;
   line-height: 1.3;
   color: #6F6C66;
   text-decoration: none;
@@ -1455,7 +1459,7 @@ body.search-open .custom-searchbox-container {
   margin-left: 24px;
 }
 .site-footer-brand > .footer-social:first-child {
-  margin-left: 0; /* no logo shown */
+  margin-left: 0;
 }
 .footer-social svg {
   display: block;
@@ -1473,9 +1477,11 @@ body.search-open .custom-searchbox-container {
   .site-footer-brand, .site-footer-copyright {
     justify-self: center;
   }
-  .site-footer-copyright {
-    max-width: none;
-    text-align: center;
+  .site-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 48px;
   }
 }
 
@@ -1497,9 +1503,6 @@ body.search-open .custom-searchbox-container {
   .category-container .categories > li::after {
     margin: 0 1rem 0 .5rem;
     font-size: 4rem;
-  }
-  .product-title h2 {
-    font-size: 60px;
   }
 }
 @media screen and (max-width: 991.99px) {
@@ -1530,8 +1533,6 @@ body.search-open .custom-searchbox-container {
   .product-category-nav {
     margin: 24px 16px;
   }
-  /* Main image (tablet/mobile only): same 7:8 rounded tile as the desktop gallery, full width,
-     but never taller than 80% of the screen. The carousel fills the box; images scale to fit inside it. */
   .product-page-main .main-img-container {
     position: relative;
     width: 100%;
@@ -1622,7 +1623,6 @@ body.search-open .custom-searchbox-container {
     background-position: center;
   }
 }
-/* Large phones / tablets: cap the main image height so the 7:8 box doesn't get too tall on wider screens. */
 @media screen and (min-width: 540px) and (max-width: 991.99px){
   .product-page-main .main-img-container {
     max-height: min(600px, 80vh);
@@ -1649,8 +1649,6 @@ body.search-open .custom-searchbox-container {
 /*-------------------*/
 /* HOMEPAGE FEATURED PRODUCTS GRID */
 /*-------------------*/
-/* 6-column grid: the first 2 tiles span 3 columns (2 per row), every tile after spans 2 (3 per row).
-   Tile styling comes from PRODUCT THUMBS; the wide first-row images use the mockup's near-square ratio. */
 .product-list.featured-products-grid {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
@@ -1683,7 +1681,7 @@ body.search-open .custom-searchbox-container {
 /* SITE WIDTH */
 /*-------------------*/
 .footer-container .wrapper {
-  box-sizing: content-box; /* 1rem side padding outside the max-width, matching the header */
+  box-sizing: content-box; 
   max-width: {{ settings.site_width }};
   padding: 0 40px;
 }
@@ -1694,7 +1692,6 @@ body.search-open .custom-searchbox-container {
   margin-right: auto !important;
   padding: 0 40px;
 }
-/* Full-width search dropdown: background spans the screen, results stay within site_width. */
 .search-results.product-list {
   padding-left: max(20px, calc((100% - {{ settings.site_width }}) / 2)) !important;
   padding-right: max(20px, calc((100% - {{ settings.site_width }}) / 2)) !important;
@@ -1703,14 +1700,11 @@ body.search-open .custom-searchbox-container {
 /*-------------------*/
 /* ANIMATIONS */
 /*-------------------*/
-/* Subtle motion modelled on harvey.ai: same easing curves, short durations, hover-driven.
-   Everything here is switched off for visitors with "reduce motion" enabled (bottom of this section). */
 :root {
-  --ease-out: cubic-bezier(0, .7, .3, 1);     /* harvey.ai --ease-out: things arriving */
-  --ease-in-out: cubic-bezier(.7, 0, .3, 1);  /* harvey.ai --ease-in-out: things changing state */
+  --ease-out: cubic-bezier(0, .7, .3, 1);
+  --ease-in-out: cubic-bezier(.7, 0, .3, 1);
 }
 
-/* Image zoom on hover (102% over 500ms) inside the rounded boxes; product tiles keep their hover-image fade. */
 .product-thumbnail .thumbnail-img-container img,
 .category-box-img img,
 .product-page-main .images-wrapper ul li .small-thumb {
@@ -1722,16 +1716,12 @@ body.search-open .custom-searchbox-container {
   transform: scale(1.02);
 }
 
-/* Homepage featured categories: hovering one card fades the others to 40%. */
 .homepage-categories-container .category-box {
   transition: opacity .4s var(--ease-in-out);
 }
 .homepage-categories-container:has(.category-box:hover) .category-box:not(:hover) {
   opacity: .4;
 }
-
-/* Header dropdowns (Shop, Account) fade and drop in instead of popping open.
-   Uses the separate translate property so it doesn't fight Bootstrap/Popper's inline transform. */
 @keyframes dropdown-in {
   from { opacity: 0; translate: 0 -6px; }
   to { opacity: 1; translate: 0 0; }
@@ -1743,7 +1733,6 @@ body.search-open .custom-searchbox-container {
   transition: transform .2s var(--ease-in-out);
 }
 
-/* Underline that grows left to right (header links, category title line) instead of appearing instantly. */
 .site-header-nav .header-center-links .nav-link,
 .category-title-nav a {
   text-decoration: none !important;
@@ -1754,7 +1743,7 @@ body.search-open .custom-searchbox-container {
   transition: background-size .3s var(--ease-out), color .3s var(--ease-in-out);
 }
 .site-header-nav .header-center-links .nav-link {
-  background-origin: content-box; /* underline spans the text, not the link padding */
+  background-origin: content-box;
 }
 .category-title-nav a {
   background-position: 0 92%;
@@ -1768,8 +1757,6 @@ body.search-open .custom-searchbox-container {
 .category-title-nav a.active {
   background-size: 100% 2px;
 }
-
-/* Product tiles fade up as they scroll into view, 90ms apart (classes added by header.js.liquid). */
 .reveal {
   opacity: 0;
   translate: 0 16px;
@@ -1780,7 +1767,7 @@ body.search-open .custom-searchbox-container {
   translate: 0 0;
 }
 .homepage-categories-container .category-box.reveal {
-  transition: opacity .5s var(--ease-out), translate .5s var(--ease-out); /* also drives the hover fade above */
+  transition: opacity .5s var(--ease-out), translate .5s var(--ease-out);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,0 +1,47 @@
+<div class="product-header clrfix">
+  <div class="product-title">
+    <h2 class="truncated">
+      {{ product.name }}
+    </h2>
+    {% unless product.sku == 'PLAS-NHK' %}
+<div class="product-price clrfix">
+  <div class="current-price">
+    {% if product.save_price > 0 %}
+      <div class="d-inline-block text-muted text-decoration-line-through pe-2">
+        {% include 'price', price_value: product.retail_price, price_suffix: true %}
+      </div>
+      <div class="d-inline-block fw-bolder fs-5 pe-2">
+        {% include 'price', price_value: product.final_price, price_suffix: true %}
+      </div>
+      <div class="d-inline-block text-success">
+        You save {% include 'price', price_value: product.save_price, price_suffix: true %}
+      </div>
+    {% else %}
+      <div class="d-inline-block fw-bold">
+        {% include 'price', price_value: product.final_price, price_suffix: true %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endunless %}
+    <div class="review-social-share-wrapper">
+      {% include 'social_share' %}
+    </div>
+  </div>
+
+  <h4> </h4>
+
+  <div class="desktop-product-overview">
+    {% include 'product_overview' %}
+  </div>
+
+  {% if settings.show_sku %}
+    <span>SKU: {{ product.sku }}</span>
+  {% endif %}
+
+  {% if product.size_charts.size > 0 %}
+    <div class="size-chart">
+      <button type="button" class="btn btn-link px-0" data-bs-toggle="modal" data-bs-target="#modal-sizeChart">Size Charts</button>
+    </div>
+  {% endif %}
+</div>

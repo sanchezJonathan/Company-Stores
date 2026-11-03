@@ -1,0 +1,423 @@
+<table id="background">
+  <tr>
+    <td>
+      <table id="main">
+        <tr>
+          <td width="300">
+            <div style="
+              width: {% if settings.logo_width != empty %}{{ settings.logo_width }}{% else %}auto{% endif %};
+              height: auto;
+              display:block;
+              float: left;">
+              {% if settings.confirmation_emails_logo %}
+                <img src="{{ 'email_logo_custom_bg_image.png' | asset_url }}" style="max-height: {{ settings.header_height }};">
+              {% elsif settings.show_logo %}
+                <img src="{{ 'logo_custom_bg_image.jpg' | asset_url }}" style="max-height: {{ settings.header_height }};">
+              {% endif %}
+            </div>
+          </td>
+          <td width="300" class="service">
+            {% if shop.primary_phone %}
+              Questions? {{ shop.primary_phone | number_to_phone }}
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+      <table id="order-information">
+        <tr class="section-header">
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" colspan="2">
+            <p>
+              Order Information
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1">
+            <p>
+              <strong>Order Number:</strong> {{ order.order_id }}
+            </p>
+            <p>
+              <strong>Date:</strong> {{ order.completed_at | date: "%a, %b %d, %Y  %I:%M%p (%Z)" }}
+            </p>
+
+            <p>
+              <strong>Total:</strong> {% include 'price', price_value: order.grand_total %}
+            </p>
+          </td>
+          <td colspan="1" style="vertical-align:middle;">
+            <p>
+              <strong>Ordered By:</strong>
+              {{ order.safe_customer_name }}
+            </p>
+            <p>
+              <strong>Shipping method:</strong> {{ order.shipment_friendly_name }}
+            </p>
+            {% if order.shipment.in_hands_date %}
+              <p>
+                <strong>In Hands Date:</strong> {{ order.shipment.in_hands_date }}
+              </p>
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              <strong>Shipped To:</strong>
+            </p>
+
+            <p>
+              {{ order.shipping_contact.safe_name }}
+            </p>
+
+          </td>
+          <td class="billing-information">
+            <p>
+              <strong>Billed To:</strong>
+            </p>
+
+            <p>
+              {{ order.billing_contact.safe_name }}
+            </p>
+
+          </td>
+        </tr>
+        {% if order.custom_data_collections != empty %}
+          <tr>
+            <td colspan="2">
+              <p>
+                <strong>
+                  {% if shop.custom_data_collections_name %}{{ shop.custom_data_collections_name }}:{% endif %}
+                </strong>
+              </p>
+
+              <div style='margin-left: 10px; margin-top: 10px;'>
+                {% for custom_data_collection in order.custom_data_collections %}
+                  <p class="custom-data-collection">
+                  <p>
+                    <strong>
+                      {% include 'modifier', title: custom_data_collection.title, amount: custom_data_collection.amount %}
+                    </strong>
+                  </p>
+
+                  {% for attribute in custom_data_collection.custom_data_attributes %}
+                    <p style="padding-left: 10px;">
+                      <span class="attribute-key"><strong>{{ attribute.key }}:</strong></span>
+                      {% if attribute.value != empty %}
+                        <span class="attribute-value">{{ attribute.value | join: ', ' }}</span>
+                      {% else %}
+                        <span class="attribute-value not-specified">&lt;not specified&gt;</span>
+                      {% endif %}
+                    </p>
+                  {% endfor %}
+                  </p>
+                  <br>
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+        {% endif %}
+      </table>
+
+      <br>
+
+      <table id="order-summary">
+        <tr class="section-header">
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=120>
+            <p style="margin: 3px 0px;">
+              Image
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=380>
+            <p style="margin: 3px 0px;">
+              Details
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=100>
+            <p style="margin: 3px 0px;">
+              Qty
+            </p>
+          </td>
+          <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width="100">
+            <p style="margin: 3px 0px;">
+              Total
+            </p>
+          </td>
+        </tr>
+        {% for line_item in order.line_items %}
+          <tr class="line-item">
+
+            <td>
+              <table class="basic-info">
+                <tbody>
+                <tr>
+                  <td class="image-cell">
+                    <img width=100 alt="{{ line_item.name }} image" title="{{ line_item.name }} image"
+                      src="{% if line_item.image %}{{ line_item.image.small_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+
+            <td class="product-info">
+              <p class="sub-option product-title">
+                {{ line_item.name }}
+              </p>
+
+              {% if settings.show_sku %}
+                <p class="sub-option">
+                  <span class="sub-option-name">SKU#</span> <span
+                    class="sub-option-value">{{ line_item.final_sku }}</span>
+                </p>
+              {% endif %}
+
+              {% for choice in line_item.choices %}
+                {% if choice.sub_option %}
+                  <p class="sub-option">
+                    <span class="sub-option-name">{{ choice.option.friendly_name }}{% if choice.has_group? %} ({{ choice.group.name }}) {% endif %}:</span>
+                    <span class="sub-option-value">{% include 'modifier', title: choice.sub_option.name, amount: choice.amount %}</span>
+                  </p>
+                {% endif %}
+              {% endfor %}
+
+              {% if line_item.decoration_method == blank and line_item.logos.size > 0 %}
+                <div class="sub-options">
+                  {% for logo in line_item.logos %}
+                    <p class="sub-option logo">
+                      <span class="sub-option-name logo-location">{{ logo.location_name | default: "logo" }}:</span>
+                      <span class="sub-option-name logo-name">{{ logo.name }}{% if logo.charge %} ({% include 'price', price_value: logo.charge, price_suffix: true %}){% endif %}</span>
+                    </p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              {% if line_item.has_setup_charge? %}
+                <p class="sub-option">
+                  Setup Charge: {% include 'price', price_value: line_item.setup_charge, price_suffix: true %}
+                </p>
+              {% endif %}
+
+              {% for personalization in line_item.product_personalizations %}
+                <div class="product-personalization">
+                  <p class="title" style="font-weight: bold;">
+                    {% include 'modifier', title: personalization.title, amount: personalization.amount %}
+                  </p>
+                  {% for attribute in personalization.attributes %}
+                    <p class="row">
+                      <label>{{ attribute.key }}:</label>
+                      {% if attribute.value != empty %}
+                        <span class="attribute-value">{{ attribute.value | join: ', ' }}</span>
+                      {% else %}
+                        <span class="attribute-value not-specified">&lt;not specified&gt;</span>
+                      {% endif %}
+                    </p>
+                  {% endfor %}
+                </div>
+              {% endfor %}
+
+              {% if line_item.decoration_method %}
+                <div class="decoration-details">
+                  <p class="decoration-method">
+                    <span class="attribute-key">Decoration Method:</span>
+                    <span class="attribute-value">{% include 'modifier' title: line_item.decoration_method.name, amount: line_item.decoration_method.price_modifier %}</span>
+                  </p>
+
+                  {% for decoration in line_item.decorations %}
+                    <div class="decoration">
+                      <h3>{{ decoration.location.name }}</h3>
+
+                      {% if decoration.size != blank %}
+                        <p class="row">
+                          <span class="attribute-key">Design Size:</span>
+                          <span class="attribute-value">
+                            {% include 'modifier', title: decoration.size.name, amount: decoration.size.price_modifier %}
+                          </span>
+                        </p>
+                      {% endif %}
+
+                      {% if decoration.logo != blank %}
+                        <p class="row">
+                          <span class="attribute-key">Logo:</span>
+                          <span class="attribute-value">
+                            <span class='logo-name'>{% include 'modifier' title: decoration.logo.name, amount: decoration.logo_charge %}</span>
+                            <img src="{{ decoration.logo.front_thumb_url }}"/>
+                          </span>
+                        </p>
+                      {% endif %}
+
+                      {% if decoration.custom_text != blank %}
+                        <p class="row">
+                          <span class="attribute-key">Text:</span>
+                          <span class="attribute-value custom-text">
+                            {{ decoration.custom_text }}
+                          </span>
+                        </p>
+                      {% endif %}
+
+                      {% if decoration.font != blank %}
+                        <p class="row">
+                          <span class="attribute-key">Font:</span>
+                          <span class="attribute-value">{{ decoration.font}}</span>
+                        </p>
+                      {% endif %}
+
+                      {% if decoration.font_style != blank %}
+                        <p class="row">
+                          <span class="attribute-key">Font Style:</span>
+                          <span class="attribute-value">{{ decoration.font_style}}</span>
+                        </p>
+                      {% endif %}
+
+                      {% if decoration.font_decoration != blank %}
+                        <p class="row">
+                          <span class="attribute-key">Font Decoration:</span>
+                          <span class="attribute-value">{{ decoration.font_decoration.text}}</span>
+                        </p>
+                      {% endif %}
+
+                      {% if decoration.font_modifier != blank %}
+                        <p class="row">
+                          <span class="attribute-key">Font Modifier:</span>
+                          <span class="attribute-value">{{ decoration.font_modifier.text}}</span>
+                        </p>
+                      {% endif %}
+
+                      {% if decoration.number_of_colors > 0 %}
+                        <p class="row">
+                          <span class="attribute-key">Number of Colors:</span>
+                          <span class="attribute-value">
+                            {% assign number_of_colors = decoration.number_of_colors | pluralize: 'color', 'colors' %}
+                            {% include 'modifier' title: number_of_colors, amount: decoration.color.price_modifier %}
+                          </span>
+                        </p>
+
+                        {% for color in decoration.colors %}
+                          <p class="row">
+                            <span class="attribute-key">{{ color.number }}:</span>
+                            <span class="attribute-value">{{ color.display_name }}</span>
+                          </p>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+            </td>
+            <td class="order-quantity">
+              <p class="line-item-quantity">
+                {{ line_item.quantity }}
+              </p>
+            </td>
+            <td class="product-price">
+              <p>
+                {% include 'price', price_value: line_item.total_price, price_suffix: true %}
+              </p>
+            </td>
+          </tr>
+        {% endfor %}
+        <tr class="calculation-item">
+          <td class="title" colspan=3>
+            <p>Item Subtotal:</p>
+          </td>
+          <td class="value">
+            <p>{% include 'price', price_value: order.item_total, price_suffix: true %}</p>
+          </td>
+        </tr>
+
+        {% if order.setup_charge_total > 0 %}
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>Setup Charges:</p>
+            </td>
+            <td class="value">
+              <p>{% include 'price', price_value: order.setup_charge_total, price_suffix: true %}</p>
+            </td>
+          </tr>
+        {% endif %}
+
+        {% for custom_data_collection in order.custom_data_collections %}
+          {% if custom_data_collection.amount > 0 %}
+            <tr class="calculation-item">
+              <td class="title" colspan=3>
+                <p>{{ custom_data_collection.title }}:</p>
+              </td>
+              <td class="value">
+                <p>{% include 'price', price_value: custom_data_collection.amount, price_suffix: true %}</p>
+              </td>
+            </tr>
+          {% endif %}
+
+        {% endfor %}
+
+        {% if site.show_shipping_base_rate? %}
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>Shipping ({{ order.shipment_friendly_name }}):</p>
+            </td>
+            <td class="value">
+              <p>{% include 'price', price_value: order.shipment_total_without_base_rate, price_suffix: true %}</p>
+            </td>
+          </tr>
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>{{ site.shipping_base_rate_name }}:</p>
+            </td>
+            <td class="value">
+              <p>{% include 'price', price_value: order.shipment_base_rate, price_suffix: true %}</p>
+            </td>
+          </tr>
+        {% else %}
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>Shipping ({{ order.shipment_friendly_name }}):</p>
+            </td>
+            <td class="value">
+              <p>{% include 'price', price_value: order.shipment_total, price_suffix: true %}</p>
+            </td>
+          </tr>
+        {% endif %}
+
+        {% if order.total_tax > 0 %}
+          <tr class="calculation-item">
+            <td class="title" colspan=3>
+              <p>Tax:</p>
+            </td>
+            <td class="value">
+              <p>{% include 'price', price_value: order.total_tax, price_suffix: true %}</p>
+            </td>
+          </tr>
+        {% endif %}
+
+        <tr class="calculation-item order-total">
+          <td class="title" colspan=3>
+            <p>Order Subtotal:</p>
+          </td>
+          <td class="value">
+            <p>{% include 'price', price_value: order.order_total, price_suffix: true %}</p>
+          </td>
+        </tr>
+
+        <tr class="calculation-item">
+          <td class="title" colspan=3>
+            <p>Coupon Savings:</p>
+          </td>
+          <td class="value">
+            <p>{% include 'price', price_value: order.promo_total, price_suffix: true %}</p>
+          </td>
+        </tr>
+
+        <tr class="calculation-item order-total">
+          <td class="title" colspan=3>
+            <p>Order total:</p>
+          </td>
+          <td class="value">
+            <p>{% include 'price', price_value: order.grand_total, price_suffix: true %}</p>
+          </td>
+        </tr>
+
+
+      </table>
+    </td>
+  </tr>
+</table>

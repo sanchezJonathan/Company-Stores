@@ -1,0 +1,7 @@
+{% if shop.virtual_samples_enabled? and product.virtual_samples_enabled? %}
+  <div class="logo-buttons-wrapper">
+    <div class="buttons">
+      <button type="button" class="update-preview btn secondary" data-url="{{ product | virtual_samples_preview_url }}">Update Preview</button>
+    </div>
+  </div>
+{% endif %}

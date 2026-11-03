@@ -1,0 +1,130 @@
+<div id="content" class="content-page container-fluid">
+  {% include 'update_breadcrumbs' %}
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+  
+  {% if category_banner != blank %}
+  	{% comment %}
+  		manual_edit for navigation to form / Moved banner below breadcrumbs
+  	{% endcomment %}
+    <div class="category-banner my-4 border border-white"><a href="/pages/47318"><img class="img-fluid w-100" src="{{category_banner}}" /></a></div>
+  {% endif %}
+  
+  <div class="category-title-container">
+    <h1></h1>
+    <script>
+      var selectedCat = ""; 
+      var url = decodeURI(document.location.href).replace(/%20/g, " ");
+
+      for (var categoryBrowse of categories) {
+        var catName = categoryBrowse.name;
+
+        // Check if we are on a filtered category page
+        if (url.indexOf("/products?s") >= 0) {
+          if (url.indexOf(catName) >= 0) {
+            selectedCat = categoryBrowse.name;
+
+            // Update the Title
+            $('.category-title-container h1').text(selectedCat);
+
+            // Update Breadcrumbs
+            $('.breadcrumb li').removeClass('active').removeAttr('aria-current');
+            $('.breadcrumb').append('<li class="breadcrumb-item active" aria-current="page">' + selectedCat + '</li>');
+            $('.breadcrumb li:contains(Products)').html('<a href="/products">Products</a>');
+            break; // Exit loop once found
+          }
+        } 
+      }
+
+      // Fallback: If no specific category was found but we are on the products page
+      if (selectedCat === "" && url.indexOf("/products") >= 0) {
+        $('.category-title-container h1').text('All Merch');
+        $('.breadcrumb li:contains(Shop All)').remove();
+        $('.breadcrumb').append('<li class="breadcrumb-item active" aria-current="page">All Merch</li>');
+      }
+      
+    </script>
+  </div>
+  
+  {% if settings.product_thumbnail_length_per_page == "10" %}
+    {% include 'paginate_by_10' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "20" %}
+  	{% include 'paginate_by_20' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "30" %}
+  	{% include 'paginate_by_30' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "40" %}
+  	{% include 'paginate_by_40' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "50" %}
+  	{% include 'paginate_by_50' %}
+  {% endif %}
+</div>
+
+{% include 'category_page_js' %}
+
+<script>
+  $(document).ready(function () {
+    var productList = $('.product-list');
+    var products = productList.find('.product-thumbnail');
+
+    // Sort products from lowest to highest price
+    products.sort(function (a, b) {
+        return parseFloat($(a).data('price')) - parseFloat($(b).data('price'));
+    });
+
+    // Define price groups
+    var groups = [
+        {
+            title: '<strong>Hatchling:</strong> 0–1,000 Merch Points',
+            min: 0,
+            max: 1000
+        },
+        {
+            title: '<strong>Raptor:</strong> 1,001–7,999 Merch Points',
+            min: 1001,
+            max: 7999
+        },
+        {
+            title: '<strong>T-Rex:</strong> 8,000+ Merch Points',
+            min: 8000,
+            max: Infinity
+        }
+    ];
+
+    // Remove the original product thumbnails
+    productList.find('.product-thumbnail').remove();
+
+    // Create each price group
+    $.each(groups, function (index, group) {
+      $(this).addClass('mb-3');
+      var groupProducts = products.filter(function () {
+          var price = parseFloat($(this).data('price'));
+          return price >= group.min && price <= group.max;
+      });
+
+      // Only display groups that contain products
+      if (groupProducts.length) {
+        var groupWrapper = $('<div class="product-price-group w-100"></div>');
+        var groupTitle = $('<h3 class="product-price-group-title"></h3>').html(group.title);
+        var groupUnderline = $('<div class="product-price-group-underline"></div>');
+        var productsContainer = $('<div class="product-price-group-products d-flex flex-wrap"></div>');
+
+        productsContainer.append(groupProducts);
+
+        groupWrapper.append(groupTitle);
+        groupWrapper.append(groupUnderline);
+        groupWrapper.append(productsContainer);
+
+        productList.append(groupWrapper);
+      }
+    });
+  });
+</script>

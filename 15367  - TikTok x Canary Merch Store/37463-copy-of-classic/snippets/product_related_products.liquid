@@ -1,0 +1,19 @@
+{% if product.related_products_enabled? and related_products != empty %}
+  <div class="related-products clrfix">
+    <h2>
+      Related Products
+    </h2>
+    <div class="related-products-thumbnails">
+      {% for related_product in related_products %}
+        {% include 'product' with related_product %}
+      {% endfor %}
+    </div>
+
+    <script>
+      $(function () {
+        setup_carousels('.related-products .product .image-carousel');
+        bind_product_body_clicker('.related-products', '.product');
+      });
+    </script>
+  </div>
+{% endif %}

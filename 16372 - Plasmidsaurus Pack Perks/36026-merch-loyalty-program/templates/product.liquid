@@ -1,0 +1,437 @@
+<div class="container-fluid product-page clrfix">
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+
+  <div class="product-page-main">
+    <div class="product-wrapper clrfix row">
+      <div class="product-left-section clrfix col-md-7 col-sm-12 col-xs-12">
+        <div class="product-info clrfix position-sticky">
+
+          <div class="mobile-only-header">
+            {% include 'product_header' %}
+          </div>
+
+          <div class="product-gallery">
+            <div class="gallery-main">
+              <div class="main-img-container bg-white">
+                {% view_logos product %}
+                <div class="main-img" data-id="{{ product.primary_image.id }}">
+                  {% include 'product_primary_image' %}
+                </div>
+              </div>
+
+              <div class="product-images-gallery-wrapper">
+                {% include 'product_images_gallery' %}
+              </div>
+            </div>
+
+            {% if product.image_group_ids.size > 0 %}
+              <a href="javascript:void(0);" class="view-image-groups" data-group-ids="{{ product.image_group_ids | json }}">
+                View Side-By-Side
+              </a>
+            {% endif %}
+          </div>
+
+          <div class="mobile-product-description">
+            {% include 'product_overview' %}
+          </div>
+
+          <div class="mobile-product-description">
+            {% include 'product_summary' %}
+          </div>
+        </div>
+      </div>
+
+      <div class="product-right-section clrfix col-md-5 col-sm-12 col-xs-12">
+        <div class="product-info clrfix">
+
+          <div class="desktop-only-header">
+            {% include 'product_header' %}
+          </div>
+
+          {% form 'populate_product' %}
+
+            <div class="line-items-reflective-view">
+              {% unless product.decoration_methods_enabled? %}
+                {% if product.logo_locations_enabled? %}
+                  {% include 'line_item_logo_locations' %}
+                {% else %}
+                  {% include 'line_item_logos' %}
+                {% endif %}
+              {% endunless %}
+
+              {% include 'line_item_product_options' %}
+              {% include 'line_item_decoration_methods' %}
+              {% include 'line_item_product_personalizations' %}
+              {% include 'line_item_proof_approval' %}
+            </div>
+
+            <div class="total-info clrfix">
+
+              {% if product.product_options_enabled? == false or product.options_or_groups.multiple_quantity == empty %}
+                <div class="product-quantity-container">
+                  <label>Quantity</label>
+                  <div class="product-quantity">
+                    <div id="quantity">
+                      {% if product.minimum_order_quantity %}
+                        {% assign moq = product.minimum_order_quantity %}
+                      {% else %}
+                        {% assign moq = 1 %}
+                      {% endif %}
+
+                      <div class="custom-qty-wrapper">
+                        <input type="number" min="0" data-type="quantity" class="form-control amount"
+                          name="product[quantity]" value="{{ form.quantity | default: moq }}"/>
+
+                        <div class="arrows-stack">
+                          <a href="javascript:void(0)" class="quantity-btn plus">
+                            <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.03 5.66" width="10.03" height="5.66">
+                              <g id="Layer_1-2" data-name="Layer 1">
+                                <path d="m.65,5.66c-.17,0-.34-.07-.46-.19-.25-.25-.25-.66,0-.91L4.56.19c.12-.12.28-.19.46-.19h0c.17,0,.34.07.46.19l4.37,4.37c.12.12.19.29.19.46s-.07.34-.19.46c-.24.24-.67.24-.92,0l-3.91-3.91-3.91,3.91c-.12.12-.28.19-.46.19h0Zm8.49-.4s0,0,0,0h0ZM.4,4.76s0,0,0,0h0Zm9.23,0h0s0,0,0,0Z" style="fill: #fff;"/>
+                              </g>
+                            </svg>
+                          </a>
+
+                          <a href="javascript:void(0)" class="quantity-btn minus">
+                            <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.03 5.66" width="10.03" height="5.66">
+                              <g id="Layer_1-2" data-name="Layer 1">
+                                <path d="m.65,0c.17,0,.34.07.46.19l3.91,3.91L8.92.19c.24-.25.68-.24.92,0,.12.12.19.29.19.46s-.07.34-.19.46l-4.37,4.37c-.12.12-.28.19-.46.19h0c-.17,0-.34-.07-.46-.19L.19,1.1c-.25-.25-.25-.66,0-.91.12-.12.28-.19.46-.19h0Zm8.49.4s0,0,0,0h0ZM.39.89s0,0,0,0h0Zm9.24,0h0s0,0,0,0Z" style="fill: #fff;"/>
+                              </g>
+                            </svg>
+                          </a>
+                        </div>
+                      </div>
+
+                      <span class="stock" id="stock"></span>
+
+                      <div class="add-to-cart-wrapper">
+                        {% include 'line_item_add_buttons' %}
+                      </div>
+                    </div>
+
+                    <script>
+                      $(".quantity-btn.plus").click(function() {
+                        var input = $(this).closest("#quantity").find("input.amount");
+                        input.val(parseInt(input.val(), 10) + 1).trigger("change");
+                      });
+
+                      $(".quantity-btn.minus").click(function() {
+                        var input = $(this).closest("#quantity").find("input.amount");
+                        var currentVal = parseInt(input.val(), 10);
+
+                        if (currentVal > 1) {
+                          input.val(currentVal - 1).trigger("change");
+                        }
+                      });
+                    </script>
+                  </div>
+
+                  {% if product.quantity_discounts_enabled? %}
+                    <div class="quantity-discount">
+                      <button type="button" class="btn btn-link px-0" data-bs-toggle="modal" data-bs-target="#modal-quantity-discount">Quantity Discounts</button>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              <div class="desktop-product-summary">
+                {% include 'product_summary' %}
+              </div>
+
+              {% if product.decoration_methods_enabled? %}
+                {% include 'circle_number' %}
+                <h4>Add to cart</h4>
+              {% endif %}
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- capture redemption_limit_raw -%}{% include 'sku_redemption_limit', sku: product.sku %}{%- endcapture -%}
+{%- assign redemption_limit_raw = redemption_limit_raw | strip -%}
+
+{%- if redemption_limit_raw != blank -%}
+  {%- assign redemption_limit = redemption_limit_raw | plus: 0 -%}
+  {%- assign redemption_hist_qty = 0 -%}
+  {%- assign redemption_cart_qty = 0 -%}
+
+  {%- if current_user -%}
+    {%- paginate current_user.order_history by 1000 -%}
+      {%- for past_order in paginate.collection -%}
+        {%- assign redemption_past_order_status = past_order.status | downcase -%}
+
+        {%- unless redemption_past_order_status == "canceled" -%}
+          {%- for past_line_item in past_order.line_items -%}
+            {%- if past_line_item.sku == product.sku -%}
+              {%- assign redemption_hist_qty = redemption_hist_qty | plus: past_line_item.quantity -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+
+  {%- for cart_line_item in order.line_items -%}
+    {%- if cart_line_item.sku == product.sku -%}
+      {%- assign redemption_cart_qty = redemption_cart_qty | plus: cart_line_item.quantity -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  <div
+    class="redemption-limit-validation"
+    data-redemption-limit="{{ redemption_limit }}"
+    data-redemption-hist-qty="{{ redemption_hist_qty }}"
+    data-redemption-cart-qty="{{ redemption_cart_qty }}"
+    data-product-name="{{ product.name | escape }}">
+  </div>
+
+  <div class="redemption-limit-message" style="display: none;"></div>
+{%- endif -%}
+
+
+{% if settings.show_reviews %}
+  <div class="row">
+    <div class="col col-md-12 col-sm-12 col-xs-12">
+      <div class="product-additional-info clrfix">
+        {% include 'product_reviews' %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="row">
+  <div class="col col-md-12 col-sm-12 col-xs-12 product-related-products" id="product_related_products">
+    {% include 'product_related_products' %}
+  </div>
+</div>
+
+<div id="fb-root"></div>
+
+{% if product.size_charts.size > 0 %}
+<div class="modal fade" id="modal-sizeChart" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Size Charts</h5>
+        <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="product-tabs">
+          <div class="tabs-body">
+            <div class="product-size-charts visible text-center">
+              {% for chart in product.size_charts %}
+                <a target="_blank" class="size-chart-item border rounded text-center d-inline-flex flex-column m-2" href="{{chart.url}}">
+                  <div class="d-block py-3 px-5">
+                    {% if chart.url contains 'PNG' or chart.url contains 'png' %}{% include 'icons/download-png' %}
+                    {% elsif chart.url contains 'PDF' or chart.url contains 'pdf' %}{% include 'icons/download-pdf' %}
+                    {% else %}{% include 'icons/download-jpg' %}{% endif %}
+                  </div>
+                  <span class="border-top py-2">{{ chart.name | replace: " PNG", "" | replace: " PDF", "" | replace: " JPG", "" }}</span>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="modal fade" id="modal-quantity-discount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Quantity Discounts</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="product-tabs">
+          <div class="tabs-body">
+            <div class="product-quantity-discounts powered-with-ckeditor visible">
+              <table class="table tab_2 table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Quantity</th>
+                    <th>Base Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for quantity_discount_group in product.quantity_discount_groups %}
+                  <tr class='discount-group-name'>
+                    <td>{{ quantity_discount_group.name }}</td>
+                    <td></td>
+                  </tr>
+
+                  {% for quantity_discount in quantity_discount_group.quantity_discounts %}
+                    <tr>
+                      <td>{{ quantity_discount.quantity }}</td>
+                      <td>{% include 'price', price_value: quantity_discount.price, price_suffix: true %}</td>
+                    </tr>
+                  {% endfor %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'in_stock_modal' %}
+{% include 'product_javascript' %}
+{% include 'product_js' %}
+
+<script>
+gtag("event", "view_item", {
+  currency: "USD",
+  value: {{ product.final_price }},
+  items: [{
+    item_id: "{{ product.sku }}",
+    item_name: "{{ product.name }}",
+    price: {{ product.final_price }},
+    quantity: 1
+  }]
+});
+</script>
+
+{%- if redemption_limit_raw != blank -%}
+  <script>
+    (function() {
+
+      function validateRedemptionLimit() {
+        var validation = $('.redemption-limit-validation');
+        var message = $('.redemption-limit-message');
+        var addToCartButton = $('.btn.primary.add-to-cart');
+
+        if (!validation.length) {
+          return;
+        }
+
+        var redemptionLimit = parseInt(validation.attr('data-redemption-limit'), 10) || 0;
+        var redemptionHistQty = parseInt(validation.attr('data-redemption-hist-qty'), 10) || 0;
+        var redemptionCartQty = parseInt(validation.attr('data-redemption-cart-qty'), 10) || 0;
+        var productName = validation.attr('data-product-name') || 'this product';
+
+        var redemptionProductQty = 0;
+
+        $('input[data-type="quantity"]').each(function() {
+          redemptionProductQty += parseInt($(this).val(), 10) || 0;
+        });
+
+        var redemptionTotalQty =
+          redemptionHistQty +
+          redemptionCartQty +
+          redemptionProductQty;
+
+        var redemptionLimitExceeded = false;
+        var redemptionMessage = '';
+
+        if (redemptionHistQty + redemptionCartQty >= redemptionLimit) {
+          redemptionLimitExceeded = true;
+
+          if (redemptionHistQty > 0 && redemptionCartQty > 0) {
+            redemptionMessage =
+              "You have already ordered " +
+              redemptionHistQty +
+              " of " +
+              productName +
+              " and have " +
+              redemptionCartQty +
+              " in your cart, which reaches the purchase limit of " +
+              redemptionLimit +
+              " per customer. You cannot purchase any additional quantity of this item.";
+          } else if (redemptionCartQty > 0) {
+            redemptionMessage =
+              "You already have " +
+              redemptionCartQty +
+              " of " +
+              productName +
+              " in your cart, which reaches the purchase limit of " +
+              redemptionLimit +
+              " per customer. You cannot purchase any additional quantity of this item.";
+          } else {
+            redemptionMessage =
+              "You have already ordered " +
+              redemptionHistQty +
+              " of " +
+              productName +
+              ", which reaches the purchase limit of " +
+              redemptionLimit +
+              " per customer. You cannot purchase any additional quantity of this item.";
+          }
+        } else if (redemptionTotalQty > redemptionLimit && redemptionHistQty > 0) {
+          redemptionLimitExceeded = true;
+          var redemptionRemainingAllowed =
+            redemptionLimit -
+            redemptionHistQty -
+            redemptionCartQty;
+          redemptionMessage =
+            "You have already ordered " +
+            redemptionHistQty +
+            " of " +
+            productName +
+            " and have " +
+            redemptionCartQty +
+            " in your cart. You can only purchase " +
+            redemptionRemainingAllowed +
+            " more, with a purchase limit of " +
+            redemptionLimit +
+            " per customer. Please update the quantity.";
+        } else if (redemptionTotalQty > redemptionLimit) {
+          redemptionLimitExceeded = true;
+
+          if (redemptionCartQty > 0) {
+            redemptionMessage =
+              "You already have " +
+              redemptionCartQty +
+              " of " +
+              productName +
+              " in your cart and are trying to purchase " +
+              redemptionProductQty +
+              " more. This exceeds the purchase limit of " +
+              redemptionLimit +
+              " per customer. Please update the quantity.";
+          } else {
+            redemptionMessage =
+              "You are trying to purchase " +
+              redemptionProductQty +
+              " of " +
+              productName +
+              ", which exceeds the purchase limit of " +
+              redemptionLimit +
+              " per customer. Please update the quantity.";
+          }
+        }
+
+        if (redemptionLimitExceeded) {
+          message.html('<div>' + redemptionMessage + '</div>').show();
+          addToCartButton.prop('disabled', true);
+        } else {
+          message.empty().hide();
+          addToCartButton.prop('disabled', false);
+        }
+
+        if (redemptionLimitExceeded) {
+          message.html('<div>' + redemptionMessage + '</div>').show();
+          addToCartButton.prop('disabled', true);
+        } else {
+          message.empty().hide();
+          addToCartButton.prop('disabled', false);
+        }
+      }
+
+      $(document).on('change input', 'input[data-type="quantity"]', function() {
+        validateRedemptionLimit();
+      });
+
+      validateRedemptionLimit();
+    })();
+  </script>
+{%- endif -%}

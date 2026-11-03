@@ -1,0 +1,61 @@
+<div id="content" class="content-page container-fluid">
+  {% if category_banner != blank %}
+    <div class="category-banner my-4 border border-white"><img class="img-fluid w-100" src="{{category_banner}}" /></div>
+  {% endif %}
+  {% include 'update_breadcrumbs' %}
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+  
+  <script>
+     $(function () {
+        const url = window.location.href;
+        const match = url.match(/s%5Bf%5D%5Bc%5D%5B%5D=([^&]+)/);
+        const prod = $('.breadcrumb-item.active:contains("Products")');
+
+        prod.removeAttr("aria-current").html('<a href="/products">All Products</a>');
+        if (!match) return;
+
+        const decoded = decodeURIComponent(match[1]).replace(/\+/g, " ");
+        const categories = decoded.replace(/^\//, "").split("/");
+
+        let breadcrumbHTML = "";
+        let pathAccumulator = "";
+
+        categories.forEach((cat, index) => {
+          pathAccumulator += "/" + cat;
+          const encodedPath = encodeURIComponent(pathAccumulator);
+          breadcrumbHTML += cat;
+          const li = '<li class="breadcrumb-item"><a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=' + encodedPath + '">' + cat + '</a></li>';
+
+          $(".breadcrumb .breadcrumb-item").last().after(li);
+
+          if (index < categories.length - 1) {
+            breadcrumbHTML += ' <span class="arrow">></span> ';
+          }
+        });
+      });
+    </script>
+
+  {% if settings.product_thumbnail_length_per_page == "10" %}
+    {% include 'paginate_by_10' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "20" %}
+  	{% include 'paginate_by_20' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "30" %}
+  	{% include 'paginate_by_30' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "40" %}
+  	{% include 'paginate_by_40' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "50" %}
+  	{% include 'paginate_by_50' %}
+  {% endif %}
+</div>
+
+{% include 'category_page_js' %}

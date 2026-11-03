@@ -1,0 +1,31 @@
+<!doctype html>
+{%- comment -%}
+  Arvo (Theme 3.0) — storefront layout. Selected by settings.customer_layout = "theme".
+  Page templates render inside {{ content_for_layout }}.
+{%- endcomment -%}
+<html lang="en"{% render 'core/html_attrs' %}>
+<head>
+  {% seo_tags %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% render 'core/version' %}
+  {{ csrf_meta_tag }}
+  <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+  {% render 'core/head_style' %}
+  {{ 'cs-storefront.min.css' | asset_url | stylesheet_tag }}
+  {% render 'custom/head' %}
+  {%- if settings.adv_custom_css != blank -%}
+    <style id="cs-custom-css">{{ settings.adv_custom_css }}</style>
+  {%- endif -%}
+</head>
+<body class="cs-body">
+  <a class="cs-skip-link" href="#cs-main">Skip to content</a>
+  {% render 'shell/header' %}
+  <main id="cs-main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+  {% render 'shell/footer' %}
+  <script src="{{ 'cs-bootstrap.bundle.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'cs-core.min.js' | asset_url }}" defer></script>
+  {% render 'custom/body_end' %}
+</body>
+</html>

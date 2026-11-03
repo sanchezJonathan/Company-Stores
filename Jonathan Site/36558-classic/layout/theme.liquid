@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  {% seo_tags %}
+  <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+  {{ 'jquery.treeview.css' | asset_url | stylesheet_tag }}
+  {{ 'loading_indicator.css' | asset_url | stylesheet_tag }}
+  {{ 'msdropdown/dd.css' | asset_url | stylesheet_tag }}
+  {{ 'input-labels.css' | asset_url | stylesheet_tag }}
+
+  <!--[if lte IE 9]>
+  {{ 'ie.css' | asset_url | stylesheet_tag }}
+  <![endif]-->
+
+  {{ 'jquery.min.js' | javascript_url | script_tag }}
+  {{ 'underscore-umd-min.js' | javascript_url | script_tag }}
+
+  <!-- Bootstrap -->
+  {{ 'bootstrap.css' | asset_url | stylesheet_tag }}
+  {{ 'bootstrap.bundle.js' | asset_url | script_tag }}
+  {{ 'fonts.css' | asset_url | stylesheet_tag }}
+
+  {{ 'jquery-migrate.min.js' | javascript_url | script_tag }}
+  {{ 'jquery-ui.min.js' | javascript_url | script_tag }}
+  {{ 'jquery_ujs.js' | javascript_url | script_tag }}
+  {{ 'jquery_nested_form.js' | javascript_url | script_tag }}
+  {{ 'jquery.tools.min.js' | javascript_url | script_tag }}
+  {{ 'jquery.treeview.js' | javascript_url | script_tag }}
+  {{ 'jquery.elevatezoom.js' | javascript_url | script_tag }}
+  {{ 'jquery.jcarousel.min.js' | javascript_url | script_tag }}
+  {{ 'jquery.raty.js' | javascript_url | script_tag }}
+  {{ 'jquery.showLoading.js' | javascript_url | script_tag }}
+  {{ 'jquery.blockUI.js' | javascript_url | script_tag }}
+  {{ 'jquery-file-uploader/jquery.ui.widget.js' | javascript_url | script_tag }}
+  {{ 'jquery-file-uploader/jquery.iframe-transport.js' | javascript_url | script_tag }}
+  {{ 'jquery-file-uploader/jquery.fileupload.js' | javascript_url | script_tag }}
+  {{ 'jquery-file-uploader/jquery.fileupload-fp.js' | javascript_url | script_tag }}
+  {{ 'jquery-file-uploader/tmpl.js' | javascript_url | script_tag }}
+  {{ 'chosen.jquery.min.js' | javascript_url | script_tag }}
+  {{ 'msdropdown/jquery.dd.js' | javascript_url | script_tag }}
+
+  {{ 'product_body_clicker.js' | asset_url | script_tag }}
+  {{ 'checkout_controller.js' | asset_url | script_tag }}
+  {{ 'image_fitter.js' | asset_url | script_tag }}
+  {{ 'radiance.js' | asset_url | script_tag }}
+  {{ 'carousel_setup.js' | asset_url | script_tag }}
+  {{ 'stars-rating.js' | asset_url | script_tag }}
+  {{ 'product_reviews_controller.js' | asset_url | script_tag }}
+
+  {{ 'center.js' | asset_url | script_tag }}
+  {{ 'dialog.js' | asset_url | script_tag }}
+  {{ 'image_gallery.js' | asset_url | script_tag }}
+  {{ 'image_group_gallery.js' | asset_url | script_tag }}
+
+  {{ 'vertical_scrolling.js' | asset_url | script_tag }}
+  {{ 'horizontal_scrolling.js' | asset_url | script_tag }}
+  {{ 'maps.js' | asset_url | script_tag }}
+  {{ 'cart.js' | asset_url | script_tag }}
+  {{ 'wishlist.js' | asset_url | script_tag }}
+  {{ 'request_sample.js' | asset_url | script_tag }}
+  {{ 'personalization_groups.js' | asset_url | script_tag }}
+  {{ 'gift_certificates.js' | asset_url | script_tag }}
+
+  {{ 'product_price_updater.js' | asset_url | script_tag }}
+
+  {{ 'virtual_logo/preview_logo.js' | asset_url | script_tag }}
+  {{ 'virtual_logo/account_logos_controller.js' | asset_url | script_tag }}
+  {{ 'virtual_logo/base_virtual_logo.js' | asset_url | script_tag }}
+  {{ 'virtual_logo/view_logos_controller.js' | asset_url | script_tag }}
+  {{ 'virtual_logo/product_logos_controller.js' | asset_url | script_tag }}
+
+  {{ 'product-image-preview/msdropdown_helpers.js' | asset_url | script_tag }}
+  {{ 'product-image-preview/product-images.js' | asset_url | script_tag }}
+
+  {{ 'country_states.js' | javascript_url | script_tag }}
+  {{ 'country_states.css' | asset_url | stylesheet_tag }}
+  {{ 'country_select_controller.js' | asset_url | script_tag }}
+
+  {{ 'select2.min.css' | asset_url | stylesheet_tag }}
+  {{ 'select2.min.js' | asset_url | script_tag }}
+  {{ 'select2-bootstrap4.min.css' | asset_url | stylesheet_tag }}
+
+  {{ csrf_meta_tag }}
+
+  <!-- FONTAWESOME -->
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.15.0/css/all.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ 'mobile-content-blocks.css' | asset_url | stylesheet_tag }}
+
+  {{ "default-main.css" | asset_url | stylesheet_tag }}
+  {{ "default-main-2.css" | asset_url | stylesheet_tag }}
+  {% if settings.current_theme == "modern" %}{{ "minimal-main.css" | asset_url | stylesheet_tag }}{% endif %}
+  {% if settings.current_theme == "stylistic" %}{{ "blocks-main.css" | asset_url | stylesheet_tag }}{% endif %}
+  {{ 'jquery-ui-1.10.0.custom.css' | asset_url | stylesheet_tag }}
+  <script type="module" src="{{ 'bs-lightbox.bundle.min.js' | asset_url }}"></script>
+  <script>
+    var categoryNavDom = $($.parseHTML(`<div>{% category_navigation full:true %}</div>`)[0]);
+    {% include 'js/data.js' %}
+  </script>
+
+  {{ "custom-main.css" | asset_url | stylesheet_tag }}
+  {{ 'snowfall.css' | asset_url | stylesheet_tag }}
+  <meta name="referrer" content="always">
+
+  {% if page.is_home_page and settings.full_width_slideshow and settings.slideshow_occupy_header %}
+  	{{ "homepage-slideshow.css" | asset_url | stylesheet_tag }}
+  {% endif %}
+</head>
+<body>
+{% if settings.display_under_construction_page %}
+  {% include 'under_construction_page' %}
+  <div id="homecontent">
+{% endif %}
+{% include 'header' %}
+{% include 'notification' %}
+
+{% if template_name == 'index' and settings.display_slideshow %}
+  {% include 'bootstrap-carousel' %}
+{% endif %}
+
+<div class="content-container mx-xl-auto mx-xxl-auto my-3">
+  <div class="container-fluid px-3">
+    {{ content_for_layout }}
+  </div>
+</div>
+
+{% if settings.current_theme == "classic" %}
+  {% include 'footer' %}
+{% endif %}
+
+{% if settings.current_theme == "modern" %}
+  {% include 'minimal_footer' %}
+{% endif %}
+
+{% if settings.current_theme == "stylistic" %}
+  {% include 'blocks_footer' %}
+{% endif %}
+
+{{ 'sitewide.js' | asset_url | script_tag }}
+{{ 'snowfall.js' | asset_url | script_tag }}
+{% if page.is_home_page and settings.full_width_slideshow and settings.slideshow_occupy_header %}
+{{ 'homepage-slideshow.js' | asset_url | script_tag }}
+{% endif %}
+
+<script>
+  {% if shop.active_multi_storefront? and session_passcode == blank %}
+    $("ul.links.pages").append("<li class='nav-item'> <a class='nav-link ps-0 py-2 group-passcode-button' href='#!' data-bs-toggle='modal' data-bs-target='#group-passcode-modal'><span>Enter Group Passcode</span></a> </li>");
+  {% endif %}
+
+  {% if shop.active_multi_storefront? and session_passcode != blank %}
+    $("ul.links.pages").append("<li class='nav-item'> <a class='nav-link ps-0 py-2 clear-group-passcode-button-mobile' href='#!'><span>Clear Group Passcode</span></a> </li>");
+    $(".clear-group-passcode-button-mobile").click(function() {
+      removeGroupPasscodeModal.show();
+    });
+  {% endif %}
+
+</script>
+{% if settings.display_under_construction_page %}
+</div>
+{% endif %}
+</body>
+</html>

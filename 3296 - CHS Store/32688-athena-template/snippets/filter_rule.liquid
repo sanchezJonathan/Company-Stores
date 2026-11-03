@@ -1,0 +1,80 @@
+{% filtrate products_search by filter_rule %}
+  {% if filter.facets %}
+    {% assign filter_id = filter_rule.name | replace: " ", "-" %}
+    <div class="accordion-item">
+      <div class="accordion-header" id="header-{{ filter_id }}">
+        <button class="accordion-button bg-transparent collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{ caller }}{{ filter_id }}" aria-expanded="true" aria-controls="{{ filter_id }}">
+          {{ filter_rule.friendly_name }}
+        </button>
+      </div>
+
+      <div id="{{ caller }}{{ filter_id }}" class="accordion-collapse collapse accordion-{{ filter_id }}" aria-labelledby="header-{{ filter_id }}">
+        <div class="accordion-body border-bottom-0 p-0">
+          
+          {% if filter_rule.name == 'Size' %}
+            {% comment %} Expanded size order grouped logically by size scale {% endcomment %}
+            {% assign size_order = "osfa,xx-small,xxs,x-small,xs,s,small,men's small,m,medium,men's medium,women's medium,l,large,men's large,large tall,xl,x-large,men's x-large,x-large tall,xxl,2xl,2x-large,men's 2x-large,2x-large tall,xxxl,3xl,3x-large,men's 3x-large,4xl,4x-large,5xl,5x-large" | split: "," %}
+            
+            {% comment %} Loop 1: Sorted sizes {% endcomment %}
+            {% for target_size in size_order %}
+              {% for facet in filter.facets %}
+                {% assign safe_facet_name = facet.name | downcase %}
+                {% if safe_facet_name == target_size %}
+                  {% include 'facet' with facet %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            
+            {% comment %} Loop 2: Catch any remaining sizes not in the list {% endcomment %}
+            {% for facet in filter.facets %}
+              {% assign safe_facet_name = facet.name | downcase %}
+              {% unless size_order contains safe_facet_name %}
+                {% include 'facet' with facet %}
+              {% endunless %}
+            {% endfor %}
+
+          {% elsif filter_rule.name == 'Color' %}
+            {% comment %} Alphabetical A-Z sort for Colors {% endcomment %}
+            {% assign sorted_colors = filter.facets | sort: 'name' %}
+            {% for facet in sorted_colors %}
+              {% include 'facet' with facet %}
+            {% endfor %}
+
+          {% else %}
+            {% comment %} Standard loop for Rating and all other filters {% endcomment %}
+            {% for facet in filter.facets %}
+              {% if filter_rule.name == 'Rating' %}
+                <div class="border-bottom px-3 py-2">
+                  {% if facet.selected == true %}
+                    <a href="{{ facet.remove_filter_url }}" title='{{ facet.name | escape }} ({{ facet.count }} items)'>
+                      <div class="form-check">
+                        <input type="checkbox" id="checkbox-{{ facet.from }}" class="form-check-input position-static" onChange="window.location.replace('{{ facet.remove_filter_url }}')" checked>
+                        <label class="form-check-label float-start" onClick="window.location.replace('{{ facet.remove_filter_url }}')">
+                          <div class="d-inline show-star flo" data-rating="{{ facet.from }}" data-star-count="5"></div>
+                        </label>
+                        <span class='badge bg-secondary float-end px-2 rounded-pill'>{{ facet.count }}</span>
+                      </div>
+                    </a>
+                  {% else %}
+                    <a href="{{ facet.filter_url }}" title='{{ facet.name | escape }} ({{ facet.count }} items)'>
+                      <div class="form-check">
+                        <input type="checkbox" id="checkbox-{{ facet.from }}" class="form-check-input position-static" onChange="window.location.replace('{{ facet.filter_url }}')">
+                        <label class="form-check-label float-start" onClick="window.location.replace('{{ facet.remove_filter_url }}')">
+                          <div class="d-inline show-star flo" data-rating="{{ facet.from }}" data-star-count="5"></div>
+                        </label>
+                        <span class='badge bg-secondary float-end px-2 rounded-pill'>{{ facet.count }}</span>
+                      </div>
+                    </a>
+                  {% endif %}
+                </div>
+              {% else %}
+                {% include 'facet' with facet %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endfiltrate %}

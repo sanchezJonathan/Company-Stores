@@ -1,0 +1,56 @@
+<div class="product-tabs">
+  <ul class="clrfix">
+    <li class="selected">
+      <a class="tab" href="javascript:void(0)" rel="tab-01">Overview</a>
+    </li>
+    {% if product.quantity_discounts_enabled? %}
+      <li>
+        <a class="tab" href="javascript:void(0)" rel="tab-02">Quantity Discounts</a>
+      </li>
+    {% endif %}
+    {% if product.size_charts.size > 0 %}
+      <li>
+        <a class="tab" href="javascript:void(0)" rel="tab-03">Size Charts</a>
+      </li>
+    {% endif %}
+  </ul>
+  <div class="tabs-body">
+    <div id="tab-01" class="product-description powered-with-ckeditor">
+      {{ product.description }}
+    </div>
+    {% if product.quantity_discounts_enabled? %}
+      <div id="tab-02" class="product-quantity-discounts powered-with-ckeditor" style="display: none;">
+        <table class="tab_2">
+          <tbody>
+          <tr>
+            <td><b>Quantity</b></td>
+            <td>Base Price</td>
+          </tr>
+          {% for quantity_discount_group in product.quantity_discount_groups %}
+            <tr class='discount-group-name'>
+              <td colspan="2">{{ quantity_discount_group.name }}</td>
+            </tr>
+            {% for quantity_discount in quantity_discount_group.quantity_discounts %}
+              <tr>
+                <td>{{ quantity_discount.quantity }}</td>
+                <td>{{ quantity_discount.price | points_or_currency }}</td>
+              </tr>
+            {% endfor %}
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+    {% if product.size_charts.size > 0 %}
+      <div id="tab-03" class="product-size-charts">
+        <ul>
+        {% for chart in product.size_charts %}
+          <li>
+            <a href="{{chart.url}}" target="_blank">{{chart.name}}</a>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="border p-3 checkout-order-summary">
+  <h5>Order Summary</h5>
+  <div>
+    Subtotal ({{ order.line_items_count }} items)
+    <span class="value float-end">{% include 'price', price_value: order.item_total, price_suffix: true %}</span>
+  </div>
+  {% if order.total_setup_charge > 0 %}
+    <div>
+      Total Setup Charge
+      <span class="value float-end">{% include 'price', price_value: order.total_setup_charge, price_suffix: true %}</span>
+    </div>
+  {% endif %}
+
+  {% if site.show_shipping_base_rate? %}
+    <div>
+      Shipping
+      <span class="value float-end">{% include 'price', price_value: order.shipment_total_without_base_rate, price_suffix: true %}</span>
+    </div>
+    <div>
+      {{ site.shipping_base_rate_name }}
+      <span class="value float-end">{% include 'price', price_value: order.shipment_base_rate, price_suffix: true %}</span>
+    </div>
+  {% else %}
+    <div>
+      Shipping
+      <span class="value float-end">{% include 'price', price_value: order.shipment_rate, price_suffix: true %}</span>
+    </div>
+  {% endif %}
+
+  {% if order.tax_enabled? %}
+    <hr class="my-1">
+    <div>
+      Total before tax
+      <span class="value float-end">{% include 'price', price_value: order.before_tax_total, price_suffix: true %}</span>
+    </div>
+    <div>
+      Sales tax
+      <span class="value float-end">{% include 'price', price_value: order.total_tax, price_suffix: true %}</span>
+    </div>
+  {% endif %}
+
+  {% if order.coupons != empty %}
+    <hr class="my-1">
+    {% for coupon in order.coupons %}
+      <div>
+        <span style="text-transform: lowercase;" title="{{ coupon.note }}">{{ coupon.note | truncate: 15 }}</span>
+        <span class="value float-end">{% include 'price', price_value: coupon.amount, price_suffix: true %}</span>
+      </div>
+    {% endfor %}
+    <div>
+      Total Discount
+      <span class="value float-end">{% include 'price', price_value: order.promo_total, price_suffix: true %}</span>
+    </div>
+  {% endif %}
+
+  {% if order.custom_data_collections != empty %}
+    <div>
+      {{ shop.custom_data_collections_name }}
+      <span class="value float-end">{% include 'price', price_value: order.custom_data_collections_total, price_suffix: true %}</span>
+    </div>
+  {% endif %}
+
+  <hr class="my-1">
+  <div>
+    Grand Total
+    <span class="value float-end">{% include 'price', price_value: order.grand_total, price_suffix: true %}</span>
+  </div>
+  </div>
+
+  <div class="border p-3 mt-4 checkout-item-summary">
+  <div class="mb-3">
+    <h5 class="d-inline-block">Item Summary</h5>
+    <a href="{{ cart_url }}" class="btn secondary float-end btn-item-summary">Edit</a>
+  </div>
+
+  {% for line_item in order.line_items %}
+    <div>
+      <span class="checkout-product-label">{{ line_item.name }}</span>
+      <span class="value float-end">{% include 'price', price_value: line_item.total_price, price_suffix: true %}</span>
+    </div>
+  {% endfor %}
+  <hr class="my-1">
+  <div>
+    Subtotal
+    <span class="value float-end">{% include 'price', price_value: order.item_total, price_suffix: true %}</span>
+  </div>
+  </div>

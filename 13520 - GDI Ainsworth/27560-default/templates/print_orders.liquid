@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  {% include 'order_email_headers' %}
+  <title>
+    Mass Orders Print
+  </title>
+</head>
+<body>
+{% for order in orders %}
+  <div class="print-order">
+    {% include 'order_information' with order %}
+  </div>
+{% endfor %}
+</body>
+</html>

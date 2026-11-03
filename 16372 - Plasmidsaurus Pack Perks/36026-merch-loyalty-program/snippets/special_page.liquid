@@ -1,0 +1,59 @@
+{% assign special_page_content = special_page | replace: "<div id='page-showing' class='iframe-area text-content' style='width: 100%; position: relative'></div>", "" %}
+{% if special_page_content != blank %}
+  <div class="content-block">
+    {{ special_page_content }}
+  </div>
+{% endif %}
+
+{% if featured_products != empty %}
+  <div class="featured-products position-relative">
+    <h2 class="text-center mt-5">
+      {{ settings.fp_verbiage }}
+    </h2>
+    <hr style="background-color: #CECECE">
+    <button type="button" class="scroll-arrow left-arrow" onclick="scrollFeatured(-1)">
+      <svg width="5" height="10" viewBox="0 0 5 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 0L0 5L5 10V0Z" fill="#103714"/>
+      </svg>
+    </button>
+    <button type="button" class="scroll-arrow right-arrow" onclick="scrollFeatured(1)">
+      <svg width="5" height="10" viewBox="0 0 5 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0L5 5L0 10V0Z" fill="#103714"/>
+      </svg>
+    </button>
+    <div class="product-list px-0 d-flex flex-nowrap hide-scrollbar" id="featuredSlider">
+      {% include 'product' with featured_products %}  
+    </div>
+    <a href="/products" class="custom-shop-all">All Merch</a>
+  </div>
+
+  <script>
+    // Slider Scroll Function
+    function scrollFeatured(direction) {
+      const container = document.getElementById('featuredSlider');
+      if (container) {
+        // Move by 80% of the container width
+        const scrollAmount = container.offsetWidth * 0.8;
+        container.scrollBy({
+          left: direction * scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    $(function () {
+      setup_carousels('.product-list .product .image-carousel');
+      bind_product_body_clicker('.product-list', '.product');
+    });
+  </script>
+{% endif %}
+
+{% if settings.display_slideshow and featured_products == empty %}
+<script>
+  $(".homepage-carousel-container, .content-container").addClass("no-content");
+  $(".content-container").removeClass("my-3");
+  $(document).ready(function() {
+    $(".footer-container").removeClass("mt-5");
+  });
+</script>
+{% endif %}

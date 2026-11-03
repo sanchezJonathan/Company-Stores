@@ -1,0 +1,17 @@
+{%- comment -%}
+  shell/logo — store logo linking home. Params: light (true on dark backgrounds →
+  uses "Logo for dark backgrounds" when uploaded), class. Falls back to the store name.
+{%- endcomment -%}
+{%- assign logo_file = '' -%}
+{%- if light and settings['brand_logo_light.png'] != blank -%}
+  {%- assign logo_file = 'brand_logo_light.png' -%}
+{%- elsif settings['brand_logo.png'] != blank -%}
+  {%- assign logo_file = 'brand_logo.png' -%}
+{%- endif -%}
+<a href="{{ root_url }}" class="cs-logo{% if class %} {{ class }}{% endif %}">
+  {%- if logo_file != '' -%}
+    <img src="{{ logo_file | asset_url }}" alt="{{ site.name | escape }}">
+  {%- else -%}
+    <span class="cs-logo__text">{{ site.name }}</span>
+  {%- endif -%}
+</a>

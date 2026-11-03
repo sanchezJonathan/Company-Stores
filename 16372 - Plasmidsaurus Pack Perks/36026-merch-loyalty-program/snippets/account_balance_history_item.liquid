@@ -1,0 +1,9 @@
+{% assign history_item = account_balance_history_item %}
+<tr>
+  <td>{{ history_item.created_at | date: '%m/%d/%Y' }}</td>
+  <td>{{ history_item.adjusted_by }}</td>
+  <td>{{ history_item.note }}</td>
+  <td>{{ history_item.action_str }}</td>
+  <td>{% include 'price', price_value: history_item.amount, price_suffix: true %}</td>
+  <td>{% include 'price', price_value: history_item.balance, price_suffix: true %}</td>
+</tr>

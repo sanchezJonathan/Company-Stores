@@ -1,0 +1,6 @@
+{% if gift_certificate.amounts != empty %}
+  {% include 'price', price_value: gift_certificate.min_amount %} to {% include 'price', price_value: gift_certificate.max_amount %}{% if gift_certificate.allow_custom_amount? %},<br/>{% endif %}
+{% endif %}
+{% if gift_certificate.allow_custom_amount? %}
+  Enter Amount
+{% endif %}

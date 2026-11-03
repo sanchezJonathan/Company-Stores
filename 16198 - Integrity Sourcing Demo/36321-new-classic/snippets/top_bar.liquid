@@ -1,0 +1,74 @@
+{% if settings.nav_links_position == "top_bar" %}
+<div class="navbar-container d-none d-lg-block">
+  <div class="wrapper mx-auto">
+    <div class="container-fluid d-flex flex-row px-3">
+      <ul class="nav header-links pages me-auto">
+      </ul>
+
+      <ul class="nav">
+        {% if authentication_enabled %}
+          {% if current_user %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="{{ account_dashboard_url }}" role="button" aria-expanded="false">{{ current_user.first_name }} {{ current_user.last_name }} </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ account_dashboard_url }}">Dashboard</a></li>
+                {% if shop.store_enabled? %}<li><a class="dropdown-item" href="{{ order_history_url }}">Order History</a></li>{% endif %}
+                <li><a class="dropdown-item" href="{{ edit_account_url }}">Account Settings</a></li>
+                {% if shop.store_enabled? %}<li><a class="dropdown-item" href="{{ address_book_url }}">Address Book</a></li>{% endif %}
+                {% if shop.store_enabled? and shop.show_account_balance? %}<li><a class="dropdown-item" href="{{ account_balance_url }}">Account Balance</a></li>{% endif %}
+                {% if shop.catalog_enabled? %}{% if shop.custom_logos_upload_enabled? or current_user.logos.size != 0  %}<li><a class="dropdown-item" href="{{ logos_url }}">Logos</a></li>{% endif %}{% endif %}
+                {% if shop.budget_enabled? and current_user.has_budgets? %}<li><a class="dropdown-item" href="{{ budget_info_url }}">Budget</a></li>{% endif %}
+                <li><a class="dropdown-item mt-2 border-top" href="{{ logout_url }}">Log Out</a></li>
+              </ul>
+            </li>
+          {% else %}
+            {% if shop.show_login? %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ login_url }}">Log In</a>
+            </li>
+            {% endif %}
+            {% if shop.show_registration? %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ signup_url }}">Register</a>
+            </li>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+
+        {% if shop.primary_phone != blank and settings.show_phone %}
+          <li class="nav-item">
+            <a class="nav-link" href="tel:{{ shop.primary_phone }}">{% include 'icons/phone' %} {{ shop.primary_phone }}</a>
+          </li>
+        {% endif %}
+
+        {% if shop.store_enabled? and current_user and shop.show_account_balance? %}
+          <li class="nav-item">
+            <a href="{{ account_balance_url }}" class="nav-link">{% if shop.points_store? %}Points{% else %}Account{% endif %} Balance: <span>{{ current_user.balance | points_or_currency }}</span></a>
+          </li>
+        {% endif %}
+
+        {% if current_user and shop.wishlist_enabled? %}
+          <li class="nav-item">
+            <a href="{{ wishlist_url }}" class="nav-link">
+              {% include 'icons/wishlist' %}
+              ({{ wishlist.cart_items_count | pluralize: 'item', 'items' }})
+            </a>
+          </li>
+        {% endif %}
+
+        {% if shop.store_enabled? %}
+          <li class="nav-item">
+            <a href="{{ cart_url }}" class="nav-link pe-0">
+              {% include 'icons/cart' %}
+              {% if settings.show_shopping_cart_total %}
+                {{ order.cart_total | points_or_currency }}
+              {% endif %}
+              ({{ order.cart_items_count | pluralize: 'item', 'items' }})
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,49 @@
+<div class="billing-address-container">
+  <h2>Billing Address</h2>
+
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="true" name="checkout[use_same_as_shipping_address]" id="same-as-shipping-address"  data-shipping='{{ form.shipping_details | json | escape }}' {% if form.use_same_as_shipping_address %}checked{% endif %}>
+    <label class="form-check-label" for="same-as-shipping-address">
+      Same as Shipping Address
+    </label>
+  </div>
+
+  {% include 'billing_addresses_drop_down', form: form.address %}
+  {% include 'billing_address_fields', form: form.address %}
+
+  {% if current_user %}
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" value="true" id="save-to-billing-address" name="checkout[save_to_address]" value="true" {% if form.address.save_to_address %}checked{% endif %}>
+      <label class="form-check-label" for="save-to-billing-address">
+        Save my Address Information
+      </label>
+    </div>
+  {% endif %}
+
+  {% if shop.payment_required? %}
+    <button type="button" class="btn secondary billing-address-continue continuebutton">Continue</button>
+  {% else %}
+    <input type="submit" value="Continue" class="btn secondary continuebutton"/>
+  {% endif %}
+</div>
+<script>
+  if ($('#hasCA').val() == "1") {
+    $('#website_order_billing_contact_attributes_first_name').val('Customer Appreciation');
+    $('#website_order_billing_contact_attributes_last_name').val('Zoom');
+    $('#website_order_billing_address_attributes_first_address').val('55 Almaden Blvd');
+    $('#website_order_billing_address_attributes_second_address').val('#600');
+    $('#website_order_billing_address_attributes_city').val('San Jose');
+    $('#website_order_billing_address_attributes_zip').val('95113');
+    $('#website_order_billing_contact_attributes_phone').val('(888) 799-9666');
+    $('#website_order_billing_contact_attributes_email').val('zoomorders@canarymarketing.com');
+    $('#website_order_billing_address_attributes_country').val('United States').trigger('change');
+    setTimeout(function() {
+      $('#website_order_billing_address_attributes_state').val('California').trigger('change');
+    }, 700);
+    $('html, body').hide();
+    setTimeout(function() {
+      $('.continuebutton').trigger('click');
+      $('html, body').show();
+    }, 1000);
+  }
+</script>

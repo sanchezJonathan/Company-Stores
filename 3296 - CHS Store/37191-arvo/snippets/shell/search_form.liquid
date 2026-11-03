@@ -1,0 +1,11 @@
+{%- comment -%}
+  shell/search_form — the platform search form (field s[keyword], VERIFIED — THEME).
+  Params: id (unique input id).
+{%- endcomment -%}
+{% form 'search' %}
+  <div class="cs-search">
+    <label class="visually-hidden" for="{{ id }}">Search</label>
+    <input class="form-control cs-search__input" type="search" name="s[keyword]" id="{{ id }}" placeholder="Search products" autocomplete="off">
+    <button class="cs-search__submit" type="submit" aria-label="Search">{% render 'icons/icon_search' %}</button>
+  </div>
+{% endform %}

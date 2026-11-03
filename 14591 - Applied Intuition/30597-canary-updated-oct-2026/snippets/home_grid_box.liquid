@@ -1,0 +1,46 @@
+{% comment %}
+  One home row: category banner + its two products.
+  n is the Grid Box number (1-3), set up under Store Design > Content > Grid Boxes.
+  Image settings come back blank, so we go by asset_url instead. It's empty when nothing's uploaded.
+{% endcomment %}
+{% assign prefix = 'grid_box_' | append: n %}
+{% assign image_prefix = 'grid-box-0' | append: n %}
+
+{% assign banner_url = image_prefix | append: '.jpg' | asset_url %}
+{% assign title_key = prefix | append: '_title' %}
+{% assign link_key = prefix | append: '_link' %}
+{% assign label_key = prefix | append: '_collection_label' %}
+
+<div class="grid-box">
+  <div class="grid-box-banner">
+    {% if banner_url != blank %}
+      <img src="{{ banner_url }}" alt="" loading="lazy">
+    {% endif %}
+    <a href="{{ settings[link_key] }}" class="grid-box-banner-link">{{ settings[title_key] }}</a>
+  </div>
+
+  <div class="grid-box-feature">
+    <div class="grid-box-feature-head">
+      <span>{{ settings[label_key] }}</span>
+      <a href="{{ settings[link_key] }}">SHOP NOW</a>
+    </div>
+    <div class="grid-box-products">
+      {% for p in (1..2) %}
+        {% assign product_prefix = image_prefix | append: '-product-' | append: p %}
+        {% assign image_url = product_prefix | append: '.png' | asset_url %}
+        {% assign hover_url = product_prefix | append: '-hover.png' | asset_url %}
+        {% assign name_key = prefix | append: '_product_' | append: p | append: '_name' %}
+        {% assign product_link_key = prefix | append: '_product_' | append: p | append: '_link' %}
+
+        {% if image_url != blank %}
+          <a href="{{ settings[product_link_key] }}" class="grid-box-product">
+            <img src="{{ image_url }}" alt="{{ settings[name_key] }}" loading="lazy">
+            {% if hover_url != blank %}
+              <img class="grid-box-product-hover" src="{{ hover_url }}" alt="" loading="lazy">
+            {% endif %}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

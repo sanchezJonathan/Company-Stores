@@ -2,6 +2,7 @@
 (function() {
   $('.product-summary').replaceWith('{{ product_summary_html | escape_javascript }}');
   $('.out-of-stock-notification').remove();
+  $('.add-to-cart-area .btn.add-to-cart').removeClass('d-none');
 
   {% for variant in form.variants %}
     var stockSpan = $("#{{ variant.stock_key }}");
@@ -33,11 +34,12 @@
   }
 
   function addNotificationButton(el) {
-    var button = "<div class='out-of-stock-notification'><button type='button' class='btn btn-link px-0 js-out-of-stock-button' data-bs-toggle='modal' data-bs-target='#modal-out-of-stock'>Notify me when it's back in stock</button></div>";
+    var button = "<div class='out-of-stock-notification'><button type='button' class='btn btn-link px-0 js-out-of-stock-button primary' data-bs-toggle='modal' data-bs-target='#modal-out-of-stock'>Notify Me</button></div>";
     if ($('.multi-prod-options').length){
       stockSpan.parents(".multi-prod-options").after(button);
     } else {
-      stockSpan.parent().after(button);
+      // hidden, not replaced, so it comes back when an in-stock option is picked
+      $(".add-to-cart-area .btn.add-to-cart").addClass("d-none").before(button);
     }
   }
 })();

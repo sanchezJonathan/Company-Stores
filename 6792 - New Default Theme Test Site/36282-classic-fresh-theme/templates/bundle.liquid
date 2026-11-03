@@ -1,0 +1,103 @@
+<div
+  class="container-fluid product-page bundle-page clrfix"
+  data-bundle-id="{{ bundle.id }}"
+  data-member-count="{{ bundle.products.size }}"
+  data-mode="configuring"
+  {% if form.submitted? %}
+    data-submitted="true"
+  {% endif %}
+  {% if form.editing? %}
+    data-editing="true"
+  {% endif %}
+  {% if site.inventory_settings.allow_stock_notification? %}
+    data-allow-stock-notification="true"
+  {% endif %}
+>
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+
+  <div class="product-page-main">
+    <h2 class="bundle-title truncated">
+      {{ bundle.name }}
+      <p class="bundle-subtitle text-muted fs-5">
+        (<span class="bundle-subtitle-text"
+          >Product <span class="bundle-progress-current">1</span> of {{ bundle.products.size -}}</span
+        >)
+      </p>
+    </h2>
+    <div class="product-wrapper clrfix row">
+      <div class="product-left-section clrfix col-md-7 col-sm-12 col-xs-12">
+        <div class="product-info clrfix position-sticky">
+          <div class="product-gallery">
+            {% for bundle_product in bundle.products %}
+              <div
+                class="bundle-gallery-panel gallery-main d-none"
+                data-bundle-product-id="{{ bundle_product.id }}"
+                data-product-id="{{ bundle_product.product_id }}"
+              >
+                <div class="main-img-container bg-white">
+                  {% view_logos bundle_product %}
+                  <div class="main-img" data-id="{{ bundle_product.primary_image.id }}">
+                    {% render 'product_primary_image', product: bundle_product %}
+                  </div>
+                </div>
+                {% render 'product_images_gallery', product: bundle_product %}
+              </div>
+            {% endfor %}
+
+            {% render 'bundle_summary_gallery', bundle: bundle %}
+          </div>
+        </div>
+      </div>
+
+      <div class="product-right-section clrfix col-md-5 col-sm-12 col-xs-12">
+        <div class="product-info clrfix">
+          {% form 'populate_bundle' %}
+            {% render 'bundle_configurator',
+              form: form,
+              bundle: bundle,
+              shop: shop,
+              new_product_logo_url: new_product_logo_url
+            %}
+
+            <div class="bundle-footer total-info clrfix">
+              <div class="summary-footer">
+                <div class="name fw-bold">Bundle Total:</div>
+                <div class="bundle-total-price">{{ form.total_price | points_or_currency }}</div>
+              </div>
+              <div class="add-to-cart-area">
+                {% if shop.store_enabled? %}
+                  <input
+                    type="submit"
+                    name="add_to_cart"
+                    value="{% if form.editing? %}Update Bundle{% else %}Add to Cart{% endif %}"
+                    class="btn primary add-to-cart opacity-50"
+                    disabled
+                  >
+                {% endif %}
+                {% if shop.wishlist_enabled? %}
+                  <input
+                    type="submit"
+                    name="add_to_wishlist"
+                    value="Add to Wishlist"
+                    class="btn secondary opacity-50"
+                    disabled
+                  >
+                {% endif %}
+              </div>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'bundles.js' | asset_url }}"></script>
+<script>
+  $(function () {
+    var stickyHeaderHeight = ($('.sticky-header').height() || 0) + 10;
+    $('.bundle-page .product-left-section .product-info').css('top', stickyHeaderHeight + 'px');
+  });
+</script>

@@ -1,0 +1,35 @@
+<h2>Shipping Address</h2>
+{% include 'shipping_addresses_drop_down', form: form %}
+{% include 'shipping_address_fields', form: form %}
+
+{% comment %}
+{% if current_user %}
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="true" id="checkout[save_to_address]" name="checkout[save_to_address]" {% if form.save_to_address %}checked{% endif %}>
+    <label class="form-check-label" for="checkout[save_to_address]">
+      Save my Address Information
+    </label>
+  </div>
+{% endif %}
+{% endcomment %}
+
+<input type="submit" value="SUBMIT" class="btn secondary"/>
+
+<script>
+  $(document).ready(function () {
+    var officeValue = $('#office-location').val().toLowerCase();
+    var matchFound = false;
+    $('.form-select.address-dropdown option').each(function () {
+      if ($(this).text().toLowerCase() === officeValue) {
+        $(this).prop('selected', true);
+        matchFound = true;
+      }
+    });
+    if (matchFound) {
+      $('.form-select.address-dropdown').trigger('change');
+      $('.office-location-container').hide();
+    } else {
+      $('.office-location-container').show();
+    }
+  });
+</script>

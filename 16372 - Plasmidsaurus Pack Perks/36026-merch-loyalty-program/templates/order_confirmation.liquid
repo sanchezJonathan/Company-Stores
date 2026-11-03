@@ -1,0 +1,91 @@
+<div class="content-item thank-you text-center my-5">
+  <h1>You're all set!</h1>
+  <h3>{{ settings.order_confirm_header }}</h3>
+  <div class="body">
+    {% if order.moas_pending? %}
+      <p style='color: red; text-align: center;'>Your order has been sent for approval. You will be notified if your order is approved or denied.</p>
+    {% else %}
+      {{ settings.order_confirm_message }}
+    {% endif %}
+  </div>
+  <div class="text-center">
+    <img style="padding-top: 5%; width: 50%;" class="ThankYouDino" src="{{'thank_you_dino.png' | asset_url}}">
+  </div>
+</div>
+<div class="content-item suggested-products mt-3 text-center">
+ {% if products != empty and settings.show_like_products %}
+    <h3>Other Favorites</h3>
+
+    <div class="featured-products">
+      <div class="product-list thank-you">
+        
+        {% product_samples 4 %}
+          {% include 'product' with product_samples %}
+        {% endproduct_samples %}
+
+        <script>
+          $(function () {
+            setup_carousels('.product-list .product .image-carousel');
+            bind_product_body_clicker('.product-list', '.product');
+          });
+        </script>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="go-back">
+    <a href="{{ root_url }}" class="btn secondary">Go Back To Home Page</a>
+  </div>
+</div>
+
+<script>
+function adjustThumbnailWidth() {
+  var gutter = 15;
+  var containerWidth = $(".featured-products").width() + gutter;
+  var products_per_row = {{ settings.product_thumbnails_per_row }};
+  var thumbnail_division = containerWidth / products_per_row;
+  var thumbnail_width = thumbnail_division - gutter;
+  var thumbnail_margin = gutter / 2;
+
+  if (window.innerWidth > 768) {
+    $(".featured-products").attr("style", "overflow: hidden");
+    $(".product-list").attr("style", "margin: 0;");
+    $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+
+    return;
+  }
+
+  $(".product-list").removeAttr("style");
+  $(".product-thumbnail").removeAttr("style");
+}
+
+adjustThumbnailWidth();
+$(window).resize(function() {
+  adjustThumbnailWidth();
+});
+</script>
+<script>
+(function() {
+  var brightOrder = {{ order | json }};
+
+  if (brightOrder && brightOrder.id) {
+    gtag("event", "purchase", {
+      transaction_id: String(brightOrder.id),
+      currency: "USD",
+      value: parseFloat(brightOrder.grand_total) || 0,
+      shipping: parseFloat(brightOrder.shipment_total) || 0,
+      tax: parseFloat(brightOrder.tax_total) || 0,
+      items: [
+        {% for line_item in order.line_items %}
+        {
+          item_id: "{{ line_item.sku }}",
+          item_name: "{{ line_item.name }}",
+          price: parseFloat("{{ line_item.unit_price }}") || 0,
+          quantity: {{ line_item.quantity }}
+        }{% if forloop.last == false %},{% endif %}
+        {% endfor %}
+      ]
+    });
+  }
+})();
+</script>

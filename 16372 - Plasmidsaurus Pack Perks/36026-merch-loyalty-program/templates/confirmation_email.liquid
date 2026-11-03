@@ -1,0 +1,113 @@
+<style type="text/css">
+  /* Import Inconsolata */
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+
+  /* Global Styles */
+  * { 
+    margin: 0; 
+    padding: 0; 
+    font-size: 100%; 
+    font-family: 'Inconsolata', Monaco, Consolas, 'Courier New', monospace; 
+    line-height: 1.65; 
+    color: #103714; 
+  }
+  
+  /* Logo Constraint */
+  .logo-img {
+    height: 50px !important;
+    width: auto !important;
+    display: block;
+  }
+  
+  img { max-width: 100%; display: block; }
+  body, .body-wrap { width: 100% !important; height: 100%; background: #ffffff; }
+  
+  a { color: #103714; text-decoration: underline; font-weight: bold; }
+  a:hover { text-decoration: none; }
+  
+  /* UPDATED BUTTON STYLE */
+  .button {
+    display: inline-block;
+    color: #103714 !important; 
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: #9eda1e !important;
+    /* Borders used for padding effect in email clients */
+    border-top: 12px solid #9eda1e;
+    border-bottom: 12px solid #9eda1e;
+    border-right: 25px solid #9eda1e;
+    border-left: 25px solid #9eda1e;
+  }
+  
+  h1, h2, h3, h4, h5, h6 { margin-bottom: 20px; line-height: 1.25; color: #103714; }
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.2em; }
+  
+  p, ul, ol { font-size: 16px; font-weight: normal; margin-bottom: 20px; color: #103714; }
+  
+  .container { display: block !important; clear: both !important; margin: 0 auto !important; max-width: 580px !important; font-size: 16px;}
+  .container table { width: 100% !important; border-collapse: collapse; }
+  
+  /* Masthead styling */
+  .container .masthead { padding: 20px 20px; background: #ffffff; }
+  .container .content { background: white; padding: 30px 35px; }
+  
+  .container .content.footer { background: none; }
+  .container .content.footer p { margin-bottom: 0; color: #103714; text-align: center; font-size: 14px; opacity: 0.8; }
+  .container .content.footer a { color: #103714; text-decoration: none; font-weight: bold; }
+</style>
+
+<table class="body-wrap">
+    <tr>
+        <td class="container">
+            <table>
+                <tr>
+                    <td align="left" class="masthead">
+                        {% if settings.confirmation_emails_logo %}
+                          <img src="{{ 'email_logo_custom_bg_image.png' | asset_url }}" class="logo-img">
+                        {% elsif settings.show_logo %}
+                          <img src="{{ 'logo_custom_bg_image.jpg' | asset_url }}" class="logo-img">
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content">
+                        <h2>Hi {{ user.name }},</h2>
+                        <p>An account has been created for you at {{ site.name }}.</p>
+                        <p>Your username is: <strong>{{ user.username }}</strong></p>
+
+                        {% if user.has_no_password? %}
+                            <p>To start shopping, you'll need to activate your account and set up a password.</p>
+                            <p>You can confirm your account through the link below:</p>
+                        {% else %}
+                            <p>To start shopping you’ll need to confirm your e-mail address through the link below:</p>
+                        {% endif %}
+
+                        <table>
+                            <tr>
+                                <td align="center" style="padding: 20px 0;">
+                                    <a href="{{ confirm_url }}" class="button">Confirm My Merch Account</a>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p><em>– {{ site.name }} Team</em></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="container">
+            <table>
+                <tr>
+                    <td class="content footer" align="center">
+                        <p>Sent by {{ site.name }}</p>
+                        <p><a href="mailto:{{ site.from_email }}">{{ site.from_email }}</a></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

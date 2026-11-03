@@ -1,0 +1,51 @@
+{% assign safe_facet_name = facet.name | downcase %}
+{% comment %} Added 6xl to the upcase acronyms list just in case you need it! {% endcomment %}
+{% assign upcase_sizes = "osfa,xxs,xs,s,m,l,xl,xxl,2xl,xxxl,3xl,4xl,5xl,6xl" | split: "," %}
+
+{% if upcase_sizes contains safe_facet_name %}
+  {% assign temp_name = facet.name | upcase %}
+{% else %}
+  {% comment %} Split the name into words, capitalize each word's first letter, and rejoin them {% endcomment %}
+  {% assign words = safe_facet_name | split: ' ' %}
+  {% assign titlecased_name = "" %}
+  
+  {% for word in words %}
+    {% assign capitalized_word = word | capitalize %}
+    {% assign titlecased_name = titlecased_name | append: capitalized_word | append: " " %}
+  {% endfor %}
+  
+  {% comment %} Strip the trailing space and fix the X-Large / nx-Large formatting {% endcomment %}
+  {% assign temp_name = titlecased_name | strip | replace: "X-large", "X-Large" | replace: "X-small", "X-Small" | replace: "Xx-small", "XX-Small" | replace: "2x-large", "2x-Large" | replace: "3x-large", "3x-Large" | replace: "4x-large", "4x-Large" | replace: "5x-large", "5x-Large" | replace: "6x-large", "6x-Large" %}
+{% endif %}
+
+{% assign formatted_facet_name = temp_name | escape | truncate: 18 %}
+
+{% if facet.selected == true %}
+  <div class="border-bottom px-3 py-2">
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="checkbox-{{ facet.name | escape }}" onChange="window.location.replace('{{ facet.remove_filter_url }}')" checked>
+      <label class="form-check-label float-start" onClick="window.location.replace('{{ facet.remove_filter_url }}')">
+        {{ formatted_facet_name }}
+      </label>
+      <span class='badge bg-secondary float-end px-2 rounded-pill'>{{ facet.count }}</span>
+    </div>
+  </div>
+{% else %}
+  <div class="border-bottom px-3 py-2">
+    <div class="form-check">
+      <input type="checkbox" id="checkbox-{{ facet.name | escape }}" class="form-check-input position-static" onChange="window.location.replace('{{ facet.filter_url }}')">
+      <label class="form-check-label float-start" onClick="window.location.replace('{{ facet.filter_url }}')">
+        {{ formatted_facet_name }}
+      </label> 
+      <span class='badge bg-secondary float-end px-2 rounded-pill'>{{ facet.count }}</span>
+    </div>
+  </div>
+{% endif %}
+
+{% if facet.hierarchical and facet.children.size > 0 %}
+    {% for child in facet.children %}
+      <div class="parent">
+        {% include 'facet' with child %}
+      </div>
+    {% endfor %}
+{% endif %}

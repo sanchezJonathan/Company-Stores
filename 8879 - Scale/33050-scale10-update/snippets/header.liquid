@@ -23,7 +23,9 @@
           <!-- Split header: categories left, logo centered, account/search/cart right -->
           <div class="header-split-left d-none d-lg-flex">
             <ul class="navbar-nav header-links {% if settings.category_links_position == "inline_with_logo" %}categories{% endif %}"></ul>
+            <!--
             <ul class="navbar-nav header-links {% if settings.nav_links_position == "inline_with_logo" %}pages{% endif %}"></ul>
+				-->
           </div>
 
           {% if settings.display_logo %}
@@ -227,7 +229,6 @@
     {% endif %}
   </ul>
 </div>
-
 {{ 'header.js' | asset_url | script_tag }}
 
 <script>

@@ -1,0 +1,21 @@
+{%- comment -%}
+  shell/account_links — <li> items for the account menu (header dropdown + mobile drawer).
+  Same links and conditions as Classic - Latest's profile menu. Params: link_class.
+{%- endcomment -%}
+{%- if current_user -%}
+  <li><a class="{{ link_class }}" href="{{ account_dashboard_url }}">Dashboard</a></li>
+  {%- if site.store_enabled? -%}<li><a class="{{ link_class }}" href="{{ order_history_url }}">Order history</a></li>{%- endif -%}
+  <li><a class="{{ link_class }}" href="{{ edit_account_url }}">Account settings</a></li>
+  {%- if site.store_enabled? -%}<li><a class="{{ link_class }}" href="{{ address_book_url }}">Address book</a></li>{%- endif -%}
+  {%- if site.store_enabled? and site.show_account_balance? -%}
+    <li><a class="{{ link_class }}" href="{{ account_balance_url }}">{% if site.points_store? %}Points{% else %}Account{% endif %} balance: {{ current_user.balance | points_or_currency }}</a></li>
+  {%- endif -%}
+  {%- if site.catalog_enabled? -%}{%- if site.custom_logos_upload_enabled? or current_user.logos.size != 0 -%}
+    <li><a class="{{ link_class }}" href="{{ logos_url }}">Logos</a></li>
+  {%- endif -%}{%- endif -%}
+  {%- if site.budget_enabled? and current_user.has_budgets? -%}<li><a class="{{ link_class }}" href="{{ budget_info_url }}">Budget</a></li>{%- endif -%}
+  <li><a class="{{ link_class }} cs-account-signout" href="{{ logout_url }}">Sign out</a></li>
+{%- else -%}
+  {%- if site.show_login? -%}<li><a class="{{ link_class }}" href="{{ login_url }}">Sign in</a></li>{%- endif -%}
+  {%- if site.show_registration? -%}<li><a class="{{ link_class }}" href="{{ signup_url }}">Create account</a></li>{%- endif -%}
+{%- endif -%}

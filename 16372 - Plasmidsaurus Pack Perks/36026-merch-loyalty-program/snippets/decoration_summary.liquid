@@ -1,0 +1,39 @@
+{% if form.selected_logos != empty and product.decoration_methods_enabled? %}
+  <div class="decoration-title">
+    <h4>Decoration Summary</h4>
+  </div>
+
+  {% for location in logo_locations %}
+    {% assign logo = form.selected_logos[location.id] %}
+    {% assign decoration = form.decorations[location.id] %}
+    {% assign size_price = decoration.size.price_modifier %}
+    {% assign color_price = decoration.color.price_modifier %}
+
+    {% if logo and decoration and size_price > 0 or color_price > 0 or location.charge? and logo.charge %}
+      <div class="location-name-container">
+        <div class="name" colspan="4">{{ location.name }}</div>
+      </div>
+
+      {% if location.charge? and logo.charge %}
+        <div class="summary-body deco">
+          <div class="name" colspan="3">{{ logo.name }}</div>
+          <div class="price">{% include 'price', price_value: logo.charge %}</div>
+        </div>
+      {% endif %}
+
+      {% if size_price > 0 %}
+        <div class="summary-body deco">
+          <div class="name" colspan="3">{{ decoration.size.name }}</div>
+          <div class="price">{% include 'price', price_value: size_price %}</div>
+        </div>
+      {% endif %}
+
+      {% if color_price > 0 %}
+        <div class="summary-body deco">
+          <div class="name" colspan="3">{{ decoration.color.name }}</div>
+          <div class="price">{% include 'price', price_value: color_price %}</div>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}

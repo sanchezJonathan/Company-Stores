@@ -1,0 +1,55 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    // 1. STICKY HEADER
+    var stickyHeaderHeight = $(".sticky-header").height() + 10;
+    $(".product-left-section .product-info").css("top", stickyHeaderHeight + "px");
+
+    // 2. GALLERY CLICK LOGIC
+    $('.images-wrapper .images li.image a').on('click', function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation(); 
+      var newImageSrc = $(this).attr('href');
+      var $mainImg = $('.product-page-main .main-img img');
+      $mainImg.attr('src', newImageSrc);
+
+      if ($('.zoomContainer').length) {
+        $('.zoomContainer').remove();
+        $mainImg.removeData('elevateZoom');
+      }
+      $('.images-wrapper .images li.image').removeClass('primary');
+      $(this).closest('li.image').addClass('primary');
+    });
+
+    // 3. RELATED PRODUCTS INTEGRATION
+    function adjustThumbnailWidth() {
+      var gutter = 15;
+      // Target the containers used in your CSS
+      var $relatedContainer = $(".related-products, .recently-viewed-products");
+      var $list = $relatedContainer.find(".product-list, .related-products-thumbnails, .recently-viewed-products-thumbnails");
+      
+      // Ensure they are visible and behaving as flex containers
+      $list.css({
+        "display": "flex",
+        "flex-wrap": "wrap",
+        "visibility": "visible",
+        "opacity": "1"
+      });
+
+      // If on Desktop, we let the CSS 'calc((100% - 60px) / 3)' do the heavy lifting,
+      // but we ensure the gutter margin is respected.
+      if (window.innerWidth > 768) {
+        $(".product-thumbnail", $relatedContainer).css({
+          "margin-right": gutter + "px",
+          "margin-bottom": "20px"
+        });
+      } else {
+        // Mobile: reset to allow your CSS media queries to take over
+        $(".product-thumbnail", $relatedContainer).css("margin-right", "0");
+      }
+    }
+
+    // Run with a slight delay to account for dynamic loading of related products
+    setTimeout(adjustThumbnailWidth, 600);
+    $(window).resize(adjustThumbnailWidth);
+  });
+</script>

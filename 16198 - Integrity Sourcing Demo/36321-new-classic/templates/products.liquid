@@ -1,0 +1,112 @@
+<style>
+    #page-loading-overlay {
+        position: fixed;
+        inset: 0;
+        background: #fff;
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .page-loading-spinner {
+        width: 30px;
+        height: 30px;
+        border: 3px solid #ddd;
+        border-top-color: #000;
+        border-radius: 50%;
+        animation: page-loading-spin 0.7s linear infinite;
+    }
+
+    @keyframes page-loading-spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<script>
+if (window.location.href.includes('/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FNovatae')) {
+    $('body').prepend(`
+        <div id="page-loading-overlay">
+            <div class="page-loading-spinner"></div>
+        </div>
+    `);
+
+    var logo = '/assets/novatae-logo.png',
+        css = $('<link>', { rel: 'stylesheet', href: '/assets/novatae-main.css' }),
+        logoImg = new Image();
+
+    Promise.all([
+        new Promise(resolve => css.on('load error', resolve)),
+        new Promise(resolve => {
+            logoImg.onload = logoImg.onerror = resolve;
+            logoImg.src = logo;
+        })
+    ]).then(function() {
+        $('.logo-container img, .footer-logo').attr({'src': logo, 'alt': 'Novatae logo', 'title': 'Novatae logo'});
+        $('#page-loading-overlay').fadeOut(300, function() {
+            $(this).remove();
+        });
+    });
+
+    $('head').append(css);
+} else if (window.location.href.includes('/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FWorld+Investment+Advisors')) {
+    $('body').prepend(`
+        <div id="page-loading-overlay">
+            <div class="page-loading-spinner"></div>
+        </div>
+    `);
+
+    var logo = '/assets/world-investment-advisors-logo.png',
+        css = $('<link>', { rel: 'stylesheet', href: '/assets/world-investment-advisors-main.css' }),
+        logoImg = new Image();
+
+    Promise.all([
+        new Promise(resolve => css.on('load error', resolve)),
+        new Promise(resolve => {
+            logoImg.onload = logoImg.onerror = resolve;
+            logoImg.src = logo;
+        })
+    ]).then(function() {
+        $('.logo-container img, .footer-logo').attr({'src': logo, 'alt': 'World Investment Advisors logo', 'title': 'World Investment Advisors logo'});
+        $('#page-loading-overlay').fadeOut(300, function() {
+            $(this).remove();
+        });
+    });
+
+    $('head').append(css);
+}
+</script>
+
+<div id="content" class="content-page container-fluid">
+  {% if category_banner != blank %}
+    <div class="category-banner my-4 border border-white"><img class="img-fluid w-100" src="{{category_banner}}" /></div>
+  {% endif %}
+  {% include 'update_breadcrumbs' %}
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "10" %}
+    {% include 'paginate_by_10' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "20" %}
+  	{% include 'paginate_by_20' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "30" %}
+  	{% include 'paginate_by_30' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "40" %}
+  	{% include 'paginate_by_40' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "50" %}
+  	{% include 'paginate_by_50' %}
+  {% endif %}
+</div>
+
+{% include 'category_page_js' %}

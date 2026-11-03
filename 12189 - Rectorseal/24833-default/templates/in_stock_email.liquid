@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  {% include 'order_email_headers' %}
+  <title>
+    Product is now available
+  </title>
+</head>
+<body>
+  <table id="background">
+    <tr>
+      <td>
+        <table id="main">
+          <tr>
+            <td width="300">
+              <div style="
+                width: {% if settings.logo_width != empty %}{{ settings.logo_width }}{% else %}auto{% endif %};
+                height: auto;
+                display:block;
+                float: left;"
+              >
+              {% if settings.confirmation_emails_logo %}
+                <img src="{{ 'email_logo_custom_bg_image.png' | asset_url }}" style="max-height: {{ settings.header_height }};">
+              {% elsif settings.show_logo %}
+                <img src="{{ 'logo_custom_bg_image.jpg' | asset_url }}" style="max-height: {{ settings.header_height }};">
+              {% endif %}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="welcome-message">
+              <p>
+                Great news! "{{ inventory_item.product.name }}" is now available for purchase.
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <table id="order-summary">
+          <tr class="section-header">
+            <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=120>
+              <p style="margin: 3px 0px;">
+                Image
+              </p>
+            </td>
+            <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width=480>
+              <p style="margin: 3px 0px;">
+                Details
+              </p>
+            </td>
+            <td bgcolor="{{ settings.order_confirm_heading_bars_color }}" width="100">
+              <p style="margin: 3px 0px;">
+                Price
+              </p>
+            </td>
+          </tr>
+
+          <tr class="line-item">
+            <td>
+              <table class="basic-info">
+                <tbody>
+                  <tr>
+                    <td class="image-cell">
+                      <img
+                        width=100
+                        alt="{{ inventory_item.product.name }} image"
+                        title="{{ inventory_item.product.name }} image"
+                        src="{% if inventory_item.image %}{{ inventory_item.image.small_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+
+            <td class="product-info">
+              <p class="sub-option product-title">
+                {{ inventory_item.product.name }}
+              </p>
+
+              {% for sub_option in inventory_item.sub_options %}
+                <p class="sub-option">
+                  <span class="sub-option-name">{{ sub_option.product_option.friendly_name }}{% if sub_option.product_option.group %} ({{
+                    sub_option.product_option.group.name }}) {% endif %}:</span>
+                  <span class="sub-option-value">{{ sub_option.name }}</span>
+                </p>
+              {% endfor %}
+            </td>
+            <td class="product-price">
+              <p>
+                {{ inventory_item.price | points_or_currency }}
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td width="100">
+              <a href="{{ inventory_item.product | product_url }}" class="button mt-10">Buy Now</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

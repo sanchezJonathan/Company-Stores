@@ -1,0 +1,21 @@
+<footer class="site-footer">
+  <div class="site-footer-wordmark">Applied Intuition</div>
+
+  {% comment %} Links come from Store Design > Footer > Custom Footer Links (1-6). New-tab links get the ↗ {% endcomment %}
+  {% if settings.enable_custom_footer_links %}
+    <nav class="site-footer-links" aria-label="Footer">
+      {% for n in (1..6) %}
+        {% assign enable_key = 'enable_footer_link_' | append: n %}
+        {% assign url_key = 'custom_footer_link_' | append: n %}
+        {% assign text_key = 'custom_footer_link_text_' | append: n %}
+        {% assign new_tab_key = 'custom_footer_link_' | append: n | append: '_target_blank' %}
+
+        {% if settings[enable_key] %}
+          <a href="{{ settings[url_key] }}"{% if settings[new_tab_key] %} target="_blank" rel="noopener noreferrer"{% endif %}>
+            {{ settings[text_key] }}{% if settings[new_tab_key] %} ↗{% endif %}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+  {% endif %}
+</footer>

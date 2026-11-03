@@ -1,0 +1,118 @@
+/*-------------------*/
+/* GENERAL */
+.navbar {
+  padding: 0;
+}
+.navbar-container {
+  border-bottom: 1px solid #dee2e6; 
+}
+.category-container .nav-link {
+  padding: 1rem 1.5rem !important;
+  border-right: 1px solid #dee2e6; 
+}
+.category-container ul.navbar-nav {
+  border-left: 1px solid #dee2e6;
+}
+.product-thumbnail {
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.08) !important;
+}
+/*-------------------*/
+/* TOP NAV */
+/*-------------------*/
+.navbar-container .dropdown-menu, .category-container .dropdown-menu {
+  border-radius: 0;
+  padding: 0.3rem 0;
+}
+.navbar-container .dropdown-menu {
+  margin-top: -2px !important;
+  border-color: #dee2e6;
+}
+.category-container .dropdown-menu {
+  margin-top: 1px !important;
+  border: 1px solid {{ settings.bottombar_dd_bg_color }};
+}
+/*-------------------*/
+/* HEADER */
+/*-------------------*/
+.search-btn {
+  background-color: {{ settings.search_bg }};
+  border-color: #dee2e6 !important;
+  color: {{ settings.search_icon_color }};
+}
+/*-------------------*/
+/* CATEGORY NAV */
+/*-------------------*/
+.category-container {
+    border-bottom: 1px solid #dee2e6 !important;
+}
+/*-------------------*/
+/* CONTENT */
+/*-------------------*/
+#content.content-page h1 {
+  text-align: left !important;
+}
+.discount-container {
+  top: -1px;
+  right: 10px;
+  left: auto;
+  border-radius: 0 0 2px 2px;
+}
+/*-------------------*/
+/* PRODUCT THUMBS */
+/*-------------------*/
+.product-thumbnail {
+  border-radius: 2px;
+}
+/*-------------------*/
+/* PRODUCT */
+/*-------------------*/
+
+/*-------------------*/
+/* CART/CHECKOUT */
+/*-------------------*/
+
+/*-------------------*/
+/* FOOTER */
+/*-------------------*/
+/*-------------------*/
+/* MEDIA QUERIES */
+/*-------------------*/
+@media screen and (min-width: 992px){
+  .store-info {
+    align-items: end;
+    display: flex;
+  }
+  .contact-info {
+    align-items: end;
+    display: flex !important;
+    flex-direction: row-reverse;
+  }
+  .contact-info.no-site-info {
+    align-items: start;
+  }
+  .store-info > div, .store-info > h5, .store-info > p {
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
+}
+@media screen and (min-width: 769px){
+  .carousel-caption {
+    width: {{ settings.site_width }};
+    max-width: 90%;
+    align-items: flex-start !important;
+  }
+@media screen and (min-width: 661px){
+
+}
+
+@media screen and (max-width: 1200px){
+
+}
+
+@media screen and (max-width: 660px){
+
+}
+
+@media screen and (max-width: 340px){
+
+}

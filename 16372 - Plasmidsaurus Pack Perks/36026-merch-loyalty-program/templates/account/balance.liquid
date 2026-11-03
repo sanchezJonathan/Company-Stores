@@ -1,0 +1,74 @@
+{% capture account_section_title %}
+  Point Progress
+{% endcapture %}
+
+{% capture account_page_content %}
+  <div class="content-block row border-0">
+    <div class="col-12 col-md-6 col-lg-6 point-progress-labels">
+
+      {% assign merch_status = current_user.custom_fields['3632'] | downcase %}
+	
+      {% if merch_status == 'hatchling' %}
+        <h3>Point Progress: Hatchling</h3>
+      {% elsif merch_status == 'raptor' %}
+        <h3>Point Progress: Raptor</h3>
+      {% else %}
+        <h3>Point Progress: T-Rex</h3>
+      {% endif %}
+
+      <div class="mb-3">
+        <p>You have {% include 'price', price_value: current_user.balance %} Merch Points</p>
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        {% if current_user.custom_fields['3682'] != "" %}
+          <p>{% include 'price', price_value: current_user.custom_fields['3682'] %} points till next tier is unlocked</p>
+        {% else %}
+          <p>You're <i>dino</i>-mite! You’ve achieved the highest tier.</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-6 point-progress-tiers">
+      {% if merch_status == 'hatchling' %}
+        <img class="hachling" src="{{ 'Hatchling.jpg' | asset_url }}">
+      {% elsif merch_status == 'raptor' %}
+        <img class="raptor" src="{{ 'Raptor.jpg' | asset_url }}">
+      {% else %}
+        <img class="t-rex" src="{{ 'T-Rex.jpg' | asset_url }}">
+      {% endif %}
+    </div>
+    
+    {% comment %}
+    <div class="mb-3">
+      {% include 'apply_gift_certificate_form' %}
+    </div>
+    {% endcomment %}
+  </div>
+
+  {% if current_user.user_balance_log and current_user.user_balance_log.size > 0 %}
+    <div class="content-block point-accumulation-history">
+      <h2>Point Accumulation History</h2>
+      {% paginate current_user.user_balance_log by 25 %}
+        <table class="table table-bordered mb-3">
+          <tr>
+            <th>Date</th>
+            <th>Adjusted By</th>
+            <th>Notes</th>
+            <th>Action</th>
+            <th>Amount</th>
+            <th>Balance</th>
+          </tr>
+
+          {% include 'account_balance_history_item' with paginate.collection %}
+        </table>
+        {% include "paginator", paginate: paginate %}
+      {% endpaginate %}
+    </div>
+  {% endif %}
+{% endcapture %}
+
+{% include 'account_page' with account_page_content, section_title: account_section_title %}

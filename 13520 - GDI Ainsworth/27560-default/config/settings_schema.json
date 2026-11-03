@@ -1,0 +1,4863 @@
+[
+  {
+    "title": "Sitewide",
+    "form": [
+      {
+        "type": "image",
+        "label": {
+          "name": "favicon.png",
+          "text": "Favicon"
+        },
+        "input": {
+          "name": "favicon.png"
+        },
+        "help": null
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "sitewide_bg_color",
+          "text": "Background Color"
+        },
+        "input": {
+          "name": "sitewide_bg_color"
+        },
+        "help": null
+      }
+    ],
+    "children": [
+      {
+        "title": "Under Construction Page",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "display_under_construction_page",
+              "text": "Display Under Construction Page?"
+            },
+            "input": {
+              "name": "display_under_construction_page"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "under_construction_bg_color",
+              "text": "Under Construction Background Color"
+            },
+            "input": {
+              "name": "under_construction_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "font",
+            "label": {
+              "text": "Under Construction Header Font / Font Size",
+              "name": "ucheader_font_family"
+            },
+            "font": {
+              "name": "ucheader_font_family",
+              "options": [
+                {
+                  "value": "inherit",
+                  "label": "Use Site Font"
+                },
+                {
+                  "value": "'Lato', Helvetica, Arial, sans-serif",
+                  "label": "'Lato', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Roboto', Helvetica, Arial, sans-serif",
+                  "label": "'Roboto', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Open Sans', Helvetica, Arial, sans-serif",
+                  "label": "'Open Sans', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Poppins', Helvetica, Arial, sans-serif",
+                  "label": "'Poppins', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Montserrat', Helvetica, Arial, sans-serif",
+                  "label": "'Montserrat', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Archivo', Helvetica, Arial, sans-serif",
+                  "label": "'Archivo', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Epilogue', Helvetica, Arial, sans-serif",
+                  "label": "'Epilogue', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'JetBrains Mono', Courier New, monospace",
+                  "label": "'JetBrains Mono', Courier New, monospace"
+                },
+                {
+                  "value": "'Nunito', Helvetica, Arial, sans-serif",
+                  "label": "'Nunito', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Playfair Display', Georgia, Times New Roman, sans-serif",
+                  "label": "'Playfair Display', Georgia, Times New Roman, sans-serif"
+                },
+                {
+                  "value": "'Raleway', Helvetica, Arial, sans-serif",
+                  "label": "'Raleway', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Spectral', Georgia, Times New Roman, sans-serif",
+                  "label": "'Spectral', Georgia, Times New Roman, sans-serif"
+                },
+                {
+                  "value": "Arial, Helvetica, sans-serif",
+                  "label": "Arial, Helvetica, sans-serif"
+                },
+                {
+                  "value": "Verdana, Geneva, sans-serif",
+                  "label": "Verdana, Geneva, sans-serif"
+                },
+                {
+                  "value": "'Times New Roman', Times, serif",
+                  "label": "Times New Roman, Times, serif"
+                },
+                {
+                  "value": "'Arial Black', Gadget, sans-serif",
+                  "label": "Arial Black, Gadget, sans-serif"
+                },
+                {
+                  "value": "'Comic Sans MS', cursive, sans-serif",
+                  "label": "Comic Sans MS, cursive, sans-serif"
+                },
+                {
+                  "value": "Impact, Charcoal, sans-serif",
+                  "label": "Impact, Charcoal, sans-serif"
+                },
+                {
+                  "value": "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                  "label": "Lucida Sans Unicode, Lucida Grande, sans-serif"
+                },
+                {
+                  "value": "Tahoma, Geneva, sans-serif",
+                  "label": "Tahoma, Geneva, sans-serif"
+                },
+                {
+                  "value": "'Trebuchet MS', Helvetica, sans-serif",
+                  "label": "Trebuchet MS, Helvetica, sans-serif"
+                },
+                {
+                  "value": "'Courier New', Courier, monospace",
+                  "label": "Courier New, Courier, monospace"
+                },
+                {
+                  "value": "'Lucida Console', Monaco, monospace",
+                  "label": "Lucida Console, Monaco, monospace"
+                }
+              ]
+            },
+            "size": {
+              "name": "ucheader_font_size",
+              "options": [
+                {
+                  "value": "20px",
+                  "label": "20px"
+                },
+                {
+                  "value": "24px",
+                  "label": "24px"
+                },
+                {
+                  "value": "28px",
+                  "label": "28px"
+                },
+                {
+                  "value": "32px",
+                  "label": "32px"
+                },
+                {
+                  "value": "36px",
+                  "label": "36px"
+                },
+                {
+                  "value": "40px",
+                  "label": "40px"
+                },
+                {
+                  "value": "44px",
+                  "label": "44px"
+                },
+                {
+                  "value": "48px",
+                  "label": "48px"
+                },
+                {
+                  "value": "52px",
+                  "label": "52px"
+                },
+                {
+                  "value": "56px",
+                  "label": "56px"
+                },
+                {
+                  "value": "60px",
+                  "label": "60px"
+                },
+                {
+                  "value": "64px",
+                  "label": "64px"
+                },
+                {
+                  "value": "68px",
+                  "label": "68px"
+                },
+                {
+                  "value": "72px",
+                  "label": "72px"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "ucheader_text_color",
+              "text": "Under Construction Header Text Color"
+            },
+            "input": {
+              "name": "ucheader_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "under_construction_header",
+              "text": "Under Construction Header"
+            },
+            "input": {
+              "name": "under_construction_header"
+            },
+            "help": null
+          },
+          {
+            "type": "font",
+            "label": {
+              "text": "Under Construction Message Font / Font Size",
+              "name": "ucmessage_font_family"
+            },
+            "font": {
+              "name": "ucmessage_font_family",
+              "options": [
+                {
+                  "value": "inherit",
+                  "label": "Use Site Font"
+                },
+                {
+                  "value": "'Lato', Helvetica, Arial, sans-serif",
+                  "label": "'Lato', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Roboto', Helvetica, Arial, sans-serif",
+                  "label": "'Roboto', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Open Sans', Helvetica, Arial, sans-serif",
+                  "label": "'Open Sans', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Poppins', Helvetica, Arial, sans-serif",
+                  "label": "'Poppins', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Montserrat', Helvetica, Arial, sans-serif",
+                  "label": "'Montserrat', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Archivo', Helvetica, Arial, sans-serif",
+                  "label": "'Archivo', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Epilogue', Helvetica, Arial, sans-serif",
+                  "label": "'Epilogue', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'JetBrains Mono', Courier New, monospace",
+                  "label": "'JetBrains Mono', Courier New, monospace"
+                },
+                {
+                  "value": "'Nunito', Helvetica, Arial, sans-serif",
+                  "label": "'Nunito', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Playfair Display', Georgia, Times New Roman, sans-serif",
+                  "label": "'Playfair Display', Georgia, Times New Roman, sans-serif"
+                },
+                {
+                  "value": "'Raleway', Helvetica, Arial, sans-serif",
+                  "label": "'Raleway', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Spectral', Georgia, Times New Roman, sans-serif",
+                  "label": "'Spectral', Georgia, Times New Roman, sans-serif"
+                },
+                {
+                  "value": "Arial, Helvetica, sans-serif",
+                  "label": "Arial, Helvetica, sans-serif"
+                },
+                {
+                  "value": "Verdana, Geneva, sans-serif",
+                  "label": "Verdana, Geneva, sans-serif"
+                },
+                {
+                  "value": "'Times New Roman', Times, serif",
+                  "label": "Times New Roman, Times, serif"
+                },
+                {
+                  "value": "'Arial Black', Gadget, sans-serif",
+                  "label": "Arial Black, Gadget, sans-serif"
+                },
+                {
+                  "value": "'Comic Sans MS', cursive, sans-serif",
+                  "label": "Comic Sans MS, cursive, sans-serif"
+                },
+                {
+                  "value": "Impact, Charcoal, sans-serif",
+                  "label": "Impact, Charcoal, sans-serif"
+                },
+                {
+                  "value": "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                  "label": "Lucida Sans Unicode, Lucida Grande, sans-serif"
+                },
+                {
+                  "value": "Tahoma, Geneva, sans-serif",
+                  "label": "Tahoma, Geneva, sans-serif"
+                },
+                {
+                  "value": "'Trebuchet MS', Helvetica, sans-serif",
+                  "label": "Trebuchet MS, Helvetica, sans-serif"
+                },
+                {
+                  "value": "'Courier New', Courier, monospace",
+                  "label": "Courier New, Courier, monospace"
+                },
+                {
+                  "value": "'Lucida Console', Monaco, monospace",
+                  "label": "Lucida Console, Monaco, monospace"
+                }
+              ]
+            },
+            "size": {
+              "name": "ucmessage_font_size",
+              "options": [
+                {
+                  "value": "6px",
+                  "label": "6px"
+                },
+                {
+                  "value": "7px",
+                  "label": "7px"
+                },
+                {
+                  "value": "8px",
+                  "label": "8px"
+                },
+                {
+                  "value": "9px",
+                  "label": "9px"
+                },
+                {
+                  "value": "10px",
+                  "label": "10px"
+                },
+                {
+                  "value": "11px",
+                  "label": "11px"
+                },
+                {
+                  "value": "12px",
+                  "label": "12px"
+                },
+                {
+                  "value": "13px",
+                  "label": "13px"
+                },
+                {
+                  "value": "14px",
+                  "label": "14px"
+                },
+                {
+                  "value": "15px",
+                  "label": "15px"
+                },
+                {
+                  "value": "16px",
+                  "label": "16px"
+                },
+                {
+                  "value": "18px",
+                  "label": "18px"
+                },
+                {
+                  "value": "20px",
+                  "label": "20px"
+                },
+                {
+                  "value": "22px",
+                  "label": "22px"
+                },
+                {
+                  "value": "24px",
+                  "label": "24px"
+                },
+                {
+                  "value": "26px",
+                  "label": "26px"
+                },
+                {
+                  "value": "28px",
+                  "label": "28px"
+                },
+                {
+                  "value": "32px",
+                  "label": "32px"
+                },
+                {
+                  "value": "36px",
+                  "label": "36px"
+                },
+                {
+                  "value": "40px",
+                  "label": "40px"
+                },
+                {
+                  "value": "44px",
+                  "label": "44px"
+                },
+                {
+                  "value": "48px",
+                  "label": "48px"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "ucmessage_text_color",
+              "text": "Under Construction Message Text Color"
+            },
+            "input": {
+              "name": "ucmessage_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "under_construction_message",
+              "text": "Under Construction Message"
+            },
+            "input": {
+              "name": "under_construction_message"
+            },
+            "help": null
+          }
+        ],
+        "children": [
+          {
+            "title": "Password Box",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "display_under_construction_password",
+                  "text": "Display Under Construction Password?"
+                },
+                "input": {
+                  "name": "display_under_construction_password"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "under_construction_pwbox_bg_color",
+                  "text": "Password Box Background Color"
+                },
+                "input": {
+                  "name": "under_construction_pwbox_bg_color"
+                },
+                "help": null
+              },
+              {
+                "type": "font",
+                "label": {
+                  "text": "Password Box Message Font / Font Size",
+                  "name": "pwbox_font_family"
+                },
+                "font": {
+                  "name": "pwbox_font_family",
+                  "options": [
+                    {
+                      "value": "inherit",
+                      "label": "Use Site Font"
+                    },
+                    {
+                      "value": "'Lato', Helvetica, Arial, sans-serif",
+                      "label": "'Lato', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'Roboto', Helvetica, Arial, sans-serif",
+                      "label": "'Roboto', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'Open Sans', Helvetica, Arial, sans-serif",
+                      "label": "'Open Sans', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'Poppins', Helvetica, Arial, sans-serif",
+                      "label": "'Poppins', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'Montserrat', Helvetica, Arial, sans-serif",
+                      "label": "'Montserrat', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'Archivo', Helvetica, Arial, sans-serif",
+                      "label": "'Archivo', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'Epilogue', Helvetica, Arial, sans-serif",
+                      "label": "'Epilogue', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'JetBrains Mono', Courier New, monospace",
+                      "label": "'JetBrains Mono', Courier New, monospace"
+                    },
+                    {
+                      "value": "'Nunito', Helvetica, Arial, sans-serif",
+                      "label": "'Nunito', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'Playfair Display', Georgia, Times New Roman, sans-serif",
+                      "label": "'Playfair Display', Georgia, Times New Roman, sans-serif"
+                    },
+                    {
+                      "value": "'Raleway', Helvetica, Arial, sans-serif",
+                      "label": "'Raleway', Helvetica, Arial, sans-serif"
+                    },
+                    {
+                      "value": "'Spectral', Georgia, Times New Roman, sans-serif",
+                      "label": "'Spectral', Georgia, Times New Roman, sans-serif"
+                    },
+                    {
+                      "value": "Arial, Helvetica, sans-serif",
+                      "label": "Arial, Helvetica, sans-serif"
+                    },
+                    {
+                      "value": "Verdana, Geneva, sans-serif",
+                      "label": "Verdana, Geneva, sans-serif"
+                    },
+                    {
+                      "value": "'Times New Roman', Times, serif",
+                      "label": "Times New Roman, Times, serif"
+                    },
+                    {
+                      "value": "'Arial Black', Gadget, sans-serif",
+                      "label": "Arial Black, Gadget, sans-serif"
+                    },
+                    {
+                      "value": "'Comic Sans MS', cursive, sans-serif",
+                      "label": "Comic Sans MS, cursive, sans-serif"
+                    },
+                    {
+                      "value": "Impact, Charcoal, sans-serif",
+                      "label": "Impact, Charcoal, sans-serif"
+                    },
+                    {
+                      "value": "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                      "label": "Lucida Sans Unicode, Lucida Grande, sans-serif"
+                    },
+                    {
+                      "value": "Tahoma, Geneva, sans-serif",
+                      "label": "Tahoma, Geneva, sans-serif"
+                    },
+                    {
+                      "value": "'Trebuchet MS', Helvetica, sans-serif",
+                      "label": "Trebuchet MS, Helvetica, sans-serif"
+                    },
+                    {
+                      "value": "'Courier New', Courier, monospace",
+                      "label": "Courier New, Courier, monospace"
+                    },
+                    {
+                      "value": "'Lucida Console', Monaco, monospace",
+                      "label": "Lucida Console, Monaco, monospace"
+                    }
+                  ]
+                },
+                "size": {
+                  "name": "pwbox_font_size",
+                  "options": [
+                    {
+                      "value": "6px",
+                      "label": "6px"
+                    },
+                    {
+                      "value": "7px",
+                      "label": "7px"
+                    },
+                    {
+                      "value": "8px",
+                      "label": "8px"
+                    },
+                    {
+                      "value": "9px",
+                      "label": "9px"
+                    },
+                    {
+                      "value": "10px",
+                      "label": "10px"
+                    },
+                    {
+                      "value": "11px",
+                      "label": "11px"
+                    },
+                    {
+                      "value": "12px",
+                      "label": "12px"
+                    },
+                    {
+                      "value": "13px",
+                      "label": "13px"
+                    },
+                    {
+                      "value": "14px",
+                      "label": "14px"
+                    },
+                    {
+                      "value": "15px",
+                      "label": "15px"
+                    },
+                    {
+                      "value": "16px",
+                      "label": "16px"
+                    },
+                    {
+                      "value": "18px",
+                      "label": "18px"
+                    },
+                    {
+                      "value": "20px",
+                      "label": "20px"
+                    },
+                    {
+                      "value": "22px",
+                      "label": "22px"
+                    },
+                    {
+                      "value": "24px",
+                      "label": "24px"
+                    },
+                    {
+                      "value": "26px",
+                      "label": "26px"
+                    },
+                    {
+                      "value": "28px",
+                      "label": "28px"
+                    },
+                    {
+                      "value": "32px",
+                      "label": "32px"
+                    },
+                    {
+                      "value": "36px",
+                      "label": "36px"
+                    },
+                    {
+                      "value": "40px",
+                      "label": "40px"
+                    },
+                    {
+                      "value": "44px",
+                      "label": "44px"
+                    },
+                    {
+                      "value": "48px",
+                      "label": "48px"
+                    }
+                  ]
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "pwbox_text_color",
+                  "text": "Password Box Message Text Color"
+                },
+                "input": {
+                  "name": "pwbox_text_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "under_construction_pwbox_message",
+                  "text": "Password Box Message"
+                },
+                "input": {
+                  "name": "under_construction_pwbox_message"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "under_construction_password",
+                  "text": "Under Construction Password"
+                },
+                "input": {
+                  "name": "under_construction_password"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "pwbox_submit_text_color",
+                  "text": "Submit Button Text Color"
+                },
+                "input": {
+                  "name": "pwbox_submit_text_color"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "pwbox_submit_bg_color",
+                  "text": "Submit Button Background Color"
+                },
+                "input": {
+                  "name": "pwbox_submit_bg_color"
+                },
+                "help": null
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "title": "Background Image",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "display_custom_background_image",
+              "text": "Display Custom Background Image"
+            },
+            "input": {
+              "name": "display_custom_background_image"
+            },
+            "help": null
+          },
+          {
+            "type": "image",
+            "label": {
+              "name": "sitewide_custom_bg_image.jpg",
+              "text": "Background Image"
+            },
+            "input": {
+              "name": "sitewide_custom_bg_image.jpg"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "sitewide_bg_position",
+              "text": "Background Position"
+            },
+            "input": {
+              "name": "sitewide_bg_position"
+            },
+            "help": {
+              "title": "Background Position",
+              "text": "If you have a background image, this is where you can change the position of the background image."
+            }
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "sitewide_bg_repeat",
+              "text": "Background Repeat"
+            },
+            "input": {
+              "name": "sitewide_bg_repeat"
+            },
+            "help": {
+              "title": "Background Repeat",
+              "text": "If you’d like the background image to repeat, this states how the image is repeated."
+            }
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Font",
+        "form": [
+          {
+            "type": "font",
+            "label": {
+              "text": "Body Font / Font Size",
+              "name": "sitewide_font_family"
+            },
+            "font": {
+              "name": "sitewide_font_family",
+              "options": [
+                {
+                  "value": "native",
+                  "label": "Use Native Fonts"
+                },
+                {
+                  "value": "'Lato', Helvetica, Arial, sans-serif",
+                  "label": "'Lato', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Roboto', Helvetica, Arial, sans-serif",
+                  "label": "'Roboto', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Open Sans', Helvetica, Arial, sans-serif",
+                  "label": "'Open Sans', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Poppins', Helvetica, Arial, sans-serif",
+                  "label": "'Poppins', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Montserrat', Helvetica, Arial, sans-serif",
+                  "label": "'Montserrat', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Archivo', Helvetica, Arial, sans-serif",
+                  "label": "'Archivo', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Epilogue', Helvetica, Arial, sans-serif",
+                  "label": "'Epilogue', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'JetBrains Mono', Courier New, monospace",
+                  "label": "'JetBrains Mono', Courier New, monospace"
+                },
+                {
+                  "value": "'Nunito', Helvetica, Arial, sans-serif",
+                  "label": "'Nunito', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Playfair Display', Georgia, Times New Roman, sans-serif",
+                  "label": "'Playfair Display', Georgia, Times New Roman, sans-serif"
+                },
+                {
+                  "value": "'Raleway', Helvetica, Arial, sans-serif",
+                  "label": "'Raleway', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Spectral', Georgia, Times New Roman, sans-serif",
+                  "label": "'Spectral', Georgia, Times New Roman, sans-serif"
+                },
+                {
+                  "value": "Arial, Helvetica, sans-serif",
+                  "label": "Arial, Helvetica, sans-serif"
+                },
+                {
+                  "value": "Verdana, Geneva, sans-serif",
+                  "label": "Verdana, Geneva, sans-serif"
+                },
+                {
+                  "value": "'Times New Roman', Times, serif",
+                  "label": "Times New Roman, Times, serif"
+                },
+                {
+                  "value": "'Arial Black', Gadget, sans-serif",
+                  "label": "Arial Black, Gadget, sans-serif"
+                },
+                {
+                  "value": "'Comic Sans MS', cursive, sans-serif",
+                  "label": "Comic Sans MS, cursive, sans-serif"
+                },
+                {
+                  "value": "Impact, Charcoal, sans-serif",
+                  "label": "Impact, Charcoal, sans-serif"
+                },
+                {
+                  "value": "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                  "label": "Lucida Sans Unicode, Lucida Grande, sans-serif"
+                },
+                {
+                  "value": "Tahoma, Geneva, sans-serif",
+                  "label": "Tahoma, Geneva, sans-serif"
+                },
+                {
+                  "value": "'Trebuchet MS', Helvetica, sans-serif",
+                  "label": "Trebuchet MS, Helvetica, sans-serif"
+                },
+                {
+                  "value": "'Courier New', Courier, monospace",
+                  "label": "Courier New, Courier, monospace"
+                },
+                {
+                  "value": "'Lucida Console', Monaco, monospace",
+                  "label": "Lucida Console, Monaco, monospace"
+                }
+              ]
+            },
+            "size": {
+              "name": "sitewide_font_size",
+              "options": [
+                {
+                  "value": "6px",
+                  "label": "6px"
+                },
+                {
+                  "value": "7px",
+                  "label": "7px"
+                },
+                {
+                  "value": "8px",
+                  "label": "8px"
+                },
+                {
+                  "value": "9px",
+                  "label": "9px"
+                },
+                {
+                  "value": "10px",
+                  "label": "10px"
+                },
+                {
+                  "value": "11px",
+                  "label": "11px"
+                },
+                {
+                  "value": "12px",
+                  "label": "12px"
+                },
+                {
+                  "value": "13px",
+                  "label": "13px"
+                },
+                {
+                  "value": "14px",
+                  "label": "14px"
+                },
+                {
+                  "value": "15px",
+                  "label": "15px"
+                },
+                {
+                  "value": "16px",
+                  "label": "16px"
+                },
+                {
+                  "value": "18px",
+                  "label": "18px"
+                },
+                {
+                  "value": "20px",
+                  "label": "20px"
+                },
+                {
+                  "value": "22px",
+                  "label": "22px"
+                },
+                {
+                  "value": "24px",
+                  "label": "24px"
+                },
+                {
+                  "value": "26px",
+                  "label": "26px"
+                },
+                {
+                  "value": "28px",
+                  "label": "28px"
+                },
+                {
+                  "value": "32px",
+                  "label": "32px"
+                },
+                {
+                  "value": "36px",
+                  "label": "36px"
+                },
+                {
+                  "value": "40px",
+                  "label": "40px"
+                },
+                {
+                  "value": "44px",
+                  "label": "44px"
+                },
+                {
+                  "value": "48px",
+                  "label": "48px"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_text_color",
+              "text": "Body Text Color"
+            },
+            "input": {
+              "name": "sitewide_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "sitewide_header_font_family",
+              "text": "Header Font"
+            },
+            "select": {
+              "name": "sitewide_header_font_family",
+              "options": [
+                {
+                  "value": "inherit",
+                  "label": "Use Site Font"
+                },
+                {
+                  "value": "'Lato', Helvetica, Arial, sans-serif",
+                  "label": "'Lato', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Roboto', Helvetica, Arial, sans-serif",
+                  "label": "'Roboto', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Open Sans', Helvetica, Arial, sans-serif",
+                  "label": "'Open Sans', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Poppins', Helvetica, Arial, sans-serif",
+                  "label": "'Poppins', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Montserrat', Helvetica, Arial, sans-serif",
+                  "label": "'Montserrat', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Archivo', Helvetica, Arial, sans-serif",
+                  "label": "'Archivo', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Epilogue', Helvetica, Arial, sans-serif",
+                  "label": "'Epilogue', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'JetBrains Mono', Courier New, monospace",
+                  "label": "'JetBrains Mono', Courier New, monospace"
+                },
+                {
+                  "value": "'Nunito', Helvetica, Arial, sans-serif",
+                  "label": "'Nunito', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Playfair Display', Georgia, Times New Roman, sans-serif",
+                  "label": "'Playfair Display', Georgia, Times New Roman, sans-serif"
+                },
+                {
+                  "value": "'Raleway', Helvetica, Arial, sans-serif",
+                  "label": "'Raleway', Helvetica, Arial, sans-serif"
+                },
+                {
+                  "value": "'Spectral', Georgia, Times New Roman, sans-serif",
+                  "label": "'Spectral', Georgia, Times New Roman, sans-serif"
+                },
+                {
+                  "value": "Arial, Helvetica, sans-serif",
+                  "label": "Arial, Helvetica, sans-serif"
+                },
+                {
+                  "value": "Verdana, Geneva, sans-serif",
+                  "label": "Verdana, Geneva, sans-serif"
+                },
+                {
+                  "value": "'Times New Roman', Times, serif",
+                  "label": "Times New Roman, Times, serif"
+                },
+                {
+                  "value": "'Arial Black', Gadget, sans-serif",
+                  "label": "Arial Black, Gadget, sans-serif"
+                },
+                {
+                  "value": "'Comic Sans MS', cursive, sans-serif",
+                  "label": "Comic Sans MS, cursive, sans-serif"
+                },
+                {
+                  "value": "Impact, Charcoal, sans-serif",
+                  "label": "Impact, Charcoal, sans-serif"
+                },
+                {
+                  "value": "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                  "label": "Lucida Sans Unicode, Lucida Grande, sans-serif"
+                },
+                {
+                  "value": "Tahoma, Geneva, sans-serif",
+                  "label": "Tahoma, Geneva, sans-serif"
+                },
+                {
+                  "value": "'Trebuchet MS', Helvetica, sans-serif",
+                  "label": "Trebuchet MS, Helvetica, sans-serif"
+                },
+                {
+                  "value": "'Courier New', Courier, monospace",
+                  "label": "Courier New, Courier, monospace"
+                },
+                {
+                  "value": "'Lucida Console', Monaco, monospace",
+                  "label": "Lucida Console, Monaco, monospace"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_header_color",
+              "text": "Header Text Color"
+            },
+            "input": {
+              "name": "sitewide_header_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_link_color",
+              "text": "Link Color"
+            },
+            "input": {
+              "name": "sitewide_link_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "sitewide_link_decoration",
+              "text": "Link Decoration"
+            },
+            "input": {
+              "name": "sitewide_link_decoration"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_link_hover_color",
+              "text": "Link Hover Color"
+            },
+            "input": {
+              "name": "sitewide_link_hover_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_link_hover_decoration",
+              "text": "Link Hover Decoration"
+            },
+            "input": {
+              "name": "sitewide_link_hover_decoration"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Colors",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_primary_bg_color",
+              "text": "Primary Background Color"
+            },
+            "input": {
+              "name": "sitewide_primary_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_primary_text_color",
+              "text": "Primary Text Color"
+            },
+            "input": {
+              "name": "sitewide_primary_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_primary_border_color",
+              "text": "Primary Border Color"
+            },
+            "input": {
+              "name": "sitewide_primary_border_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_primary_hover_color",
+              "text": "Primary Hover Background Color"
+            },
+            "input": {
+              "name": "sitewide_primary_hover_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_primary_hover_text_color",
+              "text": "Primary Hover Text Color"
+            },
+            "input": {
+              "name": "sitewide_primary_hover_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_primary_hover_border_color",
+              "text": "Primary Hover Border Color"
+            },
+            "input": {
+              "name": "sitewide_primary_hover_border_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_secondary_bg_color",
+              "text": "Secondary Background Color"
+            },
+            "input": {
+              "name": "sitewide_secondary_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_secondary_text_color",
+              "text": "Secondary Text Color"
+            },
+            "input": {
+              "name": "sitewide_secondary_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_secondary_border_color",
+              "text": "Secondary Border Color"
+            },
+            "input": {
+              "name": "sitewide_secondary_border_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_secondary_hover_color",
+              "text": "Secondary Hover Background Color"
+            },
+            "input": {
+              "name": "sitewide_secondary_hover_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_secondary_hover_text_color",
+              "text": "Secondary Hover Text Color"
+            },
+            "input": {
+              "name": "sitewide_secondary_hover_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "sitewide_secondary_hover_border_color",
+              "text": "Secondary Hover Border Color"
+            },
+            "input": {
+              "name": "sitewide_secondary_hover_border_color"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Notification Colors",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "notif_success_bg_color",
+              "text": "Success Background Color"
+            },
+            "input": {
+              "name": "notif_success_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "notif_success_color",
+              "text": "Success Text Color"
+            },
+            "input": {
+              "name": "notif_success_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "notif_error_bg_color",
+              "text": "Error Background Color"
+            },
+            "input": {
+              "name": "notif_error_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "notif_error_color",
+              "text": "Error Text Color"
+            },
+            "input": {
+              "name": "notif_error_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "notif_warning_bg_color",
+              "text": "Warning Background Color"
+            },
+            "input": {
+              "name": "notif_warning_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "notif_warning_color",
+              "text": "Warning Text Color"
+            },
+            "input": {
+              "name": "notif_warning_color"
+            },
+            "help": null
+          }
+        ],
+        "children": [
+          
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Header",
+    "form": [
+      {
+        "type": "checkbox",
+        "label": {
+          "name": "show_phone",
+          "text": "Show Phone Number?"
+        },
+        "input": {
+          "name": "show_phone"
+        },
+        "help": null
+      },
+      {
+        "type": "checkbox",
+        "label": {
+          "name": "show_shopping_cart_total",
+          "text": "Show Shopping Cart total?"
+        },
+        "input": {
+          "name": "show_shopping_cart_total"
+        },
+        "help": {
+          "title": "Show Shopping Cart Total?",
+          "text": "This option shows the total price of the items in the shopping cart."
+        }
+      },
+      {
+        "type": "text_input",
+        "label": {
+          "name": "header_width",
+          "text": "Header Width"
+        },
+        "input": {
+          "name": "header_width"
+        },
+        "help": null
+      },
+      {
+        "type": "text_input",
+        "label": {
+          "name": "header_height",
+          "text": "Header Height"
+        },
+        "input": {
+          "name": "header_height"
+        },
+        "help": null
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "header_bg_color",
+          "text": "Header Background Color"
+        },
+        "input": {
+          "name": "header_bg_color"
+        },
+        "help": null
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "header_bd_color",
+          "text": "Header Border Color"
+        },
+        "input": {
+          "name": "header_bd_color"
+        },
+        "help": null
+      },
+      {
+        "type": "select",
+        "label": {
+          "name": "nav_links_position",
+          "text": "Navigation Links Position"
+        },
+        "select": {
+          "name": "nav_links_position",
+          "options": [
+            {
+              "value": "inline_with_logo",
+              "label": "Inline with Logo"
+            },
+            {
+              "value": "top_bar",
+              "label": "Top Header Bar"
+            },
+            {
+              "value": "bottom_bar",
+              "label": "Bottom Header Bar"
+            },
+            {
+              "value": "hidden",
+              "label": "Hidden"
+            }
+          ]
+        },
+        "help": null
+      },
+      {
+        "type": "select",
+        "label": {
+          "name": "category_links_position",
+          "text": "Category Links Position"
+        },
+        "select": {
+          "name": "category_links_position",
+          "options": [
+            {
+              "value": "inline_with_logo",
+              "label": "Inline with Logo"
+            },
+            {
+              "value": "bottom_bar",
+              "label": "Bottom Header Bar"
+            },
+            {
+              "value": "hidden",
+              "label": "Hidden"
+            }
+          ]
+        },
+        "help": null
+      },
+      {
+        "type": "formlist",
+        "children": [
+          {
+            "title": "Logo Properties",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "display_logo",
+                  "text": "Display Logo"
+                },
+                "input": {
+                  "name": "display_logo"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "logo_custom_bg_image.jpg",
+                  "text": "Logo Image"
+                },
+                "input": {
+                  "name": "logo_custom_bg_image.jpg"
+                },
+                "help": {
+                  "title": "Logo Image",
+                  "text": "In order to show a custom logo, select the 'custom' option in the dropdown. Otherwise select a sample logo to showcase in your store."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "logo_margin",
+                  "text": "Logo Margin"
+                },
+                "input": {
+                  "name": "logo_margin"
+                },
+                "help": null
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "type": "formlist",
+        "children": [
+          {
+            "title": "Logo Properties (Email)",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "confirmation_emails_logo",
+                  "text": "Confirmation Emails Logo"
+                },
+                "input": {
+                  "name": "confirmation_emails_logo"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "email_logo_custom_bg_image.png",
+                  "text": "Logo Image (Email)"
+                },
+                "input": {
+                  "name": "email_logo_custom_bg_image.png"
+                },
+                "help": {
+                  "title": "Logo Image (Email)",
+                  "text": "In order to show a different logo for email headers, turn the \"Confirmation Emails Logo\" toggle on."
+                }
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "type": "formlist",
+        "children": [
+          {
+            "title": "Link Properties",
+            "form": [
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "header_link_padding",
+                  "text": "Link Padding"
+                },
+                "input": {
+                  "name": "header_link_padding"
+                },
+                "help": null
+              },
+              {
+                "type": "select",
+                "label": {
+                  "name": "header_font_size",
+                  "text": "Link Font Size"
+                },
+                "select": {
+                  "name": "header_font_size",
+                  "options": [
+                    {
+                      "value": "inherit",
+                      "label": "Use Site Font Size"
+                    },
+                    {
+                      "value": "6px",
+                      "label": "6px"
+                    },
+                    {
+                      "value": "7px",
+                      "label": "7px"
+                    },
+                    {
+                      "value": "8px",
+                      "label": "8px"
+                    },
+                    {
+                      "value": "9px",
+                      "label": "9px"
+                    },
+                    {
+                      "value": "10px",
+                      "label": "10px"
+                    },
+                    {
+                      "value": "11px",
+                      "label": "11px"
+                    },
+                    {
+                      "value": "12px",
+                      "label": "12px"
+                    },
+                    {
+                      "value": "13px",
+                      "label": "13px"
+                    },
+                    {
+                      "value": "14px",
+                      "label": "14px"
+                    },
+                    {
+                      "value": "15px",
+                      "label": "15px"
+                    },
+                    {
+                      "value": "16px",
+                      "label": "16px"
+                    },
+                    {
+                      "value": "18px",
+                      "label": "18px"
+                    },
+                    {
+                      "value": "20px",
+                      "label": "20px"
+                    },
+                    {
+                      "value": "22px",
+                      "label": "22px"
+                    },
+                    {
+                      "value": "24px",
+                      "label": "24px"
+                    },
+                    {
+                      "value": "26px",
+                      "label": "26px"
+                    },
+                    {
+                      "value": "28px",
+                      "label": "28px"
+                    },
+                    {
+                      "value": "32px",
+                      "label": "32px"
+                    },
+                    {
+                      "value": "36px",
+                      "label": "36px"
+                    },
+                    {
+                      "value": "40px",
+                      "label": "40px"
+                    },
+                    {
+                      "value": "44px",
+                      "label": "44px"
+                    },
+                    {
+                      "value": "48px",
+                      "label": "48px"
+                    }
+                  ]
+                },
+                "help": null
+              },
+              {
+                "type": "select",
+                "label": {
+                  "name": "header_text_transform",
+                  "text": "Link Transform"
+                },
+                "select": {
+                  "name": "header_text_transform",
+                  "options": [
+                    {
+                      "value": "capitalize",
+                      "label": "Capitalize"
+                    },
+                    {
+                      "value": "lowercase",
+                      "label": "Lowercase"
+                    },
+                    {
+                      "value": "uppercase",
+                      "label": "Uppercase"
+                    },
+                    {
+                      "value": "none",
+                      "label": "None (renders as is)"
+                    }
+                  ]
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "header_link_color",
+                  "text": "Link Color"
+                },
+                "input": {
+                  "name": "header_link_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "header_link_weight",
+                  "text": "Link Weight"
+                },
+                "input": {
+                  "name": "header_link_weight"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "header_link_decoration",
+                  "text": "Link Decoration"
+                },
+                "input": {
+                  "name": "header_link_decoration"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "header_link_bg_color",
+                  "text": "Link Background Color"
+                },
+                "input": {
+                  "name": "header_link_bg_color"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "header_hover_link_color",
+                  "text": "Link Hover Color"
+                },
+                "input": {
+                  "name": "header_hover_link_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "header_hover_link_weight",
+                  "text": "Link Hover Weight"
+                },
+                "input": {
+                  "name": "header_hover_link_weight"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "header_hover_link_decoration",
+                  "text": "Link Hover Decoration"
+                },
+                "input": {
+                  "name": "header_hover_link_decoration"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "header_hover_link_bg_color",
+                  "text": "Link Hover Background Color"
+                },
+                "input": {
+                  "name": "header_hover_link_bg_color"
+                },
+                "help": null
+              }
+            ],
+            "children": []
+          }
+        ]
+      }
+    ],
+    "children": [
+      {
+        "title": "Dropdown",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "header_dd_bg_color",
+              "text": "Background Color"
+            },
+            "input": {
+              "name": "header_dd_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "header_dd_text_color",
+              "text": "Text Color"
+            },
+            "input": {
+              "name": "header_dd_text_color"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Top Navbar Notification",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "show_top_navbar_notification",
+              "text": "Show Top Navbar Notification?"
+            },
+            "input": {
+              "name": "show_top_navbar_notification"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "top_navbar_notification_text",
+              "text": "Notification Text"
+            },
+            "input": {
+              "name": "top_navbar_notification_text"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "top_navbar_notification_bg",
+              "text": "Notification Background Color"
+            },
+            "input": {
+              "name": "top_navbar_notification_bg"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "top_navbar_notification_color",
+              "text": "Notification Text Color"
+            },
+            "input": {
+              "name": "top_navbar_notification_color"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Top Header Bar",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "topbar_bg_color",
+              "text": "Background Color"
+            },
+            "input": {
+              "name": "topbar_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "topbar_link_padding",
+              "text": "Link Padding"
+            },
+            "input": {
+              "name": "topbar_link_padding"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "topbar_font_size",
+              "text": "Link Font Size"
+            },
+            "select": {
+              "name": "topbar_font_size",
+              "options": [
+                {
+                  "value": "inherit",
+                  "label": "Use Site Font Size"
+                },
+                {
+                  "value": "6px",
+                  "label": "6px"
+                },
+                {
+                  "value": "7px",
+                  "label": "7px"
+                },
+                {
+                  "value": "8px",
+                  "label": "8px"
+                },
+                {
+                  "value": "9px",
+                  "label": "9px"
+                },
+                {
+                  "value": "10px",
+                  "label": "10px"
+                },
+                {
+                  "value": "11px",
+                  "label": "11px"
+                },
+                {
+                  "value": "12px",
+                  "label": "12px"
+                },
+                {
+                  "value": "13px",
+                  "label": "13px"
+                },
+                {
+                  "value": "14px",
+                  "label": "14px"
+                },
+                {
+                  "value": "15px",
+                  "label": "15px"
+                },
+                {
+                  "value": "16px",
+                  "label": "16px"
+                },
+                {
+                  "value": "18px",
+                  "label": "18px"
+                },
+                {
+                  "value": "20px",
+                  "label": "20px"
+                },
+                {
+                  "value": "22px",
+                  "label": "22px"
+                },
+                {
+                  "value": "24px",
+                  "label": "24px"
+                },
+                {
+                  "value": "26px",
+                  "label": "26px"
+                },
+                {
+                  "value": "28px",
+                  "label": "28px"
+                },
+                {
+                  "value": "32px",
+                  "label": "32px"
+                },
+                {
+                  "value": "36px",
+                  "label": "36px"
+                },
+                {
+                  "value": "40px",
+                  "label": "40px"
+                },
+                {
+                  "value": "44px",
+                  "label": "44px"
+                },
+                {
+                  "value": "48px",
+                  "label": "48px"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "topbar_text_transform",
+              "text": "Link Transform"
+            },
+            "select": {
+              "name": "topbar_text_transform",
+              "options": [
+                {
+                  "value": "capitalize",
+                  "label": "Capitalize"
+                },
+                {
+                  "value": "lowercase",
+                  "label": "Lowercase"
+                },
+                {
+                  "value": "uppercase",
+                  "label": "Uppercase"
+                },
+                {
+                  "value": "none",
+                  "label": "None (renders as is)"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "topbar_link_color",
+              "text": "Link Color"
+            },
+            "input": {
+              "name": "topbar_link_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "topbar_link_weight",
+              "text": "Link Weight"
+            },
+            "input": {
+              "name": "topbar_link_weight"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "topbar_link_decoration",
+              "text": "Link Decoration"
+            },
+            "input": {
+              "name": "topbar_link_decoration"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "topbar_link_bg_color",
+              "text": "Link Background Color"
+            },
+            "input": {
+              "name": "topbar_link_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "topbar_hover_link_color",
+              "text": "Link Hover Color"
+            },
+            "input": {
+              "name": "topbar_hover_link_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "topbar_hover_link_weight",
+              "text": "Link Hover Weight"
+            },
+            "input": {
+              "name": "topbar_hover_link_weight"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "topbar_hover_link_decoration",
+              "text": "Link Hover Decoration"
+            },
+            "input": {
+              "name": "topbar_hover_link_decoration"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "topbar_hover_link_bg_color",
+              "text": "Link Hover Background Color"
+            },
+            "input": {
+              "name": "topbar_hover_link_bg_color"
+            },
+            "help": null
+          }
+        ],
+        "children": [
+          {
+            "title": "Dropdown",
+            "form": [
+              {
+                "type": "color",
+                "label": {
+                  "name": "topbar_dd_bg_color",
+                  "text": "Background Color"
+                },
+                "input": {
+                  "name": "topbar_dd_bg_color"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "topbar_dd_text_color",
+                  "text": "Text Color"
+                },
+                "input": {
+                  "name": "topbar_dd_text_color"
+                },
+                "help": null
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "title": "Bottom Header Bar",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "bottombar_bg_color",
+              "text": "Background Color"
+            },
+            "input": {
+              "name": "bottombar_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "bottombar_link_padding",
+              "text": "Link Padding"
+            },
+            "input": {
+              "name": "bottombar_link_padding"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "bottombar_font_size",
+              "text": "Link Font Size"
+            },
+            "select": {
+              "name": "bottombar_font_size",
+              "options": [
+                {
+                  "value": "inherit",
+                  "label": "Use Site Font Size"
+                },
+                {
+                  "value": "6px",
+                  "label": "6px"
+                },
+                {
+                  "value": "7px",
+                  "label": "7px"
+                },
+                {
+                  "value": "8px",
+                  "label": "8px"
+                },
+                {
+                  "value": "9px",
+                  "label": "9px"
+                },
+                {
+                  "value": "10px",
+                  "label": "10px"
+                },
+                {
+                  "value": "11px",
+                  "label": "11px"
+                },
+                {
+                  "value": "12px",
+                  "label": "12px"
+                },
+                {
+                  "value": "13px",
+                  "label": "13px"
+                },
+                {
+                  "value": "14px",
+                  "label": "14px"
+                },
+                {
+                  "value": "15px",
+                  "label": "15px"
+                },
+                {
+                  "value": "16px",
+                  "label": "16px"
+                },
+                {
+                  "value": "18px",
+                  "label": "18px"
+                },
+                {
+                  "value": "20px",
+                  "label": "20px"
+                },
+                {
+                  "value": "22px",
+                  "label": "22px"
+                },
+                {
+                  "value": "24px",
+                  "label": "24px"
+                },
+                {
+                  "value": "26px",
+                  "label": "26px"
+                },
+                {
+                  "value": "28px",
+                  "label": "28px"
+                },
+                {
+                  "value": "32px",
+                  "label": "32px"
+                },
+                {
+                  "value": "36px",
+                  "label": "36px"
+                },
+                {
+                  "value": "40px",
+                  "label": "40px"
+                },
+                {
+                  "value": "44px",
+                  "label": "44px"
+                },
+                {
+                  "value": "48px",
+                  "label": "48px"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "bottombar_text_transform",
+              "text": "Link Transform"
+            },
+            "select": {
+              "name": "bottombar_text_transform",
+              "options": [
+                {
+                  "value": "capitalize",
+                  "label": "Capitalize"
+                },
+                {
+                  "value": "lowercase",
+                  "label": "Lowercase"
+                },
+                {
+                  "value": "uppercase",
+                  "label": "Uppercase"
+                },
+                {
+                  "value": "none",
+                  "label": "None (renders as is)"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "bottombar_link_color",
+              "text": "Link Color"
+            },
+            "input": {
+              "name": "bottombar_link_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "bottombar_link_weight",
+              "text": "Link Weight"
+            },
+            "input": {
+              "name": "bottombar_link_weight"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "bottombar_link_decoration",
+              "text": "Link Decoration"
+            },
+            "input": {
+              "name": "bottombar_link_decoration"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "bottombar_link_bg_color",
+              "text": "Link Background Color"
+            },
+            "input": {
+              "name": "bottombar_link_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "bottombar_hover_link_color",
+              "text": "Link Hover Color"
+            },
+            "input": {
+              "name": "bottombar_hover_link_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "bottombar_hover_link_weight",
+              "text": "Link Hover Weight"
+            },
+            "input": {
+              "name": "bottombar_hover_link_weight"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "bottombar_hover_link_decoration",
+              "text": "Link Hover Decoration"
+            },
+            "input": {
+              "name": "bottombar_hover_link_decoration"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "bottombar_hover_link_bg_color",
+              "text": "Link Hover Background Color"
+            },
+            "input": {
+              "name": "bottombar_hover_link_bg_color"
+            },
+            "help": null
+          }
+        ],
+        "children": [
+          {
+            "title": "Dropdown",
+            "form": [
+              {
+                "type": "color",
+                "label": {
+                  "name": "bottombar_dd_bg_color",
+                  "text": "Background Color"
+                },
+                "input": {
+                  "name": "bottombar_dd_bg_color"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "bottombar_dd_text_color",
+                  "text": "Text Color"
+                },
+                "input": {
+                  "name": "bottombar_dd_text_color"
+                },
+                "help": null
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "title": "Quick Actions Menu and Mobile Menu",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "qam_bg_color",
+              "text": "Background Color"
+            },
+            "input": {
+              "name": "qam_bg_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "qam_text_color",
+              "text": "Text Color"
+            },
+            "input": {
+              "name": "qam_text_color"
+            },
+            "help": null
+          }
+        ],
+        "children": [
+          {
+            "title": "Dropdown",
+            "form": [
+              {
+                "type": "color",
+                "label": {
+                  "name": "qam_dd_bg_color",
+                  "text": "Background Color"
+                },
+                "input": {
+                  "name": "qam_dd_bg_color"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "qam_dd_text_color",
+                  "text": "Text Color"
+                },
+                "input": {
+                  "name": "qam_dd_text_color"
+                },
+                "help": null
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "title": "Search",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "search_bg",
+              "text": "Search Button Background Color"
+            },
+            "input": {
+              "name": "search_bg"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "search_icon_color",
+              "text": "Search Button Icon Color"
+            },
+            "input": {
+              "name": "search_icon_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "search_color",
+              "text": "Search Text Color"
+            },
+            "input": {
+              "name": "search_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "search_bg_color",
+              "text": "Search Box Background Color"
+            },
+            "input": {
+              "name": "search_bg_color"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Micro Stores",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "require_user_passcode",
+              "text": "Require Store Passcode"
+            },
+            "input": {
+              "name": "require_user_passcode"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "enter_password_label",
+              "text": "Enter Password Label"
+            },
+            "input": {
+              "name": "enter_password_label"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "clear_button_text",
+              "text": "Clear Button Text"
+            },
+            "input": {
+              "name": "clear_button_text"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      }
+    ]
+  },
+  {
+    "title": "Breadcrumbs",
+    "form": [
+      {
+        "type": "tips",
+        "tips": [
+          "Breadcrumbs can be located in any of the content pages as well as product pages."
+        ]
+      },
+      {
+        "type": "checkbox",
+        "label": {
+          "name": "show_breadcrumbs",
+          "text": "Display Breadcrumbs"
+        },
+        "input": {
+          "name": "show_breadcrumbs"
+        },
+        "help": null
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "breadcrumbs_link_color",
+          "text": "Link Color"
+        },
+        "input": {
+          "name": "breadcrumbs_link_color"
+        },
+        "help": null
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "breadcrumbs_link_hover",
+          "text": "Link Hover Color"
+        },
+        "input": {
+          "name": "breadcrumbs_link_hover"
+        },
+        "help": null
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "breadcrumbs_current_color",
+          "text": "Current Breadcrumb Color"
+        },
+        "input": {
+          "name": "breadcrumbs_current_color"
+        },
+        "help": null
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "breadcrumbs_separator_color",
+          "text": "Breadcrumb Separator Color"
+        },
+        "input": {
+          "name": "breadcrumbs_separator_color"
+        },
+        "help": null
+      }
+    ],
+    "children": []
+  },
+  {
+    "title": "Slideshow",
+    "form": [
+      {
+        "type": "tips",
+        "tips": [
+          "Appears on the homepage of your site."
+        ]
+      },
+      {
+        "type": "checkbox",
+        "label": {
+          "name": "display_slideshow",
+          "text": "Display slideshow"
+        },
+        "input": {
+          "name": "display_slideshow"
+        },
+        "help": null
+      },
+      {
+        "type": "checkbox",
+        "label": {
+          "name": "full_width_slideshow",
+          "text": "Display Slideshow in full width"
+        },
+        "input": {
+          "name": "full_width_slideshow"
+        },
+        "help": null
+      },
+      {
+        "type": "checkbox",
+        "label": {
+          "name": "slideshow_occupy_header",
+          "text": "Occupy header if full width"
+        },
+        "input": {
+          "name": "slideshow_occupy_header"
+        },
+        "help": null
+      },
+      {
+        "type": "select",
+        "label": {
+          "name": "caption_position",
+          "text": "Caption Position"
+        },
+        "select": {
+          "name": "caption_position",
+          "options": [
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        "help": null
+      },
+      {
+        "type": "text_input",
+        "label": {
+          "name": "slideshow_slide_interval",
+          "text": "Slide Interval in Seconds"
+        },
+        "input": {
+          "name": "slideshow_slide_interval"
+        },
+        "help": {
+          "title": "Description",
+          "text": "The amount of time to delay between automatically cycling a slide."
+        }
+      },
+      {
+        "type": "formlist",
+        "children": [
+          {
+            "title": "Slide #1",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_1",
+                  "text": "Show?"
+                },
+                "input": {
+                  "name": "show_carousel_item_1"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_mobile_img_1",
+                  "text": "Use Mobile Image?"
+                },
+                "input": {
+                  "name": "show_carousel_item_mobile_img_1"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_caption_1",
+                  "text": "Show Caption?"
+                },
+                "input": {
+                  "name": "show_carousel_item_caption_1"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "carousel-item-01.jpg",
+                  "text": "Image"
+                },
+                "input": {
+                  "name": "carousel-item-01.jpg"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "mobile-carousel-item-01.jpg",
+                  "text": "Mobile Image"
+                },
+                "input": {
+                  "name": "mobile-carousel-item-01.jpg"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "This image will used on mobile. Main slide image will be used if mobile image is not available."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_1_alt",
+                  "text": "Alt Text"
+                },
+                "input": {
+                  "name": "carousel_item_1_alt"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "Sets the alt text of your image."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_1_link",
+                  "text": "Link"
+                },
+                "input": {
+                  "name": "carousel_item_1_link"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_1_title",
+                  "text": "Title"
+                },
+                "input": {
+                  "name": "carousel_item_1_title"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_1_title_color",
+                  "text": "Title Color"
+                },
+                "input": {
+                  "name": "carousel_item_1_title_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_1_caption",
+                  "text": "Caption"
+                },
+                "input": {
+                  "name": "carousel_item_1_caption"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_1_caption_color",
+                  "text": "Caption Color"
+                },
+                "input": {
+                  "name": "carousel_item_1_caption_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_1_button_text",
+                  "text": "Button Text"
+                },
+                "input": {
+                  "name": "carousel_item_1_button_text"
+                }
+              }
+            ]
+          },
+          {
+            "title": "Slide #2",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_2",
+                  "text": "Show?"
+                },
+                "input": {
+                  "name": "show_carousel_item_2"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_mobile_img_2",
+                  "text": "Use Mobile Image?"
+                },
+                "input": {
+                  "name": "show_carousel_item_mobile_img_2"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_caption_2",
+                  "text": "Show Caption?"
+                },
+                "input": {
+                  "name": "show_carousel_item_caption_2"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "carousel-item-02.jpg",
+                  "text": "Image"
+                },
+                "input": {
+                  "name": "carousel-item-02.jpg"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "mobile-carousel-item-02.jpg",
+                  "text": "Mobile Image"
+                },
+                "input": {
+                  "name": "mobile-carousel-item-02.jpg"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "This image will used on mobile. Main slide image will be used if mobile image is not available."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_2_alt",
+                  "text": "Alt Text"
+                },
+                "input": {
+                  "name": "carousel_item_2_alt"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "If you don’t want a description at the bottom of your slideshow, delete the content in each description box."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_2_link",
+                  "text": "Link"
+                },
+                "input": {
+                  "name": "carousel_item_2_link"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_2_title",
+                  "text": "Title"
+                },
+                "input": {
+                  "name": "carousel_item_2_title"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_2_title_color",
+                  "text": "Title Color"
+                },
+                "input": {
+                  "name": "carousel_item_2_title_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_2_caption",
+                  "text": "Caption"
+                },
+                "input": {
+                  "name": "carousel_item_2_caption"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_2_caption_color",
+                  "text": "Caption Color"
+                },
+                "input": {
+                  "name": "carousel_item_2_caption_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_2_button_text",
+                  "text": "Button Text"
+                },
+                "input": {
+                  "name": "carousel_item_2_button_text"
+                }
+              }
+            ]
+          },
+          {
+            "title": "Slide #3",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_3",
+                  "text": "Show?"
+                },
+                "input": {
+                  "name": "show_carousel_item_3"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_mobile_img_3",
+                  "text": "Use Mobile Image?"
+                },
+                "input": {
+                  "name": "show_carousel_item_mobile_img_3"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_caption_3",
+                  "text": "Show Caption?"
+                },
+                "input": {
+                  "name": "show_carousel_item_caption_3"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "carousel-item-03.jpg",
+                  "text": "Image"
+                },
+                "input": {
+                  "name": "carousel-item-03.jpg"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "mobile-carousel-item-03.jpg",
+                  "text": "Mobile Image"
+                },
+                "input": {
+                  "name": "mobile-carousel-item-03.jpg"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "This image will used on mobile. Main slide image will be used if mobile image is not available."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_3_alt",
+                  "text": "Alt Text"
+                },
+                "input": {
+                  "name": "carousel_item_3_alt"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "If you don’t want a description at the bottom of your slideshow, delete the content in each description box."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_3_link",
+                  "text": "Link"
+                },
+                "input": {
+                  "name": "carousel_item_3_link"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_3_title",
+                  "text": "Title"
+                },
+                "input": {
+                  "name": "carousel_item_3_title"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_3_title_color",
+                  "text": "Title Color"
+                },
+                "input": {
+                  "name": "carousel_item_3_title_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_3_caption",
+                  "text": "Caption"
+                },
+                "input": {
+                  "name": "carousel_item_3_caption"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_3_caption_color",
+                  "text": "Caption Color"
+                },
+                "input": {
+                  "name": "carousel_item_3_caption_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_3_button_text",
+                  "text": "Button Text"
+                },
+                "input": {
+                  "name": "carousel_item_3_button_text"
+                }
+              }
+            ]
+          },
+          {
+            "title": "Slide #4",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_4",
+                  "text": "Show?"
+                },
+                "input": {
+                  "name": "show_carousel_item_4"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_mobile_img_4",
+                  "text": "Use Mobile Image?"
+                },
+                "input": {
+                  "name": "show_carousel_item_mobile_img_4"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_caption_4",
+                  "text": "Show Caption?"
+                },
+                "input": {
+                  "name": "show_carousel_item_caption_4"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "carousel-item-04.jpg",
+                  "text": "Image"
+                },
+                "input": {
+                  "name": "carousel-item-04.jpg"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "mobile-carousel-item-04.jpg",
+                  "text": "Mobile Image"
+                },
+                "input": {
+                  "name": "mobile-carousel-item-04.jpg"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "This image will used on mobile. Main slide image will be used if mobile image is not available."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_4_alt",
+                  "text": "Alt Text"
+                },
+                "input": {
+                  "name": "carousel_item_4_alt"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "If you don’t want a description at the bottom of your slideshow, delete the content in each description box."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_4_link",
+                  "text": "Link"
+                },
+                "input": {
+                  "name": "carousel_item_4_link"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_4_title",
+                  "text": "Title"
+                },
+                "input": {
+                  "name": "carousel_item_4_title"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_4_title_color",
+                  "text": "Title Color"
+                },
+                "input": {
+                  "name": "carousel_item_4_title_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_4_caption",
+                  "text": "Caption"
+                },
+                "input": {
+                  "name": "carousel_item_4_caption"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_4_caption_color",
+                  "text": "Caption Color"
+                },
+                "input": {
+                  "name": "carousel_item_4_caption_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_4_button_text",
+                  "text": "Button Text"
+                },
+                "input": {
+                  "name": "carousel_item_4_button_text"
+                }
+              }
+            ]
+          },
+          {
+            "title": "Slide #5",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_5",
+                  "text": "Show?"
+                },
+                "input": {
+                  "name": "show_carousel_item_5"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_mobile_img_5",
+                  "text": "Use Mobile Image?"
+                },
+                "input": {
+                  "name": "show_carousel_item_mobile_img_5"
+                },
+                "help": null
+              },
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_carousel_item_caption_5",
+                  "text": "Show Caption?"
+                },
+                "input": {
+                  "name": "show_carousel_item_caption_5"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "carousel-item-05.jpg",
+                  "text": "Image"
+                },
+                "input": {
+                  "name": "carousel-item-05.jpg"
+                },
+                "help": null
+              },
+              {
+                "type": "image",
+                "label": {
+                  "name": "mobile-carousel-item-05.jpg",
+                  "text": "Mobile Image"
+                },
+                "input": {
+                  "name": "mobile-carousel-item-05.jpg"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "This image will used on mobile. Main slide image will be used if mobile image is not available."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_5_alt",
+                  "text": "Alt Text"
+                },
+                "input": {
+                  "name": "carousel_item_5_alt"
+                },
+                "help": {
+                  "title": "Description",
+                  "text": "If you don’t want a description at the bottom of your slideshow, delete the content in each description box."
+                }
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_5_link",
+                  "text": "Link"
+                },
+                "input": {
+                  "name": "carousel_item_5_link"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_5_title",
+                  "text": "Title"
+                },
+                "input": {
+                  "name": "carousel_item_5_title"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_5_title_color",
+                  "text": "Title Color"
+                },
+                "input": {
+                  "name": "carousel_item_5_title_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_5_caption",
+                  "text": "Caption"
+                },
+                "input": {
+                  "name": "carousel_item_5_caption"
+                }
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "carousel_item_5_caption_color",
+                  "text": "Caption Color"
+                },
+                "input": {
+                  "name": "carousel_item_5_caption_color"
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "carousel_item_5_button_text",
+                  "text": "Button Text"
+                },
+                "input": {
+                  "name": "carousel_item_5_button_text"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "children": []
+  },
+  {
+    "title": "Content",
+    "form": [
+      {
+        "type": "text_input",
+        "label": {
+          "name": "site_width",
+          "text": "Container Width"
+        },
+        "input": {
+          "name": "site_width"
+        },
+        "help": {
+          "title": "Container Width",
+          "text": "Determines the maximum width of your content."
+        }
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "content_bg_color",
+          "text": "Content Background Color"
+        },
+        "input": {
+          "name": "content_bg_color"
+        },
+        "help": null
+      },
+      {
+        "type": "text_input",
+        "label": {
+          "name": "content_shadow",
+          "text": "Content Box Shadow"
+        },
+        "input": {
+          "name": "content_shadow"
+        },
+        "help": {
+          "title": "Content Box Shadow",
+          "text": "This is the shadow that borders the main content. If you would like to remove the shadow, type 'none' in the box."
+        }
+      },
+      {
+        "type": "text_input",
+        "label": {
+          "name": "fp_verbiage",
+          "text": "Featured Product Verbiage"
+        },
+        "input": {
+          "name": "fp_verbiage"
+        },
+        "help": null
+      }
+    ],
+    "children": [
+      {
+        "title": "Product Thumbnails",
+        "form": [
+          {
+            "type": "tips",
+            "tips": [
+              "These options change the look of the product thumbnails located in the catalog pages and featured products section of your site."
+            ]
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "truncate_product_thumbnail_text",
+              "text": "Truncate Thumbnail Text"
+            },
+            "input": {
+              "name": "truncate_product_thumbnail_text"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "truncated_length",
+              "text": "Length of truncated text"
+            },
+            "select": {
+              "name": "truncated_length",
+              "options": [
+                {
+                  "value": "25",
+                  "label": "25"
+                },
+                {
+                  "value": "30",
+                  "label": "30"
+                },
+                {
+                  "value": "35",
+                  "label": "35"
+                },
+                {
+                  "value": "40",
+                  "label": "40"
+                },
+                {
+                  "value": "45",
+                  "label": "45"
+                },
+                {
+                  "value": "50",
+                  "label": "50"
+                }
+              ]
+            },
+            "help": {
+              "title": "Number of characters to leave in the text.",
+              "text": "Note that the above 'Truncate Thumbnail Text' option must be enabled for this to take effect."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "product_thumbnails_per_row",
+              "text": "Thumbnails per row"
+            },
+            "select": {
+              "name": "product_thumbnails_per_row",
+              "options": [
+                {
+                  "value": "5",
+                  "label": "5"
+                },
+                {
+                  "value": "4",
+                  "label": "4"
+                },
+                {
+                  "value": "3",
+                  "label": "3"
+                },
+                {
+                  "value": "2",
+                  "label": "2"
+                },
+                {
+                  "value": "1",
+                  "label": "1"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "product_thumbnails_height",
+              "text": "Thumbnail Height"
+            },
+            "input": {
+              "name": "product_thumbnails_height"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "product_thumbnail_background",
+              "text": "Thumbnail Background Color"
+            },
+            "input": {
+              "name": "product_background"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "product_thumbnail_background",
+              "text": "Product Image Background Color"
+            },
+            "input": {
+              "name": "product_image_background"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "product_thumbnail_border_color",
+              "text": "Border Color"
+            },
+            "input": {
+              "name": "product_thumbnail_border_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "product_thumbnail_border_hover_color",
+              "text": "Border Hover Color"
+            },
+            "input": {
+              "name": "product_thumbnail_border_hover_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "product_thumbnail_img_border_color",
+              "text": "Image Border Color"
+            },
+            "input": {
+              "name": "product_thumbnail_img_border_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "product_thumbnail_text_color",
+              "text": "Text Color"
+            },
+            "input": {
+              "name": "product_thumbnail_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "product_thumbnail_price_color",
+              "text": "Price Color"
+            },
+            "input": {
+              "name": "product_thumbnail_price_color"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "product_thumbnail_length_per_page",
+              "text": "Number of Product Thumbnails per page"
+            },
+            "select": {
+              "name": "product_thumbnail_length_per_page",
+              "options": [
+                {
+                  "value": "10",
+                  "label": "10"
+                },
+                {
+                  "value": "20",
+                  "label": "20"
+                },
+                {
+                  "value": "30",
+                  "label": "30"
+                },
+                {
+                  "value": "40",
+                  "label": "40"
+                },
+                {
+                  "value": "50",
+                  "label": "50"
+                }
+              ]
+            },
+            "help": null
+          }
+        ],
+        "children": [
+          {
+            "title": "New Product",
+            "form": [
+              {
+                "type": "checkbox",
+                "label": {
+                  "name": "show_new_products",
+                  "text": "Show \"New Product\" Label"
+                },
+                "input": {
+                  "name": "show_new_products"
+                },
+                "help": null
+              },
+              {
+                "type": "select",
+                "label": {
+                  "name": "new_product_position",
+                  "text": "\"New Product\" Label Position"
+                },
+                "select": {
+                  "name": "new_product_position",
+                  "options": [
+                    {
+                      "value": "thumbnail",
+                      "label": "Thumbnail"
+                    },
+                    {
+                      "value": "productname",
+                      "label": "Product name"
+                    }
+                  ]
+                },
+                "help": null
+              },
+              {
+                "type": "text_input",
+                "label": {
+                  "name": "new_product_label",
+                  "text": "\"New Product\" Label"
+                },
+                "input": {
+                  "name": "new_product_label"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "new_product_label_background",
+                  "text": "\"New Product\" Label Background Color"
+                },
+                "input": {
+                  "name": "new_product_label_background"
+                },
+                "help": null
+              },
+              {
+                "type": "color",
+                "label": {
+                  "name": "new_product_label_textcolor",
+                  "text": "\"New Product\" Label Text Color"
+                },
+                "input": {
+                  "name": "new_product_label_textcolor"
+                },
+                "help": null
+              },
+              {
+                "type": "select",
+                "label": {
+                  "name": "new_product_transform",
+                  "text": "\"New Product\" Label Transform"
+                },
+                "select": {
+                  "name": "new_product_transform",
+                  "options": [
+                    {
+                      "value": "capitalize",
+                      "label": "Capitalize"
+                    },
+                    {
+                      "value": "lowercase",
+                      "label": "Lowercase"
+                    },
+                    {
+                      "value": "uppercase",
+                      "label": "Uppercase"
+                    },
+                    {
+                      "value": "none",
+                      "label": "None (renders as is)"
+                    }
+                  ]
+                },
+                "help": null
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "title": "Product Page",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "social_share",
+              "text": "Show social icons on product page?"
+            },
+            "input": {
+              "name": "social_share"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "show_reviews",
+              "text": "Show reviews on product page?"
+            },
+            "input": {
+              "name": "show_reviews"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "show_vendors",
+              "text": "Show vendors?"
+            },
+            "input": {
+              "name": "show_vendors"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "show_sku",
+              "text": "Show SKU?"
+            },
+            "input": {
+              "name": "show_sku"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "move_color_above_logo",
+              "text": "Move Color Product Option above Logo Option?"
+            },
+            "input": {
+              "name": "move_color_above_logo"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Order Confirmation Page",
+        "form": [
+          {
+            "type": "tips",
+            "tips": [
+              "The Order Confirmation Page is the page the user is sent to after they complete their order."
+            ]
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "order_confirm_header",
+              "text": "Order Confirmation Header"
+            },
+            "input": {
+              "name": "order_confirm_header"
+            },
+            "help": {
+              "title": "Order Confirmation Header",
+              "text": "This text is what shows up as the order confirmation heading after the shopper completes their order."
+            }
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "order_confirm_message",
+              "text": "Order Confirmation Message"
+            },
+            "input": {
+              "name": "order_confirm_message"
+            },
+            "help": {
+              "title": "Order Confirmation Message",
+              "text": "This text is what shows up in the confirmation page after the shopper completes their order."
+            }
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "show_like_products",
+              "text": "Show Product Recommendations?"
+            },
+            "input": {
+              "name": "show_like_products"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Order Confirmation Email",
+        "form": [
+          {
+            "type": "tips",
+            "tips": [
+              "The Order Confirmation Email is what the user receives after they place an order."
+            ]
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "order_confirm_heading_bars_color",
+              "text": "Heading Bars Background Color"
+            },
+            "input": {
+              "name": "order_confirm_heading_bars_color"
+            },
+            "help": {
+              "title": "Heading Bars Color",
+              "text": "This changes the background color on headings of the email the shopper receives after placing an order."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "order_confirm_heading_bars_text_color",
+              "text": "Heading Bars Text Color"
+            },
+            "input": {
+              "name": "order_confirm_heading_bars_text_color"
+            },
+            "help": {
+              "title": "Heading Bars Text Color",
+              "text": "This changes the text color on headings of the email the shopper receives after placing an order."
+            }
+          }
+        ],
+        "children": []
+      }
+    ]
+  },
+  {
+    "title": "Footer",
+    "form": [
+      {
+        "type": "tips",
+        "tips": [
+          "Appears at the bottom of every page on your website."
+        ]
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "footer_bg_color",
+          "text": "Footer Background Color"
+        },
+        "input": {
+          "name": "footer_bg_color"
+        },
+        "help": null
+      },
+      {
+        "type": "color",
+        "label": {
+          "name": "footer_second_bg_color",
+          "text": "Footer Secondary Background Color"
+        },
+        "input": {
+          "name": "footer_second_bg_color"
+        },
+        "help": null
+      },
+      {
+        "type": "text_input",
+        "label": {
+          "name": "copyright_info",
+          "text": "Copyright Info"
+        },
+        "input": {
+          "name": "copyright_info"
+        },
+        "help": null
+      }
+    ],
+    "children": [
+      {
+        "title": "Logo Properties",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "display_footer_logo",
+              "text": "Display Logo"
+            },
+            "input": {
+              "name": "display_footer_logo"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "logo_footer_width",
+              "text": "Logo Width"
+            },
+            "input": {
+              "name": "logo_footer_width"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "logo_footer_height",
+              "text": "Logo Height"
+            },
+            "input": {
+              "name": "logo_footer_height"
+            },
+            "help": null
+          },
+          {
+            "type": "image",
+            "label": {
+              "name": "logo-footer.png",
+              "text": "Logo Image"
+            },
+            "input": {
+              "name": "logo-footer.png"
+            },
+            "help": {
+              "title": "Logo Image",
+              "text": "In order to show a custom logo, select the 'custom' option in the dropdown. Otherwise select a sample logo to showcase in your store."
+            }
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "logo_footer_margin",
+              "text": "Logo Margin"
+            },
+            "input": {
+              "name": "logo_footer_margin"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Font",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "footer_text_color",
+              "text": "Body Text Color"
+            },
+            "input": {
+              "name": "footer_text_color"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_text_size",
+              "text": "Body Text Size"
+            },
+            "select": {
+              "name": "footer_text_size",
+              "options": [
+                {
+                  "value": "6px",
+                  "label": "6px"
+                },
+                {
+                  "value": "7px",
+                  "label": "7px"
+                },
+                {
+                  "value": "8px",
+                  "label": "8px"
+                },
+                {
+                  "value": "9px",
+                  "label": "9px"
+                },
+                {
+                  "value": "10px",
+                  "label": "10px"
+                },
+                {
+                  "value": "11px",
+                  "label": "11px"
+                },
+                {
+                  "value": "12px",
+                  "label": "12px"
+                },
+                {
+                  "value": "13px",
+                  "label": "13px"
+                },
+                {
+                  "value": "14px",
+                  "label": "14px"
+                },
+                {
+                  "value": "15px",
+                  "label": "15px"
+                },
+                {
+                  "value": "16px",
+                  "label": "16px"
+                },
+                {
+                  "value": "18px",
+                  "label": "18px"
+                },
+                {
+                  "value": "20px",
+                  "label": "20px"
+                },
+                {
+                  "value": "22px",
+                  "label": "22px"
+                },
+                {
+                  "value": "24px",
+                  "label": "24px"
+                },
+                {
+                  "value": "26px",
+                  "label": "26px"
+                },
+                {
+                  "value": "28px",
+                  "label": "28px"
+                },
+                {
+                  "value": "32px",
+                  "label": "32px"
+                },
+                {
+                  "value": "36px",
+                  "label": "36px"
+                },
+                {
+                  "value": "40px",
+                  "label": "40px"
+                },
+                {
+                  "value": "44px",
+                  "label": "44px"
+                },
+                {
+                  "value": "48px",
+                  "label": "48px"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "footer_header_color",
+              "text": "Header Text Color"
+            },
+            "input": {
+              "name": "footer_header_color"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_header_size",
+              "text": "Header Text Size"
+            },
+            "select": {
+              "name": "footer_header_size",
+              "options": [
+                {
+                  "value": "6px",
+                  "label": "6px"
+                },
+                {
+                  "value": "7px",
+                  "label": "7px"
+                },
+                {
+                  "value": "8px",
+                  "label": "8px"
+                },
+                {
+                  "value": "9px",
+                  "label": "9px"
+                },
+                {
+                  "value": "10px",
+                  "label": "10px"
+                },
+                {
+                  "value": "11px",
+                  "label": "11px"
+                },
+                {
+                  "value": "12px",
+                  "label": "12px"
+                },
+                {
+                  "value": "13px",
+                  "label": "13px"
+                },
+                {
+                  "value": "14px",
+                  "label": "14px"
+                },
+                {
+                  "value": "15px",
+                  "label": "15px"
+                },
+                {
+                  "value": "16px",
+                  "label": "16px"
+                },
+                {
+                  "value": "18px",
+                  "label": "18px"
+                },
+                {
+                  "value": "20px",
+                  "label": "20px"
+                },
+                {
+                  "value": "22px",
+                  "label": "22px"
+                },
+                {
+                  "value": "24px",
+                  "label": "24px"
+                },
+                {
+                  "value": "26px",
+                  "label": "26px"
+                },
+                {
+                  "value": "28px",
+                  "label": "28px"
+                },
+                {
+                  "value": "32px",
+                  "label": "32px"
+                },
+                {
+                  "value": "36px",
+                  "label": "36px"
+                },
+                {
+                  "value": "40px",
+                  "label": "40px"
+                },
+                {
+                  "value": "44px",
+                  "label": "44px"
+                },
+                {
+                  "value": "48px",
+                  "label": "48px"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "footer_link_color",
+              "text": "Link Color"
+            },
+            "input": {
+              "name": "footer_link_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "footer_link_hover_color",
+              "text": "Link Hover Color"
+            },
+            "input": {
+              "name": "footer_link_hover_color"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Custom Footer Links",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "enable_custom_footer_links",
+              "text": "Enable Custom Footer Links"
+            },
+            "input": {
+              "name": "enable_custom_footer_links"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "custom_footer_links_title",
+              "text": "Custom Footer Links Title"
+            },
+            "input": {
+              "name": "custom_footer_links_title"
+            },
+            "help": null
+          },
+          {
+            "type": "formlist",
+            "children": [
+              {
+                "title": "Custom Footer Link #1",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "enable_footer_link_1",
+                      "text": "Enable Custom Footer Link #1"
+                    },
+                    "input": {
+                      "name": "enable_footer_link_1"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "custom_footer_link_1_target_blank",
+                      "text": "Open link in a new tab"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_1_target_blank"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_1",
+                      "text": "Link"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_1"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_text_1",
+                      "text": "Title"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_text_1"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Custom Footer Link #2",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "enable_footer_link_2",
+                      "text": "Enable Custom Footer Link #2"
+                    },
+                    "input": {
+                      "name": "enable_footer_link_2"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "custom_footer_link_2_target_blank",
+                      "text": "Open link in a new tab"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_2_target_blank"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_2",
+                      "text": "Link"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_2"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_text_2",
+                      "text": "Title"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_text_2"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Custom Footer Link #3",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "enable_footer_link_3",
+                      "text": "Enable Custom Footer Link #3"
+                    },
+                    "input": {
+                      "name": "enable_footer_link_3"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "custom_footer_link_3_target_blank",
+                      "text": "Open link in a new tab"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_3_target_blank"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_3",
+                      "text": "Link"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_3"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_text_3",
+                      "text": "Title"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_text_3"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Custom Footer Link #4",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "enable_footer_link_4",
+                      "text": "Enable Custom Footer Link #4"
+                    },
+                    "input": {
+                      "name": "enable_footer_link_4"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "custom_footer_link_4_target_blank",
+                      "text": "Open link in a new tab"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_4_target_blank"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_4",
+                      "text": "Link"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_4"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_text_4",
+                      "text": "Title"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_text_4"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Custom Footer Link #5",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "enable_footer_link_5",
+                      "text": "Enable Custom Footer Link #5"
+                    },
+                    "input": {
+                      "name": "enable_footer_link_5"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "custom_footer_link_5_target_blank",
+                      "text": "Open link in a new tab"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_5_target_blank"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_5",
+                      "text": "Link"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_5"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "custom_footer_link_text_5",
+                      "text": "Title"
+                    },
+                    "input": {
+                      "name": "custom_footer_link_text_5"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              }
+            ]
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Social Icons",
+        "form": [
+          {
+            "type": "color",
+            "label": {
+              "name": "social_i_color",
+              "text": "Social Icons Color"
+            },
+            "input": {
+              "name": "social_i_color"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "social_i_hover_color",
+              "text": "Social Icons Rollover Color"
+            },
+            "input": {
+              "name": "social_i_hover_color"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "social_i_size",
+              "text": "Social Icons Size"
+            },
+            "input": {
+              "name": "social_i_size"
+            },
+            "help": null
+          },
+          {
+            "type": "formlist",
+            "children": [
+              {
+                "title": "Facebook",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "sm_facebook",
+                      "text": "Show Facebook Icon?"
+                    },
+                    "input": {
+                      "name": "sm_facebook"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "sm_facebook_link",
+                      "text": "Facebook Link URL"
+                    },
+                    "input": {
+                      "name": "sm_facebook_link"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "X",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "sm_twitter",
+                      "text": "Show X Icon?"
+                    },
+                    "input": {
+                      "name": "sm_twitter"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "sm_twitter_link",
+                      "text": "X Link URL"
+                    },
+                    "input": {
+                      "name": "sm_twitter_link"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "LinkedIn",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "sm_linkedin",
+                      "text": "Show LinkedIn Icon?"
+                    },
+                    "input": {
+                      "name": "sm_linkedin"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "sm_linkedin_link",
+                      "text": "LinkedIn Link URL"
+                    },
+                    "input": {
+                      "name": "sm_linkedin_link"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Instagram",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "sm_instagram",
+                      "text": "Show Instagram Icon?"
+                    },
+                    "input": {
+                      "name": "sm_instagram"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "sm_instagram_link",
+                      "text": "Instagram Link URL"
+                    },
+                    "input": {
+                      "name": "sm_instagram_link"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Tiktok",
+                "form": [
+                  {
+                    "type": "checkbox",
+                    "label": {
+                      "name": "sm_tiktok",
+                      "text": "Show Tiktok Icon?"
+                    },
+                    "input": {
+                      "name": "sm_tiktok"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "sm_tiktok_link",
+                      "text": "Tiktok Link URL"
+                    },
+                    "input": {
+                      "name": "sm_tiktok_link"
+                    },
+                    "help": null
+                  }
+                ],
+                "children": []
+              }
+            ]
+          }
+        ],
+        "children": []
+      }
+    ]
+  }
+]

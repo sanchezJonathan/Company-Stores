@@ -1,0 +1,85 @@
+{% assign page_content = page_with_active_ecommerce %}
+<div class="main">
+  <div class="content-area {% if template_name == 'index' %}index-page{% endif %}">
+
+    {% include 'special_page' with page_content %}
+
+    {% comment %}
+    <div class="homepage-boxes-container"> 
+      <h2 class="text-left" style="font-size: 28px; color: #103714;">Categories</h2>
+      <hr style="background-color: #CECECE">
+      <div class="homepage-boxes">
+        {% if settings.enable_grid_box_1 %}
+        <div class="homepage-box {{settings.grid_box_button_align}} hbox1">
+          <a href="{{ settings.grid_box_1_link }}">
+            <img src="{{ 'grid-box-01.jpg' | asset_url }}">
+          </a>
+          <div>
+            <p>{{ settings.grid_box_1_title }}</p>
+            <a href="{{ settings.grid_box_1_link}}" class="btn secondary">Shop Now</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if settings.enable_grid_box_2 %}
+        <div class="homepage-box {{settings.grid_box_button_align}} hbox2">
+          <a href="{{ settings.grid_box_2_link }}">
+            <img src="{{ 'grid-box-02.jpg' | asset_url }}">
+          </a>
+          <div>
+            <p>{{ settings.grid_box_2_title }}</p>
+            <a href="{{ settings.grid_box_2_link}}" class="btn secondary">Shop Now</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if settings.enable_grid_box_3 %}
+        <div class="homepage-box {{settings.grid_box_button_align}} hbox3">
+          <a href="{{ settings.grid_box_3_link }}">
+            <img src="{{ 'grid-box-03.jpg' | asset_url }}">
+          </a>
+          <div>
+            <p>{{ settings.grid_box_3_title }}</p>
+            <a href="{{ settings.grid_box_3_link}}" class="btn secondary">Shop Now</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if settings.enable_grid_box_4 %}
+        <div class="homepage-box {{settings.grid_box_button_align}} hbox4">
+          <a href="{{ settings.grid_box_4_link }}">
+            <img src="{{ 'grid-box-04.jpg' | asset_url }}">
+          </a>
+          <div>
+            <p>{{ settings.grid_box_4_title }}</p>
+            <a href="{{ settings.grid_box_4_link}}" class="btn secondary">Shop Now</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if settings.enable_custom_banner %}
+        <div class="homepage-bottom-banners">
+          <a href="{{ settings.custom_banner_link }}" {% if settings.custom_banner_target_blank %}target="_blank" rel="noopener noreferrer"{% endif %}>
+            <img src="{{ 'custom-banner.jpg' | asset_url }}">
+          </a>  
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endcomment %}
+  
+  </div>
+</div>
+
+{% if template_name == 'catalog_page' and shop.filtering_active %}
+  <style>
+    .iframe-area, .featured-products {
+      display: none;
+    }
+  </style>
+  <div style="text-align:center;color:red!important;">
+    <h1>Thank you for choosing this mobile-friendly theme!</h1>
+    <p>This theme does not require a Catalog Page. Please turn off the Catalog Page in the Admin area.</p>
+    <p>If you have selected your Home Page as your Catalog Page, please create a new page in the Admin area, assign the newly create page as the Catalog Page, and turn it off.</p>
+  </div>
+{% endif %}

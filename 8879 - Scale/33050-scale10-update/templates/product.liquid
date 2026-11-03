@@ -73,7 +73,6 @@
                         name="product[quantity]" value="{{ form.quantity | default: moq }}"/>
                       <button type="button" class="pp-qty-btn" data-step="1" aria-label="Increase quantity">+</button>
                     </div>
-                    <span class="stock" id="stock"></span>
                   </div>
                   {% if product.quantity_discounts_enabled? %}
                     <div class="quantity-discount">
@@ -82,6 +81,8 @@
                   {% endif %}
                 </div>
               {% endif %}
+              
+              <span class="stock" id="stock"></span>
 
               {% include 'product_summary' %}
               {% include 'line_item_add_buttons' %}
@@ -236,4 +237,4 @@
 {% include 'in_stock_modal' %}
 {% include 'product_javascript' %}
 {% include 'product_js' %}
-{% include 'product_stock_options' %}
+{% comment %}{% include 'product_stock_options' %}{% endcomment %}

@@ -1,0 +1,187 @@
+<div class="content-block account-addresses" id="account-addresses">
+  <h3>Your Addresses</h3>
+  <div class="account-addresses-message" role="status"></div>
+  <div id="addresses-container" class="accordion address-list clrfix">
+    {% for address in current_user.addresses %}
+      <div class="accordion-item existing-address">
+        <h3 class="accordion-header" id="addr-heading-{{ address.id }}">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#addr-collapse-{{ address.id }}" aria-expanded="false" aria-controls="addr-collapse-{{ address.id }}">
+            {{ address.nickname }}
+          </button>
+        </h3>
+        <div id="addr-collapse-{{ address.id }}" class="accordion-collapse collapse" aria-labelledby="addr-heading-{{ address.id }}">
+          <div class="accordion-body">
+            <form class="simple_form edit_website_account_address js-account-address-form" id="edit_website_account_address" novalidate="novalidate" action="{{ address | account_address_url }}" accept-charset="UTF-8" method="post">
+              <input type="hidden" name="_method" value="put"/>
+              <input type="hidden" name="authenticity_token" value=""/>
+              {% render 'account_address_fields', address: address, field_id: address.id %}
+              <div class="form-buttons">
+                <input type="submit" value="Save Changes" class="btn secondary save-address"/>
+                <button type="button" class="btn secondary delete-address js-account-address-delete" data-url="{{ address | account_address_url }}">Delete Address</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="accordion-item existing-address">
+      <h3 class="accordion-header" id="addr-heading-new">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#addr-collapse-new" aria-expanded="true" aria-controls="addr-collapse-new">
+          Add New
+        </button>
+      </h3>
+      <div id="addr-collapse-new" class="accordion-collapse collapse show" aria-labelledby="addr-heading-new">
+        <div class="accordion-body">
+          <form class="simple_form new_website_account_address js-account-address-form" id="new_website_account_address" novalidate="novalidate" action="/account/addresses" accept-charset="UTF-8" method="post">
+            <input type="hidden" name="authenticity_token" value=""/>
+            {% render 'account_address_fields', field_id: 'new' %}
+            <div class="row">
+              <div class="col">
+                <div class="form-buttons">
+                  <input type="submit" class="btn secondary custom-button btn-blue" value="Add New Address"/>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    var $section = $('#account-addresses');
+    var $message = $section.find('.account-addresses-message');
+    var flashKey = 'accountAddressesFlash';
+
+    function csrfToken() {
+      return $('meta[name="csrf-token"]').attr('content') || '';
+    }
+
+    function showMessage(text, isError) {
+      $message
+        .removeClass('alert-success alert-danger')
+        .addClass('alert ' + (isError ? 'alert-danger' : 'alert-success'))
+        .text(text);
+    }
+
+    function reloadWithMessage(text) {
+      try { sessionStorage.setItem(flashKey, text); } catch (e) {}
+      window.location.reload();
+    }
+
+    try {
+      var flash = sessionStorage.getItem(flashKey);
+      if (flash) {
+        sessionStorage.removeItem(flashKey);
+        showMessage(flash, false);
+      }
+    } catch (e) {}
+
+    $section.find('.js-account-address-form').each(function () {
+      var $country = $(this).find('select.addr-country');
+      var $state = $(this).find('select.addr-state');
+
+      function loadStates(selected) {
+        var states = get_states(get_country_id($country.val())).map(function (state) {
+          return { id: state, text: state };
+        });
+        if ($state.hasClass('select2-hidden-accessible')) {
+          $state.select2('destroy');
+        }
+        $state
+          .empty()
+          .append('<option value=""></option>')
+          .select2({ placeholder: 'Select a state', data: states, theme: 'bootstrap4' })
+          .val(selected)
+          .trigger('change');
+      }
+
+      $country.select2({ placeholder: 'Select a country', theme: 'bootstrap4' });
+      loadStates($state.val());
+      $country.on('change', function () { loadStates(''); });
+    });
+
+    function clearErrors($form) {
+      $form.find('.is-invalid').removeClass('is-invalid');
+      $form.find('.invalid-feedback').remove();
+    }
+
+    function applyErrors($form, html) {
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var source = doc.querySelector('form[action="' + $form.attr('action') + '"]');
+      var found = 0;
+      if (!source) return found;
+
+      $(source).find('.invalid-feedback').each(function () {
+        var name = $(this).prevAll('input, select').first().attr('name');
+        var $field = $form.find('[name="' + name + '"]').not('[type="hidden"]').first();
+        if (!$field.length) return;
+        var $after = $field.next('.select2').length ? $field.next('.select2') : $field;
+        $field.addClass('is-invalid');
+        $('<div class="invalid-feedback d-block"></div>').text($(this).text()).insertAfter($after);
+        found++;
+      });
+      return found;
+    }
+
+    function post(url, data) {
+      return fetch(url, {
+        method: 'POST',
+        body: data,
+        credentials: 'same-origin',
+        headers: { 'Accept': 'text/html' }
+      }).then(function (response) {
+        return response.text().then(function (html) {
+          return { ok: response.ok && response.redirected, html: html };
+        });
+      });
+    }
+
+    $section.on('submit', '.js-account-address-form', function (event) {
+      event.preventDefault();
+      var $form = $(this);
+      var $submit = $form.find('[type="submit"]').prop('disabled', true);
+      var isNew = !$form.find('input[name="_method"]').length;
+
+      $form.find('input[name="authenticity_token"]').val(csrfToken());
+      clearErrors($form);
+
+      post($form.attr('action'), new URLSearchParams(new FormData(this)))
+        .then(function (result) {
+          if (applyErrors($form, result.html)) {
+            $submit.prop('disabled', false);
+            showMessage('Please correct the highlighted fields.', true);
+          } else if (result.ok) {
+            reloadWithMessage(isNew ? 'Address added.' : 'Address saved.');
+          } else {
+            throw new Error('Request failed');
+          }
+        })
+        .catch(function () {
+          $submit.prop('disabled', false);
+          showMessage('Something went wrong saving this address. Please try again.', true);
+        });
+    });
+
+    $section.on('click', '.js-account-address-delete', function () {
+      if (!window.confirm('Are you sure?')) return;
+      var $button = $(this).prop('disabled', true);
+      var data = new URLSearchParams();
+      data.append('_method', 'delete');
+      data.append('authenticity_token', csrfToken());
+
+      post($button.data('url'), data)
+        .then(function (result) {
+          if (!result.ok) throw new Error('Request failed');
+          reloadWithMessage('Address deleted.');
+        })
+        .catch(function () {
+          $button.prop('disabled', false);
+          showMessage('Something went wrong deleting this address. Please try again.', true);
+        });
+    });
+  });
+</script>

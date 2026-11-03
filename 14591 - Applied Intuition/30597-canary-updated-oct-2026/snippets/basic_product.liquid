@@ -1,0 +1,60 @@
+{% assign color_option = nil %}
+{% for option in product.options_or_groups %}
+  {% assign option_name = option.friendly_name | downcase %}
+  {% if option_name == 'color' %}{% assign color_option = option %}{% endif %}
+{% endfor %}
+
+{% assign all_photos = '' %}
+{% for image in product.images %}
+  {% assign all_photos = all_photos | append: '|' | append: image.large_url %}
+{% endfor %}
+{% assign all_photos = all_photos | remove_first: '|' %}
+{% if all_photos == blank %}{% assign all_photos = 'no_img_placeholder.png' | asset_url %}{% endif %}
+
+{% assign product_link = product | product_url %}
+{% assign tile_link = product_link %}
+{% if color_option %}
+  {% assign tile_link = product_link | append: '?color=' | append: color_option.sub_options.first.id %}
+{% endif %}
+
+<div class="product-tile" data-url="{{ product_link }}" data-photos="{{ all_photos }}">
+  <div class="product-tile-media">
+    <a class="product-tile-photo" href="{{ tile_link }}">
+      <img src="{{ all_photos | split: '|' | first }}" alt="{{ product.name | escape }}" loading="lazy">
+    </a>
+    <div class="product-tile-dashes" aria-hidden="true"></div>
+
+    {% if product.images.size > 1 %}
+      <button type="button" class="product-tile-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 8 14" aria-hidden="true"><polyline points="7,1 1,7 7,13"/></svg></button>
+      <button type="button" class="product-tile-arrow next" aria-label="Next photo"><svg viewBox="0 0 8 14" aria-hidden="true"><polyline points="1,1 7,7 1,13"/></svg></button>
+    {% endif %}
+
+    {% if color_option and color_option.sub_options.size > 1 %}
+      <div class="product-tile-colors">
+        {% for sub_option in color_option.sub_options %}
+          {% comment %}Photos are matched to a color by file name: large_<color_name>-N.png{% endcomment %}
+          {% assign needle = sub_option.name | downcase | replace: ' ', '_' | prepend: '/large_' | append: '-' %}
+          {% assign color_photos = '' %}
+          {% for image in product.images %}
+            {% if image.large_url contains needle %}
+              {% assign color_photos = color_photos | append: '|' | append: image.large_url %}
+            {% endif %}
+          {% endfor %}
+          {% assign color_photos = color_photos | remove_first: '|' | default: all_photos %}
+          <button type="button" class="product-tile-color{% if forloop.first %} selected{% endif %}"
+            data-id="{{ sub_option.id }}" data-photos="{{ color_photos }}"
+            style="background-image: url('{{ sub_option.small_url }}')"
+            aria-label="{{ sub_option.name | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <a class="product-tile-caption" href="{{ tile_link }}">
+    <span class="product-tile-name">{{ product.name }}</span>
+    <span class="product-tile-price">{{ product.total_price | points_or_currency }}{% if shop.points_store? %} points{% endif %}</span>
+    {% if color_option and color_option.sub_options.size > 1 %}
+      <span class="product-tile-count">{{ color_option.sub_options.size }} colors</span>
+    {% endif %}
+  </a>
+</div>

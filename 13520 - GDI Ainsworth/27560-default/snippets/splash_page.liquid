@@ -1,0 +1,79 @@
+<style type="text/css">
+  #splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    display: none;
+  }
+  #splashbox {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 10px;
+    border: 10px solid #00467f
+  }
+  #splashbox #buttonrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  #splashbox p {
+    font-size: 18px !important;
+    color: #00467f;
+  }
+  #splashbox input[type=button] {
+    font-size: 18px;
+    color: #fff;
+    margin: auto 40px;
+    cursor: pointer;
+    background: #00467f;
+    border: 1px solid #00467f;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.2s ease-out !important;
+  }
+  #splashbox input[type=button]:hover {
+    background: #fff;
+    color: #00467f;
+  }
+  #splashbox a {
+    text-decoration: underline;
+  }
+  #splashbox a:hover {
+    text-decoration: none;
+  }
+</style>
+<div id="splash">
+  <div id="splashbox">
+    <p>Welcome to the new online uniform store, We&rsquo;re glad to have you here!</p>
+    <p>If you don&rsquo;t see what you need, have any special requirements or questions, don&rsquo;t hesitate to reach out.</p>
+    <p>Email: <a href="mailto:gdiainsworth.sip@suddenimpact.ca">gdiainsworth.sip@suddenimpact.ca</a> or call <a href="tel:604-744-3909">604-744-3909</a>.</p>
+    <div id="buttonrow">
+      <input type="button" id="splashyes" value="Okay">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    if (!localStorage.getItem('popupShown')) {
+      $('#splash').fadeIn('fast');
+      localStorage.setItem('popupShown', 'true');
+    }
+    $('#splashyes').on('click', function(event) {
+      $('#splash').fadeOut('fast');
+    });
+  });
+</script>
