@@ -1,0 +1,86 @@
+<p class="sub-option product-title">
+  {{ name | default: line_item.name }}
+</p>
+
+{%- capture item_details -%}
+  {%- if settings.show_sku -%}
+    <div>
+      <dt>SKU#</dt>
+      <dd>{{ line_item.final_sku }}</dd>
+    </div>
+  {%- endif -%}
+
+  {%- for choice in line_item.choices -%}
+    {%- if choice.sub_option -%}
+      <div>
+        <dt>{{ choice.option.friendly_name }}{% if choice.has_group? %} ({{ choice.group.name }}){% endif %}</dt>
+        <dd>{% render 'modifier', title: choice.sub_option.name, amount: choice.amount %}</dd>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- for logo in line_item.logos -%}
+    <div class="logo-attribute">
+      <dt>{{ logo.location_name | default: "Logo" }}</dt>
+      <dd>
+        <span class="logo-name">{{ logo.name }}{% if logo.charge %} ({{ logo.charge | points_or_currency }}){% endif %}</span>
+        {% if logo.front_thumb_url %}<br><img class="logo-image" src="{{ logo.front_thumb_url }}"/>{% endif %}
+      </dd>
+    </div>
+  {%- endfor -%}
+
+  {%- unless line_item.pdf_status == 'not_available' -%}
+    <div>
+      <dt>Virtual Sample</dt>
+      <dd>
+        {%- if line_item.pdf_status == 'ready' -%}
+          <a href="{{ line_item.pdf_file_url }}" target="_blank" rel="noopener noreferrer">download</a>
+        {%- else -%}
+          Processing...
+        {%- endif -%}
+      </dd>
+    </div>
+  {%- endunless -%}
+
+  {%- if line_item.has_setup_charge? -%}
+    <div>
+      <dt>Setup Charge</dt>
+      <dd>{{ line_item.setup_charge | points_or_currency }}</dd>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+{%- assign item_details = item_details | strip -%}
+{%- if item_details != blank -%}
+  <dl class="line-item-attributes">
+    {{ item_details }}
+  </dl>
+{%- endif -%}
+
+{% for personalization in line_item.product_personalizations %}
+  <div class="product-personalization">
+    <p class="personalization-title">
+      {% render 'modifier', title: personalization.title, amount: personalization.amount %}
+    </p>
+    <dl class="personalization-attributes">
+      {% for attribute in personalization.attributes %}
+        <div>
+          <dt>{{ attribute.key }}</dt>
+          <dd>
+            {% if attribute.value != empty %}
+              {{ attribute.value | join: ', ' }}
+            {% else %}
+              <span class="not-specified">&lt;not specified&gt;</span>
+            {% endif %}
+          </dd>
+        </div>
+      {% endfor %}
+    </dl>
+  </div>
+{% endfor %}
+
+{% if line_item.has_certificate_details %}
+  <div class="gift-certificate-details">
+    <p class="title">Recipient Information</p>
+    {% render 'gift_certificate_details' line_item: line_item %}
+  </div>
+{% endif %}

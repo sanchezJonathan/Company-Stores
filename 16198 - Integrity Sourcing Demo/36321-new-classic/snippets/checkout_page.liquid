@@ -1,0 +1,210 @@
+<div class="content-main">
+  <div id="content" class="content-page container-fluid">
+    <div>
+      <h1 class="d-inline-block">
+        {% if page_headline %}
+          {{ page_headline }}
+        {% else %}
+          Checkout
+        {% endif %}
+      </h1>
+
+      <button type="button" class="btn secondary preview-cart-details d-inline-block d-lg-none ms-0 ms-sm-3 float-end" data-bs-toggle="modal" data-bs-target="#preview-cart-details-modal">
+        Preview Cart Details
+      </button>
+    </div>
+
+    <div class="modal fade" id="preview-cart-details-modal" tabindex="-1" aria-labelledby="preview-cart-details-modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            {% assign logoMargins = settings.logo_margin | split: ' ' %}
+            {% assign logoMarginTop = logoMargins[0] %}
+            {% if logoMargins[2] %}{% assign logoMarginBottom = logoMargins[2] %}{% else %}{% assign logoMarginBottom = logoMargins[0] %}{% endif %}
+            <h5 class="modal-title"><img class="img-fluid" src="{{ "logo_custom_bg_image.jpg" | asset_url }}" style="max-height: calc({{ settings.header_height }} - {{ logoMarginTop }} - {{ logoMarginBottom }} - 14px);"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {% include 'checkout_summary', order: order %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    {% include 'checkout_steps' %}
+    <div class="row pt-5">
+      <div class="col-md-12 col-lg-8">
+        {{ checkout_page }}
+      </div>
+      <div class="col-md-12 col-lg-4 d-none d-lg-block mt-5">
+        {% include 'checkout_summary', order: order %}
+
+        {% if checkout_flow.state == 'confirm' %}
+          <button class="btn primary fw-bold text-uppercase w-100 mt-3 place-order-btn">Place Order</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".checkout-step-count").each(function(index) {
+    var startingCount = $(".checkout-steps > div > a:not(.billing-address-passed)").length + 1;
+  	$(this).text(index + startingCount);
+  });
+
+  $(".place-order-btn").click(function() {
+    $("form").submit();
+  });
+
+  function insertData(data) {
+  	var container = $("form.edit_website_order");
+
+    const setField = (selector, value) => {
+      const field = container.find(selector);
+      const maxlength = field.prop('maxlength');
+
+      if (value && maxlength && Number.isInteger(maxlength) && maxlength > 0) {
+        field.val(value.substring(0, maxlength))
+      } else {
+        field.val(value)
+      }
+
+      return field
+    }
+
+    setField('input.nickname', data.nickname);
+    setField('input.company', data.company);
+    setField('input.first-address', data.first_address);
+    setField('input.second-address', data.second_address);
+    setField('input.city', data.city);
+    setField('select.country', data.country).trigger('change');
+    setField('select.state', data.state).trigger('change');
+    setField('input.zip', data.zip);
+    setField('input.first-name', data.first_name);
+    setField('input.last-name', data.last_name);
+    setField('input.email', data.email);
+    setField('input.phone', data.phone);
+  }
+
+  $("select[name='saved_address']").change(function() {
+  	$.ajax({
+      url: '/account/addresses/' + $(this).val()
+    }).done(function(result, textStatus, jqXHR) {
+      insertData(result.address)
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.error("Can't get address information.");
+    });
+  });
+
+  $("input[name='checkout[use_same_as_shipping_address]']").click(function() {
+    if ($(this).is(":checked")) {
+      var data = JSON.parse($(this).attr("data-shipping"));
+      insertData(data);
+    }
+  });
+
+  {% if checkout_flow.state == 'payment' %}
+    // go back to Billing Address if there's an error there
+    if ($('.billing-address-container .invalid-feedback').length) {
+      showBillingAddress();
+      $(".notification-container").append('<div class="toast notif-error mt-2" role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header bg-transparent"> <strong class="me-auto text-white">Sorry, there was a problem</strong> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body text-white">Checkout process failed. Please review the page for errors (invalid data or missed required fields).</div></div>');
+    }
+
+    var query = window.location.search;
+    var sessionCheckoutStep = sessionStorage.getItem("checkout-step");
+
+    function showBillingAddress() {
+      $(".billing-method-container").addClass("d-none");
+      $(".billing-method").removeClass("secondary");
+      $(".billing-method").addClass("btn-dark");
+      $(".billing-method").attr("disabled", true);
+
+      $(".billing-address-container").show();
+      $(".billing-address").show();
+      $(".billing-address-passed").addClass("d-none");
+      $(".billing-method").removeClass("secondary");
+      $(".billing-method").addClass("btn-dark");
+      $(".billing-method").attr("disabled", true);
+      $(".billing-method-container").addClass("d-none");
+
+      sessionStorage.setItem("checkout-step", "billing-address");
+    }
+
+    function showBillingMethod() {
+      $(".billing-address-container").hide();
+      $(".billing-address").hide();
+      $(".billing-address-passed").removeClass("d-none");
+      $(".billing-method").addClass("secondary");
+      $(".billing-method").removeClass("btn-dark");
+      $(".billing-method").removeAttr("disabled");
+      $(".billing-method-container").removeClass("d-none");
+
+      $(".billing-method-container").removeClass("d-none");
+      $(".billing-method").addClass("secondary");
+      $(".billing-method").removeClass("btn-dark");
+      $(".billing-method").removeAttr("disabled");
+
+      sessionStorage.setItem("checkout-step", "billing-method");
+    }
+
+    $(".billing-address-continue").click(function() {
+      var errorCount = 0;
+
+      $(".needs-validation").removeClass("is-invalid");
+      $(".invalid-feedback").remove();
+
+      $(".needs-validation").each(function() {
+        if ($(this).hasClass("state")) {
+          var states = get_states(get_country_id($("select.country").val()));
+          if (!states.length) {
+            return;
+          }
+        }
+      	if (!$(this).val()) {
+          if (!$(this).hasClass("is-invalid")) {
+            $(this).addClass("is-invalid");
+
+            if ($(this).hasClass("state") || $(this).hasClass("country")) {
+              $(this).parent("div").append("<div class='invalid-feedback'>Can't be blank</div>");
+            } else {
+              $(this).after("<div class='invalid-feedback'>Can't be blank</div>");
+            }
+          }
+
+          errorCount += 1;
+        }
+
+        if ($(this).hasClass("email")) {
+          if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g.test($(this).val())) {
+            var emailErrorMessage = $(this).parent("div").find("div.invalid-feedback");
+            if (emailErrorMessage.length && !emailErrorMessage.text().includes("invalid email address")) {
+              emailErrorMessage.text(emailErrorMessage.text() + ", invalid email address");
+            } else {
+              emailErrorMessage.remove();
+              $(this).addClass("is-invalid");
+              $(this).after("<div class='invalid-feedback'>invalid email address</div>");
+            }
+            errorCount += 1;
+          }
+        }
+      });
+
+      if (errorCount) {
+        return;
+      }
+
+      showBillingMethod();
+    });
+  	$(".billing-address-passed").click(showBillingAddress);
+
+    if (query.includes('billing-method') || sessionCheckoutStep == "billing-method" || !{{ shop.show_billing_address? }}) {
+      showBillingMethod();
+    } else {
+      showBillingAddress();
+    }
+  {% else %}
+    sessionStorage.removeItem("checkout-step");
+  {% endif %}
+</script>

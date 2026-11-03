@@ -1,0 +1,101 @@
+<div class="border p-3">
+  <h5>Order Summary</h5>
+  <div>
+    Subtotal ({{ order.cart_items_count | pluralize: 'item', 'items' }})
+    <span class="value float-end">{{ order.item_total | points_or_currency }}</span>
+  </div>
+  {% if order.total_setup_charge > 0 %}
+    <div>
+      Total Setup Charge
+      <span class="value float-end">{{ order.total_setup_charge | points_or_currency }}</span>
+    </div>
+  {% endif %}
+
+  {% if site.show_shipping_base_rate? %}
+    <div>
+      Shipping
+      <span class="value float-end">{{ order.shipment_total_without_base_rate | points_or_currency }}</span>
+    </div>
+    <div>
+      {{ site.shipping_base_rate_name }}
+      <span class="value float-end">{{ order.shipment_base_rate | points_or_currency }}</span>
+    </div>
+  {% else %}
+    <div>
+      Shipping
+      <span class="value float-end">{{ order.shipment_rate | points_or_currency }}</span>
+    </div>
+  {% endif %}
+
+  {% if order.tax_enabled? %}
+    <hr class="my-1">
+    <div>
+      Total before tax
+      <span class="value float-end">{{ order.before_tax_total | points_or_currency }}</span>
+    </div>
+    <div>
+      Sales tax
+      <span class="value float-end">{{ order.total_tax | points_or_currency }}</span>
+    </div>
+  {% endif %}
+
+  {% if order.coupons != empty %}
+    <hr class="my-1">
+    {% for coupon in order.coupons %}
+      <div>
+        <span style="text-transform: lowercase;" title="{{ coupon.note }}">{{ coupon.note | truncate: 15 }}</span>
+        <span class="value float-end">{{ coupon.amount | points_or_currency }}</span>
+      </div>
+    {% endfor %}
+    <div>
+      Total Discount
+      <span class="value float-end">{{ order.promo_total | points_or_currency }}</span>
+    </div>
+  {% endif %}
+
+  {% if order.custom_data_collections != empty %}
+    <div>
+      {{ shop.custom_data_collections_name }}
+      <span class="value float-end">{{ order.custom_data_collections_total | points_or_currency }}</span>
+    </div>
+  {% endif %}
+
+  <hr class="my-1">
+  <div>
+    Grand Total
+    <span class="value float-end">{{ order.grand_total | points_or_currency }}</span>
+  </div>
+  </div>
+
+  <div class="border p-3 mt-4">
+  <div class="mb-3">
+    <h5 class="d-inline-block">Item Summary</h5>
+    <a href="{{ cart_url }}" class="btn secondary float-end">Edit</a>
+  </div>
+
+
+  {% for bundle_item in order.bundle_line_items %}
+    <div>
+      <span class="checkout-product-label">{{ bundle_item.name }}{% if bundle_item.quantity > 1 %}<span class="ps-1">(&times;{{ bundle_item.quantity }})</span>{% endif %}</span>
+      <span class="value float-end">{{ bundle_item.total_price | points_or_currency }}</span>
+      <ul class="list-unstyled ms-2 my-2">
+        {% for line_item in bundle_item.line_items %}
+          {% assign bundled_item_quantity = line_item.quantity | divided_by: bundle_item.quantity %}
+          <li>{% if bundled_item_quantity > 1 %}{{ bundled_item_quantity }}&times;{% endif %} {{ line_item.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <hr class="my-1">
+  {% endfor %}
+  {% for line_item in order.line_items %}
+    <div>
+      <span class="checkout-product-label">{{ line_item.name }}{% if line_item.quantity > 1 %}<span class="ps-1">(&times;{{ line_item.quantity }})</span>{% endif %}</span>
+      <span class="value float-end">{{ line_item.total_price | points_or_currency }}</span>
+    </div>
+    <hr class="my-1">
+  {% endfor %}
+  <div>
+    Subtotal
+    <span class="value float-end">{{ order.item_total | points_or_currency }}</span>
+  </div>
+</div>

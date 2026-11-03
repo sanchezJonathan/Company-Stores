@@ -1,0 +1,174 @@
+{% assign account_section_title = 'Account Settings' %}
+{% capture account_page_content %}
+
+  <div class="content-block accountsettings">
+    <h3>Account Info</h3>
+    {% form 'user' %}
+    <div class="row">
+      <div class="col-12 mb-4">
+        <h5>Personal Information</h5>
+        <div class="form-item">
+          <label class="string required control-label" for="website_user_first_name">First name <span class="required-label">(required)</span></label>
+          <input class="{% if form.errors contains 'first_name' %}is-invalid{% endif %} form-control string required input-text" id="website_user_first_name" name="website_user[first_name]" size="50" type="text" value="{{ form.first_name }}">
+          {% if form.errors contains 'first_name' %}
+            <div class="invalid-feedback">{{ form.errors['first_name'] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-item">
+          <label class="string required control-label" for="website_user_last_name">Last name <span class="required-label">(required)</span></label>
+          <input class="{% if form.errors contains 'last_name' %}is-invalid{% endif %} form-control string required input-text" id="website_user_last_name" name="website_user[last_name]" size="50" type="text" value="{{ form.last_name }}">
+          {% if form.errors contains 'last_name' %}
+            <div class="invalid-feedback">{{ form.errors['last_name'] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-item">
+          <label class="string required control-label" for="website_user_email">E-Mail <span class="required-label">(required)</span></label>
+          <input class="{% if form.errors contains 'email' %}is-invalid{% endif %} form-control string required input-text" id="website_user_email" name="website_user[email]" size="50" type="text" value="{{ form.email }}">
+          {% if form.errors contains 'email' %}
+            <div class="invalid-feedback">{{ form.errors['email'] }}</div>
+          {% endif %}
+        </div>
+
+        {% if shop.slack_integration_enabled? %}
+          <div class="input string required">
+            <label class="string required control-label" for="website_user_slack_handle">
+              Slack handle
+              <span class="required-label">(required)</span>
+            </label>
+            <input class="{% if form.errors contains 'slack_handle' %}is-invalid{% endif %} form-control string required input-text" id="website_user_slack_handle" name="website_user[slack_handle]" size="50" type="text" value="{{ form.slack_handle }}">
+            {% if form.errors contains 'slack_handle' %}
+              <div class="invalid-feedback">{{ form.errors['slack_handle'] }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="form-item">
+          <label class="string control-label" for="phone">Phone</label>
+          <input class="{% if form.errors contains 'phone' %}is-invalid{% endif %} form-control string input-text" id="phone" name="website_user[phone]" size="50" type="text" value="{{ form.phone }}">
+          {% if form.errors contains 'phone' %}
+            <div class="invalid-feedback">{{ form.errors['phone'] }}</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 mb-4">
+        <h5>Account Credentials</h5>
+        <div class="form-item">
+          <label class="string required control-label" for="website_user_username">
+            Username
+            <span class="required-label">(required)</span>
+          </label>
+          {% if form.integrated? %}
+            <input class="{% if form.errors contains 'username' %}is-invalid{% endif %} form-control string required input-text" id="website_user_username" disabled="disabled" size="50" type="text" value="{{ form.username }}">
+          {% else %}
+            <input class="{% if form.errors contains 'username' %}is-invalid{% endif %} form-control string required input-text" id="website_user_username" name="website_user[username]" size="50" type="text" value="{{ form.username }}">
+          {% endif %}
+
+          {% if form.errors contains 'username' %}
+            <div class="invalid-feedback">{{ form.errors['username'] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-item input string required password-div">
+          <label class="string required control-label" for="current_password">
+          	Current password
+          </label>
+          {% if current_user.integrated? %}
+            <input class="{% if form.errors contains 'current_password' %}is-invalid{% endif %} form-control string required input-text" id="current_password" disabled="disabled" size="50" type="password">
+            <i class="fa fa-solid fa-eye"></i>
+          {% else %}
+            <input class="{% if form.errors contains 'current_password' %}is-invalid{% endif %} form-control string required input-text" id="current_password" name="website_user[current_password]" size="50" type="password">
+            <i class="fa fa-solid fa-eye"></i>
+          {% endif %}
+
+          {% if form.errors contains 'current_password' %}
+            <div class="invalid-feedback">{{ form.errors['current_password'] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-item input string required password-div">
+          <label class="string required control-label" for="website_user_password">
+            New Password
+          </label>
+          {% if current_user.integrated? %}
+            <input class="{% if form.errors contains 'password' %}is-invalid{% endif %} form-control string required input-text" id="website_user_password" disabled="disabled" size="50" type="password" autocomplete="off"/>
+            <i class="fa fa-solid fa-eye"></i>
+          {% else %}
+            <input class="{% if form.errors contains 'password' %}is-invalid{% endif %} form-control string required input-text" id="website_user_password" name="website_user[password]" size="50" type="password" autocomplete="off"/>
+            <i class="fa fa-solid fa-eye"></i>
+          {% endif %}
+
+          {% if form.errors contains 'password' %}
+            <div class="invalid-feedback">{{ form.errors['password'] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-item input string required password-div">
+          <label class="string required control-label" for="website_user_password_confirmation">
+            Confirm Password
+          </label>
+          {% if current_user.integrated? %}
+            <input class="{% if form.errors contains 'password_confirmation' %}is-invalid{% endif %} form-control string required input-text" id="website_user_password_confirmation" disabled="disabled" size="50" type="password" autocomplete="off"/>
+            <i class="fa fa-solid fa-eye"></i>
+          {% else %}
+            <input class="{% if form.errors contains 'password_confirmation' %}is-invalid{% endif %} form-control string required input-text" id="website_user_password_confirmation" name="website_user[password_confirmation]" size="50" type="password" autocomplete="off"/>
+            <i class="fa fa-solid fa-eye"></i>
+          {% endif %}
+
+          {% if form.errors contains 'password_confirmation' %}
+            <div class="invalid-feedback">{{ form.errors['password_confirmation'] }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mb-4">
+        <h5>Settings</h5>
+        {% if site.active_sms_notifications? %}
+          <div class="form-check sms-notifications-cb">
+            <input type="hidden" name="website_user[enable_sms_notifications]" value="false"/>
+            <input type="checkbox" name="website_user[enable_sms_notifications]" id="website_user[enable_sms_notifications]" class="form-check-input" value="true" {% if form.enable_sms_notifications? %}checked="{{ form.id }}-checked"{% endif %}/>
+            <label class="form-check-label" for="website_user[enable_sms_notifications]">SMS Notifications</label>
+            <small class="sms-warning d-block">Carrier charges may apply for SMS notifications. US numbers only.</small>
+          </div>
+        {% endif %}
+
+        <div class="form-item input chosen-wrapper">
+          <label class="string required control-label" for="website_user_timezone">
+            <!-- <abbr title="required">*</abbr> -->
+            Time zone</label>
+          <select id="website_user_timezone" class="{% if form.errors contains 'timezone' %}is-invalid{% endif %} form-select form-control chosen-select" name="website_user[timezone]">
+            {% for timezone in form.timezones %}
+              <option value="{{ timezone.value }}" {% if form.timezone == timezone.value %}selected{% endif %}>
+                {{ timezone.title }}
+              </option>
+            {% endfor %}
+          </select>
+
+          {% if form.errors contains 'timezone' %}
+            <div class="invalid-feedback">{{ form.errors['timezone'] }}</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        {% if shop.custom_user_fields_enabled? %}
+        <h5>Custom User Fields</h5>
+          {% for field in form.custom_user_fields %}
+            <div class="form-item fields">
+              {% include 'custom_user_field', field: field %}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-buttons">
+      <input type="submit" value="Save changes" class="btn custom_btn custom-button btn-green secondary"/>
+    </div>
+    {% endform %}
+  </div>
+
+{% user_hot_spot_images %}
+{% endcapture %}
+
+{% include 'account_page' with account_page_content, section_title: account_section_title %}

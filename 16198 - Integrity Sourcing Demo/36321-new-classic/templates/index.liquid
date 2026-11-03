@@ -1,0 +1,9 @@
+{% include 'page' with home_page %}
+
+<script>
+    if (!window.location.href.includes('/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FNovatae')) {
+      $(document).ready(function() {  
+        $('.header-container').removeClass('d-none')
+      });
+    }
+</script>
