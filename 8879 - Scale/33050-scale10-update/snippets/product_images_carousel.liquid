@@ -1,0 +1,44 @@
+{% comment %}
+  Phone gallery (below 768px): a Bootstrap carousel of the product images with prev/next arrows and dots.
+  The regular .main-img (#primary_image) stays on the page, hidden on phones, because the platform scripts
+  (color options, thumbnails, logo previews) change that image.
+{% endcomment %}
+{% if product.images.size > 0 %}
+  {% assign pp_active_id = product.primary_image.id %}
+  {% assign pp_has_active = false %}
+  {% for image in product.images %}
+    {% if image.id == pp_active_id %}{% assign pp_has_active = true %}{% endif %}
+  {% endfor %}
+  <div id="pp-carousel" class="carousel slide pp-carousel d-md-none" data-bs-interval="false" data-bs-touch="true">
+    <div class="carousel-inner">
+      {% for image in product.images %}
+        {% assign pp_is_active = false %}
+        {% if pp_has_active %}
+          {% if image.id == pp_active_id %}{% assign pp_is_active = true %}{% endif %}
+        {% elsif forloop.first %}
+          {% assign pp_is_active = true %}
+        {% endif %}
+        <div class="carousel-item{% if pp_is_active %} active{% endif %}" data-id="{{ image.id }}" data-src="{{ image.large_url }}">
+          <a href="{{ image.large_url }}" data-toggle="lightbox">
+            <img src="{{ image.large_url }}" alt="{{ product.name }} image {{ forloop.index }}" {% unless forloop.first %}loading="lazy"{% endunless %}>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    {% if product.images.size > 1 %}
+      <button class="carousel-control-prev" type="button" data-bs-target="#pp-carousel" data-bs-slide="prev" aria-label="Previous image"></button>
+      <button class="carousel-control-next" type="button" data-bs-target="#pp-carousel" data-bs-slide="next" aria-label="Next image"></button>
+      <div class="carousel-indicators">
+        {% for image in product.images %}
+          {% assign pp_is_active = false %}
+          {% if pp_has_active %}
+            {% if image.id == pp_active_id %}{% assign pp_is_active = true %}{% endif %}
+          {% elsif forloop.first %}
+            {% assign pp_is_active = true %}
+          {% endif %}
+          <button type="button" data-bs-target="#pp-carousel" data-bs-slide-to="{{ forloop.index0 }}"{% if pp_is_active %} class="active" aria-current="true"{% endif %} aria-label="Image {{ forloop.index }}"></button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

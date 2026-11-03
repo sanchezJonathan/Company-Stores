@@ -1,0 +1,299 @@
+{% assign order = order_history_item %}
+{% assign address = order.shipping_address %}
+{% assign contact = order.shipping_contact %}
+
+<div class="order-thumbnail" data-id="{{ order.order_id }}">
+  <div>
+    <div class="order-number"><b>Order #{{ order.order_id }}</b></div>
+    <div class="date">{{ order.completed_at }}</div>
+  </div>
+  <div>
+    <div class="price"><span>Total:</span>{{ order.grand_total | points_or_currency }}<br><span>Status:</span>{{ order.status | upcase }}</div>
+    <div class="view-details-column">
+      <button type="button" class="view-details btn secondary outline btn-sm" data-toggle="modal" data-target="#modal-{{ order.order_id }}">View Order Details<span class="double-arrow down"></span></button>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade order-container" data-id="{{ order.order_id }}" id="modal-{{ order.order_id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
+        <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">   
+        <h5 class="mb-3">Order #{{ order.order_id }}</h5> 
+        
+        <div class="row">
+          <div class="col-12 col-md-4"><span class="d-inline d-md-none">Date: </span>{{ order.completed_at }}</div>
+          <div class="col-12 col-md-4 text-md-center">Total: {{ order.grand_total | points_or_currency }}</div>
+          <div class="col-12 col-md-4 text-md-end">Status: {{ order.status | upcase }}</div>
+        </div>
+        
+        <div class="mt-3 mb-md-3">
+          <div class="row mx-0 order-details-bg-primary">
+            <div class="col-4 col-md-2">Image</div>
+            <div class="col-8 col-md-6">Order Details</div>
+            <div class="col-6 col-md-2 d-none d-md-block">Quantity</div>
+            <div class="col-6 col-md-2 d-none d-md-block">Item Total Price</div>
+          </div>
+          {% for bundle in order.bundle_line_items %}
+            {% render 'bundle_line_item_order_history_fields', bundle: bundle %}
+          {% endfor %}
+          {% for line_item in order.line_items %}
+            <div class="row border border-end-0 mx-0 order-item" data-id="{{ line_item.id }}" data-qty="{{ line_item.quantity }}">
+              <div class="col-4 col-md-2 py-2 border-end">
+                <div class="order-img-container">
+                	<img class="img-fluid" src="{% if line_item.image %}{{ line_item.image.thumb_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+                </div>
+              </div>
+              <div class="col-8 col-md-6 py-2 border-end">
+                {% include 'line_item_info' with line_item %}
+                <div class="d-md-none "><span class="fw-bold qty">Quantity: </span>{{ line_item.quantity }}</div>
+                <div class="d-md-none"><span class="fw-bold">Total: </span>{{ line_item.total_price | points_or_currency }}</div>
+              </div>
+              <div class="col-6 col-md-2 py-2 d-none d-md-block border-end">{{ line_item.quantity }}</div>
+              <div class="col-6 col-md-2 py-2 d-none d-md-block border-end">{{ line_item.total_price | points_or_currency }}</div>
+            </div>
+          {% endfor %}
+        </div>
+        
+        <div class="row mx-0 flex-md-row-reverse">
+          <div class="col-12 col-md-4 px-0">
+            <div class="border border-end-0">
+              <div class="row mx-0">
+                <div class="col-4 col-md-6 py-2 border-end">Subtotal</div>
+                <div class="col-8 col-md-6 py-2 border-end">{{ order.item_total | points_or_currency }}</div>
+              </div>
+
+              {% if site.show_shipping_base_rate? %}
+                <div class="row mx-0">
+                  <div class="col-4 col-md-6 py-2 border-end">Shipping</div>
+                  <div class="col-8 col-md-6 py-2 border-end">{{ order.shipment_total_without_base_rate | points_or_currency }}</div>
+                </div>
+              	<div class="row mx-0">
+                  <div class="col-4 col-md-6 py-2 border-end">{{ site.shipping_base_rate_name }}</div>
+                  <div class="col-8 col-md-6 py-2 border-end">{{ order.shipment_base_rate | points_or_currency }}</div>
+                </div>
+              {% else %}
+              	<div class="row mx-0">
+                  <div class="col-4 col-md-6 py-2 border-end">Shipping</div>
+                  <div class="col-8 col-md-6 py-2 border-end">{{ order.shipment_total | points_or_currency }}</div>
+                </div>
+              {% endif %}
+
+              {% if order.setup_charge_total > 0 %}
+              	<div class="row mx-0">
+                  <div class="col-4 col-md-6 py-2 border-end">Total Setup Charge</div>
+                  <div class="col-8 col-md-6 py-2 border-end">{{ order.setup_charge_total | points_or_currency }}</div>
+                </div>
+              {% endif %}
+              <hr class="my-0 border-end" />
+              <div class="row mx-0">
+                <div class="col-4 col-md-6 py-2 border-end">Total before Tax</div>
+                <div class="col-8 col-md-6 py-2 border-end">{{ order.before_tax_total | points_or_currency }}</div>
+              </div>
+              <div class="row mx-0">
+                <div class="col-4 col-md-6 py-2 border-end">Sales Tax</div>
+                <div class="col-8 col-md-6 py-2 border-end">{{ order.total_tax | points_or_currency }}</div>
+              </div>
+
+              {% if order.custom_data_collections != blank %}
+                <div class="row mx-0">
+                  <div class="col-4 col-md-6 py-2 border-end">{{ shop.custom_data_collections_name }} Total</div>
+                  <div class="col-8 col-md-6 py-2 border-end">{{ order.custom_data_collections_total | points_or_currency }}</div>
+                </div>
+              {% endif %}
+              <hr class="my-0 border-end" />
+              <div class="row mx-0 order-details-bg-primary">
+                <div class="col-4 col-md-6 py-2 border-end">Grand total</div>
+                <div class="col-8 col-md-6 py-2 border-end">{{ order.grand_total | points_or_currency }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-8">
+            <div class="row">
+              <div class="col-12 col-lg-4">
+                <div>
+                  <h5 class="mb-2 mt-3">Shipping address</h5>
+                  <p>{{ address.company }}</p>
+                  <p>{{ contact.first_name }} {{ contact.last_name }}</p>
+                  <p>{{ address.first_address }}</p>
+                  <p>{{ address.second_address }}</p>
+                  <p>{{ address.city }}{% if address.state != blank %}, {{ address.state }}{% endif %} {{ address.zip }}</p>
+                  <p>{{ address.country }}</p>
+                </div>
+                <div>
+                  {% if order.shipment %}
+                    <h5 class="mb-2 mt-3">Shipping method</h5>
+                    <p>{{ order.shipment_friendly_name }}</p>
+                  {% endif %}
+                </div>
+                <div>
+                  <h5 class="mb-2 mt-3">Tracking number</h5>
+                  <p>
+                    {% if order.shipment.tracking_number != blank %}
+                      {{ order.shipment.tracking_number }}
+                    {% else %}
+                      N/A
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
+              <div class="col-12 col-lg-4">
+                <div>
+                  <h5 class="mb-2 mt-3">Billing address</h5>
+                  <p>{{ address.company }}</p>
+                  <p>{{ contact.first_name }} {{ contact.last_name }}</p>
+                  <p>{{ address.first_address }}</p>
+                  <p>{{ address.second_address }}</p>
+                  <p>{{ address.city }}{% if address.state != blank %}, {{ address.state }}{% endif %} {{ address.zip }}</p>
+                  <p>{{ address.country }}</p>
+                </div>
+                {% if order.payments != blank %}
+                  <div>
+                    <h5 class="mb-2 mt-3">Billing methods</h5>
+                    {% render_payment_template order.payments %}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="col-12 col-lg-4">
+                {% if order.coupons != blank %}
+                  <h5 class="mb-2 mt-3">Promotions</h5>
+                  <div class="promotions">
+                    <div>
+                      <span>Coupons:&nbsp;</span>
+                      <span>{{ order.promo_total | points_or_currency }}</span>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {% if order.order_shipments != blank %}
+          <div class="row mx-0 px-0 mt-3 mb-md-3">
+            <div class="shipping-details px-0" data-id="{{ order.order_id }}">
+                <div class="shipping-details-wrapper">
+                  <script>shipped_items[{{ order.order_id }}] = {}; </script>
+                  {% for order_shipment in order.order_shipments %}
+                    <div class="shipment-item mb-3">
+                      <div class="row mx-0 order-details-bg-primary">
+                        <div class="title col-12 text-center">Shipment {{ forloop.index }} of {{ forloop.length }}</div>
+                      </div>
+                      <div class="row border mx-0 text-center">
+                        <div class="info py-3">
+                        {% if order_shipment.tracking_number != blank %}
+                          <p>Tracking Number: {{ order_shipment | tracking_link }}</p>
+                        {% endif %}
+
+                        {% if order_shipment.shipment_friendly_name != blank %}
+                          <p>Shipping Method: {{ order_shipment.shipment_friendly_name }} </p>
+                        {% endif %}
+
+                        {% if order_shipment.ship_date != blank %}
+                          <p>Ship Date: {{ order_shipment.ship_date }}</p>
+                        {% endif %}
+
+                        {% if order_shipment.note != blank %}
+                          <p>Shipping Note: {{ order_shipment.note }}</p>
+                        {% endif %}
+                      </div>
+                      </div>
+
+                      <div class="row mx-0 order-details-bg-primary">
+                        <div class="col-3 col-md-2">Image</div>
+                        <div class="col-9 col-md-6">Product Details</div>
+                        <div class="col-2 d-none d-md-block">Quantity Ordered</div>
+                        <div class="col-2 d-none d-md-block">Quantity Shipped</div>
+                      </div>
+                      {% for line_item in order_shipment.line_items %}
+                        <script>shipped_items[{{ order.order_id }}][{{ line_item.id }}] = (shipped_items[{{ order.order_id }}][{{ line_item.id }}] || 0) + {{ line_item.quantity }};</script>
+
+                        <div class="row border border-end-0 mx-0 shipped-item" data-id="{{ line_item.id }}" data-qty="{{ line_item.quantity }}">
+                          <div class="col-3 col-md-2 py-2 border-end border-bottom">
+                            <div class="order-img-container">
+                                <img class="img-fluid" src="{% if line_item.image %}{{ line_item.image.thumb_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+                            </div>
+                          </div>
+                          <div class="col-9 col-md-6 py-2 border-end border-bottom">
+                            {% include 'line_item_info' with line_item %}
+                            <div class="d-md-none pt-3">
+                              <span class="fw-bold">Ordered Quantity:</span> <span class="order_qty"></span>
+                            </div>
+                            <div class="d-md-none pt-3">
+                              <span class="fw-bold">Shipped Quantity:</span> {{ line_item.quantity }}
+                            </div>
+                          </div>
+                          <div class="col-4 col-md-2 py-2 border-end border-bottom d-none d-md-block order_qty">
+                          </div>
+                          <div class="col-4 col-md-2 py-2 border-end border-bottom d-none d-md-block">
+                            {{ line_item.quantity }}
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endfor %}
+                </div>
+            </div>
+          </div>
+          <div class="mt-3 mb-md-3 d-none order-items-container">
+            {% if order.order_shipments != blank %}
+              <div class="row mx-0 order-details-bg-primary text-center border-bottom">
+                <div class="col-12">Not Yet Shipped</div>
+              </div>
+            {% endif %}
+            <div class="row mx-0 order-details-bg-primary">
+              <div class="col-4 col-md-2">Image</div>
+              <div class="col-8 {% if order.order_shipments == blank %}col-md-6{% else %}col-md-8{% endif %}">Order Details</div>
+              <div class="col-6 col-md-2 d-none d-md-block">Quantity</div>
+              {% if order.order_shipments == blank %}
+              <div class="col-6 col-md-2 d-none d-md-block">Item Total Price</div>
+              {% endif %}
+            </div>
+            {% for line_item in order.line_items %}
+              <div class="row border border-end-0 mx-0 order-item d-none" data-id="{{ line_item.id }}" data-qty="{{ line_item.quantity }}">
+                <div class="col-4 col-md-2 py-2 border-end">
+                  <div class="order-img-container">
+                    <img class="img-fluid" src="{% if line_item.image %}{{ line_item.image.thumb_url }}{% else %}{{ 'no-image.jpg' | asset_url }}{% endif %}"/>
+                  </div>
+                </div>
+                <div class="col-8 {% if order.order_shipments == blank %}col-md-6{% else %}col-md-8{% endif %} py-2 border-end">
+                  {% include 'line_item_info' with line_item %}
+                  <div class="d-md-none "><span class="fw-bold qty">Quantity: </span>{{ line_item.quantity }}</div>
+                  {% if order.order_shipments == blank %}<div class="d-md-none"><span class="fw-bold">Total: </span>{{ line_item.total_price | points_or_currency }}</div>{% endif %}
+                </div>
+                <div class="col-6 col-md-2 py-2 d-none d-md-block border-end qty">{{ line_item.quantity }}</div>
+                {% if order.order_shipments == blank %}<div class="col-6 col-md-2 py-2 d-none d-md-block border-end">{{ line_item.total_price | points_or_currency }}</div>{% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        
+        <div class="row mx-0 px-0 border-top mt-3 py-2">
+          <div class="col-12 col-md-6">
+            {% if order.custom_data_collections != blank %}
+              <div class="order-history-separator"></div>
+              {% include 'custom_data_attributes' order: order %}
+            {% endif %}
+          </div>
+          {% if site.allow_reordering? %}
+            <div class="col-12 col-md-6 {% if order.custom_data_collections != blank %}mt-5 mt-md-0{% endif %} text-md-end">
+              <p class="text-muted">Re-Order products on this order?</p>
+              <a href="{{ order | reorder_url }}" class="btn secondary button-default">Re-Order</a>
+            </div>
+          {% endif %}
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("#account-main .btn.secondary.view-details").click(function() {
+    var dataTargetValue = $(this).data("target");
+    $(dataTargetValue).modal("show");
+  });
+</script>

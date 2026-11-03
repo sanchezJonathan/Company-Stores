@@ -1,0 +1,60 @@
+<h2>Shipping Address</h2>
+{% include 'shipping_addresses_drop_down', form: form %}
+{% include 'shipping_address_fields', form: form %}
+
+{% if current_user %}
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="true" id="checkout[save_to_address]" name="checkout[save_to_address]" {% if form.save_to_address %}checked{% endif %}>
+    <label class="form-check-label" for="checkout[save_to_address]">
+      Save my Address Information
+    </label>
+  </div>
+{% endif %}
+
+{% if shop.collect_tax_exempt_reason? %}
+  <div class="form-check form-switch mb-3">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      role="switch"
+      value="true"
+      id="checkout-tax-exempt"
+      data-bs-toggle="collapse"
+      data-bs-target="#checkout-tax-exempt-reason"
+      aria-controls="checkout-tax-exempt-reason"
+      aria-expanded="{% if form.tax_exempt_reason.value != blank %}true{% else %}false{% endif %}"
+      {% if form.tax_exempt_reason.value != blank %}checked{% endif %}>
+    <label class="form-check-label" for="checkout-tax-exempt">
+      Are you tax exempt?
+    </label>
+  </div>
+
+  <div
+    id="checkout-tax-exempt-reason"
+    class="collapse {% if form.tax_exempt_reason.value != blank %}show{% endif %} mb-3">
+    <label class="form-label" for="checkout-tax-exempt-reason-select">
+      Reason for Exemption<span class="required-label">(required)</span>
+    </label>
+    <select
+      class="form-select {% if form.tax_exempt_reason.errors != empty %}is-invalid{% endif %}"
+      id="checkout-tax-exempt-reason-select"
+      name="checkout[tax_exempt_reason]"
+      {% if form.tax_exempt_reason.value == blank %}disabled{% endif %}>
+      <option value="">Select a reason</option>
+      {% for option in form.tax_exempt_reason_options %}
+        <option
+          value="{{ option.value }}"
+          {% if form.tax_exempt_reason.value == option.value %}selected{% endif %}>
+          {{ option.label }}
+        </option>
+      {% endfor %}
+    </select>
+
+    {% for error in form.tax_exempt_reason.errors %}
+      <div class="invalid-feedback d-block">{{ error }}</div>
+    {% endfor %}
+    <div id="checkout-tax-exempt-reason-client-error" class="invalid-feedback d-block{% if form.tax_exempt_reason.errors != empty %} d-none{% endif %}" aria-live="polite"></div>
+  </div>
+{% endif %}
+
+<input type="submit" value="Continue" class="btn secondary"/>

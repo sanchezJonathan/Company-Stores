@@ -1,0 +1,193 @@
+<div class="bundle-member-list d-flex flex-column">
+  {% for bundle_product in bundle.products %}
+    {% assign product_form = bundle_product.form %}
+    {% assign field_prefix = bundle_product.field_prefix %}
+
+    {% assign item_price = product_form.variants[0].unit_price %}
+    {% assign stock_message = product_form.variants[0].stock_message %}
+    {% assign stock_state = product_form.variants[0].stock_state %}
+
+    {% if bundle_product.quantity > 1 %}
+      {% capture member_display_name %}{{ bundle_product.quantity }}× {{ bundle_product.name }}{% endcapture %}
+    {% else %}
+      {% capture member_display_name %}{{ bundle_product.name }}{% endcapture %}
+    {% endif %}
+
+    {% if bundle_product.thumbnail_image %}
+      {% assign member_thumb_url = bundle_product.thumbnail_image.small_url %}
+    {% elsif bundle_product.primary_image %}
+      {% assign member_thumb_url = bundle_product.primary_image.small_url %}
+    {% else %}
+      {% assign member_thumb_url = 'no-image.jpg' | asset_url %}
+    {% endif %}
+
+    <div
+      class="bundle-member-row border rounded bg-white"
+      data-bundle-product-id="{{ bundle_product.id }}"
+      data-product-id="{{ bundle_product.product_id }}"
+      data-virtual-samples="{% if shop.virtual_samples_enabled? and bundle_product.virtual_samples_enabled? %}true{% else %}false{% endif %}"
+      data-virtual-logos="{% if bundle_product.virtual_logos_enabled? %}true{% else %}false{% endif %}"
+      data-calculate-prices-url="{{ bundle_product | calculate_prices_url }}"
+      data-line-total="{{ product_form.items_total_price }}"
+      {% if product_form.errors.any? %}
+        data-has-errors="true"
+      {% endif %}
+    >
+      <button
+        type="button"
+        class="bundle-member-toggle bundle-member-toggle--complete btn w-100 text-start border-0 bg-white p-0 d-none"
+        aria-expanded="false"
+      >
+        <span class="bundle-member-toggle__inner d-flex align-items-center">
+          <img
+            src="{{ 'circle-check.svg' | asset_url }}"
+            alt=""
+            class="bundle-member-state-icon flex-shrink-0"
+            width="16"
+            height="16"
+          >
+          <span class="bundle-member-thumb flex-shrink-0">
+            <img
+              src="{{ member_thumb_url }}"
+              alt=""
+              class="bundle-member-thumb__img"
+              width="48"
+              height="48"
+            >
+          </span>
+          <span class="bundle-member-content flex-grow-1">
+            <span class="bundle-member-name fw-bold d-block text-truncate">{{ member_display_name }}</span>
+            <span class="bundle-member-summary bundle-member-details d-block text-truncate"></span>
+          </span>
+          <span class="bundle-member-price flex-shrink-0">
+            {{- item_price | points_or_currency -}}
+          </span>
+        </span>
+      </button>
+
+      <button
+        type="button"
+        class="bundle-member-toggle bundle-member-toggle--incomplete bundle-member-incomplete btn w-100 text-start border-0 bg-white p-0 d-none"
+        aria-expanded="false"
+      >
+        <span class="bundle-member-toggle__inner d-flex align-items-center">
+          <img
+            src="{{ 'circle-empty.svg' | asset_url }}"
+            alt=""
+            class="bundle-member-state-icon flex-shrink-0"
+            width="16"
+            height="16"
+          >
+          <span class="bundle-member-thumb flex-shrink-0">
+            <img
+              src="{{ member_thumb_url }}"
+              alt=""
+              class="bundle-member-thumb__img"
+              width="48"
+              height="48"
+            >
+          </span>
+          <span class="bundle-member-content flex-grow-1">
+            <span class="bundle-member-name fw-bold d-block text-truncate">{{ member_display_name }}</span>
+            <span class="bundle-member-hint bundle-member-details d-block text-truncate">Select your options</span>
+          </span>
+          <span class="bundle-member-price flex-shrink-0">
+            {{- item_price | points_or_currency -}}
+          </span>
+        </span>
+      </button>
+
+      <div class="bundle-member-expanded d-none">
+        <div class="bundle-member-expanded__body">
+          <div class="product-header bundle-member-header">
+            <h3 class="fw-bold mb-3">{{ member_display_name }}</h3>
+            {% render 'product_overview', product: bundle_product %}
+            {% if bundle_product.size_charts.size > 0 %}
+              <div class="size-chart">
+                <button
+                  type="button"
+                  class="btn btn-link px-0"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal-sizeChart-{{ bundle_product.id }}"
+                >
+                  Size Charts
+                </button>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="line-items-reflective-view">
+            {% if bundle_product.logo_locations_enabled? %}
+              {% render 'line_item_logo_locations',
+                shop: shop,
+                product: bundle_product,
+                form: product_form,
+                logo_locations: bundle_product.logo_locations,
+                custom_logos_upload_enabled: bundle_product.custom_logos_upload_enabled,
+                new_product_logo_url: new_product_logo_url,
+                field_prefix: field_prefix
+              %}
+            {% else %}
+              {% render 'line_item_logos',
+                form: product_form,
+                shop: shop,
+                product: bundle_product,
+                logos: bundle_product.logos,
+                custom_logos_upload_enabled: bundle_product.custom_logos_upload_enabled,
+                logo_required: bundle_product.logo_required,
+                new_product_logo_url: new_product_logo_url,
+                field_prefix: field_prefix
+              %}
+            {% endif %}
+            {% render 'line_item_product_options',
+              form: product_form,
+              product: bundle_product,
+              field_prefix: field_prefix,
+              bundle_mode: true
+            %}
+            {% render 'line_item_product_personalizations',
+              shop: shop,
+              form: product_form,
+              product: bundle_product,
+              field_prefix: field_prefix
+            %}
+            {% render 'line_item_proof_approval',
+              shop: shop,
+              product: bundle_product,
+              form: product_form,
+              field_prefix: field_prefix
+            %}
+          </div>
+
+          <p class="bundle-member-quantity mb-1">
+            {% if bundle_product.quantity > 1 %}
+              <span class="fw-bold">Quantity: {{ bundle_product.quantity }}</span>
+            {% else %}
+              Quantity: {{ bundle_product.quantity }}
+            {% endif %}
+          </p>
+          {% if bundle_product.quantity > 1 %}
+            <p class="bundle-member-qty-note mb-3">Selections apply to all units of this product.</p>
+          {% endif %}
+          <span
+            class="stock bundle-member-stock d-block mb-2{% if stock_state == 'in_stock' or stock_state == 'low_stock' %} text-success{% elsif stock_state == 'out_of_stock' %} text-danger{% endif %}"
+          >
+            {{- stock_message -}}
+          </span>
+          <div class="summary-footer mb-0">
+            <span class="fw-bold">Item Price: </span>
+            <span class="bundle-member-item-price">{{- item_price | points_or_currency -}}</span>
+          </div>
+        </div>
+        <div class="bundle-member-save">
+          <button type="button" class="btn primary bundle-save-btn w-100">Save and Continue</button>
+        </div>
+      </div>
+    </div>
+
+    {% if bundle_product.size_charts.size > 0 %}
+      {% capture size_chart_modal_id %}modal-sizeChart-{{ bundle_product.id }}{% endcapture %}
+      {% render 'product_size_charts', product: bundle_product, modal_id: size_chart_modal_id %}
+    {% endif %}
+  {% endfor %}
+</div>

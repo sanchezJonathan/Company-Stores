@@ -1,0 +1,40 @@
+{% comment %}
+  Once per page, from the product, catalog, and bundle templates.
+  line_item_product_options renders once per bundle member, so this must not live there.
+{% endcomment %}
+{% if settings.move_color_above_logo %}
+  <script>
+    $(function () {
+      $('.line-items-reflective-view').each(function () {
+        var container = $(this);
+        var logo = container.find('.prod_option_block.logo-wrapper').first();
+        var colors = container.find('.color-product-option');
+
+        if (!logo.length || !colors.length || container.find('.color_option_block').length) {
+          return;
+        }
+
+        container.find('.prod_option_block').each(function () {
+          var block = $(this);
+          if (block.hasClass('logo-wrapper') || !block.children('h4').length) {
+            return;
+          }
+          block.addClass('other-product-options');
+          block.children('h4').remove();
+        });
+
+        colors.each(function () {
+          var color = $(this);
+          if (!color.parent().hasClass('color_option_block')) {
+            color.wrap('<div class="prod_option_block color_option_block"></div>');
+          }
+          if (!color.children('h4').length) {
+            color.prepend('<h4>Product Option</h4>');
+          }
+        });
+
+        container.find('.color_option_block').insertBefore(logo);
+      });
+    });
+  </script>
+{% endif %}

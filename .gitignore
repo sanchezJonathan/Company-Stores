@@ -3,3 +3,6 @@
 /theme-sync-git-workflow.md
 /_docs/_tools/node_modules/
 _docs/_tools/node_modules/
+
+# Figma source files exceed GitHub 100 MB limit
+*.fig

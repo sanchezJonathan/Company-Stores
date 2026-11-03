@@ -1,0 +1,4 @@
+{% comment %} 20 products per page. The listing markup lives in snippets/category_listing.liquid {% endcomment %}
+{% paginate products_search by 20 %}
+  {% include 'category_listing', paginate: paginate %}
+{% endpaginate %}

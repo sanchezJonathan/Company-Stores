@@ -1,0 +1,3180 @@
+[
+  {
+    "title": "Brand & Style",
+    "form": [],
+    "children": [
+      {
+        "title": "Start here",
+        "form": [
+          {
+            "type": "tips",
+            "tips": [
+              "Choose a preset in \"Store Design and Template\" first, then adjust the settings below.",
+              "Switching presets replaces ALL settings — including slides and links. Pick the preset before adding content.",
+              "Theme 3.0 (Arvo) — version 0.1.0"
+            ]
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Style Kit",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_style_kit",
+              "text": "Style kit"
+            },
+            "select": {
+              "name": "brand_style_kit",
+              "options": [
+                {
+                  "value": "clean",
+                  "label": "Clean"
+                },
+                {
+                  "value": "corporate",
+                  "label": "Corporate"
+                },
+                {
+                  "value": "athletic",
+                  "label": "Athletic"
+                },
+                {
+                  "value": "premium",
+                  "label": "Premium"
+                },
+                {
+                  "value": "friendly",
+                  "label": "Friendly"
+                },
+                {
+                  "value": "minimal",
+                  "label": "Minimal"
+                }
+              ]
+            },
+            "help": {
+              "title": "Style kit",
+              "text": "Sets corners, shadows, spacing, headings, buttons, product cards and images together. Any style setting left on \"Auto\" follows the kit."
+            }
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Logos",
+        "form": [
+          {
+            "type": "image",
+            "label": {
+              "name": "brand_logo.png",
+              "text": "Site logo"
+            },
+            "input": {
+              "name": "brand_logo.png"
+            },
+            "help": {
+              "title": "Site logo",
+              "text": "PNG or SVG-exported PNG with a transparent background. Recommended height: 120px."
+            }
+          },
+          {
+            "type": "image",
+            "label": {
+              "name": "brand_logo_light.png",
+              "text": "Logo for dark backgrounds"
+            },
+            "input": {
+              "name": "brand_logo_light.png"
+            },
+            "help": {
+              "title": "Logo for dark backgrounds",
+              "text": "Light version of the logo, used on dark headers, footers and the Dark color scheme."
+            }
+          },
+          {
+            "type": "image",
+            "label": {
+              "name": "favicon.png",
+              "text": "Favicon"
+            },
+            "input": {
+              "name": "favicon.png"
+            },
+            "help": {
+              "title": "Favicon",
+              "text": "Square PNG, at least 64×64px."
+            }
+          },
+          {
+            "type": "image",
+            "label": {
+              "name": "brand_email_logo.png",
+              "text": "Email logo"
+            },
+            "input": {
+              "name": "brand_email_logo.png"
+            },
+            "help": {
+              "title": "Email logo",
+              "text": "Shown at the top of order and account emails."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_logo_size",
+              "text": "Logo size"
+            },
+            "select": {
+              "name": "brand_logo_size",
+              "options": [
+                {
+                  "value": "s",
+                  "label": "Small"
+                },
+                {
+                  "value": "m",
+                  "label": "Medium"
+                },
+                {
+                  "value": "l",
+                  "label": "Large"
+                },
+                {
+                  "value": "xl",
+                  "label": "Extra large"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_logo_bg",
+              "text": "Logo background"
+            },
+            "select": {
+              "name": "brand_logo_bg",
+              "options": [
+                {
+                  "value": "none",
+                  "label": "None"
+                },
+                {
+                  "value": "brand",
+                  "label": "Brand color"
+                },
+                {
+                  "value": "custom",
+                  "label": "Custom color"
+                }
+              ]
+            },
+            "help": {
+              "title": "Logo background",
+              "text": "Adds a background behind the header logo — useful for white or light logos."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "brand_logo_bg_color",
+              "text": "Logo background color (Custom)"
+            },
+            "input": {
+              "name": "brand_logo_bg_color"
+            },
+            "help": {
+              "title": "Logo background color (Custom)",
+              "text": "Used only when Logo background = Custom color."
+            }
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Colors",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_color_scheme",
+              "text": "Color scheme"
+            },
+            "select": {
+              "name": "brand_color_scheme",
+              "options": [
+                {
+                  "value": "light",
+                  "label": "Light"
+                },
+                {
+                  "value": "dark",
+                  "label": "Dark"
+                }
+              ]
+            },
+            "help": {
+              "title": "Color scheme",
+              "text": "Light = light backgrounds with dark text. Dark = dark backgrounds with light text. Text, background and border colors adjust automatically."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "color_brand_primary",
+              "text": "Brand color"
+            },
+            "input": {
+              "name": "color_brand_primary"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_text_on_primary",
+              "text": "Text on brand color"
+            },
+            "select": {
+              "name": "brand_text_on_primary",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (readable)"
+                },
+                {
+                  "value": "light",
+                  "label": "White"
+                },
+                {
+                  "value": "dark",
+                  "label": "Dark"
+                }
+              ]
+            },
+            "help": {
+              "title": "Text on brand color",
+              "text": "Auto picks white or dark text for the best contrast on your brand color."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "color_brand_secondary",
+              "text": "Secondary color"
+            },
+            "input": {
+              "name": "color_brand_secondary"
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "color_accent",
+              "text": "Accent color"
+            },
+            "input": {
+              "name": "color_accent"
+            },
+            "help": {
+              "title": "Accent color",
+              "text": "Used for highlights such as badges and the announcement strip."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_text_on_accent",
+              "text": "Text on accent color"
+            },
+            "select": {
+              "name": "brand_text_on_accent",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (readable)"
+                },
+                {
+                  "value": "light",
+                  "label": "White"
+                },
+                {
+                  "value": "dark",
+                  "label": "Dark"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "color_sale",
+              "text": "Sale price color"
+            },
+            "input": {
+              "name": "color_sale"
+            },
+            "help": null
+          },
+          {
+            "type": "tips",
+            "tips": [
+              "Lighter and darker shades of your brand color are created automatically for backgrounds, hovers and highlights."
+            ]
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Typography",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_font_pairing",
+              "text": "Font pairing"
+            },
+            "select": {
+              "name": "brand_font_pairing",
+              "options": [
+                {
+                  "value": "custom",
+                  "label": "Custom (use the font fields below)"
+                },
+                {
+                  "value": "jakarta_inter",
+                  "label": "Modern — Plus Jakarta Sans + Inter"
+                },
+                {
+                  "value": "outfit_jakarta",
+                  "label": "Geometric — Outfit + Plus Jakarta Sans"
+                },
+                {
+                  "value": "montserrat_opensans",
+                  "label": "Classic — Montserrat + Open Sans"
+                },
+                {
+                  "value": "plex",
+                  "label": "Corporate — IBM Plex Sans"
+                },
+                {
+                  "value": "playfair_inter",
+                  "label": "Premium — Playfair Display + Inter"
+                },
+                {
+                  "value": "fraunces_jakarta",
+                  "label": "Editorial — Fraunces + Plus Jakarta Sans"
+                },
+                {
+                  "value": "oswald_roboto",
+                  "label": "Athletic — Oswald + Roboto"
+                },
+                {
+                  "value": "bebas_inter",
+                  "label": "Bold — Bebas Neue + Inter"
+                },
+                {
+                  "value": "spacegrotesk_inter",
+                  "label": "Tech — Space Grotesk + Inter"
+                },
+                {
+                  "value": "dmserif_dmsans",
+                  "label": "Elegant — DM Serif Display + DM Sans"
+                }
+              ]
+            },
+            "help": {
+              "title": "Font pairing",
+              "text": "Pick a tested pairing, or choose Custom to use the two fonts below."
+            }
+          },
+          {
+            "type": "font",
+            "label": {
+              "name": "brand_font_heading",
+              "text": "Heading font (Custom)"
+            },
+            "font": {
+              "name": "brand_font_heading",
+              "options": [
+                {
+                  "value": "'Plus Jakarta Sans', system-ui, sans-serif",
+                  "label": "Plus Jakarta Sans"
+                },
+                {
+                  "value": "'Inter', system-ui, sans-serif",
+                  "label": "Inter"
+                },
+                {
+                  "value": "'Roboto', system-ui, sans-serif",
+                  "label": "Roboto"
+                },
+                {
+                  "value": "'Open Sans', system-ui, sans-serif",
+                  "label": "Open Sans"
+                },
+                {
+                  "value": "'Lato', system-ui, sans-serif",
+                  "label": "Lato"
+                },
+                {
+                  "value": "'Source Sans 3', system-ui, sans-serif",
+                  "label": "Source Sans 3"
+                },
+                {
+                  "value": "'Nunito Sans', system-ui, sans-serif",
+                  "label": "Nunito Sans"
+                },
+                {
+                  "value": "'DM Sans', system-ui, sans-serif",
+                  "label": "DM Sans"
+                },
+                {
+                  "value": "'Manrope', system-ui, sans-serif",
+                  "label": "Manrope"
+                },
+                {
+                  "value": "'Figtree', system-ui, sans-serif",
+                  "label": "Figtree"
+                },
+                {
+                  "value": "'Work Sans', system-ui, sans-serif",
+                  "label": "Work Sans"
+                },
+                {
+                  "value": "'IBM Plex Sans', system-ui, sans-serif",
+                  "label": "IBM Plex Sans"
+                },
+                {
+                  "value": "'Montserrat', system-ui, sans-serif",
+                  "label": "Montserrat"
+                },
+                {
+                  "value": "'Poppins', system-ui, sans-serif",
+                  "label": "Poppins"
+                },
+                {
+                  "value": "'Lora', Georgia, serif",
+                  "label": "Lora"
+                },
+                {
+                  "value": "'Merriweather', Georgia, serif",
+                  "label": "Merriweather"
+                },
+                {
+                  "value": "'Outfit', system-ui, sans-serif",
+                  "label": "Outfit"
+                },
+                {
+                  "value": "'Raleway', system-ui, sans-serif",
+                  "label": "Raleway"
+                },
+                {
+                  "value": "'Space Grotesk', system-ui, sans-serif",
+                  "label": "Space Grotesk"
+                },
+                {
+                  "value": "'Playfair Display', Georgia, serif",
+                  "label": "Playfair Display"
+                },
+                {
+                  "value": "'Fraunces', Georgia, serif",
+                  "label": "Fraunces"
+                },
+                {
+                  "value": "'Oswald', system-ui, sans-serif",
+                  "label": "Oswald (display)"
+                },
+                {
+                  "value": "'Bebas Neue', system-ui, sans-serif",
+                  "label": "Bebas Neue (display)"
+                },
+                {
+                  "value": "'Anton', system-ui, sans-serif",
+                  "label": "Anton (display)"
+                },
+                {
+                  "value": "'Barlow Condensed', system-ui, sans-serif",
+                  "label": "Barlow Condensed (display)"
+                },
+                {
+                  "value": "'Archivo Black', system-ui, sans-serif",
+                  "label": "Archivo Black (display)"
+                },
+                {
+                  "value": "'Teko', system-ui, sans-serif",
+                  "label": "Teko (display)"
+                },
+                {
+                  "value": "'DM Serif Display', Georgia, serif",
+                  "label": "DM Serif Display (display)"
+                },
+                {
+                  "value": "'Abril Fatface', Georgia, serif",
+                  "label": "Abril Fatface (display)"
+                }
+              ]
+            },
+            "size": null,
+            "help": {
+              "title": "Heading font (Custom)",
+              "text": "Used only when Font pairing = Custom. Fonts marked (display) are for headings only."
+            }
+          },
+          {
+            "type": "font",
+            "label": {
+              "name": "brand_font_body",
+              "text": "Body font (Custom)"
+            },
+            "font": {
+              "name": "brand_font_body",
+              "options": [
+                {
+                  "value": "'Plus Jakarta Sans', system-ui, sans-serif",
+                  "label": "Plus Jakarta Sans"
+                },
+                {
+                  "value": "'Inter', system-ui, sans-serif",
+                  "label": "Inter"
+                },
+                {
+                  "value": "'Roboto', system-ui, sans-serif",
+                  "label": "Roboto"
+                },
+                {
+                  "value": "'Open Sans', system-ui, sans-serif",
+                  "label": "Open Sans"
+                },
+                {
+                  "value": "'Lato', system-ui, sans-serif",
+                  "label": "Lato"
+                },
+                {
+                  "value": "'Source Sans 3', system-ui, sans-serif",
+                  "label": "Source Sans 3"
+                },
+                {
+                  "value": "'Nunito Sans', system-ui, sans-serif",
+                  "label": "Nunito Sans"
+                },
+                {
+                  "value": "'DM Sans', system-ui, sans-serif",
+                  "label": "DM Sans"
+                },
+                {
+                  "value": "'Manrope', system-ui, sans-serif",
+                  "label": "Manrope"
+                },
+                {
+                  "value": "'Figtree', system-ui, sans-serif",
+                  "label": "Figtree"
+                },
+                {
+                  "value": "'Work Sans', system-ui, sans-serif",
+                  "label": "Work Sans"
+                },
+                {
+                  "value": "'IBM Plex Sans', system-ui, sans-serif",
+                  "label": "IBM Plex Sans"
+                },
+                {
+                  "value": "'Montserrat', system-ui, sans-serif",
+                  "label": "Montserrat"
+                },
+                {
+                  "value": "'Poppins', system-ui, sans-serif",
+                  "label": "Poppins"
+                },
+                {
+                  "value": "'Lora', Georgia, serif",
+                  "label": "Lora"
+                },
+                {
+                  "value": "'Merriweather', Georgia, serif",
+                  "label": "Merriweather"
+                }
+              ]
+            },
+            "size": null,
+            "help": {
+              "title": "Body font (Custom)",
+              "text": "Used only when Font pairing = Custom."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_heading_size",
+              "text": "Heading size"
+            },
+            "select": {
+              "name": "brand_heading_size",
+              "options": [
+                {
+                  "value": "s",
+                  "label": "Small"
+                },
+                {
+                  "value": "m",
+                  "label": "Medium"
+                },
+                {
+                  "value": "l",
+                  "label": "Large"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_heading_weight",
+              "text": "Heading weight"
+            },
+            "select": {
+              "name": "brand_heading_weight",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "500",
+                  "label": "Medium"
+                },
+                {
+                  "value": "600",
+                  "label": "Semibold"
+                },
+                {
+                  "value": "700",
+                  "label": "Bold"
+                },
+                {
+                  "value": "800",
+                  "label": "Extra bold"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_heading_case",
+              "text": "Heading case"
+            },
+            "select": {
+              "name": "brand_heading_case",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "normal",
+                  "label": "Normal"
+                },
+                {
+                  "value": "uppercase",
+                  "label": "UPPERCASE"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_heading_tracking",
+              "text": "Heading letter spacing"
+            },
+            "select": {
+              "name": "brand_heading_tracking",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "tight",
+                  "label": "Tight"
+                },
+                {
+                  "value": "normal",
+                  "label": "Normal"
+                },
+                {
+                  "value": "wide",
+                  "label": "Wide"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_body_size",
+              "text": "Body text size"
+            },
+            "select": {
+              "name": "brand_body_size",
+              "options": [
+                {
+                  "value": "s",
+                  "label": "Small"
+                },
+                {
+                  "value": "m",
+                  "label": "Medium"
+                },
+                {
+                  "value": "l",
+                  "label": "Large"
+                }
+              ]
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Icons & Images",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_icon_style",
+              "text": "Icon style"
+            },
+            "select": {
+              "name": "brand_icon_style",
+              "options": [
+                {
+                  "value": "outline",
+                  "label": "Outline"
+                },
+                {
+                  "value": "solid",
+                  "label": "Solid"
+                },
+                {
+                  "value": "mix",
+                  "label": "Mix (solid for key actions)"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_image_treatment",
+              "text": "Image treatment"
+            },
+            "select": {
+              "name": "brand_image_treatment",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "natural",
+                  "label": "Natural"
+                },
+                {
+                  "value": "rounded",
+                  "label": "Rounded corners"
+                },
+                {
+                  "value": "duotone",
+                  "label": "Brand tint"
+                },
+                {
+                  "value": "grayscale",
+                  "label": "Grayscale"
+                },
+                {
+                  "value": "shadow",
+                  "label": "Soft shadow"
+                }
+              ]
+            },
+            "help": {
+              "title": "Image treatment",
+              "text": "Applies to product, category and content images across the store."
+            }
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Shape & Density",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_corner_style",
+              "text": "Corner style"
+            },
+            "select": {
+              "name": "brand_corner_style",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "square",
+                  "label": "Square"
+                },
+                {
+                  "value": "soft",
+                  "label": "Soft"
+                },
+                {
+                  "value": "rounded",
+                  "label": "Rounded"
+                },
+                {
+                  "value": "pill",
+                  "label": "Pill"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_shadows",
+              "text": "Shadows"
+            },
+            "select": {
+              "name": "brand_shadows",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "none",
+                  "label": "None"
+                },
+                {
+                  "value": "subtle",
+                  "label": "Subtle"
+                },
+                {
+                  "value": "strong",
+                  "label": "Strong"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_spacing",
+              "text": "Spacing"
+            },
+            "select": {
+              "name": "brand_spacing",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "compact",
+                  "label": "Compact"
+                },
+                {
+                  "value": "normal",
+                  "label": "Normal"
+                },
+                {
+                  "value": "airy",
+                  "label": "Airy"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_borders",
+              "text": "Borders"
+            },
+            "select": {
+              "name": "brand_borders",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "none",
+                  "label": "None"
+                },
+                {
+                  "value": "thin",
+                  "label": "Thin"
+                },
+                {
+                  "value": "thick",
+                  "label": "Thick"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_content_width",
+              "text": "Content width"
+            },
+            "select": {
+              "name": "brand_content_width",
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard (1280px)"
+                },
+                {
+                  "value": "wide",
+                  "label": "Wide (1440px)"
+                },
+                {
+                  "value": "full",
+                  "label": "Full width"
+                }
+              ]
+            },
+            "help": {
+              "title": "Content width",
+              "text": "Desktop only — on phones content always uses the full screen width."
+            }
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Buttons & Links",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_button_style",
+              "text": "Button style"
+            },
+            "select": {
+              "name": "brand_button_style",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "solid",
+                  "label": "Solid"
+                },
+                {
+                  "value": "outline",
+                  "label": "Outline"
+                },
+                {
+                  "value": "soft",
+                  "label": "Soft"
+                },
+                {
+                  "value": "ghost",
+                  "label": "Ghost"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_button_size",
+              "text": "Button size"
+            },
+            "select": {
+              "name": "brand_button_size",
+              "options": [
+                {
+                  "value": "s",
+                  "label": "Small"
+                },
+                {
+                  "value": "m",
+                  "label": "Medium"
+                },
+                {
+                  "value": "l",
+                  "label": "Large"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_button_case",
+              "text": "Button text"
+            },
+            "select": {
+              "name": "brand_button_case",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "normal",
+                  "label": "Normal"
+                },
+                {
+                  "value": "uppercase",
+                  "label": "UPPERCASE"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_button_color",
+              "text": "Primary button color"
+            },
+            "select": {
+              "name": "brand_button_color",
+              "options": [
+                {
+                  "value": "brand",
+                  "label": "Brand color"
+                },
+                {
+                  "value": "accent",
+                  "label": "Accent color"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_link_underline",
+              "text": "Link underline"
+            },
+            "select": {
+              "name": "brand_link_underline",
+              "options": [
+                {
+                  "value": "hover",
+                  "label": "On hover"
+                },
+                {
+                  "value": "always",
+                  "label": "Always"
+                }
+              ]
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Product Card Style",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_card_style",
+              "text": "Card style"
+            },
+            "select": {
+              "name": "brand_card_style",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto (from style kit)"
+                },
+                {
+                  "value": "plain",
+                  "label": "Plain"
+                },
+                {
+                  "value": "bordered",
+                  "label": "Bordered"
+                },
+                {
+                  "value": "shadow",
+                  "label": "Shadow"
+                },
+                {
+                  "value": "overlay",
+                  "label": "Text over image"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_card_image_ratio",
+              "text": "Image shape"
+            },
+            "select": {
+              "name": "brand_card_image_ratio",
+              "options": [
+                {
+                  "value": "square",
+                  "label": "Square"
+                },
+                {
+                  "value": "portrait",
+                  "label": "Portrait"
+                },
+                {
+                  "value": "landscape",
+                  "label": "Landscape"
+                },
+                {
+                  "value": "natural",
+                  "label": "Natural"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_card_image_bg",
+              "text": "Image background"
+            },
+            "select": {
+              "name": "brand_card_image_bg",
+              "options": [
+                {
+                  "value": "surface",
+                  "label": "Light gray"
+                },
+                {
+                  "value": "none",
+                  "label": "None"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_card_hover",
+              "text": "Hover effect"
+            },
+            "select": {
+              "name": "brand_card_hover",
+              "options": [
+                {
+                  "value": "second_image",
+                  "label": "Show second image"
+                },
+                {
+                  "value": "zoom",
+                  "label": "Zoom"
+                },
+                {
+                  "value": "lift",
+                  "label": "Lift"
+                },
+                {
+                  "value": "none",
+                  "label": "None"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_card_align",
+              "text": "Text alignment"
+            },
+            "select": {
+              "name": "brand_card_align",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_badge_position",
+              "text": "Badge position"
+            },
+            "select": {
+              "name": "brand_badge_position",
+              "options": [
+                {
+                  "value": "top_left",
+                  "label": "Top left"
+                },
+                {
+                  "value": "top_right",
+                  "label": "Top right"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "brand_badge_style",
+              "text": "Badge style"
+            },
+            "select": {
+              "name": "brand_badge_style",
+              "options": [
+                {
+                  "value": "solid",
+                  "label": "Solid"
+                },
+                {
+                  "value": "soft",
+                  "label": "Soft"
+                }
+              ]
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      }
+    ]
+  },
+  {
+    "title": "Header",
+    "form": [],
+    "children": [
+      {
+        "title": "Layout & Style",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "header_layout",
+              "text": "Header layout"
+            },
+            "select": {
+              "name": "header_layout",
+              "options": [
+                {
+                  "value": "inline",
+                  "label": "Logo left · menu center · icons right"
+                },
+                {
+                  "value": "logo_center",
+                  "label": "Logo centered · menu below"
+                },
+                {
+                  "value": "nav_below",
+                  "label": "Logo and icons · menu below"
+                },
+                {
+                  "value": "nav_above",
+                  "label": "Menu on top · logo and icons below"
+                },
+                {
+                  "value": "minimal",
+                  "label": "Logo and icons only (menu behind ☰)"
+                }
+              ]
+            },
+            "help": {
+              "title": "Header layout",
+              "text": "Desktop only: on phones every layout shows ☰ · logo · icons."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_nav_align",
+              "text": "Menu alignment"
+            },
+            "select": {
+              "name": "header_nav_align",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "right",
+                  "label": "Right"
+                }
+              ]
+            },
+            "help": {
+              "title": "Menu alignment",
+              "text": "Desktop only."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_style",
+              "text": "Header style"
+            },
+            "select": {
+              "name": "header_style",
+              "options": [
+                {
+                  "value": "light",
+                  "label": "Light"
+                },
+                {
+                  "value": "brand",
+                  "label": "Brand color"
+                },
+                {
+                  "value": "inverse",
+                  "label": "Dark"
+                },
+                {
+                  "value": "custom",
+                  "label": "Custom colors"
+                }
+              ]
+            },
+            "help": {
+              "title": "Header style",
+              "text": "Brand color and Dark use the \"Logo for dark backgrounds\" if you uploaded one."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "header_bg_color",
+              "text": "Background (Custom)"
+            },
+            "input": {
+              "name": "header_bg_color"
+            },
+            "help": {
+              "title": "Background (Custom)",
+              "text": "Used only when Header style = Custom colors."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "header_text_color",
+              "text": "Text and icons (Custom)"
+            },
+            "input": {
+              "name": "header_text_color"
+            },
+            "help": {
+              "title": "Text and icons (Custom)",
+              "text": "Used only when Header style = Custom colors."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_edge",
+              "text": "Bottom edge"
+            },
+            "select": {
+              "name": "header_edge",
+              "options": [
+                {
+                  "value": "none",
+                  "label": "None"
+                },
+                {
+                  "value": "line",
+                  "label": "Line"
+                },
+                {
+                  "value": "shadow",
+                  "label": "Shadow"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_sticky",
+              "text": "Sticky header"
+            },
+            "select": {
+              "name": "header_sticky",
+              "options": [
+                {
+                  "value": "off",
+                  "label": "Off"
+                },
+                {
+                  "value": "always",
+                  "label": "Always visible"
+                },
+                {
+                  "value": "scroll_up",
+                  "label": "Show when scrolling up"
+                }
+              ]
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Announcement Bar",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "header_announce_enabled",
+              "text": "Show announcement bar"
+            },
+            "input": {
+              "name": "header_announce_enabled"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "header_announce_text",
+              "text": "Message"
+            },
+            "input": {
+              "name": "header_announce_text"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "header_announce_link",
+              "text": "Link (optional)"
+            },
+            "input": {
+              "name": "header_announce_link"
+            },
+            "help": {
+              "title": "Link (optional)",
+              "text": "Makes the whole bar a link, e.g. /pages/shipping."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_announce_style",
+              "text": "Style"
+            },
+            "select": {
+              "name": "header_announce_style",
+              "options": [
+                {
+                  "value": "inverse",
+                  "label": "Dark"
+                },
+                {
+                  "value": "brand",
+                  "label": "Brand color"
+                },
+                {
+                  "value": "accent",
+                  "label": "Accent color"
+                },
+                {
+                  "value": "custom",
+                  "label": "Custom colors"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "header_announce_bg",
+              "text": "Background (Custom)"
+            },
+            "input": {
+              "name": "header_announce_bg"
+            },
+            "help": {
+              "title": "Background (Custom)",
+              "text": "Used only when Style = Custom colors."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "header_announce_text_color",
+              "text": "Text (Custom)"
+            },
+            "input": {
+              "name": "header_announce_text_color"
+            },
+            "help": {
+              "title": "Text (Custom)",
+              "text": "Used only when Style = Custom colors."
+            }
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Navigation",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "header_nav_home",
+              "text": "Show \"Home\" link"
+            },
+            "input": {
+              "name": "header_nav_home"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_nav_categories",
+              "text": "Categories"
+            },
+            "select": {
+              "name": "header_nav_categories",
+              "options": [
+                {
+                  "value": "inline",
+                  "label": "Show in the menu"
+                },
+                {
+                  "value": "shop_menu",
+                  "label": "Under a \"Shop\" menu"
+                },
+                {
+                  "value": "hidden",
+                  "label": "Hide"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_nav_dropdown",
+              "text": "Dropdown style"
+            },
+            "select": {
+              "name": "header_nav_dropdown",
+              "options": [
+                {
+                  "value": "simple",
+                  "label": "Simple list"
+                },
+                {
+                  "value": "columns",
+                  "label": "Grouped columns"
+                }
+              ]
+            },
+            "help": {
+              "title": "Dropdown style",
+              "text": "Desktop only. Grouped columns shows sub-categories side by side — best for large catalogs."
+            }
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "header_nav_pages",
+              "text": "Show pages in the menu"
+            },
+            "input": {
+              "name": "header_nav_pages"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Utilities",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "header_search",
+              "text": "Search"
+            },
+            "select": {
+              "name": "header_search",
+              "options": [
+                {
+                  "value": "icon",
+                  "label": "Icon (opens a search bar)"
+                },
+                {
+                  "value": "bar",
+                  "label": "Search field"
+                },
+                {
+                  "value": "hidden",
+                  "label": "Hidden"
+                }
+              ]
+            },
+            "help": {
+              "title": "Search",
+              "text": "Search field is desktop only; phones show the icon."
+            }
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "header_wishlist",
+              "text": "Show wishlist icon"
+            },
+            "input": {
+              "name": "header_wishlist"
+            },
+            "help": {
+              "title": "Show wishlist icon",
+              "text": "Shown only when the wishlist is enabled for the store and the shopper is signed in."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_account",
+              "text": "Account"
+            },
+            "select": {
+              "name": "header_account",
+              "options": [
+                {
+                  "value": "icon",
+                  "label": "Icon"
+                },
+                {
+                  "value": "icon_name",
+                  "label": "Icon + first name"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_cart",
+              "text": "Cart"
+            },
+            "select": {
+              "name": "header_cart",
+              "options": [
+                {
+                  "value": "icon",
+                  "label": "Icon"
+                },
+                {
+                  "value": "count",
+                  "label": "Icon + item count"
+                },
+                {
+                  "value": "total",
+                  "label": "Icon + count + total"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "header_balance",
+              "text": "Show account balance"
+            },
+            "input": {
+              "name": "header_balance"
+            },
+            "help": {
+              "title": "Show account balance",
+              "text": "Shows the signed-in shopper's balance (or points) next to the account icon. Needs \"Show account balance\" on in the store settings."
+            }
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "header_phone_enabled",
+              "text": "Show phone number"
+            },
+            "input": {
+              "name": "header_phone_enabled"
+            },
+            "help": {
+              "title": "Show phone number",
+              "text": "Desktop only."
+            }
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "header_phone",
+              "text": "Phone number"
+            },
+            "input": {
+              "name": "header_phone"
+            },
+            "help": {
+              "title": "Phone number",
+              "text": "Leave empty to use the store's primary phone."
+            }
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Mobile",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "header_mobile_logo",
+              "text": "Logo position"
+            },
+            "select": {
+              "name": "header_mobile_logo",
+              "options": [
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "left",
+                  "label": "Left"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "header_mobile_menu_order",
+              "text": "Menu order"
+            },
+            "select": {
+              "name": "header_mobile_menu_order",
+              "options": [
+                {
+                  "value": "categories",
+                  "label": "Categories first"
+                },
+                {
+                  "value": "pages",
+                  "label": "Pages first"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "header_mobile_bar",
+              "text": "Bottom quick-actions bar"
+            },
+            "input": {
+              "name": "header_mobile_bar"
+            },
+            "help": {
+              "title": "Bottom quick-actions bar",
+              "text": "A fixed bar at the bottom of phone screens with Home, Cart and Account."
+            }
+          },
+          {
+            "type": "tips",
+            "tips": [
+              "The Store Design preview is narrow, so you mostly see the phone header there. Check desktop layouts on the storefront."
+            ]
+          }
+        ],
+        "children": []
+      }
+    ]
+  },
+  {
+    "title": "Footer",
+    "form": [],
+    "children": [
+      {
+        "title": "Layout & Style",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_layout",
+              "text": "Footer layout"
+            },
+            "select": {
+              "name": "footer_layout",
+              "options": [
+                {
+                  "value": "columns",
+                  "label": "About + up to 3 link columns"
+                },
+                {
+                  "value": "columns_contact",
+                  "label": "About + 2 link columns + contact"
+                },
+                {
+                  "value": "brand_row",
+                  "label": "About row on top · link columns below"
+                },
+                {
+                  "value": "minimal",
+                  "label": "Minimal (centered, one row of links)"
+                }
+              ]
+            },
+            "help": {
+              "title": "Footer layout",
+              "text": "Minimal shows Link Group 1 only. \"About + 2 link columns + contact\" hides Link Group 3."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_style",
+              "text": "Footer style"
+            },
+            "select": {
+              "name": "footer_style",
+              "options": [
+                {
+                  "value": "inverse",
+                  "label": "Dark"
+                },
+                {
+                  "value": "brand",
+                  "label": "Brand color"
+                },
+                {
+                  "value": "light",
+                  "label": "Light"
+                },
+                {
+                  "value": "custom",
+                  "label": "Custom colors"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "footer_bg_color",
+              "text": "Background (Custom)"
+            },
+            "input": {
+              "name": "footer_bg_color"
+            },
+            "help": {
+              "title": "Background (Custom)",
+              "text": "Used only when Footer style = Custom colors."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "footer_text_color",
+              "text": "Text (Custom)"
+            },
+            "input": {
+              "name": "footer_text_color"
+            },
+            "help": {
+              "title": "Text (Custom)",
+              "text": "Used only when Footer style = Custom colors."
+            }
+          },
+          {
+            "type": "color",
+            "label": {
+              "name": "footer_link_color",
+              "text": "Links (Custom)"
+            },
+            "input": {
+              "name": "footer_link_color"
+            },
+            "help": {
+              "title": "Links (Custom)",
+              "text": "Used only when Footer style = Custom colors."
+            }
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_bottom_style",
+              "text": "Bottom bar"
+            },
+            "select": {
+              "name": "footer_bottom_style",
+              "options": [
+                {
+                  "value": "same",
+                  "label": "Same as footer"
+                },
+                {
+                  "value": "darker",
+                  "label": "Slightly darker"
+                },
+                {
+                  "value": "inverse",
+                  "label": "Contrasting"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_back_to_top",
+              "text": "Show \"Back to top\" button"
+            },
+            "input": {
+              "name": "footer_back_to_top"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_powered_by",
+              "text": "Show \"Powered by BrightStores\""
+            },
+            "input": {
+              "name": "footer_powered_by"
+            },
+            "help": null
+          },
+          {
+            "type": "text_input",
+            "label": {
+              "name": "footer_copyright",
+              "text": "Copyright text"
+            },
+            "input": {
+              "name": "footer_copyright"
+            },
+            "help": {
+              "title": "Copyright text",
+              "text": "Leave empty for \"© <year> <store name>\"."
+            }
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "About",
+        "form": [
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_show_logo",
+              "text": "Show logo"
+            },
+            "input": {
+              "name": "footer_show_logo"
+            },
+            "help": null
+          },
+          {
+            "type": "textarea",
+            "label": {
+              "name": "footer_about",
+              "text": "Short description"
+            },
+            "textarea": {
+              "name": "footer_about"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Link Group 1",
+        "form": [
+          {
+            "type": "text_input",
+            "label": {
+              "name": "footer_g1_heading",
+              "text": "Heading"
+            },
+            "input": {
+              "name": "footer_g1_heading"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_g1_source",
+              "text": "Links"
+            },
+            "select": {
+              "name": "footer_g1_source",
+              "options": [
+                {
+                  "value": "pages",
+                  "label": "Store pages"
+                },
+                {
+                  "value": "custom",
+                  "label": "Custom links below"
+                },
+                {
+                  "value": "hidden",
+                  "label": "Hide this group"
+                }
+              ]
+            },
+            "help": {
+              "title": "Links",
+              "text": "Store pages lists the top-level pages from Pages in the admin."
+            }
+          },
+          {
+            "type": "formlist",
+            "children": [
+              {
+                "title": "Link 1",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_1_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_1_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_1_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_1_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 2",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_2_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_2_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_2_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_2_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 3",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_3_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_3_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_3_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_3_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 4",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_4_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_4_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_4_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_4_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 5",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_5_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_5_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g1_link_5_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g1_link_5_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_g1_new_tab",
+              "text": "Open custom links in a new tab"
+            },
+            "input": {
+              "name": "footer_g1_new_tab"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Link Group 2",
+        "form": [
+          {
+            "type": "text_input",
+            "label": {
+              "name": "footer_g2_heading",
+              "text": "Heading"
+            },
+            "input": {
+              "name": "footer_g2_heading"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_g2_source",
+              "text": "Links"
+            },
+            "select": {
+              "name": "footer_g2_source",
+              "options": [
+                {
+                  "value": "pages",
+                  "label": "Store pages"
+                },
+                {
+                  "value": "custom",
+                  "label": "Custom links below"
+                },
+                {
+                  "value": "hidden",
+                  "label": "Hide this group"
+                }
+              ]
+            },
+            "help": {
+              "title": "Links",
+              "text": "Store pages lists the top-level pages from Pages in the admin."
+            }
+          },
+          {
+            "type": "formlist",
+            "children": [
+              {
+                "title": "Link 1",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_1_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_1_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_1_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_1_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 2",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_2_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_2_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_2_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_2_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 3",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_3_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_3_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_3_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_3_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 4",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_4_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_4_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_4_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_4_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 5",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_5_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_5_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g2_link_5_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g2_link_5_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_g2_new_tab",
+              "text": "Open custom links in a new tab"
+            },
+            "input": {
+              "name": "footer_g2_new_tab"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Link Group 3",
+        "form": [
+          {
+            "type": "text_input",
+            "label": {
+              "name": "footer_g3_heading",
+              "text": "Heading"
+            },
+            "input": {
+              "name": "footer_g3_heading"
+            },
+            "help": null
+          },
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_g3_source",
+              "text": "Links"
+            },
+            "select": {
+              "name": "footer_g3_source",
+              "options": [
+                {
+                  "value": "pages",
+                  "label": "Store pages"
+                },
+                {
+                  "value": "custom",
+                  "label": "Custom links below"
+                },
+                {
+                  "value": "hidden",
+                  "label": "Hide this group"
+                }
+              ]
+            },
+            "help": {
+              "title": "Links",
+              "text": "Store pages lists the top-level pages from Pages in the admin."
+            }
+          },
+          {
+            "type": "formlist",
+            "children": [
+              {
+                "title": "Link 1",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_1_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_1_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_1_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_1_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 2",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_2_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_2_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_2_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_2_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 3",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_3_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_3_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_3_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_3_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 4",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_4_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_4_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_4_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_4_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Link 5",
+                "form": [
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_5_label",
+                      "text": "Label"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_5_label"
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_g3_link_5_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_g3_link_5_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "e.g. /pages/faq or https://…"
+                    }
+                  }
+                ],
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_g3_new_tab",
+              "text": "Open custom links in a new tab"
+            },
+            "input": {
+              "name": "footer_g3_new_tab"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Contact",
+        "form": [
+          {
+            "type": "text_input",
+            "label": {
+              "name": "footer_contact_heading",
+              "text": "Heading"
+            },
+            "input": {
+              "name": "footer_contact_heading"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_contact_company",
+              "text": "Show company name"
+            },
+            "input": {
+              "name": "footer_contact_company"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_contact_address",
+              "text": "Show address"
+            },
+            "input": {
+              "name": "footer_contact_address"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_contact_email",
+              "text": "Show email"
+            },
+            "input": {
+              "name": "footer_contact_email"
+            },
+            "help": null
+          },
+          {
+            "type": "checkbox",
+            "label": {
+              "name": "footer_contact_phone",
+              "text": "Show phone"
+            },
+            "input": {
+              "name": "footer_contact_phone"
+            },
+            "help": null
+          }
+        ],
+        "children": []
+      },
+      {
+        "title": "Social",
+        "form": [
+          {
+            "type": "select",
+            "label": {
+              "name": "footer_social_shape",
+              "text": "Icon shape"
+            },
+            "select": {
+              "name": "footer_social_shape",
+              "options": [
+                {
+                  "value": "plain",
+                  "label": "Plain"
+                },
+                {
+                  "value": "circle",
+                  "label": "Circle"
+                },
+                {
+                  "value": "square",
+                  "label": "Square"
+                }
+              ]
+            },
+            "help": null
+          },
+          {
+            "type": "formlist",
+            "children": [
+              {
+                "title": "Network 1",
+                "form": [
+                  {
+                    "type": "select",
+                    "label": {
+                      "name": "footer_social_1_network",
+                      "text": "Network"
+                    },
+                    "select": {
+                      "name": "footer_social_1_network",
+                      "options": [
+                        {
+                          "value": "facebook",
+                          "label": "Facebook"
+                        },
+                        {
+                          "value": "instagram",
+                          "label": "Instagram"
+                        },
+                        {
+                          "value": "x_social",
+                          "label": "X (Twitter)"
+                        },
+                        {
+                          "value": "linkedin",
+                          "label": "LinkedIn"
+                        },
+                        {
+                          "value": "youtube",
+                          "label": "YouTube"
+                        },
+                        {
+                          "value": "tiktok",
+                          "label": "TikTok"
+                        }
+                      ]
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_social_1_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_social_1_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "Leave empty to hide."
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Network 2",
+                "form": [
+                  {
+                    "type": "select",
+                    "label": {
+                      "name": "footer_social_2_network",
+                      "text": "Network"
+                    },
+                    "select": {
+                      "name": "footer_social_2_network",
+                      "options": [
+                        {
+                          "value": "facebook",
+                          "label": "Facebook"
+                        },
+                        {
+                          "value": "instagram",
+                          "label": "Instagram"
+                        },
+                        {
+                          "value": "x_social",
+                          "label": "X (Twitter)"
+                        },
+                        {
+                          "value": "linkedin",
+                          "label": "LinkedIn"
+                        },
+                        {
+                          "value": "youtube",
+                          "label": "YouTube"
+                        },
+                        {
+                          "value": "tiktok",
+                          "label": "TikTok"
+                        }
+                      ]
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_social_2_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_social_2_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "Leave empty to hide."
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Network 3",
+                "form": [
+                  {
+                    "type": "select",
+                    "label": {
+                      "name": "footer_social_3_network",
+                      "text": "Network"
+                    },
+                    "select": {
+                      "name": "footer_social_3_network",
+                      "options": [
+                        {
+                          "value": "facebook",
+                          "label": "Facebook"
+                        },
+                        {
+                          "value": "instagram",
+                          "label": "Instagram"
+                        },
+                        {
+                          "value": "x_social",
+                          "label": "X (Twitter)"
+                        },
+                        {
+                          "value": "linkedin",
+                          "label": "LinkedIn"
+                        },
+                        {
+                          "value": "youtube",
+                          "label": "YouTube"
+                        },
+                        {
+                          "value": "tiktok",
+                          "label": "TikTok"
+                        }
+                      ]
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_social_3_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_social_3_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "Leave empty to hide."
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Network 4",
+                "form": [
+                  {
+                    "type": "select",
+                    "label": {
+                      "name": "footer_social_4_network",
+                      "text": "Network"
+                    },
+                    "select": {
+                      "name": "footer_social_4_network",
+                      "options": [
+                        {
+                          "value": "facebook",
+                          "label": "Facebook"
+                        },
+                        {
+                          "value": "instagram",
+                          "label": "Instagram"
+                        },
+                        {
+                          "value": "x_social",
+                          "label": "X (Twitter)"
+                        },
+                        {
+                          "value": "linkedin",
+                          "label": "LinkedIn"
+                        },
+                        {
+                          "value": "youtube",
+                          "label": "YouTube"
+                        },
+                        {
+                          "value": "tiktok",
+                          "label": "TikTok"
+                        }
+                      ]
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_social_4_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_social_4_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "Leave empty to hide."
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Network 5",
+                "form": [
+                  {
+                    "type": "select",
+                    "label": {
+                      "name": "footer_social_5_network",
+                      "text": "Network"
+                    },
+                    "select": {
+                      "name": "footer_social_5_network",
+                      "options": [
+                        {
+                          "value": "facebook",
+                          "label": "Facebook"
+                        },
+                        {
+                          "value": "instagram",
+                          "label": "Instagram"
+                        },
+                        {
+                          "value": "x_social",
+                          "label": "X (Twitter)"
+                        },
+                        {
+                          "value": "linkedin",
+                          "label": "LinkedIn"
+                        },
+                        {
+                          "value": "youtube",
+                          "label": "YouTube"
+                        },
+                        {
+                          "value": "tiktok",
+                          "label": "TikTok"
+                        }
+                      ]
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_social_5_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_social_5_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "Leave empty to hide."
+                    }
+                  }
+                ],
+                "children": []
+              },
+              {
+                "title": "Network 6",
+                "form": [
+                  {
+                    "type": "select",
+                    "label": {
+                      "name": "footer_social_6_network",
+                      "text": "Network"
+                    },
+                    "select": {
+                      "name": "footer_social_6_network",
+                      "options": [
+                        {
+                          "value": "facebook",
+                          "label": "Facebook"
+                        },
+                        {
+                          "value": "instagram",
+                          "label": "Instagram"
+                        },
+                        {
+                          "value": "x_social",
+                          "label": "X (Twitter)"
+                        },
+                        {
+                          "value": "linkedin",
+                          "label": "LinkedIn"
+                        },
+                        {
+                          "value": "youtube",
+                          "label": "YouTube"
+                        },
+                        {
+                          "value": "tiktok",
+                          "label": "TikTok"
+                        }
+                      ]
+                    },
+                    "help": null
+                  },
+                  {
+                    "type": "text_input",
+                    "label": {
+                      "name": "footer_social_6_url",
+                      "text": "URL"
+                    },
+                    "input": {
+                      "name": "footer_social_6_url"
+                    },
+                    "help": {
+                      "title": "URL",
+                      "text": "Leave empty to hide."
+                    }
+                  }
+                ],
+                "children": []
+              }
+            ]
+          }
+        ],
+        "children": []
+      }
+    ]
+  },
+  {
+    "title": "Advanced",
+    "form": [],
+    "children": [
+      {
+        "title": "Custom CSS",
+        "form": [
+          {
+            "type": "tips",
+            "tips": [
+              "For Store Art / Store Building. Prefer the settings above first — custom CSS can break when the theme is updated."
+            ]
+          },
+          {
+            "type": "textarea",
+            "label": {
+              "name": "adv_custom_css",
+              "text": "Custom CSS"
+            },
+            "textarea": {
+              "name": "adv_custom_css"
+            },
+            "help": {
+              "title": "Custom CSS",
+              "text": "Loaded after all theme styles. CSS only, no <style> tags."
+            }
+          }
+        ],
+        "children": []
+      }
+    ]
+  }
+]

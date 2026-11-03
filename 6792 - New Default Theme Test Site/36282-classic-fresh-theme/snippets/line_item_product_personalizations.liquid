@@ -1,0 +1,69 @@
+{% unless field_prefix %}
+  {% assign field_prefix = 'product' %}
+{% endunless %}
+
+{% if product.product_personalizations_enabled? %}
+  <div class="prod_option_block">
+    <h4 class="mb-3">Product Personalizations</h4>
+
+    {% render 'product_personalization_groups', form: form %}
+
+    {% for personalization in product.personalizations %}
+      <div class="product-personalization">
+        <h5 class="mb-3">{% render 'modifier', title: personalization.title, amount: personalization.amount %}</h5>
+
+        {% for input in personalization.inputs %}
+          {% capture input_id %}product__product_personalizations_attributes_{{ personalization.id }}_product_personalization_attributes_attributes_{{ forloop.index0 }}_value{% endcapture %}
+
+          {% capture personalization_value %}
+            {%- if form.personalizations[personalization.id][input.id] != blank -%}
+              {{ form.personalizations[personalization.id][input.id].value }}
+            {%- else -%}
+              {{ input.default_text }}
+            {%- endif -%}
+          {% endcapture %}
+
+          <div class="form-item mb-3 clrfix">
+            <label for="{{ input_id }}">
+              {{- input.label -}}
+              {%- if input.required? %}*{% endif %}
+            </label>
+
+            <div class="input string optional product_product_personalizations_product_personalization_value">
+              {% if input.text_area? %}
+                <textarea
+                  name="{{ field_prefix }}[personalizations][{{ personalization.id }}][{{ input.id }}]"
+                  id="{{ input_id }}"
+                  class="form-control pp-input"
+                  maxlength="{{ input.max_length }}"
+                  data-input-id="{{ input.id }}"
+                  data-type="product-personalization"
+                >{{ personalization_value }}</textarea>
+              {% else %}
+                <input
+                  type="text"
+                  value="{{ personalization_value }}"
+                  name="{{ field_prefix }}[personalizations][{{ personalization.id }}][{{ input.id }}]"
+                  class="form-control pp-input"
+                  id="{{ input_id }}"
+                  class="input-text"
+                  maxlength="{{ input.max_length }}"
+                  data-input-id="{{ input.id }}"
+                  data-type="product-personalization"
+                >
+              {% endif %}
+
+              {% if form.personalizations[personalization.id][input.id].errors %}
+                <span class="error" data-type="product-personalization-error">
+                  {{ form.personalizations[personalization.id][input.id].errors | default_errors }}
+                </span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    {% render 'update_preview', product: product, shop: shop %}
+  </div>
+{% endif %}

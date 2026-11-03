@@ -1,0 +1,57 @@
+{% assign captionposition = "flex-column" %}
+{% if settings.caption_position != "center" %}
+  {% assign captionposition = settings.caption_position | append: "-align-captions" %}
+{% endif %}
+
+{% assign carousel_count = 0 %}
+{% assign carousel_count_indicator = 0 %}
+
+{% if product.images != empty %}
+  <div class="product-carousel-container mx-auto">
+    <div id="product-carousel" class="carousel slide pointer-event" data-bs-interval="false" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for image in product.images %}
+          {% assign carousel_count = carousel_count | plus: 1 %}
+          <div class="carousel-item car-item-1">
+            <a id="primary_image_link" href="{{ product.primary_image.large_url }}" data-toggle="lightbox" target="_blank">
+              <img src="{{ image.large_url }}" class="d-block w-100" alt="{{ product.name }}" title="{{ product.name }}">
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <div class="carousel-indicators d-none">
+        {% for image in product.images %}
+          <button type="button" data-bs-target="#homepage-carousel" data-bs-slide-to="{{ carousel_count_indicator }}" aria-current="true" aria-label="Slide {{ carousel_count_indicator | plus: 1 }}"></button>
+          {% assign carousel_count_indicator = carousel_count_indicator | plus: 1 %}
+        {% endfor %}
+      </div>
+
+      {% if carousel_count > 1 %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#product-carousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
+          <span class="sr-only">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#product-carousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+          <span class="sr-only">Next</span>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  <img src="{{ "no-image.jpg" | asset_url }}"/>
+{% endif %}
+
+<script>
+  var carousel = new bootstrap.Carousel('#product-carousel', {
+    interval: {{ settings.slideshow_slide_interval }}000,
+  })
+  
+  $(".product-page-main .carousel-item:first-child").addClass("active");
+  $(".product-page-main .carousel-indicators button:first-child").addClass("active");
+
+  if ({{ carousel_count }} > 1) {
+    $(".product-page-main .carousel-indicators").removeClass("d-none");
+  }
+</script>

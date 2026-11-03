@@ -1,0 +1,15 @@
+<div class="add-to-cart-area">
+  {% if shop.store_enabled? %}
+    <input type="submit" name="add_to_cart" value="ADD TO CART" class="btn primary add-to-cart"/>
+  {% endif %}
+
+  {% if shop.wishlist_enabled? %}
+    <input type="submit" name="add_to_wishlist" value="ADD TO WISHLIST" class="btn secondary"/>
+  {% endif %}
+
+  {% if shop.request_sample_enabled? %}
+    <input type="submit" data-url="{{ product | request_sample_url }}" id="request-sample" value="Request Sample" class="btn secondary"/>
+  {% endif %}
+  
+  <div class="loader" style="display: none;"></div>
+</div>

@@ -1,0 +1,86 @@
+{% paginate products_search by 20 %}
+
+  {% assign show_merch_nav = false %}
+
+  {% for category in selected_categories %}
+    {% if category contains "/Merch Promo & Apparel" %}
+      {% assign show_merch_nav = true %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="category-page">
+    {% if filter_rules != blank %}
+      <div class="col-md-12 col-lg-3 d-none d-lg-block pe-4">
+        {% include "filtering" %}
+      </div>
+    {% endif %}
+
+    <div class="col-md-12 {% if filter_rules != blank %}col-lg-9{% endif %} px-0 category-page-content-section">
+
+      {% if show_merch_nav %}
+        <div id="merch-nav-wrapper" class="category-pill-wrapper my-4 hide-scrollbar">
+          <div class="category-pill-container custom-pill-nav">
+            <a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FMerch+Promo+%26+Apparel"
+               class="category-pill {% unless selected_categories.size > 1 or selected_categories.first != '/Merch Promo & Apparel' %}active-pill{% endunless %}">
+              All
+            </a>
+
+            <a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FMerch+Promo+%26+Apparel%2FOffice+%26+Tech"
+               class="category-pill {% if selected_categories contains '/Merch Promo & Apparel/Office & Tech' %}active-pill{% endif %}">
+              Office & Tech
+            </a>
+
+            <a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FMerch+Promo+%26+Apparel%2FDrinkware"
+               class="category-pill {% if selected_categories contains '/Merch Promo & Apparel/Drinkware' %}active-pill{% endif %}">
+              Drinkware
+            </a>
+
+            <a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FMerch+Promo+%26+Apparel%2FBags"
+               class="category-pill {% if selected_categories contains '/Merch Promo & Apparel/Bags' %}active-pill{% endif %}">
+              Bags
+            </a>
+
+            <a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FMerch+Promo+%26+Apparel%2FOutdoor%2FTools"
+               class="category-pill {% if selected_categories contains '/Merch Promo & Apparel/Outdoor/Tools' %}active-pill{% endif %}">
+              Outdoor & Tools
+            </a>
+
+            <a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FMerch+Promo+%26+Apparel%2FHeadwear"
+               class="category-pill {% if selected_categories contains '/Merch Promo & Apparel/Headwear' %}active-pill{% endif %}">
+              Headwear
+            </a>
+
+            <a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FMerch+Promo+%26+Apparel%2FApparel"
+               class="category-pill {% if selected_categories contains '/Merch Promo & Apparel/Apparel' %}active-pill{% endif %}">
+              Apparel
+            </a>
+
+            <a href="/products?s%5Bf%5D%5Bc%5D%5B%5D=%2FMerch+Promo+%26+Apparel%2FEvents"
+               class="category-pill {% if selected_categories contains '/Merch Promo & Apparel/Events' %}active-pill{% endif %}">
+              Events
+            </a>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="container-fluid px-0">
+        <div class="row m-auto">
+          <div class="col-sm-12 col-md-4 px-0">
+            {% if shop.filtering_active and filter_rules == blank %}
+              {% include 'keyword_input' %}
+            {% endif %}
+            <p class='d-inline-block products-result-verbiage'>We found {{ products_search.total | pluralize: 'item', 'items' }}</p>
+          </div>
+          <div class="col-sm-12 col-md-8 px-0 text-md-end">
+            {% include 'sort' %}
+          </div>
+        </div>
+      </div>
+
+      <div class="product-list pt-3">
+        {% include "product" with paginate.collection %}
+      </div>
+      {% include "paginator", paginate: paginate %}
+    </div>
+  </div>
+{% endpaginate %}

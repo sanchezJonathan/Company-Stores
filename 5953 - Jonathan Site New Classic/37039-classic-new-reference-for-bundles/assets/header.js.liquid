@@ -1,0 +1,133 @@
+"use strict";
+  
+// load categories
+for (var category of categories) {
+  if (category.children.length) {
+    var childrens = "";
+    var sortedTier2Categories = category.children.sort(sortLinks("list_order"));
+
+    for (var tier2Category of sortedTier2Categories) {
+      var sortedTier3Categories = tier2Category.children.sort(sortLinks("list_order"));
+      childrens += "<li><a class='dropdown-item' href='"+ tier2Category.link +"'>"+ tier2Category.name +"</a></li>"
+
+      for (var tier3Category of sortedTier3Categories) {
+        childrens += "<li><a class='dropdown-item' href='"+ tier3Category.link +"'><span class='px-3'>"+ tier3Category.name +"</span></a></li>"
+      }
+    }
+
+
+    $("ul.header-links.categories").append("\
+      <li class='nav-item dropdown'>\
+        <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>"+ category.name +"</a>\
+        <ul class='dropdown-menu pb-0'>\
+          "+ childrens +"\
+          <li><a class='dropdown-item mt-2 border-top py-2' href='"+ category.link +"'>View "+ category.name +"</a></li>\
+        </ul>\
+      </li>\
+    ");
+    continue;
+  }
+
+  $("ul.header-links.categories").append("\
+      <li class='nav-item'>\
+        <a class='nav-link' href='"+ category.link +"'>"+ category.name +"</a>\
+      </li>\
+  ");
+}
+
+function generateTarget(target) {
+  if (target) return target + "' rel='noopener noreferrer";
+  return "_self";
+}
+
+// load pages
+for (var page of pages) {
+  if (page.title.toLowerCase() == "home") {
+    $("ul.header-links.pages").append("\
+        <li class='nav-item' style='order: -1'>\
+          <a class='nav-link' href='/'>"+ page.title +"</a>\
+        </li>\
+    ");
+    continue;
+  }
+
+  if (page.children.length) {
+    var childrens = "";
+    var sortedTier2Pages = page.children.sort(sortLinks("list_order"));
+
+    for (var tier2Page of sortedTier2Pages) {
+      var sortedTier3Pages = tier2Page.children.sort(sortLinks("list_order"));
+      childrens += "<li><a class='dropdown-item' target='"+ generateTarget(tier2Page.target) +"' href='"+ tier2Page.link +"'>"+ tier2Page.title +"</a></li>"
+
+      for (var tier3Page of sortedTier3Pages) {
+        childrens += "<li><a class='dropdown-item' target='"+ generateTarget(tier3Page.target) +"' href='"+ tier3Page.link +"'><span class='px-3'>"+ tier3Page.title +"</span></a></li>"
+      }
+    }
+
+    $("ul.header-links.pages").append("\
+      <li class='nav-item dropdown'>\
+        <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>"+ page.title +"</a>\
+        <ul class='dropdown-menu'>\
+          "+ childrens +"\
+          <li><a class='dropdown-item mt-2 border-top' target='"+ generateTarget(page.target) +"' href='"+ page.link +"'>View "+ page.title +"</a></li>\
+        </ul>\
+      </li>\
+    ");
+
+    childrens = null;
+    continue;
+  }
+
+  $("ul.header-links.pages").append("\
+      <li class='nav-item'>\
+        <a class='nav-link' target='"+ generateTarget(page.target) +"' href='"+ page.link +"'>"+ page.title +"</a>\
+      </li>\
+  ");
+}
+
+// for active quick nav
+var activeQuickNavMap = {
+  "/" : function() { $("a.quick-nav-link:contains(Home)").addClass("active") },
+  "{{ cart_url }}" : function() { $("a.quick-nav-link:contains(Cart)").addClass("active") },
+  "{{ wishlist_url }}" : function() { $("a.quick-nav-link:contains(Wishlist)").addClass("active") },
+}
+activeQuickNavMap[window.location.pathname] && activeQuickNavMap[window.location.pathname]();
+
+$("form.search-form").addClass("mx-auto my-2 my-lg-0 {% if settings.nav_links_position != "top_bar" %}mx-auto{% endif %}");
+
+$("#mobile-slider-button").click(function() {
+  $(this).find("span").toggle();
+  $(".mobile-slider").toggle();
+  $(".mobile-slider-overlay").toggle();
+});
+
+$(".mobile-slider-overlay").click(function() {
+  $("#mobile-slider-button").click();
+});
+
+$("#search-modal").on('shown.bs.modal', function() {
+  $(".popup-search").focus();
+});
+
+{% if settings.nav_links_position == "bottom_bar" or settings.category_links_position == "bottom_bar" %}
+if ($(".category-container ul.header-links li").length < 1) {
+  $(".category-container").remove();
+}
+
+{% if settings.current_theme == "stylistic" %}
+    var ccLinksOffset = [];
+    $(".category-container ul.navbar-nav > li > a").each(function() {
+      if (!ccLinksOffset.includes($(this).offset().top)) {
+        ccLinksOffset.push($(this).offset().top);
+      }
+    });
+
+    ccLinksOffset.pop();
+    $(".category-container ul.navbar-nav > li > a").each(function() {
+      var isNotInLastRow = ccLinksOffset.includes($(this).offset().top) || ccLinksOffset.includes($(this).offset().top - 1);
+      if (isNotInLastRow) {
+        $(this).css("border-bottom", "1px solid #dee2e6");
+      }
+    });
+  {% endif %}
+{% endif %}

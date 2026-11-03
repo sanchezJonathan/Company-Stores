@@ -1,0 +1,557 @@
+/*-------------------
+Dark mode. Every rule is scoped to html.dark-mode, which the header toggle
+adds and removes (see snippets/dark_mode_head.liquid). Loaded after
+custom-main.css so these rules win over the theme settings colors.
+/*-------------------*/
+
+html.dark-mode {
+  --dm-bg: #121417;
+  --dm-bar: #0c0e10;
+  --dm-surface: #1b1e23;
+  --dm-surface-2: #252930;
+  --dm-hover: #2f343c;
+  --dm-border: #363b44;
+  --dm-text: #e3e5e8;
+  --dm-muted: #9aa0a8;
+  --dm-heading: #f5f6f7;
+  --dm-link: #8cb8ff;
+  --dm-link-hover: #b5d0ff;
+  color-scheme: dark;
+}
+
+/*-------------------*/
+/* GENERAL */
+/*-------------------*/
+html.dark-mode body {
+  background-color: var(--dm-bg);
+  background-image: none;
+  color: var(--dm-text);
+}
+html.dark-mode h1,
+html.dark-mode h2:not(.carousel-caption h2),
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode h5,
+html.dark-mode h6 {
+  color: var(--dm-heading);
+}
+html.dark-mode a {
+  color: var(--dm-link);
+}
+html.dark-mode a:hover,
+html.dark-mode a:active,
+html.dark-mode a:focus {
+  color: var(--dm-link-hover);
+}
+html.dark-mode hr {
+  color: var(--dm-border);
+  opacity: 1;
+}
+html.dark-mode .text-muted {
+  color: var(--dm-muted) !important;
+  opacity: 1;
+}
+html.dark-mode .text-dark,
+html.dark-mode .text-body {
+  color: var(--dm-text) !important;
+}
+html.dark-mode .bg-white,
+html.dark-mode .bg-light {
+  background-color: var(--dm-surface) !important;
+}
+html.dark-mode .border,
+html.dark-mode .border-top,
+html.dark-mode .border-bottom,
+html.dark-mode .border-start,
+html.dark-mode .border-end {
+  border-color: var(--dm-border) !important;
+}
+html.dark-mode .btn-close,
+html.dark-mode .ui-dialog .ui-dialog-titlebar-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+html.dark-mode span.required-label {
+  color: var(--dm-muted);
+}
+
+/*-------------------*/
+/* TOP BAR */
+/*-------------------*/
+html.dark-mode .top-navbar-notification-container {
+  background-color: var(--dm-surface-2);
+  color: var(--dm-text);
+}
+html.dark-mode .navbar-container {
+  background-color: var(--dm-bar);
+}
+html.dark-mode .navbar-container ul.nav > li > a,
+html.dark-mode .navbar-container .dark-mode-toggle {
+  color: var(--dm-text);
+  background-color: transparent;
+}
+html.dark-mode .navbar-container ul.nav > li > a > svg {
+  fill: var(--dm-text);
+  stroke: var(--dm-text);
+}
+html.dark-mode .navbar-container ul.nav > li > a:hover,
+html.dark-mode .navbar-container ul.nav > li > a:focus,
+html.dark-mode .navbar-container .dark-mode-toggle:hover {
+  color: var(--dm-link-hover);
+  background-color: transparent;
+}
+html.dark-mode .navbar-container ul.nav > li > a:hover > svg {
+  fill: var(--dm-link-hover);
+  stroke: var(--dm-link-hover);
+}
+
+/*-------------------*/
+/* HEADER */
+/*-------------------*/
+html.dark-mode .header-container {
+  background-color: var(--dm-surface);
+}
+html.dark-mode .header-container.border-bottom {
+  border-bottom-color: var(--dm-border) !important;
+}
+html.dark-mode .header-container li > a {
+  color: var(--dm-text);
+  background-color: transparent;
+}
+html.dark-mode .header-container li > a:hover,
+html.dark-mode .header-container li > a:active,
+html.dark-mode .header-container li > a:focus {
+  color: var(--dm-link-hover);
+  background-color: transparent;
+}
+html.dark-mode .header-container nav.navbar > button svg,
+html.dark-mode .header-icons > a svg,
+html.dark-mode .header-icons button svg,
+html.dark-mode .header-mobile-actions > button svg {
+  fill: var(--dm-text);
+}
+html.dark-mode .header-container nav.navbar > button span:last-child svg,
+html.dark-mode .header-icons > a svg,
+html.dark-mode .header-icons button:not(.dark-mode-toggle) svg {
+  stroke: var(--dm-text);
+}
+html.dark-mode .header-container .dark-mode-toggle {
+  color: var(--dm-text);
+}
+html.dark-mode .logo-container img {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+html.dark-mode #s_keyword {
+  color: var(--dm-text);
+  background-color: var(--dm-surface-2);
+}
+html.dark-mode #s_keyword::placeholder {
+  color: var(--dm-muted);
+}
+html.dark-mode .search-btn,
+html.dark-mode .search-btn:hover {
+  color: var(--dm-text);
+  background-color: var(--dm-surface-2);
+}
+html.dark-mode .simple_form.new_search div.border {
+  background-color: var(--dm-surface-2);
+  border-color: var(--dm-border) !important;
+}
+
+/*-------------------*/
+/* DROPDOWNS */
+/*-------------------*/
+html.dark-mode .dropdown-menu {
+  background-color: var(--dm-surface-2);
+  border-color: var(--dm-border);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+html.dark-mode .dropdown-item,
+html.dark-mode .header-container .dropdown-menu a,
+html.dark-mode .navbar-container .dropdown-menu a,
+html.dark-mode .category-container .dropdown-menu a,
+html.dark-mode .quick-actions-menu .dropdown-menu a {
+  color: var(--dm-text);
+}
+html.dark-mode .dropdown-item:hover,
+html.dark-mode .dropdown-item:focus {
+  background-color: var(--dm-hover);
+  color: var(--dm-heading);
+  opacity: 1;
+}
+html.dark-mode .dropdown-divider {
+  border-color: var(--dm-border);
+}
+
+/*-------------------*/
+/* CATEGORY NAV */
+/*-------------------*/
+html.dark-mode .category-container {
+  background-color: var(--dm-bar);
+}
+html.dark-mode .category-container li > a {
+  color: var(--dm-text);
+  background-color: transparent;
+}
+html.dark-mode .category-container li > a:hover,
+html.dark-mode .category-container li > a:active,
+html.dark-mode .category-container li > a:focus {
+  color: var(--dm-link-hover);
+  background-color: transparent;
+}
+
+/*-------------------*/
+/* MOBILE MENUS */
+/*-------------------*/
+html.dark-mode .mobile-slider,
+html.dark-mode .mobile-slider::before,
+html.dark-mode .mobile-slider ul,
+html.dark-mode .quick-actions-menu {
+  background-color: var(--dm-surface);
+}
+html.dark-mode .mobile-slider::before {
+  border-color: var(--dm-border);
+}
+html.dark-mode .mobile-slider li > a,
+html.dark-mode .quick-actions-menu a.nav-link,
+html.dark-mode .quick-actions-menu div.dropdown button {
+  color: var(--dm-text);
+  background-color: transparent;
+}
+html.dark-mode .mobile-slider li > a > svg,
+html.dark-mode .quick-actions-menu a.nav-link svg,
+html.dark-mode .quick-actions-menu div.dropdown button svg {
+  fill: var(--dm-text);
+  stroke: var(--dm-text);
+}
+html.dark-mode .quick-actions-menu {
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/*-------------------*/
+/* BREADCRUMBS */
+/*-------------------*/
+html.dark-mode ol.breadcrumb li,
+html.dark-mode .breadcrumb-item.active,
+html.dark-mode .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--dm-muted);
+}
+html.dark-mode ol.breadcrumb li a {
+  color: var(--dm-link);
+}
+html.dark-mode .breadcrumb-item + .breadcrumb-item::before {
+  filter: invert(1);
+}
+
+/*-------------------*/
+/* CONTENT */
+/*-------------------*/
+html.dark-mode .content-container {
+  background-color: var(--dm-bg);
+  box-shadow: none;
+}
+html.dark-mode .card,
+html.dark-mode .list-group-item,
+html.dark-mode .toast,
+html.dark-mode .popover,
+html.dark-mode .dialog {
+  background-color: var(--dm-surface);
+  border-color: var(--dm-border);
+  color: var(--dm-text);
+}
+html.dark-mode .card-header,
+html.dark-mode .card-footer {
+  border-color: var(--dm-border);
+}
+html.dark-mode .modal-content {
+  background-color: var(--dm-surface);
+  border-color: var(--dm-border);
+  color: var(--dm-text);
+}
+html.dark-mode .modal-header,
+html.dark-mode .modal-footer {
+  border-color: var(--dm-border);
+}
+html.dark-mode .table {
+  --bs-table-bg: transparent;
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: var(--dm-text);
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.04);
+  --bs-table-hover-color: var(--dm-text);
+  --bs-table-hover-bg: rgba(255, 255, 255, 0.06);
+  --bs-table-active-color: var(--dm-text);
+  --bs-table-active-bg: rgba(255, 255, 255, 0.08);
+  color: var(--dm-text);
+  border-color: var(--dm-border);
+}
+html.dark-mode .table-light,
+html.dark-mode .table-light > th,
+html.dark-mode .table-light > td {
+  --bs-table-bg: var(--dm-surface-2);
+  color: var(--dm-text);
+  border-color: var(--dm-border);
+}
+
+/* accordions */
+html.dark-mode #accordion,
+html.dark-mode .accordion-item,
+html.dark-mode .accordion-button,
+html.dark-mode .accordion-button:not(.collapsed) {
+  color: var(--dm-text);
+  background-color: var(--dm-surface);
+  border-color: var(--dm-border);
+}
+html.dark-mode .accordion-item label {
+  color: var(--dm-text);
+}
+html.dark-mode .accordion-button::after {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* tabs */
+html.dark-mode .nav-tabs {
+  border-bottom-color: var(--dm-border);
+}
+html.dark-mode .nav-tabs .nav-link {
+  color: var(--dm-text);
+}
+html.dark-mode .nav-tabs .nav-link.active,
+html.dark-mode .nav-tabs .nav-item.show .nav-link {
+  color: var(--dm-heading);
+  background: transparent;
+  border-color: var(--dm-border) var(--dm-border) var(--dm-bg);
+}
+html.dark-mode .guest-checkout .nav.nav-tabs .nav-item {
+  background: var(--dm-bg);
+}
+
+/* pagination */
+html.dark-mode .page-link {
+  background-color: var(--dm-surface);
+  border-color: var(--dm-border);
+  color: var(--dm-link);
+}
+html.dark-mode .page-link:hover,
+html.dark-mode .page-link:focus {
+  background-color: var(--dm-hover);
+  color: var(--dm-link-hover);
+}
+html.dark-mode .page-item.disabled .page-link {
+  background-color: var(--dm-surface);
+  color: var(--dm-muted);
+}
+
+/*-------------------*/
+/* FORMS */
+/*-------------------*/
+html.dark-mode .form-control,
+html.dark-mode .form-select,
+html.dark-mode .input-group-text,
+html.dark-mode .ui-dialog input[type="text"].form-control,
+html.dark-mode textarea,
+html.dark-mode select,
+html.dark-mode input[type="text"],
+html.dark-mode input[type="email"],
+html.dark-mode input[type="password"],
+html.dark-mode input[type="tel"],
+html.dark-mode input[type="number"],
+html.dark-mode input[type="search"],
+html.dark-mode input[type="date"] {
+  background-color: var(--dm-surface-2);
+  border-color: var(--dm-border);
+  color: var(--dm-text);
+}
+html.dark-mode .form-control:focus,
+html.dark-mode .form-select:focus,
+html.dark-mode textarea:focus,
+html.dark-mode select:focus {
+  background-color: var(--dm-surface-2);
+  border-color: var(--dm-link);
+  color: var(--dm-text);
+  box-shadow: 0 0 0 0.2rem rgba(140, 184, 255, 0.25);
+}
+html.dark-mode .form-control::placeholder,
+html.dark-mode textarea::placeholder {
+  color: var(--dm-muted);
+}
+html.dark-mode .form-control:disabled,
+html.dark-mode .form-control[readonly],
+html.dark-mode .form-select:disabled {
+  background-color: var(--dm-surface);
+  color: var(--dm-muted);
+}
+html.dark-mode .form-select,
+html.dark-mode .select-wrapper {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e3e5e8' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+html.dark-mode .form-check-input {
+  background-color: var(--dm-surface-2);
+  border-color: var(--dm-muted);
+}
+html.dark-mode .form-check-input:checked {
+  background-color: var(--dm-link);
+  border-color: var(--dm-link);
+}
+
+/* select2 */
+html.dark-mode .select2-container--bootstrap4 .select2-selection,
+html.dark-mode .select2-dropdown,
+html.dark-mode .select2-search__field {
+  background-color: var(--dm-surface-2);
+  border-color: var(--dm-border);
+  color: var(--dm-text);
+}
+html.dark-mode .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered,
+html.dark-mode .select2-results__option {
+  color: var(--dm-text);
+}
+html.dark-mode .select2-container--bootstrap4 .select2-results__option--highlighted,
+html.dark-mode .select2-container--bootstrap4 .select2-results__option--highlighted.select2-results__option[aria-selected=true] {
+  background-color: var(--dm-hover);
+  color: var(--dm-heading);
+}
+
+/* chosen */
+html.dark-mode .chosen-container .chosen-single,
+html.dark-mode .chosen-container .chosen-drop,
+html.dark-mode .chosen-container-multi .chosen-choices {
+  background: var(--dm-surface-2);
+  border-color: var(--dm-border);
+  color: var(--dm-text);
+  box-shadow: none;
+}
+html.dark-mode .chosen-container .chosen-results li {
+  color: var(--dm-text);
+}
+html.dark-mode .chosen-container .chosen-results li.highlighted {
+  background: var(--dm-hover);
+}
+
+/* msdropdown */
+html.dark-mode .dd .ddTitle,
+html.dark-mode .dd .ddChild,
+html.dark-mode .ddcommon .ddChild li {
+  background-color: var(--dm-surface-2);
+  border-color: var(--dm-border);
+  color: var(--dm-text);
+}
+html.dark-mode .ddcommon .ddChild li:hover,
+html.dark-mode .ddcommon .ddChild li.hover,
+html.dark-mode .ddcommon .ddChild li.selected {
+  background-color: var(--dm-hover);
+}
+
+/* jQuery UI dialogs */
+html.dark-mode .ui-dialog,
+html.dark-mode .ui-widget-content {
+  background-color: var(--dm-surface);
+  border-color: var(--dm-border);
+  color: var(--dm-text);
+}
+html.dark-mode .ui-dialog .ui-dialog-titlebar,
+html.dark-mode .ui-widget-header {
+  background: var(--dm-surface-2);
+  border-color: var(--dm-border);
+  color: var(--dm-heading);
+}
+
+/*-------------------*/
+/* PRODUCT THUMBS */
+/*-------------------*/
+html.dark-mode .product-thumbnail {
+  background-color: var(--dm-surface);
+  border-color: var(--dm-border);
+}
+html.dark-mode .product-thumbnail .thumbnail-img-container {
+  border-color: var(--dm-border);
+}
+html.dark-mode .product-thumbnail .thumbnail-description-container a h5 {
+  color: var(--dm-heading);
+}
+html.dark-mode .product-thumbnail p.card-text,
+html.dark-mode .product-thumbnail .thumbnail-img-container h6.card-subtitle {
+  color: var(--dm-text);
+}
+
+/*-------------------*/
+/* PRODUCT */
+/*-------------------*/
+html.dark-mode .btn.secondary.outline {
+  background: transparent;
+}
+html.dark-mode .product-reviews .product-reviews-header.empty-set {
+  background-color: var(--dm-surface);
+  border-color: var(--dm-border);
+}
+html.dark-mode .product-reviews-list .product-review {
+  border-top-color: var(--dm-border);
+}
+html.dark-mode .product-review-header .review-date {
+  background: var(--dm-surface-2);
+  border-color: var(--dm-border);
+}
+
+/*-------------------*/
+/* CART/CHECKOUT */
+/*-------------------*/
+html.dark-mode .checkout-steps div button:disabled {
+  background-color: #4a4f57;
+  border-color: #4a4f57;
+}
+html.dark-mode .checkout-steps div button::after,
+html.dark-mode .checkout-steps div a::after {
+  border-color: var(--dm-border);
+}
+
+/*-------------------*/
+/* ACCOUNT */
+/*-------------------*/
+html.dark-mode .password-div {
+  border-bottom-color: var(--dm-border);
+  color: var(--dm-text);
+}
+html.dark-mode .account-nav-menu ul li a:hover,
+html.dark-mode .account-nav-menu ul li a:focus {
+  background-color: var(--dm-surface-2);
+}
+html.dark-mode .account-nav-menu ul li.selected a::after {
+  background-color: var(--dm-bg);
+}
+
+/*-------------------*/
+/* FOOTER */
+/*-------------------*/
+html.dark-mode .footer-container {
+  background-color: var(--dm-bar);
+  color: var(--dm-muted);
+  border-top-color: var(--dm-border);
+}
+html.dark-mode .footer-container h1,
+html.dark-mode .footer-container h2,
+html.dark-mode .footer-container h3,
+html.dark-mode .footer-container h4,
+html.dark-mode .footer-container h5,
+html.dark-mode .footer-container h6 {
+  color: var(--dm-heading);
+}
+html.dark-mode .footer-container a,
+html.dark-mode .footer-container .accordion-button {
+  color: var(--dm-text);
+  fill: var(--dm-text);
+}
+html.dark-mode .footer-container a:hover,
+html.dark-mode .footer-container a:focus {
+  color: var(--dm-link-hover);
+}
+html.dark-mode .footer-container .accordion-item,
+html.dark-mode .footer-container .accordion-button {
+  background-color: transparent;
+  border-bottom-color: var(--dm-border);
+}
+html.dark-mode .copyright-section {
+  border-top-color: var(--dm-border);
+}
+html.dark-mode .footer-container .mobile-copyright-section {
+  background-color: var(--dm-surface);
+}

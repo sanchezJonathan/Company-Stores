@@ -1,0 +1,68 @@
+<div id="content" class="content-page container-fluid">
+  {% include 'update_breadcrumbs' %}
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+  
+  {% if category_banner != blank %}
+  	{% comment %}
+  		manual_edit for navigation to form / Moved banner below breadcrumbs
+  	{% endcomment %}
+    <div class="category-banner my-4 border border-white"><a href="/pages/47318"><img class="img-fluid w-100" src="{{category_banner}}" /></a></div>
+  {% endif %}
+  
+  <div class="category-title-container">
+    <h1></h1>
+    <script>
+       var selectedCat;
+       for (var categoryBrowse of categories) {
+          var url = document.location.href;
+          var catName = categoryBrowse.name;
+          url = decodeURI(url);
+
+          url = url.replace(/%20/g, "");
+          catName = catName.replace(/\s/g, " ");
+          if (url.indexOf("/products?s") >= 0) {
+            if (url.indexOf(catName) >= 0) {
+              selectedCat = categoryBrowse.name;
+              //$('.category-title-container h1').text(categoryBrowse.name);
+              $('.breadcrumb li').removeClass('active');
+              $('.breadcrumb li').removeAttr('aria-current');
+              $('.breadcrumb').append('<li class="breadcrumb-item class="active" aria-current="page">' + categoryBrowse.name + '</li>');
+              $('.breadcrumb li:contains(Products)').html('<a href="/products">Products</a>');
+            }
+          } else if (url.indexOf("/products") >= 0) {
+            //$('.category-title-container h1').text('Shop All');
+            $('.breadcrumb li:contains(Shop All)').remove();
+            $('.breadcrumb').append('<li class="breadcrumb-item class="active" aria-current="page">Shop All</li>');
+            $('.breadcrumb li:contains(Products)').html('<a href="/products">Products</a>');
+          }
+        }
+    </script>
+  </div>
+  
+  {% if settings.product_thumbnail_length_per_page == "10" %}
+    {% include 'paginate_by_10' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "20" %}
+  	{% include 'paginate_by_20' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "30" %}
+  	{% include 'paginate_by_30' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "40" %}
+  	{% include 'paginate_by_40' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "50" %}
+  	{% include 'paginate_by_50' %}
+  {% endif %}
+</div>
+
+{% include 'category_page_js' %}
+<script>
+console.log('{{ selected_facet.name }}');
+</script>

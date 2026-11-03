@@ -1,0 +1,25 @@
+<div class="decoration-color">
+  <label>{{ label }}</label>
+
+  <div class="color form-control">
+    <span class="name">{{ color_choice.display_name | default: 'Please select' }}</span>
+    <span class="right-box">
+      <span class="hex-color" style="background-color: {{ color_choice.hex_value | default: 'transparent' }}"></span>
+    </span>
+  </div>
+
+  <input type="hidden"
+    value="{{ color_choice.color_name }}"
+    class="form-control color-name"
+    name="product[logo_location][{{ location.id }}][decoration][color_choices_attributes][{{ location.id }}{{ index }}][color_name]">
+
+  <input type="hidden"
+    value="{{ color_choice.color_type }}"
+    class="form-control color-type"
+    name="product[logo_location][{{ location.id }}][decoration][color_choices_attributes][{{ location.id }}{{ index }}][color_type]">
+
+  <input type="hidden"
+    value="{{ color_choice.hex_value }}"
+    class="form-control hex-value"
+    name="product[logo_location][{{ location.id }}][decoration][color_choices_attributes][{{ location.id }}{{ index }}][hex_value]">
+</div>

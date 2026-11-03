@@ -1,0 +1,32 @@
+<div id="content" class="content-page container-fluid products-page">
+  {% comment %} The category banner and breadcrumbs are rendered in the listing header (snippets/category_listing.liquid) {% endcomment %}
+  {% include 'update_breadcrumbs' %}
+
+  {% if settings.product_thumbnail_length_per_page == "10" %}
+    {% include 'paginate_by_10' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "20" %}
+  	{% include 'paginate_by_20' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "30" %}
+  	{% include 'paginate_by_30' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "40" %}
+  	{% include 'paginate_by_40' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "50" %}
+  	{% include 'paginate_by_50' %}
+  {% endif %}
+</div>
+
+{% include 'category_page_js' %}
+<script>
+if (document.location.search.length == 0) {
+  $('html, body').hide();
+  window.location.href = "/products?s%5Bsort%5D=name_asc";
+}
+</script>

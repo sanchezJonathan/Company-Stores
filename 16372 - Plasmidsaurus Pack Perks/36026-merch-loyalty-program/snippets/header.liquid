@@ -214,5 +214,10 @@
       $('.header-container .header-links.categories').append('<li class="nav-item"><a class="nav-link" href="/account/login">Sign In</a></li>');
       $('.mobile-slider > ul').append('<li class="nav-item"><a class="nav-link ps-0 py-2" target="_self" href="/account/login"><span>Sign In</span></a></li>');
     });
-  {% endunless %}
+  {% else %}
+      $('.header-container .header-links.categories').append('<li class="nav-item"><a class="nav-link" href="/products">Redeem Points</a></li>');
+      $('.mobile-slider > ul').append('<li class="nav-item"><a class="nav-link ps-0 py-2" target="_self" href="/products"><span>Redeem Points</span></a></li>');
+  {% endunless %}      
+      $('a.nav-link:contains("Apparel")').remove();
+      $('a.nav-link:contains("Accessories")').remove();
 </script>

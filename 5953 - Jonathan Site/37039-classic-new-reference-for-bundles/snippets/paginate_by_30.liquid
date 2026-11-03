@@ -1,0 +1,77 @@
+{% paginate products_search by 30 %}
+  <div class="category-page">
+    {% if filter_rules != blank %}
+    <div class="col-md-12 col-lg-3 d-none d-lg-block pe-4">
+      {% include "filtering" %}
+    </div>
+    {% endif %}
+
+    <div class="col-md-12 {% if filter_rules != blank %}col-lg-9{% endif %} px-0 category-page-content-section">
+      <div class="container-fluid px-0">
+        <div class="row m-auto">
+          <div class="col-sm-12 col-md-4 px-0">
+            {% if shop.filtering_active and filter_rules == blank %}
+              {% include 'keyword_input' %}
+            {% endif %}
+            <p class='d-inline-block products-result-verbiage'>We found {{ products_search.total | pluralize: 'item', 'items' }}</p>
+          </div>
+          <div class="col-sm-12 col-md-8 px-0 text-md-end">
+            <div class="d-none d-lg-block">
+              {% include 'sort' %}  
+            </div>
+            <div class="d-block d-lg-none mb-3">
+              {% if filter_rules != blank %}<button type="button" class="btn secondary" data-bs-toggle="modal" data-bs-target="#filter-mobile-modal">{% include "icons/filter" %} Filter</button>{% endif %}
+              <button type="button" class="btn secondary" data-bs-toggle="modal" data-bs-target="#sort-mobile-modal">{% include "icons/sort-result" %} Sort By</button>
+
+              {% assign logoMargins = settings.logo_margin | split: ' ' %}
+              {% assign logoMarginTop = logoMargins[0] %}
+              {% if logoMargins[2] %}{% assign logoMarginBottom = logoMargins[2] %}{% else %}{% assign logoMarginBottom = logoMargins[0] %}{% endif %}
+              <div class="modal fade" id="filter-mobile-modal" tabindex="-1" aria-labelledby="filter-mobile-modal" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title"><img class="img-fluid" src="{{ "logo_custom_bg_image.jpg" | asset_url }}" style="max-height: calc({{ settings.header_height }} - {{ logoMarginTop }} - {{ logoMarginBottom }} - 14px);"></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="accordion" id="mobile-filter-container">
+                        {% include 'filter_rule' with filter_rules, caller: "mobile-" %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal fade" id="sort-mobile-modal" tabindex="-1" aria-labelledby="sort-mobile-modal" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title"><img class="img-fluid" src="{{ "logo_custom_bg_image.jpg" | asset_url }}" style="max-height: calc({{ settings.header_height }} - {{ logoMarginTop }} - {{ logoMarginBottom }} - 14px);"></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      {% include 'sort', caller: "mobile" %}  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-auto">
+          <div class="col-12 px-0">
+            <div class="d-md-inline-block me-2 mb-2">Your Selections:</div>
+            {% include 'current_filters' %}
+            {% include 'current_keywords' %}
+          </div>
+        </div>
+      </div>
+
+      <div class="product-list pt-3">
+        {% include "product" with paginate.collection %}
+      </div>
+      {% include "paginator", paginate: paginate %}
+      {% include 'product_list_js' %}
+    </div>
+  </div>
+{% endpaginate %}

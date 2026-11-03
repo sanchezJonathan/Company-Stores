@@ -1,0 +1,20 @@
+<!doctype html>
+{%- comment -%}
+  Arvo — layout/403.liquid: standalone page shown when the store's IP restrictions block a visitor
+  (docs/platform-reference/bsites-themes/pages.md, "Layout-only"). No inner template.
+{%- endcomment -%}
+<html lang="en"{% render 'core/html_attrs' %}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Access restricted — {{ site.name }}</title>
+  {% render 'core/head_style' %}
+  {{ 'cs-storefront.min.css' | asset_url | stylesheet_tag }}
+</head>
+<body class="cs-body">
+  <main class="cs-container cs-section" style="text-align:center">
+    <h1>Access restricted</h1>
+    <p>This store isn't available from your current network. Please contact the store administrator.</p>
+  </main>
+</body>
+</html>

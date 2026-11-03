@@ -1,0 +1,126 @@
+/*-------------------
+This theme uses Bootstrap v5.1.
+
+It is highly recommended to check out Bootstrap's guiding principles,
+strategies, and techniques at https://getbootstrap.com/docs/5.1/extend/approach/
+before adding custom styling.
+
+To learn more about Bootstrap v4.6, please check
+out https://getbootstrap.com/docs/5.1/getting-started/introduction/.
+/*-------------------*/
+
+/*-------------------*/
+/* GENERAL */
+/*-------------------*/
+.sticky-header {
+  position: sticky !important;
+}
+
+/*-------------------*/
+/* TOP NAV */
+/*-------------------*/
+.navbar-container {
+  background-color: {{ settings.topbar_bg_color }} !important;
+  z-index: 9999;
+}
+
+/*-------------------*/
+/* HEADER */
+/*-------------------*/
+.subpage .header-container.border-bottom {
+  border-bottom: 1px solid #f2f2f2 !important;
+}
+
+/*-------------------*/
+/* CATEGORY NAV */
+/*-------------------*/
+
+/*-------------------*/
+/* CONTENT */
+/*-------------------*/
+
+/*-------------------*/
+/* PRODUCT THUMBS */
+/*-------------------*/
+
+/*-------------------*/
+/* PRODUCT */
+/*-------------------*/
+.product-overview * {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 12pt !important;
+  line-height: normal !important;
+  color: #000 !important;
+  background: #ffffff !important;
+}
+.product-overview img {
+  display: none !important;
+}
+
+/*-------------------*/
+/* CATEGORY FLYOUT */
+/*-------------------*/
+@media screen and (min-width: 992px) {
+  .header-links .dropdown-submenu {
+    position: relative;
+  }
+  .header-links .dropdown-submenu > .dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-links .dropdown-submenu > .dropdown-item::after {
+    content: "\203A";
+    margin-left: 1rem;
+  }
+  .header-links .dropdown-submenu > .dropdown-menu {
+    top: calc(-0.3rem - 3px);
+    left: 100%;
+    margin-top: 0 !important;
+    /* 400px tops, or less when the window is shorter */
+    max-height: min(400px, var(--flyout-room, 400px));
+    overflow-y: auto;
+  }
+  .header-links .dropdown-submenu.open > .dropdown-menu {
+    display: block;
+  }
+  .header-links .dropdown-submenu.flyout-left > .dropdown-menu {
+    left: auto;
+    right: 100%;
+  }
+}
+/* hover only on real mouse devices, touch uses the tap toggle above */
+@media screen and (min-width: 992px) and (hover: hover) {
+  .header-links .dropdown-submenu:hover > .dropdown-menu,
+  .header-links .dropdown-submenu:focus-within > .dropdown-menu {
+    display: block;
+  }
+}
+
+/*-------------------*/
+/* CART/CHECKOUT */
+/*-------------------*/
+
+/*-------------------*/
+/* FOOTER */
+/*-------------------*/
+
+
+/*-------------------*/
+/* MEDIA QUERIES */
+/*-------------------*/
+@media screen and (min-width: 661px){
+
+}
+
+@media screen and (max-width: 1200px){
+
+}
+
+@media screen and (max-width: 660px){
+
+}
+
+@media screen and (max-width: 340px){
+
+}

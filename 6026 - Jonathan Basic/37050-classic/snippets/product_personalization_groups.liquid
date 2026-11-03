@@ -1,0 +1,17 @@
+{% if form.available_personalization_groups != empty %}
+  <div class="form-item personalization-groups">
+    <label>Quick fill</label>
+    <div class="select-area">
+      <div>
+        <select class="form-select" name="personalization_group_id" id="personalization_group_select" class="msdropdown-select" data-url="{{ form.personalization_group_url }}">
+          <option value='-1' selected="selected" disabled>Please Select</option>
+          {% for personalization_group in form.available_personalization_groups %}
+            <option value="{{ personalization_group.id }}">{{ personalization_group.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <hr/>
+{% endif %}

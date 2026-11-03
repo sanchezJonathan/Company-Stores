@@ -1,0 +1,140 @@
+{%- comment -%}
+  shell/header — announcement bar, header (5 layouts), search panel, mobile drawer,
+  mobile quick-actions bar. Settings: Store Design → Header (docs/guidelines/13 §3, §4.2).
+  One markup for every layout: CSS grid areas place logo / nav / utilities per
+  data-layout (styles/components/_header.scss).
+  Menus come from the platform tags {% category_navigation %} and {% main_navigation %}
+  (VERIFIED — PLATFORM, tags.md); their exact markup is styled generically as nested <ul>s.
+{%- endcomment -%}
+{%- assign h_layout = settings.header_layout | default: 'inline' -%}
+{%- assign h_style = settings.header_style | default: 'light' -%}
+{%- assign h_search = settings.header_search | default: 'icon' -%}
+{%- assign h_cats = settings.header_nav_categories | default: 'inline' -%}
+{%- assign h_cart = settings.header_cart | default: 'count' -%}
+{%- unless site.catalog_enabled? -%}{%- assign h_search = 'hidden' -%}{%- assign h_cats = 'hidden' -%}{%- endunless -%}
+
+{%- comment -%} Light logo when the header background is dark. {%- endcomment -%}
+{%- assign scheme = settings.brand_color_scheme | default: 'light' -%}
+{%- assign on_dark = false -%}
+{%- if h_style == 'brand' -%}{%- assign on_dark = true -%}
+{%- elsif h_style == 'inverse' and scheme == 'light' -%}{%- assign on_dark = true -%}
+{%- elsif h_style == 'light' and scheme == 'dark' -%}{%- assign on_dark = true -%}
+{%- endif -%}
+
+{%- assign show_account = false -%}
+{%- if authentication_enabled -%}{%- if current_user or site.show_login? or site.show_registration? -%}{%- assign show_account = true -%}{%- endif -%}{%- endif -%}
+{%- assign phone = settings.header_phone | default: site.primary_phone -%}
+{%- assign cart_count = order.cart_items_count | default: 0 -%}
+
+{%- if settings.header_announce_enabled and settings.header_announce_text != blank -%}
+  {%- assign a_style = settings.header_announce_style | default: 'inverse' -%}
+  <div class="cs-announce" data-style="{{ a_style }}"{% if a_style == 'custom' %} style="--cs-announce-bg: {{ settings.header_announce_bg }}; --cs-announce-fg: {{ settings.header_announce_text_color }};"{% endif %}>
+    <div class="cs-container">
+      {%- if settings.header_announce_link != blank -%}
+        <a href="{{ settings.header_announce_link | escape }}">{{ settings.header_announce_text | escape }}</a>
+      {%- else -%}
+        <p>{{ settings.header_announce_text | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+<header class="cs-header"
+  data-layout="{{ h_layout }}" data-style="{{ h_style }}" data-edge="{{ settings.header_edge | default: 'line' }}"
+  data-sticky="{{ settings.header_sticky | default: 'off' }}" data-align="{{ settings.header_nav_align | default: 'center' }}"
+  data-mobile-logo="{{ settings.header_mobile_logo | default: 'center' }}" data-dropdown="{{ settings.header_nav_dropdown | default: 'simple' }}"
+  {%- if h_style == 'custom' %} style="--cs-header-bg: {{ settings.header_bg_color }}; --cs-header-fg: {{ settings.header_text_color }};"{% endif %}>
+  <div class="cs-container cs-header__inner">
+    <button class="cs-header__icon cs-header__toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#cs-drawer" aria-controls="cs-drawer" aria-label="Open menu">
+      {%- render 'icons/icon_menu' -%}
+    </button>
+
+    {% render 'shell/logo', light: on_dark, class: 'cs-header__logo' %}
+
+    {%- if h_layout != 'minimal' -%}
+    <nav class="cs-nav cs-header__nav" aria-label="Main">
+      {%- if settings.header_nav_home -%}<ul><li><a href="{{ root_url }}">Home</a></li></ul>{%- endif -%}
+      {%- if h_cats == 'inline' -%}
+        {% category_navigation full: true %}
+      {%- elsif h_cats == 'shop_menu' -%}
+        <ul><li><button type="button" class="cs-nav__parent" aria-expanded="false">Shop {% render 'icons/icon_chevron_down', class: 'cs-icon--sm' %}</button>{% category_navigation full: true %}</li></ul>
+      {%- endif -%}
+      {%- if settings.header_nav_pages -%}{% main_navigation %}{%- endif -%}
+    </nav>
+    {%- endif -%}
+
+    <div class="cs-header__utils">
+      {%- if h_search == 'bar' -%}
+        <div class="cs-header__searchbar">{% render 'shell/search_form', id: 'cs-search-bar' %}</div>
+      {%- endif -%}
+      {%- if h_search != 'hidden' -%}
+        <button class="cs-header__icon cs-header__search-btn" type="button" data-bs-toggle="collapse" data-bs-target="#cs-search-panel" aria-expanded="false" aria-controls="cs-search-panel" aria-label="Search">
+          {%- render 'icons/icon_search' -%}
+        </button>
+      {%- endif -%}
+      {%- if settings.header_phone_enabled and phone != blank -%}
+        <a class="cs-header__icon cs-header__phone" href="tel:{{ phone | remove: ' ' }}">{% render 'icons/icon_phone' %}<span class="cs-header__label">{{ phone }}</span></a>
+      {%- endif -%}
+      {%- if show_account -%}
+        <div class="dropdown cs-header__account">
+          <button class="cs-header__icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
+            {%- render 'icons/icon_account' -%}
+            {%- if current_user -%}
+              {%- if settings.header_account == 'icon_name' -%}<span class="cs-header__label">{{ current_user.first_name }}</span>{%- endif -%}
+              {%- if settings.header_balance and site.show_account_balance? -%}<span class="cs-header__label cs-header__balance">{{ current_user.balance | points_or_currency }}</span>{%- endif -%}
+            {%- endif -%}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">{% render 'shell/account_links', link_class: 'dropdown-item' %}</ul>
+        </div>
+      {%- endif -%}
+      {%- if settings.header_wishlist and current_user and site.wishlist_enabled? -%}
+        <a class="cs-header__icon cs-header__wishlist" href="{{ wishlist_url }}" aria-label="Wishlist">{% render 'icons/icon_heart' %}</a>
+      {%- endif -%}
+      {%- if site.store_enabled? -%}
+        <a class="cs-header__icon cs-header__cart" href="{{ cart_url }}" aria-label="Cart, {{ cart_count }} items">
+          {%- render 'icons/icon_cart' -%}
+          {%- if h_cart != 'icon' -%}<span class="cs-header__count">{{ cart_count }}</span>{%- endif -%}
+          {%- if h_cart == 'total' -%}<span class="cs-header__label cs-header__total">{{ order.cart_total | points_or_currency }}</span>{%- endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if h_search != 'hidden' -%}
+    <div class="collapse cs-header__search-panel" id="cs-search-panel">
+      <div class="cs-container">{% render 'shell/search_form', id: 'cs-search-panel-input' %}</div>
+    </div>
+  {%- endif -%}
+</header>
+
+<div class="offcanvas offcanvas-start cs-drawer" tabindex="-1" id="cs-drawer" aria-labelledby="cs-drawer-title">
+  <div class="offcanvas-header">
+    <h2 class="visually-hidden" id="cs-drawer-title">Menu</h2>
+    {% render 'shell/logo', light: false %}
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+  </div>
+  <div class="offcanvas-body">
+    {%- if h_search != 'hidden' -%}{% render 'shell/search_form', id: 'cs-drawer-search' %}{%- endif -%}
+    <nav class="cs-drawer__nav" aria-label="Menu" data-order="{{ settings.header_mobile_menu_order | default: 'categories' }}">
+      {%- if settings.header_nav_home -%}<ul class="cs-drawer__home"><li><a href="{{ root_url }}">Home</a></li></ul>{%- endif -%}
+      {%- if h_cats != 'hidden' -%}<div class="cs-drawer__cats">{% category_navigation full: true %}</div>{%- endif -%}
+      {%- if settings.header_nav_pages -%}<div class="cs-drawer__pages">{% main_navigation %}</div>{%- endif -%}
+    </nav>
+    <template id="cs-drawer-chevron">{% render 'icons/icon_chevron_down' %}</template>
+    {%- if show_account -%}
+      <ul class="cs-drawer__account">{% render 'shell/account_links', link_class: 'cs-drawer__link' %}</ul>
+    {%- endif -%}
+    {%- if settings.header_phone_enabled and phone != blank -%}
+      <a class="cs-drawer__phone" href="tel:{{ phone | remove: ' ' }}">{% render 'icons/icon_phone' %} {{ phone }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- if settings.header_mobile_bar -%}
+  <nav class="cs-quickbar" aria-label="Quick actions">
+    <a href="{{ root_url }}">{% render 'icons/icon_home' %}<span>Home</span></a>
+    {%- if site.store_enabled? -%}<a href="{{ cart_url }}">{% render 'icons/icon_cart' %}<span>Cart</span></a>{%- endif -%}
+    {%- if current_user and site.wishlist_enabled? -%}<a href="{{ wishlist_url }}">{% render 'icons/icon_heart' %}<span>Wishlist</span></a>{%- endif -%}
+    {%- if show_account -%}<a href="{% if current_user %}{{ account_dashboard_url }}{% else %}{{ login_url }}{% endif %}">{% render 'icons/icon_account' %}<span>Account</span></a>{%- endif -%}
+  </nav>
+{%- endif -%}

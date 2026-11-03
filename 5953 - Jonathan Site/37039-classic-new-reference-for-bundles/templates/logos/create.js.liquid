@@ -1,0 +1,14 @@
+(function () {
+  var controller = ProductLogosController.pending;
+
+  {% if logo.valid? %}
+    controller.updateLogos({{ logo | json }});
+  {% else %}
+    {% capture logo_form %}
+      {% include "product_logo_form", logo: logo %}
+    {% endcapture %}
+
+    controller.updateDialog("{{ logo_form | escape_javascript }}");
+  {% endif %}
+
+}).call(this);

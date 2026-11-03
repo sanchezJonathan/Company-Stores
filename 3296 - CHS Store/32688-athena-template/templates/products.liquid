@@ -1,0 +1,93 @@
+{% assign selectedcats = "" %}
+{% for cats in categories %}
+	{% if cats.selected? %}
+		{% assign selectedcats = selectedcats | append: cats.name | append: "," %}
+	{% endif %}
+{% endfor %}
+{% assign selectedcatsize = selectedcats | size | minus: 1 %}
+{% assign selectedcats = selectedcats | slice: 0, selectedcatsize | split: "," %}
+{% assign selectedcatlast =  selectedcats.last %}
+
+{% assign isWorkwearSafety = 0 %}
+{% assign isLifestyleEssentials = 0 %}
+{% assign isBagsTravel = 0 %}
+{% assign isForms = 0 %}
+{% for category in categories %}
+  {% if category.name contains "Workwear &amp; Safety" %}
+    {% if category.selected? %}
+      {% assign isWorkwearSafety = 1 %}
+    {% endif %}
+  {% elsif category.name contains "Lifestyle &amp; Essentials" %}
+    {% if category.selected? %}
+      {% assign isLifestyleEssentials = 1 %}
+    {% endif %}
+  {% elsif category.name contains "Bags &amp; Travel" %}
+    {% if category.selected? %}
+      {% assign isBagsTravel = 1 %}
+    {% endif %}
+  {% elsif category.name contains "Forms" %}
+    {% if category.selected? %}
+      {% assign isForms = 1 %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<div id="content" class="content-page container-fluid">
+  {% if category_banner != blank %}
+    <div class="category-banner my-4 border border-white"><img class="img-fluid w-100" src="{{category_banner}}" /></div>
+  {% endif %}
+  {% include 'update_breadcrumbs' %}
+  {% if settings.show_breadcrumbs %}
+    {% include 'breadcrumbs_section' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "10" %}
+    {% include 'paginate_by_10' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "20" %}
+  	{% include 'paginate_by_20' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "30" %}
+  	{% include 'paginate_by_30' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "40" %}
+  	{% include 'paginate_by_40' %}
+  {% endif %}
+  
+  {% if settings.product_thumbnail_length_per_page == "50" %}
+  	{% include 'paginate_by_50' %}
+  {% endif %}
+</div>
+
+{% include 'category_page_js' %}
+
+{% if isWorkwearSafety == 1 %}
+  <script>
+    $(document).ready(function() {
+      $('#header-Color').closest('.accordion-item').remove();
+    });
+  </script>
+{% elsif isLifestyleEssentials == 1 %}
+  <script>
+    $(document).ready(function() {
+      $('#header-Size').closest('.accordion-item').remove();
+      $('#header-Color').closest('.accordion-item').remove();
+    });
+  </script>
+{% elsif isBagsTravel == 1 %}
+  <script>
+    $(document).ready(function() {
+      $('#header-Size').closest('.accordion-item').remove();
+    });
+  </script>
+{% elsif isForms == 1 %}
+  <script>
+    $(document).ready(function() {
+      $('#filter-container').closest('.col-md-12.col-lg-3').remove();
+      $('.category-page-content-section').removeClass('col-lg-9').addClass('col-lg-12');
+    });
+  </script>
+{% endif %}

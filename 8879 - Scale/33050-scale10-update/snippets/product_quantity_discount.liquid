@@ -1,0 +1,42 @@
+<div class="modal fade" id="modal-quantity-discountss" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Quantity Discounts</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="product-tabs">
+          <div class="tabs-body">
+            <div class="product-quantity-discounts powered-with-ckeditor visible">
+              <table class="table tab_2 table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Quantity</th>
+                    <th>Base Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for quantity_discount_group in product.quantity_discount_groups %}
+                  <tr class='discount-group-name'>
+                    <!-- <td colspan="2">{{ quantity_discount_group.name }}</td> -->
+                    <td>{{ quantity_discount_group.name }}</td>
+                    <td>{{ product.final_price | points_or_currency }}</td>
+                  </tr>
+                  {% for quantity_discount in quantity_discount_group.quantity_discounts %}
+                    <tr>
+                      <td>{{ quantity_discount.quantity }}</td>
+                      <td>{{ quantity_discount.price | points_or_currency }}</td>
+                    </tr>
+                  {% endfor %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,80 @@
+{%- comment -%}
+  templates/index.liquid — WEEK-1 "STYLE PREVIEW".
+  Shows every Brand & Style token so Store Design changes can be checked on the sandbox.
+  Replaced by the real homepage (sections + Section Order) in week 3.
+{%- endcomment -%}
+<section class="cs-section">
+  <div class="cs-container">
+    <p class="cs-preview__kv">Arvo style preview · kit: {{ settings.brand_style_kit }} · scheme: {{ settings.brand_color_scheme }} · pairing: {{ settings.brand_font_pairing }} · icons: {{ settings.brand_icon_style }}</p>
+    <h1>Gear up for the season ahead</h1>
+    <p class="lead" style="max-width: 60ch; color: var(--cs-color-text-secondary);">Approved apparel and gear for the whole team, ready to personalize with your logo. This page previews the Brand &amp; Style settings.</p>
+    <div class="d-flex flex-wrap" style="gap: .75rem;">
+      <a href="#" class="btn btn-primary">Shop now</a>
+      <a href="#" class="btn btn-secondary">View collections</a>
+      <button class="btn btn-primary" disabled>Disabled</button>
+      <a href="#">Text link</a>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section cs-preview__band">
+  <div class="cs-container">
+    <h2>Colors</h2>
+    <div class="cs-preview__grid">
+      <div class="cs-preview__swatch" style="background: var(--cs-color-brand-primary); color: var(--cs-color-on-brand);">Brand · auto text</div>
+      <div class="cs-preview__swatch" style="background: var(--cs-color-brand-tint); color: var(--cs-color-text-primary);">Brand tint</div>
+      <div class="cs-preview__swatch" style="background: var(--cs-color-brand-secondary); color: #fff;">Secondary</div>
+      <div class="cs-preview__swatch" style="background: var(--cs-color-accent); color: var(--cs-color-on-accent);">Accent · auto text</div>
+      <div class="cs-preview__swatch" style="background: var(--cs-color-bg-surface); color: var(--cs-color-text-primary);">Surface</div>
+      <div class="cs-preview__swatch" style="background: var(--cs-color-bg-inverse); color: var(--cs-color-text-inverse);">Inverse</div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="cs-container">
+    <h2>Typography</h2>
+    <h1 class="mb-1">Heading 1</h1><h2 class="mb-1">Heading 2</h2><h3 class="mb-1">Heading 3</h3><h4>Heading 4</h4>
+    <p style="max-width: 70ch;">Body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Order for your whole team with size grids, add your logo, approve the proof, and check out with your budget.</p>
+    <p class="small" style="color: var(--cs-color-text-muted);">Small, muted text.</p>
+  </div>
+</section>
+
+<section class="cs-section cs-preview__band">
+  <div class="cs-container">
+    <h2>Product card (sample)</h2>
+    <div class="cs-preview__grid">
+      {%- for i in (1..4) -%}
+        <article class="cs-preview__card">
+          <div class="cs-media"></div>
+          <div class="cs-preview__card-body">
+            {%- if i == 1 -%}<span class="cs-badge mb-2">Sale</span>{%- elsif i == 2 -%}<span class="cs-badge mb-2">New</span>{%- endif -%}
+            <h3 class="cs-h4 mb-1" style="font-size: 1rem;">Performance Polo {{ i }}</h3>
+            <div style="color: var(--cs-color-accent);">{% render 'icons/icon_star', class: 'cs-icon--sm' %}{% render 'icons/icon_star', class: 'cs-icon--sm' %}{% render 'icons/icon_star', class: 'cs-icon--sm' %}{% render 'icons/icon_star', class: 'cs-icon--sm' %}{% render 'icons/icon_star_half', class: 'cs-icon--sm' %}</div>
+            {%- if i == 1 -%}<span class="cs-price-sale">$24.99</span> <s style="color: var(--cs-color-text-muted);">$49.98</s>{%- else -%}<strong>$39.99</strong>{%- endif -%}
+            <div class="small" style="color: var(--cs-color-text-muted);">5 colors</div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="cs-container">
+    <h2>Icons ({{ settings.brand_icon_style }})</h2>
+    <div class="cs-preview__icons">
+      {% render 'icons/icon_search' %}{% render 'icons/icon_heart' %}{% render 'icons/icon_account' %}{% render 'icons/icon_cart' %}
+      {% render 'icons/icon_menu' %}{% render 'icons/icon_close' %}{% render 'icons/icon_truck' %}{% render 'icons/icon_support' %}
+      {% render 'icons/icon_secure' %}{% render 'icons/icon_package' %}{% render 'icons/icon_tag' %}{% render 'icons/icon_gift' %}
+      {% render 'icons/icon_points' %}{% render 'icons/icon_budget' %}{% render 'icons/icon_store' %}{% render 'icons/icon_home' %}
+    </div>
+  </div>
+</section>
+
+<section class="cs-section cs-preview__brand">
+  <div class="cs-container">
+    <h2>Brand band</h2>
+    <p>Text on the brand color is chosen automatically for contrast (Text on brand color = Auto).</p>
+  </div>
+</section>

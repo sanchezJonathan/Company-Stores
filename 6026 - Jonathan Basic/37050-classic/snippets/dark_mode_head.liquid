@@ -1,0 +1,33 @@
+<script>
+  (function() {
+    var root = document.documentElement;
+    var storageKey = 'store-color-mode';
+
+    try {
+      if (localStorage.getItem(storageKey) === 'dark') root.classList.add('dark-mode');
+    } catch (e) {}
+
+    function syncToggles() {
+      var dark = root.classList.contains('dark-mode');
+      var label = dark ? 'Switch to light mode' : 'Switch to dark mode';
+      var toggles = document.querySelectorAll('.dark-mode-toggle');
+      for (var i = 0; i < toggles.length; i++) {
+        toggles[i].setAttribute('aria-pressed', dark ? 'true' : 'false');
+        toggles[i].setAttribute('aria-label', label);
+        toggles[i].setAttribute('title', label);
+      }
+    }
+
+    document.addEventListener('click', function(event) {
+      var toggle = event.target.closest ? event.target.closest('.dark-mode-toggle') : null;
+      if (!toggle) return;
+      var dark = root.classList.toggle('dark-mode');
+      try {
+        localStorage.setItem(storageKey, dark ? 'dark' : 'light');
+      } catch (e) {}
+      syncToggles();
+    });
+
+    document.addEventListener('DOMContentLoaded', syncToggles);
+  })();
+</script>

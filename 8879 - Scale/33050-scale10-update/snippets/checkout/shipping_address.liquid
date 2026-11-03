@@ -1,0 +1,203 @@
+<h2>Shipping Address</h2>
+<p style="margin-bottom: 40px;"><em>If your home address in Bamboo HR is near a Scale office, you MUST pick up your swag from that Scale office (this applies to SFHQ, NYC, DC, STL, CDMX, Budapest). If you are located near SFHQ or a Scale hub, your ONLY option will be to ship to SFHQ or a Scale Hub. You will NOT be able to change to a different address. Scaliens who do not live near SFHQ, NYC, DC, STL, CDMX or Budapest may ship to the address of their choice.</em></p>
+{% if isSFHQ == 1 or isMexicoCityOffice == 1 or isWashingtonDCOffice == 1 or isNewYorkCityOffice == 1 or isStLouisOffice ==1 %}
+{% else %}
+  {% include 'shipping_addresses_drop_down', form: form %}
+{% endif %}
+{% include 'shipping_address_fields', form: form %}
+
+{% comment %} {% if current_user %}
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="true" id="checkout[save_to_address]" name="checkout[save_to_address]" {% if form.save_to_address %}checked{% endif %}>
+    <label class="form-check-label" for="checkout[save_to_address]">
+      Save my Address Information
+    </label>
+  </div>
+{% endif %} {% endcomment %}
+
+<input type="submit" value="Continue" class="btn secondary"/>
+{% if isSFHQ == 1 %}
+<script>
+  // $('#website_order_shipping_contact_attributes_first_name').prop('readonly', true);
+  // $('#website_order_shipping_contact_attributes_last_name').prop('readonly', true);
+  // $('#website_order_shipping_contact_attributes_email').prop('readonly', true);
+  $('#website_order_shipping_address_attributes_company').val('Scale AI').prop('readonly', true);
+  $('#website_order_shipping_address_attributes_first_address').val('650 Townsend Street').prop('readonly', true);
+  $('#website_order_shipping_address_attributes_second_address').val('Lily Mireles').prop('readonly', true);
+  $('#website_order_shipping_address_attributes_city').val('San Francisco').prop('readonly', true);
+  $('#website_order_shipping_address_attributes_country').val('United States').trigger('change');
+  setTimeout(function() {
+    $('#website_order_shipping_address_attributes_state').val('California').trigger('change');
+  }, 500);
+  $('#website_order_shipping_address_attributes_zip').val('94103').prop('readonly', true);
+  setTimeout(function() {
+    $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+    $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+    $('.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered').css('background-color', 'unset');
+  }, 500);
+  $('.address-dropdown').on('change', function() {
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+    }, 500);
+  });
+</script>
+{% elsif isBudapest == 1 %}
+  {% comment %} <script>
+    $('#website_order_shipping_contact_attributes_first_name').prop('readonly', true);
+    $('#website_order_shipping_contact_attributes_last_name').prop('readonly', true);
+    $('#website_order_shipping_contact_attributes_email').prop('readonly', true);
+    $('#website_order_shipping_contact_attributes_phone').val('+36703311320').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_company').val('Budapest').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_first_address').val('Agora HUB3 - Scale AI Hungary Kft.').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_second_address').val('Esztergomi ut 39.').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_city').val('Budapest').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_country').val('Hungary').trigger('change');
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_state').val('Budapest').trigger('change');
+    }, 500);
+    $('#website_order_shipping_address_attributes_zip').val('1138').prop('readonly', true);
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered').css('background-color', 'unset');
+    }, 500);
+    $('.address-dropdown').on('change', function() {
+      setTimeout(function() {
+        $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+        $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      }, 500);
+    });
+  </script> {% endcomment %}
+{% elsif isMexicoCityOffice == 1 %}
+  <script>
+    // $('#website_order_shipping_contact_attributes_first_name').prop('readonly', true);
+    // $('#website_order_shipping_contact_attributes_last_name').prop('readonly', true);
+    // $('#website_order_shipping_contact_attributes_email').prop('readonly', true);
+    $('#website_order_shipping_contact_attributes_phone').val('525513595248').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_company').val('Scale AI').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_first_address').val('Av. Ejercito Nacional 904 - 16A').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_second_address').val('Polanco, Miguel Hidalgo').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_city').val('Ciudad de México').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_country').val('Mexico').trigger('change');
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_state').val('Ciudad de México').trigger('change');
+    }, 500);
+    $('#website_order_shipping_address_attributes_zip').val('11530').prop('readonly', true);
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered').css('background-color', 'unset');
+    }, 500);
+    $('.address-dropdown').on('change', function() {
+      setTimeout(function() {
+        $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+        $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      }, 500);
+    });
+  </script>
+{% elsif isWashingtonDCOffice == 1 %}
+  <script>
+    // $('#website_order_shipping_contact_attributes_first_name').val('Annete');
+    // $('#website_order_shipping_contact_attributes_last_name').val('Mars');
+    // $('#website_order_shipping_contact_attributes_email').val('annette.mars-alex@contractors.scale.com');
+    $('#website_order_shipping_address_attributes_company').val('Scale AI').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_first_address').val('2231 Crystal Drive').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_second_address').val('Suite 401').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_city').val('Arlington').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_country').val('United States').trigger('change');
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_state').val('Virginia').trigger('change');
+    }, 500);
+    $('#website_order_shipping_address_attributes_zip').val('22202').prop('readonly', true);
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered').css('background-color', 'unset');
+    }, 500);
+    $('.address-dropdown').on('change', function() {
+      setTimeout(function() {
+        $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+        $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      }, 500);
+    });
+  </script>
+{% elsif isNewYorkCityOffice == 1 %}
+  <script>
+    // $('#website_order_shipping_contact_attributes_first_name').val('Huston');
+    // $('#website_order_shipping_contact_attributes_last_name').val('Pigford');
+    // $('#website_order_shipping_contact_attributes_email').val('huston.pigford@contractors.scale.com');
+    $('#website_order_shipping_address_attributes_company').val('Scale AI').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_first_address').val('1 World Trade (1WTC)').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_second_address').val('74th Floor - Huston Pigford').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_city').val('New York').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_country').val('United States').trigger('change');
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_state').val('New York').trigger('change');
+    }, 500);
+    $('#website_order_shipping_address_attributes_zip').val('10007').prop('readonly', true);
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered').css('background-color', 'unset');
+    }, 500);
+    $('.address-dropdown').on('change', function() {
+      setTimeout(function() {
+        $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+        $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      }, 500);
+    });
+  </script>
+{% elsif isStLouisOffice == 1 %}
+  <script>
+    // $('#website_order_shipping_contact_attributes_first_name').prop('readonly', true);
+    // $('#website_order_shipping_contact_attributes_last_name').prop('readonly', true);
+    // $('#website_order_shipping_contact_attributes_email').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_company').val('Scale AI').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_first_address').val('1190 Cole St').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_second_address').val('').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_city').val('St. Louis').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_country').val('United States').trigger('change');
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_state').val('Missouri').trigger('change');
+    }, 500);
+    $('#website_order_shipping_address_attributes_zip').val('63101').prop('readonly', true);
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered').css('background-color', 'unset');
+    }, 500);
+    $('.address-dropdown').on('change', function() {
+      setTimeout(function() {
+        $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+        $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      }, 500);
+    });
+  </script>
+{% elsif isLondonOffice == 1 %}
+  <script>
+    // $('#website_order_shipping_contact_attributes_first_name').val('Jose');
+    // $('#website_order_shipping_contact_attributes_last_name').val('Ramirez');
+    // $('#website_order_shipping_contact_attributes_email').val('jose.e.ramirez@scale.com');
+    $('#website_order_shipping_address_attributes_company').val('Scale AI').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_first_address').val('2 Pancras Square').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_second_address').val('4th Floor').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_city').val('London').prop('readonly', true);
+    $('#website_order_shipping_address_attributes_country').val('United Kingdom').trigger('change');
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_state').val('London, City of').trigger('change');
+    }, 500);
+    $('#website_order_shipping_address_attributes_zip').val('N1C 4AG').prop('readonly', true);
+    setTimeout(function() {
+      $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      $('.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered').css('background-color', 'unset');
+    }, 500);
+    $('.address-dropdown').on('change', function() {
+      setTimeout(function() {
+        $('#website_order_shipping_address_attributes_country').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+        $('#website_order_shipping_address_attributes_state').siblings('.select2').css('pointer-events','none').find('.select2-selection--single').addClass('select2-selection--locked');
+      }, 500);
+    });
+  </script>
+{% endif %}

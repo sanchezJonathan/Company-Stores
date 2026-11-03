@@ -1,0 +1,74 @@
+<div class="product-header clrfix">
+  {% comment %} The product's categories above the title (product page mockup), all of them when there are several {% endcomment %}
+  {% if product.categories.size > 0 %}
+    <p class="product-categories">{% for category in product.categories %}{{ category.name }}{% unless forloop.last %}, {% endunless %}{% endfor %}</p>
+  {% endif %}
+  <div class="product-title">
+    <h2 class="truncated">
+      {{ product.name }}
+    </h2>
+    <div class="review-social-share-wrapper">
+      {% include 'social_share' %}
+    </div>
+	  {% if settings.show_sku %}
+      <span>SKU: {{ product.sku }}</span>
+	  {% endif %}
+  </div>
+  <div class="product-price clrfix mt-2">
+    <div class="current-price ">
+      {% if product.save_price > 0 %}
+        <div class="d-inline-block text-muted text-decoration-line-through pe-2">{{ product.retail_price | points_or_currency }}</div>
+      	<div class="d-inline-block fw-bolder fs-5 pe-2">{{ product.final_price | points_or_currency }}</div>
+      	<div class="d-inline-block text-success">You save {{ product.save_price | points_or_currency }}</div>
+      {% else %}
+        <div class="d-inline-block fw-bold">{{ product.final_price | points_or_currency }} points</div>
+      {% endif %}
+    </div>
+  </div>
+  {% include 'product_overview' %}
+  {% if product.size_charts.size > 0 %}
+    <div class="size-chart"><button type="button" class="btn btn-link px-0" id="open-size-chart-btn">Size Charts</button></div>
+
+    <div id="size-chart-overlay" class="size-chart-overlay"></div>
+
+    <div id="size-chart-drawer" class="size-chart-drawer" aria-hidden="true">
+      <div class="size-chart-header">
+        <h3>Size Guide</h3>
+        <button type="button" class="size-chart-close-btn" id="close-size-chart-btn" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="size-chart-content">
+        {% for chart in product.size_charts %}
+          <div class="size-chart-item">
+            {% if product.size_charts.size > 1 %}
+              <h4>{{ chart.name }}</h4>
+            {% endif %}
+
+            {% if chart.image %}
+              <img src="{{ chart.image | img_url: '800x' }}" alt="{{ chart.name | escape }}" loading="lazy">
+            {% else %}
+              <img src="{{ chart.url }}" alt="{{ chart.name | escape }}" loading="lazy">
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script>
+      $(function() {
+        var $drawer = $('#size-chart-drawer');
+        var $overlay = $('#size-chart-overlay');
+
+        $('#open-size-chart-btn').on('click', function() {
+          $drawer.addClass('is-open').attr('aria-hidden', 'false');
+          $overlay.addClass('is-open');
+        });
+
+        $('#close-size-chart-btn, #size-chart-overlay').on('click', function() {
+          $drawer.removeClass('is-open').attr('aria-hidden', 'true');
+          $overlay.removeClass('is-open');
+        });
+      });
+    </script>
+  {% endif %}
+</div>

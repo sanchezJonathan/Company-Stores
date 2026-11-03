@@ -1,0 +1,280 @@
+/*-------------------
+This theme uses Bootstrap v5.1.
+
+It is highly recommended to check out Bootstrap's guiding principles,
+strategies, and techniques at https://getbootstrap.com/docs/5.1/extend/approach/
+before adding custom styling.
+
+To learn more about Bootstrap v5.1, please check
+out https://getbootstrap.com/docs/5.1/getting-started/introduction/.
+/*-------------------*/
+
+/*-------------------*/
+/* GENERAL */
+/*-------------------*/
+/*-------------------*/
+/* FLIPBOX */
+/*-------------------*/
+
+.country-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+.country-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flag-container {
+    margin-bottom: 20px;
+}
+
+.flag-container img {
+    max-width: auto;
+    height: 100px;
+    display: block;
+}
+
+.static-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(3, 230px) !important;
+    gap: 15px !important;
+    justify-content: center !important;
+    justify-items: center !important;
+}
+
+.static-block {
+    width: 230px !important;
+    height: 220px !important;
+    background-color: #00467f !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    border-radius: 5px !important;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.static-block:hover {
+    background-color: #003865 !important;
+    cursor: pointer;
+}
+
+.grid-background {
+    background-image: url('{{ "carousel-item-01.jpg" | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    padding: 60px 0;
+}
+
+.grid-footer-btn {
+    /* Layout */
+    display: flex !important;
+    width: 720px !important;   /* Matches (3 * 230px) + (2 * 15px) */
+    height: 80px !important;    /* Adjust height to your preference */
+    margin: 0 auto !important;  /* Centers the button */
+    
+    /* Alignment */
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+
+    /* Styling */
+    background-color: #00467f !important;
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    border-radius: 5px !important;
+    
+    /* Animation */
+    transition: background-color 0.3s ease !important;
+}
+
+.grid-footer-btn:hover {
+    background-color: #003865 !important;
+    color: white !important;
+    cursor: pointer !important;
+}
+
+/* Mobile layout */
+@media (max-width: 740px) { 
+    .static-grid-container {
+        grid-template-columns: 1fr !important;
+        max-width: 90% !important; 
+        gap: 10px !important;
+        margin: 10px auto !important; 
+    }
+
+    .static-block {
+        width: 100% !important; 
+        height: 150px !important; 
+        padding: 0 !important;
+        font-size: 1.1em !important; 
+    }
+
+    .grid-footer-btn {
+        width: 90% !important;      
+        height: 60px !important;     
+        font-size: 1.1em !important; 
+        margin: 10px auto !important; 
+    }
+}
+
+/*-------------------*/
+/* TOP NAV */
+/*-------------------*/
+
+/*-------------------*/
+/* HEADER */
+/*-------------------*/
+
+/*-------------------*/
+/* CATEGORY NAV */
+/*-------------------*/
+
+/*-------------------*/
+/* CONTENT */
+/*-------------------*/
+
+/*-------------------*/
+/* PRODUCT THUMBS */
+/*-------------------*/
+
+/*-------------------*/
+/* PRODUCT */
+/*-------------------*/
+.category-pill-wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.custom-pill-nav {
+    display: flex;
+    align-items: center;
+    background-color: #00467f;
+    padding: 6px;
+    border-radius: 10px;
+    color: #000000;
+    justify-content: center;
+}
+
+.custom-pill-nav ul {
+  display: flex !important;
+  flex-direction: row !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 5px;
+}
+
+.custom-pill-nav li {
+  display: inline-block !important;
+  margin: 0 !important;
+}
+
+.custom-pill-nav a,
+.custom-pill-nav li a {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 10px;
+  text-decoration: none !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.custom-pill-nav a.active,
+.custom-pill-nav li.active a,
+.custom-pill-nav li.current a,
+.category-pill-wrapper a.active-pill {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 800;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+/*-------------------*/
+/* CART/CHECKOUT */
+/*-------------------*/
+
+/*-------------------*/
+/* FOOTER */
+/*-------------------*/
+
+
+/*-------------------*/
+/* MEDIA QUERIES */
+/*-------------------*/
+@media (max-width: 1500px) {
+    .static-grid-container {
+        grid-template-columns: repeat(3, 180px) !important;
+    }
+
+    .static-block {
+        width: 180px !important;
+        height: 170px !important;
+        font-size: 1rem !important;
+    }
+
+    .country-wrapper {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .static-grid-container {
+        grid-template-columns: repeat(3, 140px) !important;
+    }
+
+    .static-block {
+        width: 140px !important;
+        height: 130px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .flag-container img {
+        max-width: 70px;
+    }
+
+    .country-wrapper {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 950px) {
+    .static-grid-container {
+        grid-template-columns: repeat(3, 110px) !important;
+    }
+
+    .static-block {
+        width: 110px !important;
+        height: 100px !important;
+        font-size: 0.8rem !important;
+        padding: 5px;
+    }
+
+    .flag-container img {
+        max-width: 50px;
+    }
+
+    .country-wrapper {
+        gap: 10px;
+    }
+}

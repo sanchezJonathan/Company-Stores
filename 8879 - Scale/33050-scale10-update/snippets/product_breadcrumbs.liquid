@@ -1,0 +1,15 @@
+{% comment %}
+  Product page breadcrumbs (top on phones, under the gallery on larger screens): Home > the product's own categories > product.
+  Categories have no URL in Liquid, so their links are added by JavaScript.
+{% endcomment %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb pl-0">
+    <li class="breadcrumb-item"><a href="{{ root_url }}">Home</a></li>
+    {% if product.categories.size > 0 %}
+      <li class="breadcrumb-item pp-crumb-categories">
+        {% for category in product.categories %}<span data-category-id="{{ category.id }}" data-category-name="{{ category.name | escape }}">{{ category.name }}</span>{% unless forloop.last %}, {% endunless %}{% endfor %}
+      </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+  </ol>
+</nav>

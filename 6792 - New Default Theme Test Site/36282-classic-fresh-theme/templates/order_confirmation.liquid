@@ -1,0 +1,109 @@
+<div class="content-item thank-you text-center my-5">
+  {% comment %}
+    Order number. This page renders before the order is finalised: the page's `order`
+    has no order_id yet and current_user's order lists don't include it. So when
+    order_id is blank, the script below loads Order History after the page opens and
+    uses the newest order number that wasn't already known when this page rendered.
+  {% endcomment %}
+  {% assign confirmed_order_id = order.order_id %}
+
+  {% if confirmed_order_id != blank %}
+    <h1 class="order-confirmation-heading">Order #{{ confirmed_order_id }}</h1>
+  {% else %}
+    <h1 class="order-confirmation-heading">Thank You</h1>
+
+    {% if current_user %}
+      <script>
+        // Find the just-placed order's number from Order History, which lists it once it's finalised.
+        (function () {
+          var knownOrderIds = [{% for known_order in current_user.order_history limit: 50 %}"{{ known_order.order_id }}"{% unless forloop.last %},{% endunless %}{% endfor %}];
+          var heading = document.querySelector('.order-confirmation-heading');
+          var attemptsLeft = 5;
+
+          function lookUp() {
+            attemptsLeft--;
+            fetch('{{ order_history_url }}', { credentials: 'same-origin', cache: 'no-store' })
+              .then(function (response) { return response.text(); })
+              .then(function (html) {
+                var page = new DOMParser().parseFromString(html, 'text/html');
+                var listed = Array.prototype.map.call(
+                  page.querySelectorAll('.order-thumbnail[data-id]'),
+                  function (item) { return String(item.getAttribute('data-id')); }
+                );
+                var newOrderId = listed.filter(function (id) { return knownOrderIds.indexOf(id) === -1; })[0];
+
+                if (newOrderId) {
+                  heading.textContent = 'Order #' + newOrderId;
+                } else if (attemptsLeft > 0) {
+                  setTimeout(lookUp, 1500);
+                }
+              })
+              .catch(function () {});
+          }
+
+          lookUp();
+        })();
+      </script>
+    {% endif %}
+  {% endif %}
+  <h3>{{ settings.order_confirm_header }}</h3>
+  <div class="body">
+    {% if order.moas_pending? %}
+      <p style='color: red; text-align: center;'>Your order has been sent for approval. You will be notified if your order is approved or denied.</p>
+    {% else %}
+      {{ settings.order_confirm_message }}
+    {% endif %}
+  </div>
+</div>
+<div class="content-item suggested-products mt-3 text-center">
+ {% if products != empty and settings.show_like_products %}
+    <h3>You May Also Like These Products</h3>
+
+    <div class="featured-products">
+      <div class="product-list thank-you">
+        
+        {% product_samples 6 %}
+          {% include 'product' with product_samples %}
+        {% endproduct_samples %}
+
+        <script>
+          $(function () {
+            setup_carousels('.product-list .product .image-carousel');
+            bind_product_body_clicker('.product-list', '.product');
+          });
+        </script>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="go-back">
+    <a href="{{ root_url }}" class="btn secondary">Go Back To Home Page</a>
+  </div>
+</div>
+
+<script>
+function adjustThumbnailWidth() {
+  var gutter = 15;
+  var containerWidth = $(".featured-products").width() + gutter;
+  var products_per_row = {{ settings.product_thumbnails_per_row }};
+  var thumbnail_division = containerWidth / products_per_row;
+  var thumbnail_width = thumbnail_division - gutter;
+  var thumbnail_margin = gutter / 2;
+
+  if (window.innerWidth > 768) {
+    $(".featured-products").attr("style", "overflow: hidden");
+    $(".product-list").attr("style", "margin: 0; margin-right: -20px;");
+    $(".product-thumbnail").attr("style", "width:" + thumbnail_width + "px; margin: 10px "+ gutter +"px 10px 0");
+
+    return;
+  }
+
+  $(".product-list").removeAttr("style");
+  $(".product-thumbnail").removeAttr("style");
+}
+
+adjustThumbnailWidth();
+$(window).resize(function() {
+  adjustThumbnailWidth();
+});
+</script>

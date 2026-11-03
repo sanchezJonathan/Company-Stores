@@ -1,0 +1,62 @@
+{% render_breadcrumbs %}
+
+{% if template_name == 'product' or template_name == 'catalog_product' or template_name == 'gift_certificate_product' %}
+  {% assign is_template_product = true %}
+{% else %}
+  {% assign is_template_product = false %}
+{% endif %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb pl-0">
+    <li class="breadcrumb-item"><a href="{{ root_url }}">Home</a></li>
+    
+    {% for page in pages %}
+      {% if forloop.last and is_template_product != true and categories == empty %}
+        {% if template_name == 'products' %}
+          {% for currentcat in selectedcats %}
+            <li class="breadcrumb-item active currentcat" aria-current="page"><a>{{ currentcat }}</a></li>
+          {% endfor %}
+        {% else %}
+    	    <li class="breadcrumb-item active" aria-current="page">{{ page['title'] }}</li>
+        {% endif %}
+      {% else %}
+    	<li class="breadcrumb-item"><a href="{{ page['url'] }}">{{ page['title'] }}</a></li>
+      {% endif %}
+    {% endfor %}
+    
+    {% for category in categories %}
+      {% if forloop.last and is_template_product != true %}
+    	<li class="breadcrumb-item active" aria-current="page">{{ category['title'] }}</li>
+      {% else %}
+    	<li class="breadcrumb-item"><a href="{{ category['url'] }}">{{ category['title'] }}</a></li>
+      {% endif %}
+    {% endfor %}
+    
+    {% if is_template_product == true %}
+      {% assign categoryName = "" %}
+      {% assign categoryURL = "" %}
+      {% for cats in product.categories %}
+        {% if categoryName == "" %}
+          {% assign categoryName =  cats.name %}
+          {% assign catnameEncoded = cats.name | url_encode | replace: "amp%3B", "" %}
+          {% assign categoryURL = "/products?s%5Bf%5D%5Bc%5D%5B%5D=%2F" | append: catnameEncoded %}
+        {% endif %}
+      {% endfor %}
+      {% if categoryName != "" %}
+        <li class="breadcrumb-item"><a href="" class="custombreadcrumb" data-categoryname="{{ categoryName }}">{{ categoryName }}</a></li>
+      {% endif %}
+      <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+    {% endif %}
+  </ol>
+</nav>
+
+{% endrender_breadcrumbs %}
+<script>
+  $('.currentcat').each(function() {
+    let currentcat = $(this).text();
+    $(this).find('a').attr('href', (categoryNavDom.find('ul.level-0 > li > a').filter(function() {
+      console.log($(this).text()+' = '+currentcat);
+      return $(this).text() === `${currentcat}`;
+    }).attr('href')));
+  });
+</script>

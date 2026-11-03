@@ -1,0 +1,126 @@
+{% unless field_prefix %}
+  {% assign field_prefix = 'product' %}
+{% endunless %}
+
+<div class="select-area logo-location-container {% if shop.show_logos_as_thumbs? %}thumbnail{% endif %}">
+  {% if shop.show_logos_as_thumbs? %}
+    <div class="virtual-logo-container">
+      <div class="logo-location-text logo-location-text-{{ location.id }} pb-2 pt-0">
+        <span class="text-muted">Please select</span>
+      </div>
+      {% for logo in location.logos %}
+        <button
+          class="btn p-0 logo-location-thumb border rounded logo-location-button-{{ location.id }} {% if form.selected_logos[location.id].id == logo.id %}selected-logo{% endif %}"
+          type="button"
+          data-value="{{ logo.id }}"
+          data-name="{{ logo.name }}{% if location.charge? and logo.charge %} ({{ logo.charge | points_or_currency }}){% endif %}"
+          data-id="{{ location.id }}"
+        >
+          {% if logo.front_thumb_url %}
+            <img src="{{ logo.front_thumb_url }}" class="img-fluid p-2">
+          {% else %}
+            <img src="{{ 'product-image-preview/no_thumb.png' | asset_url }}" class="img-fluid p-2">
+          {% endif %}
+        </button>
+      {% endfor %}
+    </div>
+
+    <script>
+      (function () {
+        var currentContainer = $(document.currentScript).closest('.logo-location-container');
+        var currentValue = currentContainer
+          .find('.logo-location-button-{{ location.id }}.selected-logo')
+          .attr('data-name');
+        currentContainer.on('click', '.logo-location-thumb', function () {
+          if ($(this).hasClass('selected-logo')) {
+            currentContainer
+              .find('.logo-location-text-{{ location.id }}')
+              .html('<span class="text-muted">Please select</span>');
+            $("select[name='{{ field_prefix }}[logo_location][{{ location.id }}][logo_id]']").val(null);
+            $("select[name='{{ field_prefix }}[logo_location][{{ location.id }}][logo_id]']").trigger('change');
+            $(this).removeClass('selected-logo');
+            $(this).blur();
+            return false;
+          }
+
+          currentContainer.find('.logo-location-text-{{ location.id }}').text($(this).attr('data-name'));
+          $("select[name='{{ field_prefix }}[logo_location][{{ location.id }}][logo_id]']").val(
+            $(this).attr('data-value')
+          );
+          $("select[name='{{ field_prefix }}[logo_location][{{ location.id }}][logo_id]']").trigger('change');
+          $(this).siblings('.logo-location-thumb').removeClass('selected-logo');
+          $(this).addClass('selected-logo');
+          return false;
+        });
+
+        currentContainer.find('.logo-location-text-{{ location.id }}').text(currentValue);
+      })();
+    </script>
+  {% endif %}
+
+  <select
+    name="{{ field_prefix }}[logo_location][{{ location.id }}][logo_id]"
+    data-type="virtual-logo"
+    class="form-select msdropdown-select {% if shop.show_logos_as_thumbs? %}d-none{% endif %}"
+  >
+    <option></option>
+
+    {% for logo in location.logos %}
+      <option
+        data-image="{{ logo.front_thumb_url }}"
+        value="{{ logo.id }}"
+        data-label="{{ logo.name }}"
+        {% if logo.charge %}
+          data-charge="{{ logo.charge | points_or_currency }}"
+        {% endif %}
+        {% if form.selected_logos[location.id].id == logo.id %}
+          selected
+        {% endif %}
+        {% if logo.has_colors_restrictions? %}
+          data-colors-restrictions="true"
+        {% endif %}
+        {% if logo.colors_whitelist %}
+          data-colors-whitelist="{{ logo.colors_whitelist }}"
+        {% endif %}
+        {% if logo.colors_blacklist %}
+          data-colors-blacklist="{{ logo.colors_blacklist }}"
+        {% endif %}
+      >
+        {{ logo.name -}}
+        {%- if location.charge? and logo.charge %} ({{ logo.charge | points_or_currency }}){% endif %}
+      </option>
+    {% endfor %}
+  </select>
+</div>
+
+{% unless shop.show_logos_as_thumbs? %}
+  <script>
+    function formatOption(option) {
+      const image = $(option.element).data('image');
+      const origLabel = $(option.element).data('label');
+      const charge = $(option.element).data('charge');
+      const label = origLabel + (!!charge ? ' (' + charge + ')' : '');
+
+      if (!label) {
+        return false;
+      }
+      if (!image) {
+        return label;
+      }
+
+      var $option = $(
+        '<span class="select2-option">' + label + ' <img  class="img-thumbnail" src="' + image + '" /></span>'
+      );
+
+      return $option;
+    }
+
+    $("select[name='{{ field_prefix }}[logo_location][{{ location.id }}][logo_id]']").select2({
+      placeholder: 'Please select',
+      templateResult: formatOption,
+      minimumResultsForSearch: Infinity,
+      theme: 'bootstrap4',
+      allowClear: true,
+    });
+  </script>
+{% endunless %}

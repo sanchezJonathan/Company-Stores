@@ -1,0 +1,135 @@
+#splash{
+  display: none;
+  clear: both;
+  position:fixed;
+  width:100vw;
+  height: 100vh;
+  z-index:9999;
+  {% if settings.display_under_construction_image %}
+    background: url({{ 'under_construction_image.jpg' | asset_url }});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  {% else %}
+    background: {{ settings.under_construction_bg_color }};
+  {% endif %}
+}
+#splash #logoimg {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+.splash-container{
+  width: 100%;
+  text-align:center;
+}
+#splash-static {
+  margin: 0 auto;
+  display: inline-block;
+  position: relative;
+  top: 15vw;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+#splash-static h1 {
+  font-family: {% if settings.ucheader_font_family != "native" %}{{ settings.ucheader_font_family }}{% else %}{{ settings.sitewide_font_family }}{% endif %};
+  font-size: {{ settings.ucheader_font_size }};
+  color: {%if settings.ucheader_text_color.size != 0%}{{ settings.ucheader_text_color }}{%else%}inherit{%endif%};
+  text-transform: uppercase;
+}
+#splash-static p {
+  font-family: {% if settings.ucmessage_font_family != "native" %}{{ settings.ucmessage_font_family }}{% else %}{{ settings.sitewide_font_family }}{% endif %};
+  font-size: {{ settings.ucmessage_font_size }};
+  color: {%if settings.ucmessage_text_color.size != 0%}{{ settings.ucmessage_text_color }}{%else%}inherit{%endif%};
+}
+#splashtop {
+  margin: 0 auto;
+  display: inline-block;
+  position: relative;
+  top: 15vw;
+  padding: 40px 60px;
+  box-sizing: border-box;
+  background: {{ settings.under_construction_pwbox_bg_color }};
+  border: 5px solid #000;
+}
+#splashtop h2{
+  padding: 0;
+  font-weight: normal;
+  font-family: {% if settings.pwbox_font_family != "native" %}{{ settings.pwbox_font_family }}{% else %}{{ settings.sitewide_font_family }}{% endif %};
+  font-size: {{ settings.pwbox_font_size }};
+  color: {%if settings.pwbox_text_color.size != 0%}{{ settings.pwbox_text_color }}{%else%}inherit{%endif%};
+}
+#login-error-msg {
+  display: none;
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  width: 300px;
+  bottom: 10px;
+  left: calc(50% - 150px);
+}
+#login-error-msg h2 {
+  color: #f00 !important;
+  font-weight: bold !important;
+}
+#group-login-form-submit {
+  border: 1px {%if settings.pwbox_submit_bg_color.size != 0%}{{ settings.pwbox_submit_bg_color }}{%else%}#000000{%endif%} solid;
+  background: {%if settings.pwbox_submit_bg_color.size != 0%}{{ settings.pwbox_submit_bg_color }}{%else%}#000000{%endif%};
+  color: {%if settings.pwbox_submit_text_color.size != 0%}{{ settings.pwbox_submit_text_color }}{%else%}#FFFFFF{%endif%};
+  height: 48px;
+  letter-spacing: 2px;
+  font-size: 16px;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-weight: 300;
+  width: 100px;
+  white-space: pre-wrap;
+  margin-bottom: 20px;
+  vertical-align: top;
+}
+.group-login-form input[type=password], .group-login-form input[type=text] {
+  height: 48px;
+  letter-spacing: 2px;
+  font-size: 24px;
+  border-radius: 0;
+  font-weight: 300;
+  width: 300px;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+i.fa.fa-solid.fa-eye, i.fa.fa-solid.fa-eye-slash {
+  position: absolute;
+  top: 17px;
+  left: 275px;
+  bottom: unset;
+  right: unset;
+}
+
+@media screen and (max-width: 660px){
+  .splash-container{ width: auto; }
+  .splash-container h1{ font-size: 2em; }
+  #splashtop, #splash-static  {
+    width: 95%;
+  }
+}
+
+@media(max-width:600px){
+  .col{
+    float: none;
+  }
+}
+
+@media screen and (max-width: 480px){
+  #splashtop {
+    margin: 0 auto;
+    position: relative;
+    left: unset;
+    padding: 40px 20px;
+  }
+}
+
+@media screen and (max-width: 375px){
+  .group-login-form input[type=password], .group-login-form input[type=text] {
+    width: 95%;
+  }
+}

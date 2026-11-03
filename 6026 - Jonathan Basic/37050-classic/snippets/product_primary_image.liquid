@@ -1,0 +1,7 @@
+{% if product.primary_image %}
+  <a class="primary-image-link" href="{{ product.primary_image.large_url }}" data-toggle="lightbox">
+    <img alt="{{ product.name }} primary image" title="{{ product.name }} primary image" src="{{ product.primary_image.large_url }}" />
+  </a>
+{% else %}
+  <img src="{{ "no-image.jpg" | asset_url }}"/>
+{% endif %}

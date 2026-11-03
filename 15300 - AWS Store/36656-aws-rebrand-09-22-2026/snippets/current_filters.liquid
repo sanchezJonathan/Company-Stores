@@ -1,0 +1,11 @@
+{% assign render_once = true %}
+
+{% for filter_rule in filter_rules %}
+  {% filtrate products_search by filter_rule %}
+    {% if filter.selected_facets != empty %}
+      {% for facet in filter.selected_facets %}
+        {% include 'selected_facet' with facet, filter_rule %}
+      {% endfor %}
+    {% endif %}
+  {% endfiltrate %}
+{% endfor %}
