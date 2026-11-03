@@ -38,3 +38,12 @@
   {% endfor %}
 {% endfor %}
 <input type="submit" value="Continue" class="btn secondary"/>
+
+<script>
+  // Searchable dropdown for the long CDC option list (Chosen is loaded by the layout)
+  $(function () {
+    if (!$.fn.chosen) return;
+    $('#website_order_custom_data_collections_attributes_13397_custom_data_attributes_attributes_0_value')
+      .chosen({ search_contains: true, no_results_text: 'No matches for' });
+  });
+</script>
