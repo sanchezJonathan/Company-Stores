@@ -1,4 +1,9 @@
 
+{% comment %} Balance is the only payment method, so send short orders back to the cart (which shows the error). {% endcomment %}
+{% if current_user and current_user.balance < order.cart_total %}
+  <script>window.location.replace('{{ cart_url }}');</script>
+{% endif %}
+
 {% capture checkout_page_content %}
 {% form 'checkout' %}
 

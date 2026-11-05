@@ -32,7 +32,10 @@ out https://getbootstrap.com/docs/5.1/getting-started/introduction/.
 /*-------------------*/
 /* CONTENT */
 /*-------------------*/
-
+.index-page #page-showing {
+  max-width: 800px;
+  margin: auto;
+}
 /*-------------------*/
 /* PRODUCT THUMBS */
 /*-------------------*/
@@ -67,4 +70,11 @@ out https://getbootstrap.com/docs/5.1/getting-started/introduction/.
 
 @media screen and (max-width: 340px){
 
+}
+/* Checkout buttons disabled when the account balance is short */
+.btn.primary:disabled {
+  background: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+  opacity: .5;
 }
