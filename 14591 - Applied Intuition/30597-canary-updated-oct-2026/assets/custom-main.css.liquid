@@ -150,7 +150,6 @@ out https://getbootstrap.com/docs/5.1/getting-started/introduction/.
   display: block;
   animation: header-search-fade .2s ease-out;
 }
-/* ID beats the old 250px .search-form cap in default-main */
 #header-search form {
   max-width: none;
   display: flex;
@@ -664,7 +663,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   flex-wrap: wrap;
   gap: 30px;
 }
-/* Home grid: banner + product pair per row, flipping sides every other row */
 .grid-box {
   display: flex;
 }
@@ -723,7 +721,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   color: #000;
   text-decoration: underline;
 }
-/* Product images are exported as half-tile frames (480x875), so each one just fills its half */
 .grid-box-products {
   display: flex;
   height: 100%;
@@ -769,7 +766,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   }
 }
 .carousel-item, .carousel-item.active {
-  /* display: flex; */
   align-items: center;
 }
 .carousel-caption {
@@ -1118,7 +1114,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   height: 100%;
   object-fit: cover;
 }
-/* Border on the top, right and bottom; the left side is the page edge */
 .product-rail-thumb.is-current {
   opacity: 1;
   box-shadow: inset 0 1px 0 #424242, inset -1px -1px 0 #424242;
@@ -1129,7 +1124,7 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
 .product-photo {
   display: block;
   width: 100%;
-  aspect-ratio: 872 / 1010;
+  aspect-ratio: 808 / 1010;
   object-fit: contain;
   background-color: #E3E6EE;
 }
@@ -1241,7 +1236,6 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   background-size: cover;
   background-position: center;
 }
-/* Thin line under the current color */
 .product-color.is-selected::after {
   content: '';
   position: absolute;
@@ -1792,13 +1786,15 @@ form .form-control.cart-quantity-input, form .form-control.cart-quantity-input:h
   padding: 80px 20px 22px;
   container-type: inline-size;
 }
-/* Sized off the footer width (cqw) so the wordmark always fills it edge to edge */
 .site-footer-wordmark {
   font-size: 13.9cqw;
   font-weight: 500;
   line-height: 1;
   white-space: nowrap;
   color: #000;
+}
+.site-footer-wordmark img {
+  max-width: 100%;
 }
 .site-footer-links {
   display: flex;

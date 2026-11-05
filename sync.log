@@ -1,0 +1,366 @@
+time=2026-11-05T09:44:11.670+08:00 level=INFO msg="starting theme sync agent" addr=127.0.0.1:47823 version=1.0.1
+time=2026-11-05T09:44:11.671+08:00 level=INFO msg="theme download root" dir=D:\Company-Stores\themes
+time=2026-11-05T09:44:37.069+08:00 level=INFO msg="received theme sync start request" theme_id=30597 theme_name="Canary - Updated Nov 2026" sync_api_url=https://appliedintuition.mybrightsites.com/_api/theme_sync/api
+time=2026-11-05T09:44:37.069+08:00 level=INFO msg="starting theme sync" theme_id=30597 theme_name="Canary - Updated Nov 2026"
+time=2026-11-05T09:44:37.069+08:00 level=INFO msg="sync folder resolved" theme_id=30597 folder=D:\Company-Stores\themes\30597-canary-updated-nov-2026
+time=2026-11-05T09:44:37.069+08:00 level=INFO msg="pulling theme from server" folder=D:\Company-Stores\themes\30597-canary-updated-nov-2026
+time=2026-11-05T09:44:37.069+08:00 level=INFO msg="fetching theme tree"
+time=2026-11-05T09:44:39.104+08:00 level=INFO msg="theme tree received" theme_id=30597 theme_name="Canary - Updated Nov 2026" file_count=435
+time=2026-11-05T09:44:39.104+08:00 level=INFO msg="downloading theme files in parallel" file_count=435 workers=32
+time=2026-11-05T09:44:39.426+08:00 level=INFO msg="downloaded theme file" path=assets/angle-right-icon.svg file_id=11851713 progress=2 total=435
+time=2026-11-05T09:44:39.426+08:00 level=DEBUG msg="wrote theme file" path=assets/angle-right-icon.svg bytes=501
+time=2026-11-05T09:44:39.740+08:00 level=INFO msg="downloaded theme file" path=assets/account_logos.css.liquid file_id=11851775 progress=1 total=435
+time=2026-11-05T09:44:39.740+08:00 level=DEBUG msg="wrote theme file" path=assets/account_logos.css.liquid bytes=6284
+time=2026-11-05T09:44:40.023+08:00 level=INFO msg="downloaded theme file" path=assets/chosen-sprite.png file_id=11851818 progress=24 total=435
+time=2026-11-05T09:44:40.023+08:00 level=DEBUG msg="wrote theme file" path=assets/chosen-sprite.png bytes=646
+time=2026-11-05T09:44:40.023+08:00 level=INFO msg="downloaded theme file" path=assets/arrows.png file_id=11851784 progress=7 total=435
+time=2026-11-05T09:44:40.023+08:00 level=DEBUG msg="wrote theme file" path=assets/arrows.png bytes=2483
+time=2026-11-05T09:44:40.024+08:00 level=INFO msg="downloaded theme file" path=assets/arrow-up.svg file_id=11851739 progress=6 total=435
+time=2026-11-05T09:44:40.024+08:00 level=DEBUG msg="wrote theme file" path=assets/arrow-up.svg bytes=529
+time=2026-11-05T09:44:40.026+08:00 level=INFO msg="downloaded theme file" path=assets/cart-remove-icon.png file_id=11851793 progress=19 total=435
+time=2026-11-05T09:44:40.026+08:00 level=DEBUG msg="wrote theme file" path=assets/cart-remove-icon.png bytes=193
+time=2026-11-05T09:44:40.026+08:00 level=INFO msg="downloaded theme file" path=assets/arrow-down.svg file_id=11851781 progress=5 total=435
+time=2026-11-05T09:44:40.026+08:00 level=DEBUG msg="wrote theme file" path=assets/arrow-down.svg bytes=521
+time=2026-11-05T09:44:40.026+08:00 level=INFO msg="downloaded theme file" path=assets/content-block-border.png file_id=11851760 progress=29 total=435
+time=2026-11-05T09:44:40.026+08:00 level=DEBUG msg="wrote theme file" path=assets/content-block-border.png bytes=932
+time=2026-11-05T09:44:40.027+08:00 level=INFO msg="downloaded theme file" path=assets/center.js file_id=11851783 progress=21 total=435
+time=2026-11-05T09:44:40.027+08:00 level=DEBUG msg="wrote theme file" path=assets/center.js bytes=607
+time=2026-11-05T09:44:40.028+08:00 level=INFO msg="downloaded theme file" path=assets/country_select_controller.js file_id=11851712 progress=30 total=435
+time=2026-11-05T09:44:40.028+08:00 level=DEBUG msg="wrote theme file" path=assets/country_select_controller.js bytes=4481
+time=2026-11-05T09:44:40.028+08:00 level=INFO msg="downloaded theme file" path=assets/carousel_setup.js file_id=11851733 progress=17 total=435
+time=2026-11-05T09:44:40.028+08:00 level=DEBUG msg="wrote theme file" path=assets/carousel_setup.js bytes=755
+time=2026-11-05T09:44:40.028+08:00 level=INFO msg="downloaded theme file" path=assets/cart.js file_id=11851735 progress=18 total=435
+time=2026-11-05T09:44:40.029+08:00 level=DEBUG msg="wrote theme file" path=assets/cart.js bytes=710
+time=2026-11-05T09:44:40.032+08:00 level=INFO msg="downloaded theme file" path=assets/applied-intuition-logo.svg file_id=12162310 progress=3 total=435
+time=2026-11-05T09:44:40.032+08:00 level=DEBUG msg="wrote theme file" path=assets/applied-intuition-logo.svg bytes=5090
+time=2026-11-05T09:44:40.039+08:00 level=INFO msg="downloaded theme file" path=assets/country_states.css.liquid file_id=11851723 progress=31 total=435
+time=2026-11-05T09:44:40.039+08:00 level=DEBUG msg="wrote theme file" path=assets/country_states.css.liquid bytes=957
+time=2026-11-05T09:44:40.049+08:00 level=INFO msg="downloaded theme file" path=assets/close-dialog-btn.png file_id=11851741 progress=27 total=435
+time=2026-11-05T09:44:40.049+08:00 level=DEBUG msg="wrote theme file" path=assets/close-dialog-btn.png bytes=805
+time=2026-11-05T09:44:40.125+08:00 level=INFO msg="downloaded theme file" path=assets/category-header-link-bg.png file_id=11851773 progress=20 total=435
+time=2026-11-05T09:44:40.125+08:00 level=DEBUG msg="wrote theme file" path=assets/category-header-link-bg.png bytes=352
+time=2026-11-05T09:44:40.125+08:00 level=INFO msg="downloaded theme file" path=assets/blocks-main.css.liquid file_id=11851746 progress=10 total=435
+time=2026-11-05T09:44:40.125+08:00 level=INFO msg="downloaded theme file" path=assets/close-icon.svg file_id=12164517 progress=28 total=435
+time=2026-11-05T09:44:40.125+08:00 level=DEBUG msg="wrote theme file" path=assets/close-icon.svg bytes=609
+time=2026-11-05T09:44:40.125+08:00 level=DEBUG msg="wrote theme file" path=assets/blocks-main.css.liquid bytes=2419
+time=2026-11-05T09:44:40.126+08:00 level=INFO msg="downloaded theme file" path=assets/checkout_controller.js file_id=11851806 progress=22 total=435
+time=2026-11-05T09:44:40.126+08:00 level=DEBUG msg="wrote theme file" path=assets/checkout_controller.js bytes=7069
+time=2026-11-05T09:44:40.126+08:00 level=INFO msg="downloaded theme file" path=assets/ckeditor_contents.css file_id=11851779 progress=26 total=435
+time=2026-11-05T09:44:40.126+08:00 level=DEBUG msg="wrote theme file" path=assets/ckeditor_contents.css bytes=1304
+time=2026-11-05T09:44:40.138+08:00 level=INFO msg="downloaded theme file" path=assets/custom-main.css.liquid file_id=11851752 progress=34 total=435
+time=2026-11-05T09:44:40.138+08:00 level=DEBUG msg="wrote theme file" path=assets/custom-main.css.liquid bytes=43490
+time=2026-11-05T09:44:40.146+08:00 level=INFO msg="downloaded theme file" path=assets/banner-text-button.svg file_id=12162692 progress=8 total=435
+time=2026-11-05T09:44:40.146+08:00 level=DEBUG msg="wrote theme file" path=assets/banner-text-button.svg bytes=5276
+time=2026-11-05T09:44:40.227+08:00 level=INFO msg="downloaded theme file" path=assets/applied-intuition-logo-dark.svg file_id=12162311 progress=4 total=435
+time=2026-11-05T09:44:40.227+08:00 level=DEBUG msg="wrote theme file" path=assets/applied-intuition-logo-dark.svg bytes=5370
+time=2026-11-05T09:44:40.228+08:00 level=INFO msg="downloaded theme file" path=assets/banner-text-button.png file_id=12162697 progress=9 total=435
+time=2026-11-05T09:44:40.228+08:00 level=DEBUG msg="wrote theme file" path=assets/banner-text-button.png bytes=13258
+time=2026-11-05T09:44:40.257+08:00 level=INFO msg="downloaded theme file" path=assets/chosen.jquery.min.js file_id=11851708 progress=25 total=435
+time=2026-11-05T09:44:40.257+08:00 level=DEBUG msg="wrote theme file" path=assets/chosen.jquery.min.js bytes=23620
+time=2026-11-05T09:44:40.330+08:00 level=INFO msg="downloaded theme file" path=assets/data1.js.liquid file_id=11851787 progress=35 total=435
+time=2026-11-05T09:44:40.330+08:00 level=DEBUG msg="wrote theme file" path=assets/data1.js.liquid bytes=1989
+time=2026-11-05T09:44:40.331+08:00 level=INFO msg="downloaded theme file" path=assets/edit-cart.png file_id=11851738 progress=40 total=435
+time=2026-11-05T09:44:40.331+08:00 level=DEBUG msg="wrote theme file" path=assets/edit-cart.png bytes=2260
+time=2026-11-05T09:44:40.332+08:00 level=INFO msg="downloaded theme file" path=assets/bs-lightbox.bundle.min.js file_id=11851809 progress=13 total=435
+time=2026-11-05T09:44:40.332+08:00 level=DEBUG msg="wrote theme file" path=assets/bs-lightbox.bundle.min.js bytes=33783
+time=2026-11-05T09:44:40.341+08:00 level=INFO msg="downloaded theme file" path=assets/email_logo_custom_bg_image.png file_id=11851808 progress=42 total=435
+time=2026-11-05T09:44:40.341+08:00 level=DEBUG msg="wrote theme file" path=assets/email_logo_custom_bg_image.png bytes=8890
+time=2026-11-05T09:44:40.344+08:00 level=INFO msg="downloaded theme file" path=assets/favicon.png file_id=12162312 progress=43 total=435
+time=2026-11-05T09:44:40.344+08:00 level=DEBUG msg="wrote theme file" path=assets/favicon.png bytes=2645
+time=2026-11-05T09:44:40.346+08:00 level=INFO msg="downloaded theme file" path=assets/filtering.png file_id=11851711 progress=44 total=435
+time=2026-11-05T09:44:40.346+08:00 level=DEBUG msg="wrote theme file" path=assets/filtering.png bytes=1515
+time=2026-11-05T09:44:40.346+08:00 level=INFO msg="downloaded theme file" path=assets/filtering_marker.png file_id=11851770 progress=45 total=435
+time=2026-11-05T09:44:40.346+08:00 level=DEBUG msg="wrote theme file" path=assets/filtering_marker.png bytes=1099
+time=2026-11-05T09:44:40.349+08:00 level=INFO msg="downloaded theme file" path=assets/chosen.css.liquid file_id=11851776 progress=23 total=435
+time=2026-11-05T09:44:40.349+08:00 level=DEBUG msg="wrote theme file" path=assets/chosen.css.liquid bytes=15273
+time=2026-11-05T09:44:40.364+08:00 level=INFO msg="downloaded theme file" path=assets/footer-logo.svg file_id=14349826 progress=47 total=435
+time=2026-11-05T09:44:40.364+08:00 level=DEBUG msg="wrote theme file" path=assets/footer-logo.svg bytes=9976
+time=2026-11-05T09:44:40.368+08:00 level=INFO msg="downloaded theme file" path=assets/fonts.css.liquid file_id=11851699 progress=46 total=435
+time=2026-11-05T09:44:40.368+08:00 level=DEBUG msg="wrote theme file" path=assets/fonts.css.liquid bytes=4194
+time=2026-11-05T09:44:40.369+08:00 level=INFO msg="downloaded theme file" path=assets/email_logo_custom_bg_image.jpg file_id=11851791 progress=41 total=435
+time=2026-11-05T09:44:40.369+08:00 level=DEBUG msg="wrote theme file" path=assets/email_logo_custom_bg_image.jpg bytes=2289
+time=2026-11-05T09:44:40.432+08:00 level=INFO msg="downloaded theme file" path=assets/front-dialog.css.liquid file_id=11851754 progress=48 total=435
+time=2026-11-05T09:44:40.432+08:00 level=INFO msg="downloaded theme file" path=assets/dialog.js file_id=11851795 progress=39 total=435
+time=2026-11-05T09:44:40.432+08:00 level=DEBUG msg="wrote theme file" path=assets/dialog.js bytes=921
+time=2026-11-05T09:44:40.432+08:00 level=DEBUG msg="wrote theme file" path=assets/front-dialog.css.liquid bytes=1662
+time=2026-11-05T09:44:40.433+08:00 level=INFO msg="downloaded theme file" path=assets/green-big-button.png file_id=11851749 progress=52 total=435
+time=2026-11-05T09:44:40.433+08:00 level=DEBUG msg="wrote theme file" path=assets/green-big-button.png bytes=1149
+time=2026-11-05T09:44:40.435+08:00 level=INFO msg="downloaded theme file" path=assets/country_states.js.liquid file_id=11851811 progress=32 total=435
+time=2026-11-05T09:44:40.435+08:00 level=DEBUG msg="wrote theme file" path=assets/country_states.js.liquid bytes=51862
+time=2026-11-05T09:44:40.437+08:00 level=INFO msg="downloaded theme file" path=assets/f_check_custom_bg.jpg file_id=11851745 progress=49 total=435
+time=2026-11-05T09:44:40.437+08:00 level=DEBUG msg="wrote theme file" path=assets/f_check_custom_bg.jpg bytes=3200
+time=2026-11-05T09:44:40.437+08:00 level=INFO msg="downloaded theme file" path=assets/f_remove_custom_bg.jpg file_id=11851803 progress=50 total=435
+time=2026-11-05T09:44:40.437+08:00 level=DEBUG msg="wrote theme file" path=assets/f_remove_custom_bg.jpg bytes=2926
+time=2026-11-05T09:44:40.545+08:00 level=INFO msg="downloaded theme file" path=assets/decoration_colorpicker.js file_id=11851766 progress=36 total=435
+time=2026-11-05T09:44:40.545+08:00 level=INFO msg="downloaded theme file" path=assets/gift_certificates.js file_id=11851706 progress=51 total=435
+time=2026-11-05T09:44:40.545+08:00 level=DEBUG msg="wrote theme file" path=assets/gift_certificates.js bytes=1078
+time=2026-11-05T09:44:40.545+08:00 level=DEBUG msg="wrote theme file" path=assets/decoration_colorpicker.js bytes=12150
+time=2026-11-05T09:44:40.546+08:00 level=INFO msg="downloaded theme file" path=assets/carousel-item-03.jpg file_id=11851717 progress=16 total=435
+time=2026-11-05T09:44:40.546+08:00 level=DEBUG msg="wrote theme file" path=assets/carousel-item-03.jpg bytes=71637
+time=2026-11-05T09:44:40.550+08:00 level=INFO msg="downloaded theme file" path=assets/btn-img-delete.png file_id=11851823 progress=14 total=435
+time=2026-11-05T09:44:40.550+08:00 level=DEBUG msg="wrote theme file" path=assets/btn-img-delete.png bytes=52249
+time=2026-11-05T09:44:40.639+08:00 level=INFO msg="downloaded theme file" path=assets/default-main.css.liquid file_id=11851697 progress=37 total=435
+time=2026-11-05T09:44:40.639+08:00 level=DEBUG msg="wrote theme file" path=assets/default-main.css.liquid bytes=37450
+time=2026-11-05T09:44:40.670+08:00 level=INFO msg="downloaded theme file" path=assets/grid-box-04.jpg file_id=11851756 progress=68 total=435
+time=2026-11-05T09:44:40.670+08:00 level=DEBUG msg="wrote theme file" path=assets/grid-box-04.jpg bytes=6631
+time=2026-11-05T09:44:40.757+08:00 level=INFO msg="downloaded theme file" path=assets/custom-banner.jpg file_id=11851837 progress=33 total=435
+time=2026-11-05T09:44:40.757+08:00 level=DEBUG msg="wrote theme file" path=assets/custom-banner.jpg bytes=134067
+time=2026-11-05T09:44:40.763+08:00 level=INFO msg="downloaded theme file" path=assets/header.js.liquid file_id=11851702 progress=70 total=435
+time=2026-11-05T09:44:40.763+08:00 level=DEBUG msg="wrote theme file" path=assets/header.js.liquid bytes=5193
+time=2026-11-05T09:44:40.764+08:00 level=INFO msg="downloaded theme file" path=assets/homepage-slideshow.css.liquid file_id=11851698 progress=71 total=435
+time=2026-11-05T09:44:40.764+08:00 level=INFO msg="downloaded theme file" path=assets/homepage-slideshow.js.liquid file_id=11851724 progress=72 total=435
+time=2026-11-05T09:44:40.764+08:00 level=DEBUG msg="wrote theme file" path=assets/homepage-slideshow.js.liquid bytes=1719
+time=2026-11-05T09:44:40.764+08:00 level=DEBUG msg="wrote theme file" path=assets/homepage-slideshow.css.liquid bytes=1292
+time=2026-11-05T09:44:40.786+08:00 level=INFO msg="downloaded theme file" path=assets/ie.css file_id=11851799 progress=74 total=435
+time=2026-11-05T09:44:40.786+08:00 level=DEBUG msg="wrote theme file" path=assets/ie.css bytes=701
+time=2026-11-05T09:44:40.787+08:00 level=INFO msg="downloaded theme file" path=assets/default-main-2.css.liquid file_id=11851788 progress=38 total=435
+time=2026-11-05T09:44:40.787+08:00 level=DEBUG msg="wrote theme file" path=assets/default-main-2.css.liquid bytes=44575
+time=2026-11-05T09:44:40.791+08:00 level=INFO msg="downloaded theme file" path=assets/horizontal_scrolling.js file_id=11851763 progress=73 total=435
+time=2026-11-05T09:44:40.791+08:00 level=DEBUG msg="wrote theme file" path=assets/horizontal_scrolling.js bytes=2912
+time=2026-11-05T09:44:40.858+08:00 level=INFO msg="downloaded theme file" path=assets/image_fitter.js file_id=11851782 progress=75 total=435
+time=2026-11-05T09:44:40.858+08:00 level=DEBUG msg="wrote theme file" path=assets/image_fitter.js bytes=417
+time=2026-11-05T09:44:40.858+08:00 level=INFO msg="downloaded theme file" path=assets/input-labels.css file_id=11851730 progress=78 total=435
+time=2026-11-05T09:44:40.858+08:00 level=DEBUG msg="wrote theme file" path=assets/input-labels.css bytes=1355
+time=2026-11-05T09:44:40.875+08:00 level=INFO msg="downloaded theme file" path=assets/image_group_gallery.js file_id=11851832 progress=77 total=435
+time=2026-11-05T09:44:40.875+08:00 level=DEBUG msg="wrote theme file" path=assets/image_group_gallery.js bytes=1413
+time=2026-11-05T09:44:40.903+08:00 level=INFO msg="downloaded theme file" path=assets/image_gallery.js file_id=11851774 progress=76 total=435
+time=2026-11-05T09:44:40.903+08:00 level=DEBUG msg="wrote theme file" path=assets/image_gallery.js bytes=1766
+2026/11/05 09:44:40.921426 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921426 ERROR RESTY context canceled
+2026/11/05 09:44:40.921426 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921426 ERROR RESTY context canceled
+2026/11/05 09:44:40.921426 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851772/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851772/download": context canceled
+2026/11/05 09:44:40.921426 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851810/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851810/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851768/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851768/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851701/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851701/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851813/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851813/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315580/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851821/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851790/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851731/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851816/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851816/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851804/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851731/download": context canceled
+2026/11/05 09:44:40.922274 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851790/download": context canceled
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851821/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.922274 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851718/download": context canceled, Attempt 1
+2026/11/05 09:44:40.921933 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315580/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851785/download": context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851785/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851714/download": context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851714/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851740/download": context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851740/download": context canceled
+2026/11/05 09:44:40.921933 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY context canceled
+2026/11/05 09:44:40.922274 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851804/download": context canceled
+2026/11/05 09:44:40.922274 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851817/download": context canceled, Attempt 1
+2026/11/05 09:44:40.922274 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851817/download": context canceled
+2026/11/05 09:44:40.922274 ERROR RESTY context canceled
+2026/11/05 09:44:40.922274 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851718/download": context canceled
+time=2026-11-05T09:47:49.994+08:00 level=INFO msg="received theme sync start request" theme_id=30597 theme_name="Canary - Updated Nov 2026" sync_api_url=https://appliedintuition.mybrightsites.com/_api/theme_sync/api
+time=2026-11-05T09:47:49.994+08:00 level=INFO msg="starting theme sync" theme_id=30597 theme_name="Canary - Updated Nov 2026"
+time=2026-11-05T09:47:49.994+08:00 level=INFO msg="sync folder resolved" theme_id=30597 folder=D:\Company-Stores\themes\30597-canary-updated-nov-2026
+time=2026-11-05T09:47:49.994+08:00 level=INFO msg="pulling theme from server" folder=D:\Company-Stores\themes\30597-canary-updated-nov-2026
+time=2026-11-05T09:47:49.994+08:00 level=INFO msg="fetching theme tree"
+time=2026-11-05T09:47:52.671+08:00 level=INFO msg="theme tree received" theme_id=30597 theme_name="Canary - Updated Nov 2026" file_count=435
+time=2026-11-05T09:47:52.671+08:00 level=INFO msg="downloading theme files in parallel" file_count=435 workers=32
+time=2026-11-05T09:47:52.985+08:00 level=INFO msg="downloaded theme file" path=assets/applied-intuition-logo.svg file_id=12162310 progress=3 total=435
+time=2026-11-05T09:47:52.986+08:00 level=DEBUG msg="wrote theme file" path=assets/applied-intuition-logo.svg bytes=5090
+time=2026-11-05T09:47:53.406+08:00 level=INFO msg="downloaded theme file" path=assets/account_logos.css.liquid file_id=11851775 progress=1 total=435
+time=2026-11-05T09:47:53.406+08:00 level=DEBUG msg="wrote theme file" path=assets/account_logos.css.liquid bytes=6284
+time=2026-11-05T09:47:53.436+08:00 level=INFO msg="downloaded theme file" path=assets/carousel_setup.js file_id=11851733 progress=17 total=435
+time=2026-11-05T09:47:53.436+08:00 level=DEBUG msg="wrote theme file" path=assets/carousel_setup.js bytes=755
+time=2026-11-05T09:47:53.441+08:00 level=INFO msg="downloaded theme file" path=assets/cart.js file_id=11851735 progress=18 total=435
+time=2026-11-05T09:47:53.441+08:00 level=DEBUG msg="wrote theme file" path=assets/cart.js bytes=710
+time=2026-11-05T09:47:53.441+08:00 level=INFO msg="downloaded theme file" path=assets/arrow-up.svg file_id=11851739 progress=6 total=435
+time=2026-11-05T09:47:53.442+08:00 level=DEBUG msg="wrote theme file" path=assets/arrow-up.svg bytes=529
+time=2026-11-05T09:47:53.452+08:00 level=INFO msg="downloaded theme file" path=assets/content-block-border.png file_id=11851760 progress=29 total=435
+time=2026-11-05T09:47:53.453+08:00 level=INFO msg="downloaded theme file" path=assets/category-header-link-bg.png file_id=11851773 progress=20 total=435
+time=2026-11-05T09:47:53.453+08:00 level=DEBUG msg="wrote theme file" path=assets/category-header-link-bg.png bytes=352
+time=2026-11-05T09:47:53.452+08:00 level=DEBUG msg="wrote theme file" path=assets/content-block-border.png bytes=932
+time=2026-11-05T09:47:53.455+08:00 level=INFO msg="downloaded theme file" path=assets/close-icon.svg file_id=12164517 progress=28 total=435
+time=2026-11-05T09:47:53.455+08:00 level=DEBUG msg="wrote theme file" path=assets/close-icon.svg bytes=609
+time=2026-11-05T09:47:53.459+08:00 level=INFO msg="downloaded theme file" path=assets/cart-remove-icon.png file_id=11851793 progress=19 total=435
+time=2026-11-05T09:47:53.459+08:00 level=DEBUG msg="wrote theme file" path=assets/cart-remove-icon.png bytes=193
+time=2026-11-05T09:47:53.468+08:00 level=INFO msg="downloaded theme file" path=assets/center.js file_id=11851783 progress=21 total=435
+time=2026-11-05T09:47:53.468+08:00 level=DEBUG msg="wrote theme file" path=assets/center.js bytes=607
+time=2026-11-05T09:47:53.475+08:00 level=INFO msg="downloaded theme file" path=assets/blocks-main.css.liquid file_id=11851746 progress=10 total=435
+time=2026-11-05T09:47:53.475+08:00 level=DEBUG msg="wrote theme file" path=assets/blocks-main.css.liquid bytes=2419
+time=2026-11-05T09:47:53.493+08:00 level=INFO msg="downloaded theme file" path=assets/close-dialog-btn.png file_id=11851741 progress=27 total=435
+time=2026-11-05T09:47:53.493+08:00 level=DEBUG msg="wrote theme file" path=assets/close-dialog-btn.png bytes=805
+time=2026-11-05T09:47:53.514+08:00 level=INFO msg="downloaded theme file" path=assets/applied-intuition-logo-dark.svg file_id=12162311 progress=4 total=435
+time=2026-11-05T09:47:53.514+08:00 level=DEBUG msg="wrote theme file" path=assets/applied-intuition-logo-dark.svg bytes=5370
+time=2026-11-05T09:47:53.535+08:00 level=INFO msg="downloaded theme file" path=assets/arrow-down.svg file_id=11851781 progress=5 total=435
+time=2026-11-05T09:47:53.535+08:00 level=DEBUG msg="wrote theme file" path=assets/arrow-down.svg bytes=521
+time=2026-11-05T09:47:53.537+08:00 level=INFO msg="downloaded theme file" path=assets/chosen-sprite.png file_id=11851818 progress=24 total=435
+time=2026-11-05T09:47:53.537+08:00 level=DEBUG msg="wrote theme file" path=assets/chosen-sprite.png bytes=646
+time=2026-11-05T09:47:53.544+08:00 level=INFO msg="downloaded theme file" path=assets/country_states.css.liquid file_id=11851723 progress=31 total=435
+time=2026-11-05T09:47:53.544+08:00 level=DEBUG msg="wrote theme file" path=assets/country_states.css.liquid bytes=957
+time=2026-11-05T09:47:53.549+08:00 level=INFO msg="downloaded theme file" path=assets/angle-right-icon.svg file_id=11851713 progress=2 total=435
+time=2026-11-05T09:47:53.549+08:00 level=DEBUG msg="wrote theme file" path=assets/angle-right-icon.svg bytes=501
+time=2026-11-05T09:47:53.588+08:00 level=INFO msg="downloaded theme file" path=assets/ckeditor_contents.css file_id=11851779 progress=26 total=435
+time=2026-11-05T09:47:53.588+08:00 level=DEBUG msg="wrote theme file" path=assets/ckeditor_contents.css bytes=1304
+time=2026-11-05T09:47:53.590+08:00 level=INFO msg="downloaded theme file" path=assets/banner-text-button.svg file_id=12162692 progress=8 total=435
+time=2026-11-05T09:47:53.590+08:00 level=DEBUG msg="wrote theme file" path=assets/banner-text-button.svg bytes=5276
+time=2026-11-05T09:47:53.598+08:00 level=INFO msg="downloaded theme file" path=assets/arrows.png file_id=11851784 progress=7 total=435
+time=2026-11-05T09:47:53.598+08:00 level=DEBUG msg="wrote theme file" path=assets/arrows.png bytes=2483
+time=2026-11-05T09:47:53.651+08:00 level=INFO msg="downloaded theme file" path=assets/chosen.jquery.min.js file_id=11851708 progress=25 total=435
+time=2026-11-05T09:47:53.651+08:00 level=DEBUG msg="wrote theme file" path=assets/chosen.jquery.min.js bytes=23620
+time=2026-11-05T09:47:53.667+08:00 level=INFO msg="downloaded theme file" path=assets/chosen.css.liquid file_id=11851776 progress=23 total=435
+time=2026-11-05T09:47:53.667+08:00 level=DEBUG msg="wrote theme file" path=assets/chosen.css.liquid bytes=15273
+time=2026-11-05T09:47:53.736+08:00 level=INFO msg="downloaded theme file" path=assets/banner-text-button.png file_id=12162697 progress=9 total=435
+time=2026-11-05T09:47:53.736+08:00 level=DEBUG msg="wrote theme file" path=assets/banner-text-button.png bytes=13258
+time=2026-11-05T09:47:53.736+08:00 level=INFO msg="downloaded theme file" path=assets/custom-main.css.liquid file_id=11851752 progress=34 total=435
+time=2026-11-05T09:47:53.736+08:00 level=DEBUG msg="wrote theme file" path=assets/custom-main.css.liquid bytes=43490
+time=2026-11-05T09:47:53.742+08:00 level=INFO msg="downloaded theme file" path=assets/country_select_controller.js file_id=11851712 progress=30 total=435
+time=2026-11-05T09:47:53.743+08:00 level=DEBUG msg="wrote theme file" path=assets/country_select_controller.js bytes=4481
+time=2026-11-05T09:47:53.751+08:00 level=INFO msg="downloaded theme file" path=assets/checkout_controller.js file_id=11851806 progress=22 total=435
+time=2026-11-05T09:47:53.751+08:00 level=DEBUG msg="wrote theme file" path=assets/checkout_controller.js bytes=7069
+time=2026-11-05T09:47:53.752+08:00 level=INFO msg="downloaded theme file" path=assets/email_logo_custom_bg_image.jpg file_id=11851791 progress=41 total=435
+time=2026-11-05T09:47:53.752+08:00 level=DEBUG msg="wrote theme file" path=assets/email_logo_custom_bg_image.jpg bytes=2289
+time=2026-11-05T09:47:53.762+08:00 level=INFO msg="downloaded theme file" path=assets/email_logo_custom_bg_image.png file_id=11851808 progress=42 total=435
+time=2026-11-05T09:47:53.762+08:00 level=DEBUG msg="wrote theme file" path=assets/email_logo_custom_bg_image.png bytes=8890
+time=2026-11-05T09:47:53.806+08:00 level=INFO msg="downloaded theme file" path=assets/dialog.js file_id=11851795 progress=39 total=435
+time=2026-11-05T09:47:53.806+08:00 level=DEBUG msg="wrote theme file" path=assets/dialog.js bytes=921
+time=2026-11-05T09:47:53.806+08:00 level=INFO msg="downloaded theme file" path=assets/edit-cart.png file_id=11851738 progress=40 total=435
+time=2026-11-05T09:47:53.806+08:00 level=DEBUG msg="wrote theme file" path=assets/edit-cart.png bytes=2260
+time=2026-11-05T09:47:53.811+08:00 level=INFO msg="downloaded theme file" path=assets/filtering.png file_id=11851711 progress=44 total=435
+time=2026-11-05T09:47:53.811+08:00 level=DEBUG msg="wrote theme file" path=assets/filtering.png bytes=1515
+time=2026-11-05T09:47:53.814+08:00 level=INFO msg="downloaded theme file" path=assets/data1.js.liquid file_id=11851787 progress=35 total=435
+time=2026-11-05T09:47:53.814+08:00 level=DEBUG msg="wrote theme file" path=assets/data1.js.liquid bytes=1989
+time=2026-11-05T09:47:53.848+08:00 level=INFO msg="downloaded theme file" path=assets/f_check_custom_bg.jpg file_id=11851745 progress=49 total=435
+time=2026-11-05T09:47:53.848+08:00 level=DEBUG msg="wrote theme file" path=assets/f_check_custom_bg.jpg bytes=3200
+time=2026-11-05T09:47:53.849+08:00 level=INFO msg="downloaded theme file" path=assets/favicon.png file_id=12162312 progress=43 total=435
+time=2026-11-05T09:47:53.849+08:00 level=DEBUG msg="wrote theme file" path=assets/favicon.png bytes=2645
+time=2026-11-05T09:47:53.850+08:00 level=INFO msg="downloaded theme file" path=assets/country_states.js.liquid file_id=11851811 progress=32 total=435
+time=2026-11-05T09:47:53.850+08:00 level=DEBUG msg="wrote theme file" path=assets/country_states.js.liquid bytes=51862
+time=2026-11-05T09:47:53.858+08:00 level=INFO msg="downloaded theme file" path=assets/filtering_marker.png file_id=11851770 progress=45 total=435
+time=2026-11-05T09:47:53.858+08:00 level=DEBUG msg="wrote theme file" path=assets/filtering_marker.png bytes=1099
+time=2026-11-05T09:47:53.876+08:00 level=INFO msg="downloaded theme file" path=assets/btn-img-delete.png file_id=11851823 progress=14 total=435
+time=2026-11-05T09:47:53.876+08:00 level=DEBUG msg="wrote theme file" path=assets/btn-img-delete.png bytes=52249
+time=2026-11-05T09:47:53.884+08:00 level=INFO msg="downloaded theme file" path=assets/gift_certificates.js file_id=11851706 progress=51 total=435
+time=2026-11-05T09:47:53.884+08:00 level=DEBUG msg="wrote theme file" path=assets/gift_certificates.js bytes=1078
+time=2026-11-05T09:47:53.886+08:00 level=INFO msg="downloaded theme file" path=assets/f_remove_custom_bg.jpg file_id=11851803 progress=50 total=435
+time=2026-11-05T09:47:53.886+08:00 level=DEBUG msg="wrote theme file" path=assets/f_remove_custom_bg.jpg bytes=2926
+time=2026-11-05T09:47:53.893+08:00 level=INFO msg="downloaded theme file" path=assets/green-big-button.png file_id=11851749 progress=52 total=435
+time=2026-11-05T09:47:53.893+08:00 level=DEBUG msg="wrote theme file" path=assets/green-big-button.png bytes=1149
+time=2026-11-05T09:47:53.896+08:00 level=INFO msg="downloaded theme file" path=assets/front-dialog.css.liquid file_id=11851754 progress=48 total=435
+time=2026-11-05T09:47:53.896+08:00 level=DEBUG msg="wrote theme file" path=assets/front-dialog.css.liquid bytes=1662
+time=2026-11-05T09:47:53.912+08:00 level=INFO msg="downloaded theme file" path=assets/fonts.css.liquid file_id=11851699 progress=46 total=435
+time=2026-11-05T09:47:53.912+08:00 level=DEBUG msg="wrote theme file" path=assets/fonts.css.liquid bytes=4194
+time=2026-11-05T09:47:53.912+08:00 level=INFO msg="downloaded theme file" path=assets/carousel-item-03.jpg file_id=11851717 progress=16 total=435
+time=2026-11-05T09:47:53.912+08:00 level=DEBUG msg="wrote theme file" path=assets/carousel-item-03.jpg bytes=71637
+time=2026-11-05T09:47:53.960+08:00 level=INFO msg="downloaded theme file" path=assets/bs-lightbox.bundle.min.js file_id=11851809 progress=13 total=435
+time=2026-11-05T09:47:53.960+08:00 level=DEBUG msg="wrote theme file" path=assets/bs-lightbox.bundle.min.js bytes=33783
+time=2026-11-05T09:47:54.001+08:00 level=INFO msg="downloaded theme file" path=assets/decoration_colorpicker.js file_id=11851766 progress=36 total=435
+time=2026-11-05T09:47:54.001+08:00 level=DEBUG msg="wrote theme file" path=assets/decoration_colorpicker.js bytes=12150
+time=2026-11-05T09:47:54.056+08:00 level=INFO msg="downloaded theme file" path=assets/footer-logo.svg file_id=14349826 progress=47 total=435
+time=2026-11-05T09:47:54.056+08:00 level=DEBUG msg="wrote theme file" path=assets/footer-logo.svg bytes=9976
+time=2026-11-05T09:47:54.167+08:00 level=INFO msg="downloaded theme file" path=assets/default-main.css.liquid file_id=11851697 progress=37 total=435
+time=2026-11-05T09:47:54.167+08:00 level=DEBUG msg="wrote theme file" path=assets/default-main.css.liquid bytes=37450
+time=2026-11-05T09:47:54.176+08:00 level=INFO msg="downloaded theme file" path=assets/custom-banner.jpg file_id=11851837 progress=33 total=435
+time=2026-11-05T09:47:54.176+08:00 level=DEBUG msg="wrote theme file" path=assets/custom-banner.jpg bytes=134067
+time=2026-11-05T09:47:54.180+08:00 level=INFO msg="downloaded theme file" path=assets/header.js.liquid file_id=11851702 progress=70 total=435
+time=2026-11-05T09:47:54.180+08:00 level=DEBUG msg="wrote theme file" path=assets/header.js.liquid bytes=5193
+time=2026-11-05T09:47:54.199+08:00 level=INFO msg="downloaded theme file" path=assets/homepage-slideshow.js.liquid file_id=11851724 progress=72 total=435
+time=2026-11-05T09:47:54.199+08:00 level=DEBUG msg="wrote theme file" path=assets/homepage-slideshow.js.liquid bytes=1719
+time=2026-11-05T09:47:54.200+08:00 level=INFO msg="downloaded theme file" path=assets/default-main-2.css.liquid file_id=11851788 progress=38 total=435
+time=2026-11-05T09:47:54.200+08:00 level=DEBUG msg="wrote theme file" path=assets/default-main-2.css.liquid bytes=44575
+time=2026-11-05T09:47:54.207+08:00 level=INFO msg="downloaded theme file" path=assets/image_fitter.js file_id=11851782 progress=75 total=435
+time=2026-11-05T09:47:54.207+08:00 level=DEBUG msg="wrote theme file" path=assets/image_fitter.js bytes=417
+time=2026-11-05T09:47:54.224+08:00 level=INFO msg="downloaded theme file" path=assets/grid-box-04.jpg file_id=11851756 progress=68 total=435
+time=2026-11-05T09:47:54.224+08:00 level=DEBUG msg="wrote theme file" path=assets/grid-box-04.jpg bytes=6631
+2026/11/05 09:47:54.225851 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851813/download": context canceled, Attempt 1
+2026/11/05 09:47:54.225851 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851813/download": context canceled
+2026/11/05 09:47:54.225851 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.225851 ERROR RESTY context canceled
+2026/11/05 09:47:54.225851 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.225851 ERROR RESTY context canceled
+2026/11/05 09:47:54.225851 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315581/download": context canceled, Attempt 1
+2026/11/05 09:47:54.225851 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851817/download": context canceled, Attempt 1
+2026/11/05 09:47:54.225851 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851817/download": context canceled
+2026/11/05 09:47:54.226359 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315581/download": context canceled
+2026/11/05 09:47:54.225851 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY context canceled
+2026/11/05 09:47:54.226359 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY context canceled
+2026/11/05 09:47:54.226359 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851832/download": context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851832/download": context canceled
+2026/11/05 09:47:54.226359 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851730/download": context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851730/download": context canceled
+2026/11/05 09:47:54.226359 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315583/download": context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315583/download": context canceled
+2026/11/05 09:47:54.226359 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY context canceled
+2026/11/05 09:47:54.226359 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY context canceled
+2026/11/05 09:47:54.226359 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY context canceled
+2026/11/05 09:47:54.226359 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315578/download": context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315578/download": context canceled
+2026/11/05 09:47:54.226359 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.226359 ERROR RESTY context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315582/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315582/download": context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851772/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY context canceled
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851772/download": context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851763/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851763/download": context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851701/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851802/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851740/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315579/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/14315579/download": context canceled
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851740/download": context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851714/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY context canceled
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851802/download": context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851698/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 WARN RESTY context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851768/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851698/download": context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851821/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851821/download": context canceled
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851714/download": context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851799/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851799/download": context canceled
+2026/11/05 09:47:54.227022 WARN RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851774/download": context canceled, Attempt 1
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851774/download": context canceled
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851701/download": context canceled
+2026/11/05 09:47:54.227022 ERROR RESTY Get "https://appliedintuition.mybrightsites.com/_api/theme_sync/api/files/11851768/download": context canceled
+time=2026-11-05T09:49:20.472+08:00 level=INFO msg="shutting down" signal=interrupt
+time=2026-11-05T09:49:20.473+08:00 level=INFO msg="theme sync agent stopped"
