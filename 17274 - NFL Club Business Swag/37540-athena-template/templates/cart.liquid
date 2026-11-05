@@ -1,3 +1,8 @@
+{% assign insufficient_balance = false %}
+{% if current_user and current_user.balance < order.cart_total %}
+  {% assign insufficient_balance = true %}
+{% endif %}
+
 <div class="cart-page mt-5">
   {% form 'cart' %}
     <div class="mb-3 mb-md-0">
@@ -46,12 +51,18 @@
             </tr>
             <tr class="d-none d-lg-table-row">
               <td colspan="4" class="text-end pt-3 pe-0">
-                <input type="submit" name="checkout" class="btn fs-5 fw-bold text-uppercase primary px-lg-5" value="Proceed to Checkout"/>
+                <input type="submit" name="checkout" class="btn fs-5 fw-bold text-uppercase primary px-lg-5" value="Proceed to Checkout"{% if insufficient_balance %} disabled aria-describedby="balance-error"{% endif %}/>
               </td>
             </tr>
           </tfoot>
         </table>
-      
+
+        {% if insufficient_balance %}
+          <div id="balance-error" class="alert alert-danger" role="alert">
+            Your account balance ({{ current_user.balance | points_or_currency }}) is less than your order total ({{ order.cart_total | points_or_currency }}). Please remove items or lower quantities to proceed to checkout.
+          </div>
+        {% endif %}
+
         <div class="zip-input">
           <!--
           <label>enter your zip code for updated shipping rates</label>

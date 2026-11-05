@@ -99,7 +99,7 @@
         <span class="d-md-none">{{ order.line_items_count | pluralize: 'item', 'items' }}</span>
         <span class="fw-bold float-end d-inline-block ps-3 d-md-none">{{ order.cart_total | points_or_currency }}</span>
       </div>
-      <button type="button" class="btn fs-5 py-2 px-3 w-100 primary text-md-start" id="qa-checkout-button">
+      <button type="button" class="btn fs-5 py-2 px-3 w-100 primary text-md-start" id="qa-checkout-button"{% if current_user and current_user.balance < order.cart_total %} disabled aria-describedby="balance-error"{% endif %}>
         <span class="fw-bold text-uppercase">Proceed to Checkout</span>
         <span class="fw-bold float-end d-inline-block ps-3 d-none d-md-inline-block">{{ order.cart_total | points_or_currency }}</span>
         <span class="float-end d-none d-md-inline-block">{{ order.line_items_count | pluralize: 'item', 'items' }}</span>
