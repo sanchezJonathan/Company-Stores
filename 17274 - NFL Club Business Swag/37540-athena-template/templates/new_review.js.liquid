@@ -1,0 +1,6 @@
+{% capture javascript_content %}
+    {% include 'product_review_form' %}
+{% endcapture %}
+
+var reviewController = $('.product-reviews-container').data('reviews-controller');
+reviewController.replaceForm("{{ javascript_content | escape_javascript }}", '{{ review.rating }}');
